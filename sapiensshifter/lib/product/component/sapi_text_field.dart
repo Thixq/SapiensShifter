@@ -46,6 +46,7 @@ class _SapiTextFieldState extends State<SapiTextField> {
 
   InputDecoration _sapiDecoration(BuildContext context, {String? hintText}) {
     return InputDecoration(
+      contentPadding: context.padding.normal,
       suffixIcon: _suffixIconVal,
       hintText: hintText,
       border:
