@@ -24,7 +24,5 @@ final class SapiensTheme {
     surface: ColorConstant.backgroundColor,
     onSurface: Colors.black,
     shadow: ColorConstant.primaryShadow,
-    secondaryContainer: Colors.amber,
-    onSecondaryContainer: Colors.white,
   );
 }
