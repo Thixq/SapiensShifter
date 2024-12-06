@@ -21,18 +21,18 @@ class SapiButton extends StatelessWidget {
       ),
     );
   }
+}
 
-  ButtonStyle _sapiButtonStyle(BuildContext context) {
-    return ButtonStyle(
-      padding: WidgetStatePropertyAll(
-        context.padding.normal,
-      ),
-      minimumSize: WidgetStatePropertyAll(
-        Size(80.w, 0),
-      ),
-      shape: WidgetStatePropertyAll(
-        RoundedRectangleBorder(borderRadius: context.border.normalBorderRadius),
-      ),
-    );
-  }
+ButtonStyle _sapiButtonStyle(BuildContext context) {
+  return ButtonStyle(
+    padding: WidgetStatePropertyAll(
+      context.padding.normal,
+    ),
+    minimumSize: WidgetStatePropertyAll(
+      Size(100.w, 0),
+    ),
+    shape: WidgetStatePropertyAll(
+      RoundedRectangleBorder(borderRadius: context.border.normalBorderRadius),
+    ),
+  );
 }
