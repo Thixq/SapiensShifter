@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
+import 'package:sapiensshifter/product/component/button.dart';
+import 'package:sizer/sizer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,9 +14,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: SapiensTheme.instance.lightTheme,
-      home: const Thix(),
+    return Sizer(
+      builder: (p0, p1, p2) => MaterialApp(
+        theme: SapiensTheme.instance.lightTheme,
+        home: Thix(),
+      ),
     );
   }
 }
@@ -24,6 +28,15 @@ class Thix extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: SapiButton(
+          buttonText: 'Sign Up!',
+          onPressed: () {
+            print('object');
+          },
+        ),
+      ),
+    );
   }
 }
