@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
-import 'package:sapiensshifter/product/component/button.dart';
+import 'package:sapiensshifter/product/component/sapi_button.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(
-      builder: (p0, p1, p2) => MaterialApp(
+      builder: (context, orientation, screenType) => MaterialApp(
         theme: SapiensTheme.instance.lightTheme,
         home: Thix(),
       ),
