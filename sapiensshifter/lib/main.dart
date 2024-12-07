@@ -2,8 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
-import 'package:sapiensshifter/product/component/sapi_button.dart';
-import 'package:sapiensshifter/product/component/sapi_text_field.dart';
 import 'package:sizer/sizer.dart';
 
 void main() {
@@ -25,7 +23,9 @@ class MyApp extends StatelessWidget {
 }
 
 class Thix extends StatelessWidget {
-  const Thix({super.key});
+  Thix({super.key});
+
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -35,19 +35,6 @@ class Thix extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SapiTextField(
-                isPassword: true,
-                hintText: 'Password',
-              ),
-              SizedBox(
-                height: 12,
-              ),
-              SapiButton(
-                buttonText: 'buttonText',
-                onPressed: () {},
-              ),
-            ],
           ),
         ),
       ),

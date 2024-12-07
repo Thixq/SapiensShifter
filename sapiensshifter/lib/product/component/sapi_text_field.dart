@@ -5,6 +5,7 @@ class SapiTextField extends StatefulWidget {
   const SapiTextField({
     this.controller,
     this.autofillHints,
+    this.keyboardType,
     this.validator,
     this.hintText,
     this.isPassword = false,
@@ -12,6 +13,7 @@ class SapiTextField extends StatefulWidget {
   });
   final String? Function(String?)? validator;
   final Iterable<String>? autofillHints;
+  final TextInputType? keyboardType;
   final TextEditingController? controller;
   final String? hintText;
   final bool isPassword;
@@ -35,11 +37,9 @@ class _SapiTextFieldState extends State<SapiTextField> {
     return TextFormField(
       obscureText: _obscureTextVal,
       validator: widget.validator,
-      decoration: _sapiDecoration(
-        context,
-        hintText: widget.hintText,
-      ),
+      decoration: _sapiDecoration(context, hintText: widget.hintText),
       autofillHints: widget.autofillHints,
+      keyboardType: widget.keyboardType,
       controller: widget.controller,
     );
   }
