@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kartal/kartal.dart';
+import 'package:sapiensshifter/product/export_dependency_package/component_export_package.dart';
 
 class SapiTextField extends StatefulWidget {
   const SapiTextField({
@@ -54,7 +54,7 @@ class _SapiTextFieldState extends State<SapiTextField> {
     );
   }
 
-  bool get _obscureTextVal => widget.isPassword ? _visibilityChange : false;
+  bool get _obscureTextVal => widget.isPassword && _visibilityChange;
 
   IconButton? get _suffixIconVal => widget.isPassword
       ? IconButton(
