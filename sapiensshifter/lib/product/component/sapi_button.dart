@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kartal/kartal.dart';
-import 'package:sizer/sizer.dart';
+import 'package:sapiensshifter/product/export_dependency_package/component_export_package.dart';
 
 class SapiButton extends StatelessWidget {
   const SapiButton({
