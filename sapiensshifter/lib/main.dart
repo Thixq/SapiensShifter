@@ -2,8 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
-
+import 'package:sapiensshifter/product/component/preview_product_card.dart';
+import 'package:sapiensshifter/product/component/preview_table_card.dart';
 import 'package:sapiensshifter/product/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/models/preview_table_card_model.dart';
 
 void main() {
   runApp(const MyApp());

@@ -74,7 +74,7 @@ class PreviewProductCard extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            productName,
+            productName.sapiExt.maxChahter(16) ?? 'productNameNull',
             style: context.general.textTheme.titleSmall,
             overflow: TextOverflow.ellipsis,
           ),
