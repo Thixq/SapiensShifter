@@ -13,19 +13,29 @@ class SapiCounterDialog extends StatefulWidget {
   final void Function(int value) onPressed;
 
   @override
-  State<SapiCounterDialog> createState() => _SapiCounterState();
+  State<SapiCounterDialog> createState() => _SapiCounterDialogState();
 }
 
-class _SapiCounterState extends State<SapiCounterDialog> {
+class _SapiCounterDialogState extends State<SapiCounterDialog> {
   int _count = 0;
+  late TextStyle? _buttonTextStyle;
+  late TextStyle? _titleTextStyle;
+
   int get _minMaxCount => _count.clamp(0, 8);
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Bağlama bağlı tema stillerini alıyoruz
+    final textTheme = context.general.textTheme;
+    _buttonTextStyle = textTheme.labelMedium;
+    _titleTextStyle = textTheme.titleMedium;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: context.border.normalBorderRadius,
-      ),
+      shape: context.border.roundedRectangleAllBorderNormal,
       child: IntrinsicHeight(
         child: Container(
           padding: context.padding.normal,
@@ -56,7 +66,7 @@ class _SapiCounterState extends State<SapiCounterDialog> {
         },
         child: Text(
           widget.buttonText,
-          style: context.general.textTheme.labelMedium,
+          style: _buttonTextStyle,
         ),
       ),
     );
@@ -108,6 +118,6 @@ class _SapiCounterState extends State<SapiCounterDialog> {
 
   Text get title => Text(
         widget.titleName,
-        style: context.general.textTheme.titleMedium,
+        style: _titleTextStyle,
       );
 }

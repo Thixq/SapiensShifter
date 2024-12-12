@@ -24,6 +24,5 @@ final class SapiensTheme {
     onError: Colors.white,
     surface: ColorConstant.backgroundColor,
     onSurface: Colors.black,
-    shadow: ColorConstant.primaryShadow,
   );
 }

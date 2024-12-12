@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
-import 'package:sapiensshifter/product/component/message_info_list_tile.dart';
+
 import 'package:sapiensshifter/product/export_dependency_package/component_export_package.dart';
 
 void main() {
@@ -24,9 +24,8 @@ class MyApp extends StatelessWidget {
 }
 
 class Thix extends StatelessWidget {
-  Thix({super.key});
+  const Thix({super.key});
 
-  final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +34,9 @@ class Thix extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Row(),
+            ],
           ),
         ),
       ),
