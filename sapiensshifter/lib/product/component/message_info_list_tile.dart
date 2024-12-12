@@ -10,6 +10,7 @@ class MessageInfoListTile extends StatelessWidget {
     this.onErrorIcon,
     super.key,
   });
+
   final String imageUrl;
   final String title;
   final String lastMessage;
@@ -20,24 +21,32 @@ class MessageInfoListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       shape: context.border.roundedRectangleAllBorderNormal,
-      leading: CircleAvatar(
-        radius: 24,
-        foregroundImage: NetworkImage(imageUrl),
-        onForegroundImageError: (exception, stackTrace) {
-          throw Exception(exception);
-        },
-        child: Icon(onErrorIcon ?? Icons.person),
-      ),
+      leading: _buildAvatar(context),
       title: Text(
         title,
         style: context.general.textTheme.titleMedium,
+        overflow: TextOverflow.ellipsis,
       ),
       subtitle: Text(
         lastMessage,
-        style: context.general.textTheme.bodySmall!
-            .copyWith(color: const Color(0xff6a6a6a)),
+        style: context.general.textTheme.bodySmall?.copyWith(
+          color: const Color(0xff6a6a6a),
+        ),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
       onTap: onPressed,
+    );
+  }
+
+  Widget _buildAvatar(BuildContext context) {
+    return CircleAvatar(
+      radius: 24,
+      foregroundImage: NetworkImage(imageUrl),
+      onForegroundImageError: (_, __) {
+        debugPrint('Failed to load avatar image: $imageUrl');
+      },
+      child: Icon(onErrorIcon ?? Icons.person),
     );
   }
 }
