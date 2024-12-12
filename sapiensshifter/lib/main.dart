@@ -35,14 +35,6 @@ class Thix extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              MessageInfoListTile(
-                imageUrl: ''.ext.randomImage,
-                lastMessage: 'La s2k nerdesin gelmicen mi?',
-                title: 'KirveLatte',
-                onPressed: () {},
-              ),
-            ],
           ),
         ),
       ),
