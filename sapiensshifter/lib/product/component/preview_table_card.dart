@@ -49,7 +49,7 @@ class PreviewTableCard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          dataModel.tableName?.maxChahter(10) ?? '--',
+          dataModel.tableName.sapiExt.maxChahter(10) ?? '--',
           style: context.general.textTheme.titleMedium,
         ),
         Text(
@@ -72,7 +72,8 @@ class PreviewTableCard extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: 1,
       child: Text(
-        '--₺', // TODO(kaan): Sipariş modeli hazır olduğunda bunu gerçek fiyatla güncelleyin.
+        // TODO(kaan): Sipariş modeli hazır olduğunda güncelleyin.
+        '--₺',
         textAlign: TextAlign.right,
         style: context.general.textTheme.bodyLarge,
       ),
