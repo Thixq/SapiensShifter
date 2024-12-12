@@ -22,17 +22,22 @@ class _SapiCounterState extends State<SapiCounterDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return IntrinsicHeight(
-      child: Container(
-        padding: context.padding.normal,
-        child: Column(
-          children: [
-            title,
-            context.sized.emptySizedHeightBoxLow3x,
-            peopleCount(context, _count),
-            context.sized.emptySizedHeightBoxLow3x,
-            peopleCountButton(context, widget.onPressed),
-          ],
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: context.border.normalBorderRadius,
+      ),
+      child: IntrinsicHeight(
+        child: Container(
+          padding: context.padding.normal,
+          child: Column(
+            children: [
+              title,
+              context.sized.emptySizedHeightBoxLow3x,
+              peopleCount(context, _count),
+              context.sized.emptySizedHeightBoxLow3x,
+              peopleCountButton(context, widget.onPressed),
+            ],
+          ),
         ),
       ),
     );
