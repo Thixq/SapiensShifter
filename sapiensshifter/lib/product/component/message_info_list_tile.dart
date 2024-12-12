@@ -23,6 +23,9 @@ class MessageInfoListTile extends StatelessWidget {
       leading: CircleAvatar(
         radius: 24,
         foregroundImage: NetworkImage(imageUrl),
+        onForegroundImageError: (exception, stackTrace) {
+          throw Exception(exception);
+        },
         child: Icon(onErrorIcon ?? Icons.person),
       ),
       title: Text(
