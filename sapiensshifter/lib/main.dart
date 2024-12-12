@@ -2,10 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
-import 'package:sapiensshifter/product/component/preview_table_card.dart';
-import 'package:sapiensshifter/product/component/sapi_counter_dialog.dart';
+import 'package:sapiensshifter/product/component/message_info_list_tile.dart';
 import 'package:sapiensshifter/product/export_dependency_package/component_export_package.dart';
-import 'package:sizer/sizer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,29 +30,19 @@ class Thix extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.popupManager.showLoader(
-            barrierDismissible: true,
-            widgetBuilder: (context) => Dialog(
-              shape: RoundedRectangleBorder(
-                  borderRadius: context.border.normalBorderRadius),
-              child: SapiCounterDialog(
-                titleName: 'Masa 12',
-                buttonText: 'Onayla',
-                onPressed: (val) {
-                  debugPrint('$val');
-                },
-              ),
-            ),
-          );
-        },
-      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              MessageInfoListTile(
+                imageUrl: ''.ext.randomImage,
+                lastMessage: 'La s2k nerdesin gelmicen mi?',
+                title: 'KirveLatte',
+                onPressed: () {},
+              ),
+            ],
           ),
         ),
       ),
