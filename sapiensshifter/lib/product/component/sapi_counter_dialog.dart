@@ -45,7 +45,7 @@ class _SapiCounterDialogState extends State<SapiCounterDialog> {
               context.sized.emptySizedHeightBoxLow3x,
               peopleCount(context, _count),
               context.sized.emptySizedHeightBoxLow3x,
-              peopleCountButton(context, widget.onPressed),
+              _buildPeopleCountButton(context, widget.onPressed),
             ],
           ),
         ),
@@ -53,7 +53,7 @@ class _SapiCounterDialogState extends State<SapiCounterDialog> {
     );
   }
 
-  Align peopleCountButton(
+  Align _buildPeopleCountButton(
     BuildContext context,
     void Function(int peopleCount) onPreesed,
   ) {
@@ -77,7 +77,7 @@ class _SapiCounterDialogState extends State<SapiCounterDialog> {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        iconButton(
+        _buildIconButton(
           icon: Icons.remove,
           onPressed: () => setState(() {
             _count--;
@@ -88,7 +88,7 @@ class _SapiCounterDialogState extends State<SapiCounterDialog> {
           padding: context.padding.horizontalNormal,
           child: Text(peopleCount.toString().padLeft(2, '0')),
         ),
-        iconButton(
+        _buildIconButton(
           icon: Icons.add,
           onPressed: () => setState(() {
             _count++;
@@ -99,17 +99,13 @@ class _SapiCounterDialogState extends State<SapiCounterDialog> {
     );
   }
 
-  IconButton iconButton({
+  IconButton _buildIconButton({
     required IconData icon,
     required VoidCallback onPressed,
   }) {
     return IconButton.filled(
       style: ButtonStyle(
-        shape: WidgetStatePropertyAll(
-          RoundedRectangleBorder(
-            borderRadius: context.border.lowBorderRadius,
-          ),
-        ),
+        shape: WidgetStatePropertyAll(context.border.roundedRectangleBorderLow),
       ),
       onPressed: onPressed,
       icon: Icon(icon),
