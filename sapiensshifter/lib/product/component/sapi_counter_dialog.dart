@@ -43,7 +43,7 @@ class _SapiCounterDialogState extends State<SapiCounterDialog> {
             children: [
               title,
               context.sized.emptySizedHeightBoxLow3x,
-              peopleCount(context, _count),
+              _buildPeopleCount(context, _count),
               context.sized.emptySizedHeightBoxLow3x,
               _buildPeopleCountButton(context, widget.onPressed),
             ],
@@ -72,7 +72,7 @@ class _SapiCounterDialogState extends State<SapiCounterDialog> {
     );
   }
 
-  Row peopleCount(BuildContext context, int peopleCount) {
+  Row _buildPeopleCount(BuildContext context, int peopleCount) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
