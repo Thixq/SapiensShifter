@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
 import 'package:sapiensshifter/product/component/week_card.dart';
-import 'package:sapiensshifter/product/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 import 'package:sapiensshifter/product/models/shift_day_model.dart';
 import 'package:sapiensshifter/product/utils/enums/shift_status_enum.dart';
 
