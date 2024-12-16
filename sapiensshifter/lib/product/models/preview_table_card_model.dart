@@ -24,5 +24,6 @@ class PreviewTableCardModel {
 
   String get getCreateClock =>
       // ignore: lines_longer_than_80_chars
+      // TODO(kaan): Bi bak extension ve ya farklı bi yöntem.
       '${timeStamp?.hour.toString().padLeft(2, '0') ?? '--'}:${timeStamp?.minute.toString().padLeft(2, '0') ?? '--'}';
 }
