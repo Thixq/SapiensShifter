@@ -16,7 +16,7 @@ class SapiButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         buttonText,
-        style: Theme.of(context).textTheme.titleMedium,
+        style: context.general.textTheme.titleMedium,
       ),
     );
   }
@@ -31,7 +31,7 @@ ButtonStyle _sapiButtonStyle(BuildContext context) {
       Size(100.w, 0),
     ),
     shape: WidgetStatePropertyAll(
-      RoundedRectangleBorder(borderRadius: context.border.normalBorderRadius),
+      context.border.roundedRectangleAllBorderNormal,
     ),
   );
 }

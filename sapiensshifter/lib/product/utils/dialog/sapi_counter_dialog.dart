@@ -26,7 +26,6 @@ class _SapiCounterDialogState extends State<SapiCounterDialog> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Bağlama bağlı tema stillerini alıyoruz
     final textTheme = context.general.textTheme;
     _buttonTextStyle = textTheme.labelMedium;
     _titleTextStyle = textTheme.titleMedium;
