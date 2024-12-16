@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/constant/color_constant.dart';
-import 'package:sapiensshifter/product/export_dependency_package/component_export_package.dart';
-import 'package:sapiensshifter/product/export_dependency_package/shift_export.dart';
 import 'package:sapiensshifter/product/utils/dialog/shift_dialog.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 
 class WeekCard extends StatelessWidget {
   WeekCard({

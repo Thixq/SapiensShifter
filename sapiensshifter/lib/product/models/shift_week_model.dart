@@ -1,4 +1,4 @@
-import 'package:sapiensshifter/product/export_dependency_package/shift_export.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 
 final class ShiftWeek {
   ShiftWeek({
