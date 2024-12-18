@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
-import 'package:sapiensshifter/product/component/week_card.dart';
+import 'package:sapiensshifter/product/component/custom_drop_down.dart';
+import 'package:sapiensshifter/product/component/sapi_button.dart';
+import 'package:sapiensshifter/product/component/sapi_text_field.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
-import 'package:sapiensshifter/product/models/shift_day_model.dart';
-import 'package:sapiensshifter/product/utils/enums/shift_status_enum.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,23 +32,22 @@ class Thix extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  WeekCard(
-                    shiftDay: ShiftDay(
-                      time: DateTime.now().add(Duration()),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomDropDown(),
+            SizedBox(
+              height: 16,
+            ),
+            SapiTextField(),
+            SizedBox(
+              height: 16,
+            ),
+            SapiButton(
+              buttonText: 'Press',
+              onPressed: () {},
+            ),
+          ],
         ),
       ),
     );
