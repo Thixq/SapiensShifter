@@ -10,7 +10,7 @@ class PreviewProductCard extends StatelessWidget {
     required this.price,
     super.key,
   });
-// TODO(kaan): Bi bak.
+// TODO(kaan): Product model ekle.
   final void Function(String productId) onPressed;
   final String imageUrl;
   final String productName;

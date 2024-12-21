@@ -2,11 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
-import 'package:sapiensshifter/product/component/preview_product_card.dart';
-import 'package:sapiensshifter/product/component/sapi_button.dart';
-import 'package:sapiensshifter/product/component/sapi_custom_drop_down.dart';
-import 'package:sapiensshifter/product/component/sapi_text_field.dart';
+import 'package:sapiensshifter/product/utils/dialog/sapi_counter_dialog.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/nav_bar_export.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/table_export.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,72 +31,75 @@ class Thix extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            PreviewProductCard(
-              onPressed: (String productId) {},
-              imageUrl: '',
-              price: 12,
-              productId: '12',
-              productName: 'asd',
-            ),
-            SapiCustomDropDown(
-              hintText: 'Ekstraları Seç',
-              onSelect: print,
-              isMulti: true,
-              items: const {
-                'Milk Options': 'X00AB',
-                'Syrup Options': 'X00CD',
-                'Shot Options': 'X00EF',
-                'Bean Options': 'X00GH',
-              },
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            Row(
-              children: const [
-                Expanded(
-                  child: SapiCustomDropDown(
-                    items: {
-                      'Kanyon': 'X00AB',
-                      'Karaköy': 'X00CD',
-                      'Atölye': 'X00EF',
-                    },
-                    onSelect: print,
+      appBar: AppBar(
+        title: Text('Aysel git başımdan'),
+      ),
+      body: Stack(
+        children: [
+          ListView.builder(
+            padding: EdgeInsets.all(16),
+            itemCount: 25,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  SizedBox(
+                    height: 16,
                   ),
-                ),
-                SizedBox(
-                  width: 16,
-                ),
-                Expanded(
-                  child: SapiCustomDropDown(
-                    items: {
-                      'Açılış': 'X00AB',
-                      'Açılış Servis': 'X00CD',
-                      'Kapanış': 'X00EF',
-                      'Kapanış Servis': 'X00GH',
-                    },
-                    onSelect: print,
+                  Row(
+                    children: [
+                      Expanded(
+                        child: PreviewTableCard(
+                          dataModel: TableModel(
+                            tableName: 'Masa 12',
+                            peopleCount: 1,
+                            timeStamp: DateTime.now(),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 16,
+                      ),
+                      Expanded(
+                        child: PreviewTableCard(
+                          dataModel: TableModel(
+                            tableName: 'Masa 12',
+                            peopleCount: 1,
+                            timeStamp: DateTime.now(),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                ],
+              );
+            },
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: EdgeInsets.only(
+                bottom: context.general.mediaQuery.padding.bottom,
+              ),
+              child: CustomNavBar(
+                items: [
+                  NavBarItem(icon: Icons.message),
+                  NavBarItem(
+                    icon: Icons.table_bar,
+                    onPress: () => context.popupManager.showLoader(
+                      barrierDismissible: true,
+                      widgetBuilder: (context) => SapiCounterDialog(
+                        titleName: 'Masa 12',
+                        buttonText: 'Onayla',
+                        onPressed: print,
+                      ),
+                    ),
+                  ),
+                  NavBarItem(icon: Icons.ssid_chart),
+                ],
+              ),
             ),
-            SizedBox(
-              height: 16,
-            ),
-            SapiTextField(),
-            SizedBox(
-              height: 16,
-            ),
-            SapiButton(
-              buttonText: 'Press',
-              onPressed: () {},
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
