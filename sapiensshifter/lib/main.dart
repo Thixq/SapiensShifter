@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
-import 'package:sapiensshifter/product/component/custom_drop_down.dart';
+import 'package:sapiensshifter/product/component/preview_product_card.dart';
 import 'package:sapiensshifter/product/component/sapi_button.dart';
+import 'package:sapiensshifter/product/component/sapi_custom_drop_down.dart';
 import 'package:sapiensshifter/product/component/sapi_text_field.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
@@ -35,7 +36,55 @@ class Thix extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomDropDown(),
+            PreviewProductCard(
+              onPressed: (String productId) {},
+              imageUrl: '',
+              price: 12,
+              productId: '12',
+              productName: 'asd',
+            ),
+            SapiCustomDropDown(
+              hintText: 'Ekstraları Seç',
+              onSelect: print,
+              isMulti: true,
+              items: const {
+                'Milk Options': 'X00AB',
+                'Syrup Options': 'X00CD',
+                'Shot Options': 'X00EF',
+                'Bean Options': 'X00GH',
+              },
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Row(
+              children: const [
+                Expanded(
+                  child: SapiCustomDropDown(
+                    items: {
+                      'Kanyon': 'X00AB',
+                      'Karaköy': 'X00CD',
+                      'Atölye': 'X00EF',
+                    },
+                    onSelect: print,
+                  ),
+                ),
+                SizedBox(
+                  width: 16,
+                ),
+                Expanded(
+                  child: SapiCustomDropDown(
+                    items: {
+                      'Açılış': 'X00AB',
+                      'Açılış Servis': 'X00CD',
+                      'Kapanış': 'X00EF',
+                      'Kapanış Servis': 'X00GH',
+                    },
+                    onSelect: print,
+                  ),
+                ),
+              ],
+            ),
             SizedBox(
               height: 16,
             ),
