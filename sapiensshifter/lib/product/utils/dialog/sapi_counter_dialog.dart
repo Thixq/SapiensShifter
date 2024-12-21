@@ -104,7 +104,9 @@ class _SapiCounterDialogState extends State<SapiCounterDialog> {
   }) {
     return IconButton.filled(
       style: ButtonStyle(
-        shape: WidgetStatePropertyAll(context.border.roundedRectangleBorderLow),
+        shape: WidgetStatePropertyAll(
+          context.border.roundedRectangleAllBorderNormal,
+        ),
       ),
       onPressed: onPressed,
       icon: Icon(icon),
