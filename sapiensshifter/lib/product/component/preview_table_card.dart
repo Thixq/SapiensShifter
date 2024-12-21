@@ -1,14 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/product/models/preview_table_card_model.dart';
+import 'package:sapiensshifter/product/models/table_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 class PreviewTableCard extends StatelessWidget {
   const PreviewTableCard({required this.dataModel, this.onPressed, super.key});
 
-  final void Function(PreviewTableCardModel dataModel)? onPressed;
-  final PreviewTableCardModel dataModel;
+  final void Function(TableModel dataModel)? onPressed;
+  final TableModel dataModel;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class PreviewTableCard extends StatelessWidget {
           style: context.general.textTheme.titleMedium,
         ),
         Text(
-          dataModel.getCreateClock,
+          dataModel.timeStamp?.hhmm ?? '--:--',
           style: context.general.textTheme.bodySmall,
         ),
       ],
