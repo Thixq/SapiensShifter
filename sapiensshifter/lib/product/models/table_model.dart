@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class PreviewTableCardModel {
-  PreviewTableCardModel({
+class TableModel {
+  TableModel({
     this.id,
     this.tableName,
     this.timeStamp,
@@ -21,8 +21,4 @@ class PreviewTableCardModel {
   DateTime? closingTime;
   // TODO(kaan): Order model ile değiştir.
   List<String>? orderList;
-
-  String get getCreateClock =>
-      // ignore: lines_longer_than_80_chars
-      '${timeStamp?.hour.toString().padLeft(2, '0') ?? '--'}:${timeStamp?.minute.toString().padLeft(2, '0') ?? '--'}';
 }
