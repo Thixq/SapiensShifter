@@ -1,69 +1,88 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/product/export_dependency_package/component_export_package.dart';
-import 'package:sapiensshifter/product/models/preview_table_card_model.dart';
+import 'package:sapiensshifter/product/models/table_model.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 class PreviewTableCard extends StatelessWidget {
   const PreviewTableCard({required this.dataModel, this.onPressed, super.key});
-  final void Function(PreviewTableCardModel dataModel)? onPressed;
-  final PreviewTableCardModel dataModel;
+
+  final void Function(TableModel dataModel)? onPressed;
+  final TableModel dataModel;
+
+  int get _maxCharacter => 10;
+
   @override
   Widget build(BuildContext context) {
     return Ink(
-      decoration: _previewTableCardDecoration(context),
+      decoration: _buildCardDecoration(context),
       child: InkWell(
         onTap: () => onPressed?.call(dataModel),
-        child: container(context),
+        borderRadius: context.border.normalBorderRadius,
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: _buildContainer(context),
+        ),
       ),
     );
   }
 
-  Container container(BuildContext context) {
+  Widget _buildContainer(BuildContext context) {
     return Container(
       padding: context.padding.normal,
-      width: 42.5.w,
-      height: 42.5.w,
-      child: content(context),
+      child: _buildContent(context),
     );
   }
 
-  Column content(BuildContext context) {
+  Widget _buildContent(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              dataModel.tableName?.maxChahter(10) ?? '--',
-              style: context.general.textTheme.titleMedium,
-            ),
-            Text(
-              dataModel.getCreateClock,
-              style: context.general.textTheme.bodySmall,
-            ),
-          ],
+        _buildHeaderRow(context),
+        _buildPeopleCount(context),
+        _buildPriceInfo(context),
+      ],
+    );
+  }
+
+  Widget _buildHeaderRow(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          dataModel.tableName.sapiExt.maxCharacter(_maxCharacter) ?? '--',
+          style: context.general.textTheme.titleMedium,
         ),
         Text(
-          dataModel.peopleCount.toString().padLeft(2, '0'),
-          style: context.general.textTheme.displayMedium,
-        ),
-        // TODO(kaan): Order modeli oluşturduktan sonra fiyat kısmına bak.
-        FractionallySizedBox(
-          widthFactor: 1,
-          child: Text(
-            '--₺',
-            textWidthBasis: TextWidthBasis.parent,
-            textAlign: TextAlign.right,
-            style: context.general.textTheme.bodyLarge,
-          ),
+          dataModel.timeStamp?.hhmm ?? '--:--',
+          style: context.general.textTheme.bodySmall,
         ),
       ],
     );
   }
 
-  BoxDecoration _previewTableCardDecoration(BuildContext context) {
+  Widget _buildPeopleCount(BuildContext context) {
+    return Text(
+      dataModel.peopleCount.toString().padLeft(2, '0'),
+      style: context.general.textTheme.displayMedium,
+      textAlign: TextAlign.center,
+    );
+  }
+
+  Widget _buildPriceInfo(BuildContext context) {
+    return FractionallySizedBox(
+      widthFactor: 1,
+      child: Text(
+        // TODO(kaan): Sipariş modeli hazır olduğunda güncelleyin. Yerelleştirme ekle.
+        '--₺',
+        textAlign: TextAlign.right,
+        style: context.general.textTheme.bodyLarge,
+      ),
+    );
+  }
+
+  BoxDecoration _buildCardDecoration(BuildContext context) {
     return BoxDecoration(
       borderRadius: context.border.normalBorderRadius,
       color: context.general.colorScheme.primary,
