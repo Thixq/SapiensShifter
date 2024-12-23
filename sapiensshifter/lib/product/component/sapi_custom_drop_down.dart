@@ -13,7 +13,7 @@ class SapiCustomDropDown<T> extends StatelessWidget {
   final bool isMulti;
   final Map<String, T> items;
   final String? hintText;
-  final void Function(dynamic select) onSelect;
+  final void Function(T? select) onSelect;
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +25,11 @@ class SapiCustomDropDown<T> extends StatelessWidget {
             onListChanged: (select) {
               final valueList =
                   select.where(items.containsKey).map((e) => items[e]).toList();
-              onSelect(valueList);
+              onSelect(valueList as T?);
             },
           )
         : CustomDropdown(
+            hintText: hintText,
             items: items.keys.toList(),
             onChanged: (select) => onSelect(items[select]),
             decoration: _buildDecoration(context),

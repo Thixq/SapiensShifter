@@ -17,11 +17,17 @@ class PreviewProductCard extends StatelessWidget {
   final String productId;
   final double price;
 
+  Color get _cardColor => Colors.white;
+  double get _cardElevation => 3;
+  int get _imageCacheWidth => 480;
+  double get _imageAspectRatio => 1.21;
+  double get _errorIconSize => 48;
+  int get _productMaxCharacter => 16;
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
-      elevation: 3,
+      color: _cardColor,
+      elevation: _cardElevation,
       shape: RoundedRectangleBorder(
         borderRadius: context.border.lowBorderRadius,
       ),
@@ -46,20 +52,20 @@ class PreviewProductCard extends StatelessWidget {
     return ClipRRect(
       borderRadius: context.border.lowBorderRadius,
       child: AspectRatio(
-        aspectRatio: 1.21,
+        aspectRatio: _imageAspectRatio,
         child: Image.network(
           imageUrl,
           fit: BoxFit.cover,
-          cacheWidth: 480, // Daha standart bir çözünürlük
+          cacheWidth: _imageCacheWidth, // Daha standart bir çözünürlük
           loadingBuilder: (context, child, loadingProgress) {
             if (loadingProgress == null) return child;
             return const Center(child: CircularProgressIndicator.adaptive());
           },
           errorBuilder: (context, error, stackTrace) {
-            return const Center(
+            return Center(
               child: Icon(
                 Icons.image_not_supported_rounded,
-                size: 48,
+                size: _errorIconSize,
               ),
             );
           },
@@ -74,12 +80,14 @@ class PreviewProductCard extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            productName.sapiExt.maxChahter(16) ?? 'productNameNull',
+            productName.sapiExt.maxCharacter(_productMaxCharacter) ??
+                'productNameNull',
             style: context.general.textTheme.titleSmall,
             overflow: TextOverflow.ellipsis,
           ),
         ),
         Text(
+          // TODO(kaan): Yerelleştirme.
           '${price.toStringAsFixed(2)}₺',
           style: context.general.textTheme.labelSmall,
         ),
