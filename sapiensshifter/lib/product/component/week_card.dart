@@ -16,10 +16,9 @@ class WeekCard extends StatelessWidget {
   final double _iconSize = 6.w; // Icon size proportional to screen width
   final ShiftDay? shiftDay;
 
-  BoxBorder? get isNowDay {
+  BoxBorder? get isToday {
     final shiftDayGGMM = shiftDay?.time?.ggmm;
     if (shiftDayGGMM == null) return null;
-
     return shiftDayGGMM == DateTime.now().ggmm
         ? Border.all(width: 4, color: ColorConstant.primaryColor)
         : null;
@@ -50,7 +49,7 @@ class WeekCard extends StatelessWidget {
     return BoxDecoration(
       borderRadius: context.border.lowBorderRadius,
       color: Colors.white,
-      border: isNowDay,
+      border: isToday,
     );
   }
 

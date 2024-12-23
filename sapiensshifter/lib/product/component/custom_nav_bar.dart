@@ -1,7 +1,6 @@
 import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/feature/constant/color_constant.dart';
 import 'package:sapiensshifter/product/models/nav_bar_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
@@ -17,33 +16,45 @@ class _CustomNavBarState extends State<CustomNavBar> {
   // TODO(kaan): RiverPod ile currentIndexi ayarla.
   int _currentIndex = 1;
 
+  final double _blurCount = 10;
+  final double _navBarWidth = 70.w;
+  final Color _decorationColor = Colors.black.withOpacity(.2);
+  late final Color _isSelectedColor;
+  final Color _unSelectedColor = Colors.white60.withOpacity(.5);
+
+  @override
+  void didChangeDependencies() {
+    _isSelectedColor = context.general.colorScheme.primary;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ClipRect(
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        filter: ImageFilter.blur(sigmaX: _blurCount, sigmaY: _blurCount),
         child: Container(
           padding: context.padding.low,
           decoration: BoxDecoration(
             borderRadius: context.border.normalBorderRadius,
-            color: Colors.black.withOpacity(.2),
+            color: _decorationColor,
           ),
-          width: 70.w,
+          width: _navBarWidth,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: _buildNavBarList(widget.items),
+            children: generateNavBarButtons(widget.items),
           ),
         ),
       ),
     );
   }
 
-  List<Widget> _buildNavBarList(List<NavBarItem> items) {
+  List<Widget> generateNavBarButtons(List<NavBarItem> items) {
     return items
         .asMap()
         .entries
         .map(
-          (entry) => _buildNavBarButton(
+          (entry) => buildNavBarButton(
             icon: entry.value.icon,
             index: entry.key,
             onPress: entry.value.onPress,
@@ -52,23 +63,21 @@ class _CustomNavBarState extends State<CustomNavBar> {
         .toList();
   }
 
-  IconButton _buildNavBarButton({
+  IconButton buildNavBarButton({
     required IconData icon,
     required int index,
     void Function()? onPress,
   }) {
-    final isSelect = _currentIndex == index;
+    final isSelected = _currentIndex == index;
     return IconButton(
       style: IconButton.styleFrom(
-        backgroundColor: isSelect
-            ? ColorConstant.primaryColor
-            : Colors.white60.withOpacity(.5),
+        backgroundColor: isSelected ? _isSelectedColor : _unSelectedColor,
       ),
       onPressed: () {
         setState(() {
           _currentIndex = index;
         });
-        if (isSelect && onPress != null) {
+        if (isSelected && onPress != null) {
           onPress();
         }
       },

@@ -18,8 +18,8 @@ class SapiCounterDialog extends StatefulWidget {
 
 class _SapiCounterDialogState extends State<SapiCounterDialog> {
   int _count = 0;
-  late TextStyle? _buttonTextStyle;
-  late TextStyle? _titleTextStyle;
+  late final TextStyle? _buttonTextStyle;
+  late final TextStyle? _titleTextStyle;
 
   int get _minMaxCount => _count.clamp(0, 8);
 

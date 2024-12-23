@@ -12,7 +12,7 @@ final class _sapiStringExtension {
   _sapiStringExtension(String? value) : _value = value;
   final String? _value;
 
-  String? maxChahter(int maxChachter) {
+  String? maxCharacter(int maxChachter) {
     if (_value == null) return null;
     if (_value.length >= maxChachter) {
       return '${_value.substring(0, maxChachter)}...';

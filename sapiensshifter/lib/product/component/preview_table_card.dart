@@ -10,6 +10,8 @@ class PreviewTableCard extends StatelessWidget {
   final void Function(TableModel dataModel)? onPressed;
   final TableModel dataModel;
 
+  int get _maxCharacter => 10;
+
   @override
   Widget build(BuildContext context) {
     return Ink(
@@ -49,7 +51,7 @@ class PreviewTableCard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          dataModel.tableName.sapiExt.maxChahter(10) ?? '--',
+          dataModel.tableName.sapiExt.maxCharacter(_maxCharacter) ?? '--',
           style: context.general.textTheme.titleMedium,
         ),
         Text(
@@ -72,7 +74,7 @@ class PreviewTableCard extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: 1,
       child: Text(
-        // TODO(kaan): Sipariş modeli hazır olduğunda güncelleyin.
+        // TODO(kaan): Sipariş modeli hazır olduğunda güncelleyin. Yerelleştirme ekle.
         '--₺',
         textAlign: TextAlign.right,
         style: context.general.textTheme.bodyLarge,
