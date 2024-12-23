@@ -5,16 +5,16 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/component
 class MessageInfoListTile extends StatelessWidget {
   const MessageInfoListTile({
     required this.imageUrl,
-    required this.title,
-    required this.subTitle,
     required this.onPressed,
+    this.title,
+    this.subTitle,
     this.onErrorIcon,
     super.key,
   });
 
   final String imageUrl;
-  final String title;
-  final String subTitle;
+  final String? title;
+  final String? subTitle;
   final IconData? onErrorIcon;
   final VoidCallback onPressed;
 
@@ -25,20 +25,32 @@ class MessageInfoListTile extends StatelessWidget {
       leading: CustomCircleAvatar(
         imageUrl: imageUrl,
       ),
-      title: Text(
-        title,
-        style: context.general.textTheme.titleMedium,
-        overflow: TextOverflow.ellipsis,
-      ),
-      subtitle: Text(
-        subTitle,
-        style: context.general.textTheme.bodySmall?.copyWith(
-          color: context.general.appTheme.hintColor,
-        ),
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-      ),
+      title: _buildTitle(context),
+      subtitle: _buildSubTitle(context),
       onTap: onPressed,
     );
+  }
+
+  Widget? _buildTitle(BuildContext context) {
+    return title.ext.isNullOrEmpty
+        ? null
+        : Text(
+            title!,
+            style: context.general.textTheme.titleMedium,
+            overflow: TextOverflow.ellipsis,
+          );
+  }
+
+  Widget? _buildSubTitle(BuildContext context) {
+    return subTitle.ext.isNullOrEmpty
+        ? null
+        : Text(
+            subTitle!,
+            style: context.general.textTheme.bodySmall?.copyWith(
+              color: context.general.appTheme.hintColor,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          );
   }
 }
