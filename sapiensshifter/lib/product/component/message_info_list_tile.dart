@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/component/custom_avatar.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
-class MessageInfoListTile extends StatelessWidget {
+final class MessageInfoListTile extends StatelessWidget {
   const MessageInfoListTile({
     required this.imageUrl,
     required this.onPressed,

@@ -6,7 +6,7 @@ import 'package:sapiensshifter/product/utils/dialog/shift_dialog.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 
-class WeekCard extends StatelessWidget {
+final class WeekCard extends StatelessWidget {
   WeekCard({
     this.shiftDay,
     super.key,
