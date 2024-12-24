@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DashedRoundedShapeBorder extends ShapeBorder {
+final class DashedRoundedShapeBorder extends ShapeBorder {
   const DashedRoundedShapeBorder({
     this.dashWidth = 5.0,
     double? dashSpace,

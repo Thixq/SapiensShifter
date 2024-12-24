@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/product/utils/ui/dashed_divider.dart';
-import 'package:sapiensshifter/product/utils/ui/dashed_rounded_shape_border.dart';
 
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
 import 'package:sapiensshifter/product/component/preview_order_card.dart';
+import 'package:sapiensshifter/product/models/order_model.dart';
+import 'package:sapiensshifter/product/utils/enums/delivery_status.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 void main() {
@@ -35,17 +35,18 @@ class Thix extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            DashedDivider(),
-            Container(
-              height: 100,
-              width: 100,
-              decoration: ShapeDecoration(
-                shape: DashedRoundedShapeBorder(
-                  cornerRadius: 12,
-                  borderSide: BorderSide(),
-                ),
+            Padding(
+              padding: EdgeInsets.all(16),
+              child: PreviewOrderCard(
+                orderModelList: [
+                  OrderModel(
+                    imagePath: 'https://coffee.alexflipnote.dev/random',
+                    extras: ['Laktozsuz', 'Bitter Çikolatalı Süt Reçeli'],
+                    price: 123.01,
+                    deliveryStatus: DeliveryStatus.HERE_IN,
+                  ),
+                ],
               ),
-              child: Text('data'),
             ),
           ],
         ),
