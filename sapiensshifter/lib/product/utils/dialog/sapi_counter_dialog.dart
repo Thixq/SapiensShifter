@@ -14,7 +14,7 @@ class SapiCounterDialog extends StatefulWidget {
   State<SapiCounterDialog> createState() => _SapiCounterDialogState();
 }
 
-class _SapiCounterDialogState extends State<SapiCounterDialog> {
+final class _SapiCounterDialogState extends State<SapiCounterDialog> {
   int _count = 0;
   late final TextStyle? _buttonTextStyle;
   late final TextStyle? _titleTextStyle;

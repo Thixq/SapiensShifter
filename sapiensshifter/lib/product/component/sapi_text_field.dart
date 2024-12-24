@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
-class SapiTextField extends StatefulWidget {
+final class SapiTextField extends StatefulWidget {
   const SapiTextField({
     this.controller,
     this.autofillHints,

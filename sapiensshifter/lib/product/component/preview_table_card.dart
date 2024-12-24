@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/models/table_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
-class PreviewTableCard extends StatelessWidget {
+final class PreviewTableCard extends StatelessWidget {
   const PreviewTableCard({required this.dataModel, this.onPressed, super.key});
 
   final void Function(TableModel dataModel)? onPressed;

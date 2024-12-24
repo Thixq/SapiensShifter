@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 
-class ShiftDialog extends StatelessWidget {
+final class ShiftDialog extends StatelessWidget {
   const ShiftDialog({this.day, super.key});
   final ShiftDay? day;
 
