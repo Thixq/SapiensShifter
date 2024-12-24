@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
-class SapiButton extends StatelessWidget {
+final class SapiButton extends StatelessWidget {
   const SapiButton({
     required this.buttonText,
     required this.onPressed,

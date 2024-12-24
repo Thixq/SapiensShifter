@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class CustomCircleAvatar extends StatelessWidget {
+final class CustomCircleAvatar extends StatelessWidget {
   const CustomCircleAvatar({
-    required this.imageUrl,
+    this.imageUrl,
     this.fallbackIcon = Icons.person,
     this.radius = 24,
     super.key,
   });
-  final String imageUrl;
+  final String? imageUrl;
   final IconData fallbackIcon;
   final double radius;
 
@@ -15,10 +15,12 @@ class CustomCircleAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: radius,
-      foregroundImage: NetworkImage(imageUrl),
-      onForegroundImageError: (_, __) {
-        // TODO(kaan): Global exception ekle.
-        debugPrint('Failed to load avatar image: $imageUrl');
+      foregroundImage: NetworkImage(
+        imageUrl ?? '',
+      ),
+      onForegroundImageError: (e, __) {
+        // TODO(kaan): exception ekle.
+        debugPrint('Failed to load avatar image: $e');
       },
       child: Icon(fallbackIcon),
     );

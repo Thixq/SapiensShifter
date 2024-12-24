@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/models/nav_bar_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
-class CustomNavBar extends StatefulWidget {
+final class CustomNavBar extends StatefulWidget {
   const CustomNavBar({required this.items, super.key});
   final List<NavBarItem> items;
 
