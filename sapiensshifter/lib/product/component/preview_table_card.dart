@@ -74,8 +74,8 @@ final class PreviewTableCard extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: 1,
       child: Text(
-        // TODO(kaan): Sipariş modeli hazır olduğunda güncelleyin. Yerelleştirme ekle.
-        '--₺',
+        // TODO(kaan): Sipariş modeli hazır olduğunda güncelleyin.
+        '--${LocaleKeys.price_symbol.tr()}',
         textAlign: TextAlign.right,
         style: context.general.textTheme.bodyLarge,
       ),

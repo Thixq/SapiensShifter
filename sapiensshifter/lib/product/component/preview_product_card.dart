@@ -87,8 +87,7 @@ final class PreviewProductCard extends StatelessWidget {
           ),
         ),
         Text(
-          // TODO(kaan): Yerelleştirme.
-          '${price.toStringAsFixed(2)}₺',
+          '${price.toStringAsFixed(2)}${LocaleKeys.price_symbol.tr()}',
           style: context.general.textTheme.labelSmall,
         ),
       ],
