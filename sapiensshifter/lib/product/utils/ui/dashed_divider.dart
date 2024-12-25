@@ -36,7 +36,6 @@ final class _DashedLinePainter extends CustomPainter {
     required this.paintter,
     required this.dashWidth,
     required this.dashSpace,
-    super.repaint,
   });
 
   final Paint paintter;
