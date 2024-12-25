@@ -1,14 +1,19 @@
-// ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
-
+import 'package:sapiensshifter/feature/localization/localization.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
 import 'package:sapiensshifter/product/component/preview_order_card.dart';
 import 'package:sapiensshifter/product/models/order_model.dart';
-import 'package:sapiensshifter/product/utils/enums/delivery_status.dart';
+import 'package:sapiensshifter/product/models/table_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  runApp(
+    LanguageManager(
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -17,9 +22,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(
-      builder: (context, orientation, screenType) => MaterialApp(
+      builder: (_, __, ___) => MaterialApp(
         theme: SapiensTheme.instance.lightTheme,
-        home: Thix(),
+        supportedLocales: context.supportedLocales,
+        localizationsDelegates: context.localizationDelegates,
+        locale: context.locale,
+        home: const Thix(),
       ),
     );
   }
@@ -36,16 +44,16 @@ class Thix extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(8),
               child: PreviewOrderCard(
-                orderModelList: [
-                  OrderModel(
-                    imagePath: 'https://coffee.alexflipnote.dev/random',
-                    extras: ['Laktozsuz', 'Bitter Çikolatalı Süt Reçeli'],
-                    price: 123.01,
-                    deliveryStatus: DeliveryStatus.HERE_IN,
-                  ),
-                ],
+                tableModel: TableModel(
+                  tableName: 'Masa 12',
+                  orderList: [
+                    OrderModel(price: 12.99),
+                    OrderModel(price: 11),
+                    OrderModel(),
+                  ],
+                ),
               ),
             ),
           ],
