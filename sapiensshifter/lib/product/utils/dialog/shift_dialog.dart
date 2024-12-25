@@ -3,8 +3,12 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/component
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 
 final class ShiftDialog extends StatelessWidget {
-  const ShiftDialog({this.day, super.key});
-  final ShiftDay? day;
+  const ShiftDialog({this.shiftDay, super.key});
+  final ShiftDay? shiftDay;
+
+  String get _nullBranchText => 'Null';
+  String get _nullBranchDateText => '--/--';
+  String get _nullShiftTimeText => '00:00-00:00';
 
   @override
   Widget build(BuildContext context) {
@@ -16,23 +20,30 @@ final class ShiftDialog extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    day?.branch ?? 'Null',
-                    style: context.general.textTheme.titleMedium,
-                  ),
-                  Text(
-                    day?.time?.ggmm ?? '--/--',
-                  ),
-                ],
-              ),
-              Text(day?.shiftStatus?.status.statusTime ?? '00:00-00:00'),
+              _buildBranchAndDate(context),
+              _buildShiftTime(),
             ],
           ),
         ),
       ),
     );
   }
+
+  Row _buildBranchAndDate(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          shiftDay?.branch ?? _nullBranchText,
+          style: context.general.textTheme.titleMedium,
+        ),
+        Text(
+          shiftDay?.time?.sapiTimeExt.ggmm ?? _nullBranchDateText,
+        ),
+      ],
+    );
+  }
+
+  Text _buildShiftTime() =>
+      Text(shiftDay?.shiftStatus?.status.statusTime ?? _nullShiftTimeText);
 }

@@ -5,7 +5,7 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/component
 final class SapiCustomDropDown<T> extends StatelessWidget {
   const SapiCustomDropDown({
     required this.items,
-    required this.onSelect,
+    required this.onSelected,
     this.isMulti = false,
     super.key,
     this.hintText,
@@ -13,25 +13,25 @@ final class SapiCustomDropDown<T> extends StatelessWidget {
   final bool isMulti;
   final Map<String, T> items;
   final String? hintText;
-  final void Function(T? select) onSelect;
+  final void Function(dynamic select) onSelected;
 
   @override
   Widget build(BuildContext context) {
     return isMulti
         ? CustomDropdown.multiSelect(
-            hintText: hintText,
+            hintText: hintText ?? LocaleKeys.drop_down_drop_down_extra.tr(),
             items: items.keys.toList(),
             decoration: _buildDecoration(context),
             onListChanged: (select) {
               final valueList =
                   select.where(items.containsKey).map((e) => items[e]).toList();
-              onSelect(valueList as T?);
+              onSelected(valueList);
             },
           )
         : CustomDropdown(
-            hintText: hintText,
+            hintText: hintText ?? LocaleKeys.drop_down_drop_down_default.tr(),
             items: items.keys.toList(),
-            onChanged: (select) => onSelect(items[select]),
+            onChanged: (select) => onSelected(items[select]),
             decoration: _buildDecoration(context),
           );
   }

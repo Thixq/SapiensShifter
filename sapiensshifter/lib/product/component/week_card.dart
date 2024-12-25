@@ -7,19 +7,20 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/component
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 
 final class WeekCard extends StatelessWidget {
-  WeekCard({
+  const WeekCard({
     this.shiftDay,
     super.key,
   });
-  final double _width = 12.w; // Adjusted for responsive width
-  final double _fontSize = 20.sp; // Font size proportional to screen width
-  final double _iconSize = 6.w; // Icon size proportional to screen width
   final ShiftDay? shiftDay;
 
+  double get _width => 12.w;
+  double get _fontSize => 20.sp;
+  double get _iconSize => 6.w;
+
   BoxBorder? get isToday {
-    final shiftDayGGMM = shiftDay?.time?.ggmm;
+    final shiftDayGGMM = shiftDay?.time.sapiTimeExt.ggmm;
     if (shiftDayGGMM == null) return null;
-    return shiftDayGGMM == DateTime.now().ggmm
+    return shiftDayGGMM == DateTime.now().sapiTimeExt.ggmm
         ? Border.all(width: 4, color: ColorConstant.primaryColor)
         : null;
   }
@@ -28,7 +29,7 @@ final class WeekCard extends StatelessWidget {
     context.popupManager.showLoader(
       barrierDismissible: true,
       widgetBuilder: (context) => ShiftDialog(
-        day: shiftDay,
+        shiftDay: shiftDay,
       ),
     );
   }

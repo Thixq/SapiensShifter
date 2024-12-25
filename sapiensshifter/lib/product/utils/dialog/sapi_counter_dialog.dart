@@ -4,12 +4,10 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/component
 class SapiCounterDialog extends StatefulWidget {
   const SapiCounterDialog({
     required this.titleName,
-    required this.buttonText,
     required this.onPressed,
     super.key,
   });
   final String titleName;
-  final String buttonText;
   final void Function(int value) onPressed;
 
   @override
@@ -64,7 +62,7 @@ final class _SapiCounterDialogState extends State<SapiCounterDialog> {
           context.route.pop();
         },
         child: Text(
-          widget.buttonText,
+          LocaleKeys.confirm.tr(),
           style: _buttonTextStyle,
         ),
       ),

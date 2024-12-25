@@ -23,6 +23,7 @@ final class PreviewProductCard extends StatelessWidget {
   double get _imageAspectRatio => 1.21;
   double get _errorIconSize => 48;
   int get _productMaxCharacter => 16;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -53,6 +54,7 @@ final class PreviewProductCard extends StatelessWidget {
       borderRadius: context.border.lowBorderRadius,
       child: AspectRatio(
         aspectRatio: _imageAspectRatio,
+        // TODO(kaan): Image Builder oluştur.
         child: Image.network(
           imageUrl,
           fit: BoxFit.cover,
@@ -87,8 +89,7 @@ final class PreviewProductCard extends StatelessWidget {
           ),
         ),
         Text(
-          // TODO(kaan): Yerelleştirme.
-          '${price.toStringAsFixed(2)}₺',
+          '${price.toStringAsFixed(2)}${LocaleKeys.price_symbol.tr()}',
           style: context.general.textTheme.labelSmall,
         ),
       ],
