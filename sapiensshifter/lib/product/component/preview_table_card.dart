@@ -5,10 +5,10 @@ import 'package:sapiensshifter/product/models/table_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 final class PreviewTableCard extends StatelessWidget {
-  const PreviewTableCard({required this.dataModel, this.onPressed, super.key});
+  const PreviewTableCard({required this.tableModel, this.onPressed, super.key});
 
-  final void Function(TableModel dataModel)? onPressed;
-  final TableModel dataModel;
+  final void Function(TableModel? tableModel)? onPressed;
+  final TableModel? tableModel;
 
   int get _maxCharacter => 10;
 
@@ -17,7 +17,7 @@ final class PreviewTableCard extends StatelessWidget {
     return Ink(
       decoration: _buildCardDecoration(context),
       child: InkWell(
-        onTap: () => onPressed?.call(dataModel),
+        onTap: () => onPressed?.call(tableModel),
         borderRadius: context.border.normalBorderRadius,
         child: AspectRatio(
           aspectRatio: 1,
@@ -39,23 +39,23 @@ final class PreviewTableCard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _buildHeaderRow(context),
+        _buildNameAndTime(context),
         _buildPeopleCount(context),
         _buildPriceInfo(context),
       ],
     );
   }
 
-  Widget _buildHeaderRow(BuildContext context) {
+  Widget _buildNameAndTime(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          dataModel.tableName.sapiExt.maxCharacter(_maxCharacter) ?? '--',
+          tableModel?.tableName.sapiExt.maxCharacter(_maxCharacter) ?? '--',
           style: context.general.textTheme.titleMedium,
         ),
         Text(
-          dataModel.timeStamp?.hhmm ?? '--:--',
+          tableModel?.timeStamp.sapiTimeExt.hhmm ?? '--:--',
           style: context.general.textTheme.bodySmall,
         ),
       ],
@@ -64,7 +64,7 @@ final class PreviewTableCard extends StatelessWidget {
 
   Widget _buildPeopleCount(BuildContext context) {
     return Text(
-      dataModel.peopleCount.toString().padLeft(2, '0'),
+      tableModel?.peopleCount.toString().padLeft(2, '0') ?? '--',
       style: context.general.textTheme.displayMedium,
       textAlign: TextAlign.center,
     );
@@ -74,8 +74,7 @@ final class PreviewTableCard extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: 1,
       child: Text(
-        // TODO(kaan): Sipariş modeli hazır olduğunda güncelleyin.
-        '--${LocaleKeys.price_symbol.tr()}',
+        '${tableModel?.totalPrice ?? '--'}${'price_symbol'.tr()}',
         textAlign: TextAlign.right,
         style: context.general.textTheme.bodyLarge,
       ),

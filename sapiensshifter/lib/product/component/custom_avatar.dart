@@ -11,6 +11,7 @@ final class CustomCircleAvatar extends StatelessWidget {
   final IconData fallbackIcon;
   final double radius;
 
+  // TODO(kaan): Placeholder url olayına bak.
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(

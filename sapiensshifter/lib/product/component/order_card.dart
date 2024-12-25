@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:sapiensshifter/product/component/custom_avatar.dart';
 import 'package:sapiensshifter/product/models/order_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 import 'package:sapiensshifter/product/utils/extensions/delivery_status_extension.dart';
 import 'package:sapiensshifter/product/utils/ui/dashed_rounded_shape_border.dart';
+import 'package:sapiensshifter/product/utils/ui/svg_asset_builder.dart';
 
 final class OrderCard extends StatelessWidget {
   const OrderCard({
-    required this.context,
-    required this.orderModel,
+    this.orderModel,
     super.key,
   });
 
-  final BuildContext context;
-  final OrderModel orderModel;
+  final OrderModel? orderModel;
+
+  String get _nullOrderName => 'OrderNameNull';
+  String get _nullExtrasText => 'ExtrasNull';
+  String get _nullPrice => '0.00';
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +31,7 @@ final class OrderCard extends StatelessWidget {
     return Column(
       children: [
         _buildOrderCardTitle(context),
-        const SizedBox(
-          height: 8,
-        ),
+        const SizedBox(height: 8),
         _buildOrderCardExtras(context),
       ],
     );
@@ -41,13 +41,11 @@ final class OrderCard extends StatelessWidget {
     return Row(
       children: [
         CustomCircleAvatar(
-          imageUrl: orderModel.imagePath,
+          imageUrl: orderModel?.imagePath,
         ),
-        const SizedBox(
-          width: 8,
-        ),
+        const SizedBox(width: 8),
         Text(
-          orderModel.orderName ?? 'OrderNameNull',
+          orderModel?.orderName ?? _nullOrderName,
           style: context.general.textTheme.titleMedium,
         ),
       ],
@@ -70,7 +68,10 @@ final class OrderCard extends StatelessWidget {
   }
 
   Widget _buildDelivery() {
-    return SvgPicture.asset(orderModel.deliveryStatus!.deliveryPath);
+    return SvgAssetBuilder(
+      svgPath: orderModel?.deliveryStatus.toDeliveryPath,
+      errorSvgPath: 'assets/icon/ic_no_coffee.svg',
+    );
   }
 
   Expanded _buildListAndPrice(BuildContext context) {
@@ -89,17 +90,16 @@ final class OrderCard extends StatelessWidget {
     return Expanded(
       child: Text(
         // ignore: unnecessary_raw_strings
-        orderModel.extras?.join(', ') ?? 'ExtrasNull',
+        orderModel?.extras?.join(', ') ?? _nullExtrasText,
         style: context.general.textTheme.labelSmall,
         overflow: TextOverflow.ellipsis,
       ),
     );
   }
 
-  // TODO(kaan): Yerelleştirme.
   Text _buildPrice(BuildContext context) {
     return Text(
-      '${orderModel.price}price_symbol',
+      '${orderModel?.price ?? _nullPrice}${'price_symbol'.tr()}',
       style: context.general.textTheme.labelSmall,
     );
   }
