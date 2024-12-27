@@ -14,23 +14,21 @@ final class PreviewTableCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Ink(
+    return _buildContainer(context);
+  }
+
+  Widget _buildContainer(BuildContext context) {
+    return Container(
       decoration: _buildCardDecoration(context),
+      padding: context.padding.normal,
       child: InkWell(
         onTap: () => onPressed?.call(tableModel),
         borderRadius: context.border.normalBorderRadius,
         child: AspectRatio(
           aspectRatio: 1,
-          child: _buildContainer(context),
+          child: _buildContent(context),
         ),
       ),
-    );
-  }
-
-  Widget _buildContainer(BuildContext context) {
-    return Container(
-      padding: context.padding.normal,
-      child: _buildContent(context),
     );
   }
 
