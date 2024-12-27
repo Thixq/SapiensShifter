@@ -18,9 +18,9 @@ class _CustomNavBarState extends State<CustomNavBar> {
 
   final double _blurCount = 10;
   final double _navBarWidth = 70.w;
-  final Color _decorationColor = Colors.black.withOpacity(.2);
+  final Color _decorationColor = Colors.black.withValues(alpha: .2);
   late final Color _isSelectedColor;
-  final Color _unSelectedColor = Colors.white60.withOpacity(.5);
+  final Color _unSelectedColor = Colors.white60.withValues(alpha: .5);
 
   @override
   void didChangeDependencies() {
