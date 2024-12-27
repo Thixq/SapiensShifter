@@ -67,6 +67,15 @@ class Thix extends StatelessWidget {
                 PreviewOrderCard(
                   tableModel: TableModel(orderList: [OrderModel()]),
                 ),
+                const Row(
+                  children: [
+                    WeekCard(),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    WeekCard(),
+                  ],
+                ),
                 PreviewProductCard(
                   onPressed: (productId) {},
                   imageUrl: '',
@@ -84,7 +93,6 @@ class Thix extends StatelessWidget {
                   items: const {},
                   onSelected: (select) {},
                 ),
-                const WeekCard(),
               ],
             ),
           ),
@@ -92,7 +100,7 @@ class Thix extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: EdgeInsets.only(
-                bottom: context.general.mediaQuery.padding.bottom + 32,
+                bottom: context.general.mediaQuery.padding.bottom,
               ),
               child: CustomNavBar(
                 items: [
