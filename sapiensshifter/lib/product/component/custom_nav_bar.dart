@@ -30,15 +30,13 @@ class _CustomNavBarState extends State<CustomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRect(
+    return ClipRRect(
+      borderRadius: context.border.normalBorderRadius,
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: _blurCount, sigmaY: _blurCount),
         child: Container(
           padding: context.padding.low,
-          decoration: BoxDecoration(
-            borderRadius: context.border.normalBorderRadius,
-            color: _decorationColor,
-          ),
+          color: _decorationColor,
           width: _navBarWidth,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
