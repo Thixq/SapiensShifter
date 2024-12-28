@@ -40,14 +40,14 @@ class _CustomNavBarState extends State<CustomNavBar> {
           width: _navBarWidth,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: generateNavBarButtons(widget.items),
+            children: _generateNavBarButtons(widget.items),
           ),
         ),
       ),
     );
   }
 
-  List<Widget> generateNavBarButtons(List<NavBarItem> items) {
+  List<Widget> _generateNavBarButtons(List<NavBarItem> items) {
     return items
         .asMap()
         .entries

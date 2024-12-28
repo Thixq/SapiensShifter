@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/localization/localization.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
 import 'package:sapiensshifter/product/component/custom_avatar.dart';
-import 'package:sapiensshifter/product/component/custom_nav_bar.dart';
 import 'package:sapiensshifter/product/component/message_info_list_tile.dart';
 import 'package:sapiensshifter/product/component/order_card.dart';
 import 'package:sapiensshifter/product/component/preview_order_card.dart';
@@ -49,6 +48,10 @@ class Thix extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(context.sized.lowValue);
+    print(context.sized.normalValue);
+    print(context.sized.mediumValue);
+    print(context.sized.highValue);
     return Scaffold(
       body: Stack(
         children: [
@@ -57,7 +60,9 @@ class Thix extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: ListView(
               children: [
-                const CustomCircleAvatar(),
+                CustomCircleAvatar(
+                  imageUrl: ''.ext.randomImage,
+                ),
                 MessageInfoListTile(
                   onPressed: () {},
                   title: 'Hayalet Sevgilim',
@@ -78,7 +83,7 @@ class Thix extends StatelessWidget {
                 ),
                 PreviewProductCard(
                   onPressed: (productId) {},
-                  imageUrl: '',
+                  imageUrl: 'https://coffee.alexflipnote.dev/random',
                   productName: 'productName',
                   productId: 'productId',
                   price: 2,

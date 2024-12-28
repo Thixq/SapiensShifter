@@ -74,7 +74,6 @@ final class PreviewTableCard extends StatelessWidget {
       child: Text(
         '${tableModel?.totalPrice ?? '--'}${'price_symbol'.tr()}',
         textAlign: TextAlign.right,
-        style: context.general.textTheme.bodyLarge,
       ),
     );
   }
