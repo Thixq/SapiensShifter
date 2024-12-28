@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/constant/color_constant.dart';
-import 'package:sapiensshifter/product/utils/dialog/shift_dialog.dart';
+import 'package:sapiensshifter/product/utils/dialogs/shift_dialog.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 

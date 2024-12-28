@@ -22,7 +22,7 @@ final class PreviewProductCard extends StatelessWidget {
   int get _imageCacheWidth => 480;
   double get _imageAspectRatio => 1.21;
   double get _errorIconSize => 48;
-  int get _productMaxCharacter => 16;
+  int get _productMaxCharacter => 24;
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +30,10 @@ final class PreviewProductCard extends StatelessWidget {
       color: _cardColor,
       elevation: _cardElevation,
       shape: RoundedRectangleBorder(
-        borderRadius: context.border.lowBorderRadius,
+        borderRadius: context.border.normalBorderRadius,
       ),
       child: InkWell(
-        borderRadius: context.border.lowBorderRadius,
+        borderRadius: context.border.normalBorderRadius,
         onTap: () => onPressed(productId),
         child: Padding(
           padding: context.padding.low,
@@ -51,7 +51,7 @@ final class PreviewProductCard extends StatelessWidget {
 
   Widget _buildImage(BuildContext context) {
     return ClipRRect(
-      borderRadius: context.border.lowBorderRadius,
+      borderRadius: context.border.normalBorderRadius,
       child: AspectRatio(
         aspectRatio: _imageAspectRatio,
         // TODO(kaan): Image Builder oluştur.

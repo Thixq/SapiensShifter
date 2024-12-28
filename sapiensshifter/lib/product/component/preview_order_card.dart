@@ -36,7 +36,7 @@ final class PreviewOrderCard extends StatelessWidget {
         DashedDivider(color: context.general.colorScheme.primary),
         SeparatorColumn(
           widgets: orderModelToOrderCard(context),
-          separator: const SizedBox(height: 16),
+          separator: context.sized.emptySizedHeightBoxNormal,
         ),
       ],
     );
@@ -58,8 +58,6 @@ final class PreviewOrderCard extends StatelessWidget {
   }
 
   List<Widget>? orderModelToOrderCard(BuildContext context) => orderModelList
-      ?.map(
-        (orderModel) => OrderCard(orderModel: orderModel),
-      )
+      ?.map((orderModel) => OrderCard(orderModel: orderModel))
       .toList();
 }
