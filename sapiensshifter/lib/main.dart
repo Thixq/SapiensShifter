@@ -69,7 +69,7 @@ class Thix extends StatelessWidget {
                 OrderCard(
                   orderModel: OrderModel(
                     imagePath: ''.ext.randomImage,
-                    deliveryStatus: DeliveryStatus.TAKE_AWAY,
+                    deliveryStatus: DeliveryStatus.HERE_IN,
                     extras: [
                       'Şekersiz',
                       'Double',
@@ -78,7 +78,12 @@ class Thix extends StatelessWidget {
                 ),
                 PreviewOrderCard(
                   tableModel: TableModel(
-                    orderList: [],
+                    orderList: [
+                      OrderModel(price: 120),
+                      OrderModel(price: 155),
+                      OrderModel(price: 120),
+                      OrderModel(price: 90),
+                    ],
                   ),
                 ),
                 const Row(
@@ -117,7 +122,10 @@ class Thix extends StatelessWidget {
                 bottom: context.general.mediaQuery.padding.bottom,
               ),
               child: CustomNavBar(
+                initalIndex: 2,
                 items: [
+                  NavBarItem(icon: Icons.table_bar),
+                  NavBarItem(icon: Icons.table_bar),
                   NavBarItem(icon: Icons.table_bar),
                 ],
               ),

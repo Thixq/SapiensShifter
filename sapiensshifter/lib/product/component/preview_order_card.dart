@@ -34,15 +34,19 @@ final class PreviewOrderCard extends StatelessWidget {
       children: [
         _buildNameandTotalPrice(context),
         DashedDivider(color: context.general.colorScheme.primary),
-        SeparatorColumn<OrderCard>(
-          widgets: orderModelToOrderCard(context),
-          separator: context.sized.emptySizedHeightBoxLow,
-          onListChanged: (value) {
-            final currentTotalPrice = calculateTotalPrice(value);
-            _totalPrice.value = currentTotalPrice;
-          },
-        ),
+        _buildOrderCard(context),
       ],
+    );
+  }
+
+  SeparatorColumn<OrderCard> _buildOrderCard(BuildContext context) {
+    return SeparatorColumn<OrderCard>(
+      widgets: orderModelToOrderCard(context),
+      separator: context.sized.emptySizedHeightBoxLow,
+      onListChanged: (value) {
+        final currentTotalPrice = calculateTotalPrice(value);
+        _totalPrice.value = currentTotalPrice;
+      },
     );
   }
 
