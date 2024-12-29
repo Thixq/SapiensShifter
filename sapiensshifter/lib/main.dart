@@ -48,6 +48,10 @@ class Thix extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(context.sized.lowValue);
+    print(context.sized.normalValue);
+    print(context.sized.mediumValue);
+    print(context.sized.highValue);
     return Scaffold(
       body: Stack(
         children: [
@@ -61,7 +65,6 @@ class Thix extends StatelessWidget {
                 ),
                 MessageInfoListTile(
                   onPressed: () {},
-                  imageUrl: '',
                   title: 'Hayalet Sevgilim',
                   subTitle: 'Sevmesen beni özledimse seni',
                 ),
