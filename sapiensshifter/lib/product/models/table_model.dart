@@ -23,14 +23,13 @@ class TableModel {
   List<OrderModel>? orderList;
 
   // ignore: use_if_null_to_convert_nulls_to_bools
-  String? get totalPrice => orderList?.isNotEmpty == true
+  double? get totalPrice => orderList?.isNotEmpty == true
       ? orderList!
           .where(
             (e) => e.price != null,
           )
           .map((e) => e.price!)
           // ignore: prefer_int_literals
-          .fold(0.0, (total, price) => total + price)
-          .toStringAsFixed(2)
+          .fold(0.0, (total, price) => total! + price)
       : null;
 }

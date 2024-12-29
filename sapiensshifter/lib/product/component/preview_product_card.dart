@@ -77,22 +77,25 @@ final class PreviewProductCard extends StatelessWidget {
   }
 
   Widget _buildTextContent(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          child: Text(
-            productName.sapiExt.maxCharacter(_productMaxCharacter) ??
-                'productNameNull',
-            style: context.general.textTheme.titleSmall,
-            overflow: TextOverflow.ellipsis,
+    return Padding(
+      padding: context.padding.horizontalLow,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Text(
+              productName.sapiExt.maxCharacter(_productMaxCharacter) ??
+                  'productNameNull',
+              style: context.general.textTheme.titleSmall,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-        ),
-        Text(
-          '${price.toStringAsFixed(2)}${LocaleKeys.price_symbol.tr()}',
-          style: context.general.textTheme.labelSmall,
-        ),
-      ],
+          Text(
+            '${price.toStringAsFixed(2)}${LocaleKeys.price_symbol.tr()}',
+            style: context.general.textTheme.labelSmall,
+          ),
+        ],
+      ),
     );
   }
 }

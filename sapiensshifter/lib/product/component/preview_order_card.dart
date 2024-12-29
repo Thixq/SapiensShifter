@@ -11,9 +11,9 @@ final class PreviewOrderCard extends StatelessWidget {
       : orderModelList = tableModel?.orderList ?? [];
   final TableModel? tableModel;
   late final List<OrderModel>? orderModelList;
-
+  late final ValueNotifier<double> _totalPrice =
+      ValueNotifier<double>(tableModel?.totalPrice ?? 0);
   String get _nullTableName => 'TableNameNull';
-  String get _nullPrice => '0.00';
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +34,28 @@ final class PreviewOrderCard extends StatelessWidget {
       children: [
         _buildNameandTotalPrice(context),
         DashedDivider(color: context.general.colorScheme.primary),
-        SeparatorColumn(
+        SeparatorColumn<OrderCard>(
           widgets: orderModelToOrderCard(context),
-          separator: const SizedBox(height: 16),
+          separator: context.sized.emptySizedHeightBoxLow,
+          onListChanged: (value) {
+            final currentTotalPrice = calculateTotalPrice(value);
+            _totalPrice.value = currentTotalPrice;
+          },
         ),
       ],
     );
+  }
+
+  double calculateTotalPrice(List<OrderCard> value) {
+    final currentTotalPrice = value
+        .map(
+          (orderCard) => orderCard.orderModel?.price,
+        )
+        .fold<double>(
+          0,
+          (previousValue, element) => previousValue + (element ?? 0),
+        );
+    return currentTotalPrice;
   }
 
   Row _buildNameandTotalPrice(BuildContext context) {
@@ -50,16 +66,17 @@ final class PreviewOrderCard extends StatelessWidget {
           tableModel?.tableName ?? _nullTableName,
           style: context.general.textTheme.titleMedium,
         ),
-        Text(
-          '${tableModel?.totalPrice ?? _nullPrice}${'price_symbol'.tr()}',
+        ValueListenableBuilder(
+          valueListenable: _totalPrice,
+          builder: (context, value, child) => Text(
+            '${value.toStringAsFixed(2)}${'price_symbol'.tr()}',
+          ),
         ),
       ],
     );
   }
 
-  List<Widget>? orderModelToOrderCard(BuildContext context) => orderModelList
-      ?.map(
-        (orderModel) => OrderCard(orderModel: orderModel),
-      )
+  List<OrderCard>? orderModelToOrderCard(BuildContext context) => orderModelList
+      ?.map((orderModel) => OrderCard(orderModel: orderModel))
       .toList();
 }
