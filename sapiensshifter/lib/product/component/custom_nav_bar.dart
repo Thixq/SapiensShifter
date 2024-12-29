@@ -18,9 +18,9 @@ class _CustomNavBarState extends State<CustomNavBar> {
 
   final double _blurCount = 10;
   final double _navBarWidth = 70.w;
-  final Color _decorationColor = Colors.black.withOpacity(.2);
+  final Color _decorationColor = Colors.black.withValues(alpha: .2);
   late final Color _isSelectedColor;
-  final Color _unSelectedColor = Colors.white60.withOpacity(.5);
+  final Color _unSelectedColor = Colors.white60.withValues(alpha: .5);
 
   @override
   void didChangeDependencies() {
@@ -30,26 +30,24 @@ class _CustomNavBarState extends State<CustomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRect(
+    return ClipRRect(
+      borderRadius: context.border.normalBorderRadius,
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: _blurCount, sigmaY: _blurCount),
         child: Container(
           padding: context.padding.low,
-          decoration: BoxDecoration(
-            borderRadius: context.border.normalBorderRadius,
-            color: _decorationColor,
-          ),
+          color: _decorationColor,
           width: _navBarWidth,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: generateNavBarButtons(widget.items),
+            children: _generateNavBarButtons(widget.items),
           ),
         ),
       ),
     );
   }
 
-  List<Widget> generateNavBarButtons(List<NavBarItem> items) {
+  List<Widget> _generateNavBarButtons(List<NavBarItem> items) {
     return items
         .asMap()
         .entries

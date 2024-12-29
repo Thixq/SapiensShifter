@@ -4,15 +4,15 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/component
 
 final class MessageInfoListTile extends StatelessWidget {
   const MessageInfoListTile({
-    required this.imageUrl,
     required this.onPressed,
+    this.imageUrl,
     this.title,
     this.subTitle,
     this.onErrorIcon,
     super.key,
   });
 
-  final String imageUrl;
+  final String? imageUrl;
   final String? title;
   final String? subTitle;
   final IconData? onErrorIcon;

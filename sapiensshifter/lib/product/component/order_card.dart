@@ -31,7 +31,7 @@ final class OrderCard extends StatelessWidget {
     return Column(
       children: [
         _buildOrderCardTitle(context),
-        const SizedBox(height: 8),
+        context.sized.emptySizedHeightBoxLow,
         _buildOrderCardExtras(context),
       ],
     );
@@ -43,7 +43,7 @@ final class OrderCard extends StatelessWidget {
         CustomCircleAvatar(
           imageUrl: orderModel?.imagePath,
         ),
-        const SizedBox(width: 8),
+        context.sized.emptySizedWidthBoxLow3x,
         Text(
           orderModel?.orderName ?? _nullOrderName,
           style: context.general.textTheme.titleMedium,
@@ -58,9 +58,7 @@ final class OrderCard extends StatelessWidget {
       child: Row(
         children: [
           _buildDelivery(),
-          const SizedBox(
-            width: 8,
-          ),
+          context.sized.emptySizedWidthBoxLow3x,
           _buildListAndPrice(context),
         ],
       ),
