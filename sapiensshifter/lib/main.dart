@@ -70,7 +70,13 @@ class Thix extends StatelessWidget {
                 ),
                 const OrderCard(),
                 PreviewOrderCard(
-                  tableModel: TableModel(orderList: [OrderModel()]),
+                  tableModel: TableModel(
+                    orderList: [
+                      OrderModel(price: 12),
+                      OrderModel(price: 12),
+                      OrderModel(price: 12),
+                    ],
+                  ),
                 ),
                 const Row(
                   children: [
