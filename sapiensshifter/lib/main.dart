@@ -13,6 +13,7 @@ import 'package:sapiensshifter/product/component/sapi_text_field.dart';
 import 'package:sapiensshifter/product/component/week_card.dart';
 import 'package:sapiensshifter/product/models/order_model.dart';
 import 'package:sapiensshifter/product/models/table_model.dart';
+import 'package:sapiensshifter/product/utils/enums/delivery_status.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/nav_bar_export.dart';
 
@@ -61,17 +62,23 @@ class Thix extends StatelessWidget {
                 ),
                 MessageInfoListTile(
                   onPressed: () {},
-                  title: 'Hayalet Sevgilim',
-                  subTitle: 'Sevmesen beni özledimse seni',
+                  imageUrl: ''.ext.randomSquareImage,
+                  title: 'Mahmut ORHAN',
+                  subTitle: 'Bro akşam sendeyim gelirken bişi aliyim mi?',
                 ),
-                const OrderCard(),
+                OrderCard(
+                  orderModel: OrderModel(
+                    imagePath: ''.ext.randomImage,
+                    deliveryStatus: DeliveryStatus.TAKE_AWAY,
+                    extras: [
+                      'Şekersiz',
+                      'Double',
+                    ],
+                  ),
+                ),
                 PreviewOrderCard(
                   tableModel: TableModel(
-                    orderList: [
-                      OrderModel(price: 12),
-                      OrderModel(price: 12),
-                      OrderModel(price: 12),
-                    ],
+                    orderList: [],
                   ),
                 ),
                 const Row(
