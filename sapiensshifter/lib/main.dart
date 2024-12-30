@@ -10,6 +10,7 @@ import 'package:sapiensshifter/product/component/preview_table_card.dart';
 import 'package:sapiensshifter/product/component/sapi_button.dart';
 import 'package:sapiensshifter/product/component/sapi_custom_drop_down.dart';
 import 'package:sapiensshifter/product/component/sapi_text_field.dart';
+import 'package:sapiensshifter/product/component/segments_button.dart';
 import 'package:sapiensshifter/product/component/week_card.dart';
 import 'package:sapiensshifter/product/models/order_model.dart';
 import 'package:sapiensshifter/product/models/table_model.dart';
@@ -48,80 +49,8 @@ class Thix extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(context.sized.lowValue);
-    print(context.sized.normalValue);
-    print(context.sized.mediumValue);
-    print(context.sized.highValue);
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: ListView(
-              children: [
-                CustomCircleAvatar(
-                  imageUrl: ''.ext.randomImage,
-                ),
-                MessageInfoListTile(
-                  onPressed: () {},
-                  title: 'Hayalet Sevgilim',
-                  subTitle: 'Sevmesen beni özledimse seni',
-                ),
-                const OrderCard(),
-                PreviewOrderCard(
-                  tableModel: TableModel(
-                    orderList: [
-                      OrderModel(price: 12),
-                      OrderModel(price: 12),
-                      OrderModel(price: 12),
-                    ],
-                  ),
-                ),
-                const Row(
-                  children: [
-                    WeekCard(),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    WeekCard(),
-                  ],
-                ),
-                PreviewProductCard(
-                  onPressed: (productId) {},
-                  imageUrl: 'https://coffee.alexflipnote.dev/random',
-                  productName: 'productName',
-                  productId: 'productId',
-                  price: 2,
-                ),
-                PreviewTableCard(tableModel: TableModel()),
-                SapiButton(
-                  buttonText: 'buttonText',
-                  onPressed: () {},
-                ),
-                const SapiTextField(),
-                SapiCustomDropDown(
-                  items: const {},
-                  onSelected: (select) {},
-                ),
-              ],
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: EdgeInsets.only(
-                bottom: context.general.mediaQuery.padding.bottom,
-              ),
-              child: CustomNavBar(
-                items: [
-                  NavBarItem(icon: Icons.table_bar),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
+    return const Scaffold(
+      body: Center(child: SapiSegmentButton()),
     );
   }
 }
