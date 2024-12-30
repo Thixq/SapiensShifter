@@ -24,7 +24,7 @@ class _SapiSegmentButtonState extends State<SapiSegmentButton> {
   }
 }
 
-class SegmentTabItem extends StatelessWidget {
+class SegmentTabItem<T> extends StatelessWidget {
   const SegmentTabItem({
     required this.index,
     this.isSelect = false,
@@ -33,7 +33,7 @@ class SegmentTabItem extends StatelessWidget {
   });
   final int index;
   final bool isSelect;
-  final ValueChanged<MapEntry>? select;
+  final ValueChanged<MapEntry<String, T>>? select;
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +44,7 @@ class SegmentTabItem extends StatelessWidget {
       showCheckmark: false,
       label: const Text('data'),
       selected: false,
-      onSelected: (value) {
-        print(index);
-      },
+      onSelected: (value) {},
     );
   }
 }
