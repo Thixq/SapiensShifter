@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/localization/localization.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
-import 'package:sapiensshifter/product/component/segments_button.dart';
+import 'package:sapiensshifter/product/component/choice_chip_list.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 void main() async {
@@ -36,8 +36,32 @@ class Thix extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: SapiSegmentButton()),
+    return Scaffold(
+      body: Center(child: DynamicChoiceChipScreen()),
+    );
+  }
+}
+
+class DynamicChoiceChipScreen extends StatelessWidget {
+  DynamicChoiceChipScreen({super.key});
+
+  final Map<String, double>? options = {
+    'Normal Süt': 0,
+    'Laktozsuz Süt': 0,
+    'Badem Sütü': 17.99,
+    'Yulaf Sütü': 17.99,
+    'Hindistan Cevizi Sütü': 17.99,
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Dynamic ChoiceChip Example'),
+      ),
+      body: ChoiceChipList<double>(
+        options: options,
+      ),
     );
   }
 }
