@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/component/order_card.dart';
 import 'package:sapiensshifter/product/models/order_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_utils_ui.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/table_export.dart';
-import 'package:sapiensshifter/product/utils/ui/dashed_divider.dart';
-import 'package:sapiensshifter/product/utils/ui/separator_column.dart';
 
 final class PreviewOrderCard extends StatelessWidget {
   PreviewOrderCard({this.tableModel, super.key})
@@ -13,6 +12,7 @@ final class PreviewOrderCard extends StatelessWidget {
   late final List<OrderModel>? orderModelList;
   late final ValueNotifier<double> _totalPrice =
       ValueNotifier<double>(tableModel?.totalPrice ?? 0);
+
   String get _nullTableName => 'TableNameNull';
 
   @override
@@ -34,23 +34,19 @@ final class PreviewOrderCard extends StatelessWidget {
       children: [
         _buildNameandTotalPrice(context),
         DashedDivider(color: context.general.colorScheme.primary),
-        _buildOrderCard(context),
+        SeparatorColumn<OrderCard>(
+          widgets: _orderModelToOrderCard(context),
+          separator: context.sized.emptySizedHeightBoxLow,
+          onListChanged: (value) {
+            final currentTotalPrice = _calculateTotalPrice(value);
+            _totalPrice.value = currentTotalPrice;
+          },
+        ),
       ],
     );
   }
 
-  SeparatorColumn<OrderCard> _buildOrderCard(BuildContext context) {
-    return SeparatorColumn<OrderCard>(
-      widgets: orderModelToOrderCard(context),
-      separator: context.sized.emptySizedHeightBoxLow,
-      onListChanged: (value) {
-        final currentTotalPrice = calculateTotalPrice(value);
-        _totalPrice.value = currentTotalPrice;
-      },
-    );
-  }
-
-  double calculateTotalPrice(List<OrderCard> value) {
+  double _calculateTotalPrice(List<OrderCard> value) {
     final currentTotalPrice = value
         .map(
           (orderCard) => orderCard.orderModel?.price,
@@ -80,7 +76,8 @@ final class PreviewOrderCard extends StatelessWidget {
     );
   }
 
-  List<OrderCard>? orderModelToOrderCard(BuildContext context) => orderModelList
-      ?.map((orderModel) => OrderCard(orderModel: orderModel))
-      .toList();
+  List<OrderCard>? _orderModelToOrderCard(BuildContext context) =>
+      orderModelList
+          ?.map((orderModel) => OrderCard(orderModel: orderModel))
+          .toList();
 }
