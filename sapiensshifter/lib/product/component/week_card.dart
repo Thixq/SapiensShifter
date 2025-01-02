@@ -2,7 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/constant/color_constant.dart';
+<<<<<<< Updated upstream
 import 'package:sapiensshifter/product/utils/dialog/shift_dialog.dart';
+=======
+import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/shift_dialog.dart';
+>>>>>>> Stashed changes
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 
