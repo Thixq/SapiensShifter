@@ -1,16 +1,18 @@
-// ignore_for_file: camel_case_types, library_private_types_in_public_api
+// ignore_for_file: library_private_types_in_public_api
 
 extension SapiStringExtension on String? {
-  _sapiStringExtension get sapiExt => _sapiStringExtension(this);
+  _SapiStringExtension get sapiExt => _SapiStringExtension(this);
 }
 
 extension SapiDefaultStringExtension on String {
-  _sapiStringExtension get sapiExt => _sapiStringExtension(this);
+  _SapiStringExtension get sapiExt => _SapiStringExtension(this);
 }
 
-final class _sapiStringExtension {
-  _sapiStringExtension(String? value) : _value = value;
+final class _SapiStringExtension {
+  _SapiStringExtension(String? value) : _value = value;
   final String? _value;
+
+  String orDefault(String defaultValue) => _value ?? defaultValue;
 
   String? maxCharacter(int maxChachter) {
     if (_value == null) return null;

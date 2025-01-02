@@ -1,4 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:sapiensshifter/product/models/order_model.dart';
+
 class TableModel {
   TableModel({
     this.id,
@@ -19,6 +20,16 @@ class TableModel {
   int? peopleCount;
   bool? status;
   DateTime? closingTime;
-  // TODO(kaan): Order model ile değiştir.
-  List<String>? orderList;
+  List<OrderModel>? orderList;
+
+  // ignore: use_if_null_to_convert_nulls_to_bools
+  double? get totalPrice => orderList?.isNotEmpty == true
+      ? orderList!
+          .where(
+            (e) => e.price != null,
+          )
+          .map((e) => e.price!)
+          // ignore: prefer_int_literals
+          .fold(0.0, (total, price) => total! + price)
+      : null;
 }

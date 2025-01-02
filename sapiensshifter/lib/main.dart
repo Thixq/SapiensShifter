@@ -1,20 +1,20 @@
-// ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/product/utils/ui/dashed_divider.dart';
-import 'package:sapiensshifter/product/utils/ui/dashed_rounded_shape_border.dart';
-
+import 'package:sapiensshifter/feature/localization/localization.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
-<<<<<<< Updated upstream
 import 'package:sapiensshifter/product/component/preview_order_card.dart';
-=======
 import 'package:sapiensshifter/product/models/order_model.dart';
 import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/order_info_bottom_sheet.dart';
->>>>>>> Stashed changes
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/table_export.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  runApp(
+    LanguageManager(
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -23,9 +23,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(
-      builder: (context, orientation, screenType) => MaterialApp(
+      builder: (_, __, ___) => MaterialApp(
         theme: SapiensTheme.instance.lightTheme,
-        home: Thix(),
+        supportedLocales: context.supportedLocales,
+        localizationsDelegates: context.localizationDelegates,
+        locale: context.locale,
+        home: const Thix(),
       ),
     );
   }
@@ -36,28 +39,6 @@ class Thix extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< Updated upstream
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            DashedDivider(),
-            Container(
-              height: 100,
-              width: 100,
-              decoration: ShapeDecoration(
-                shape: DashedRoundedShapeBorder(
-                  cornerRadius: 12,
-                  borderSide: BorderSide(),
-                ),
-              ),
-              child: Text('data'),
-            ),
-          ],
-        ),
-      ),
-=======
     return const Scaffold(
       body: Center(child: Blabla()),
     );
@@ -96,7 +77,6 @@ class Blabla extends StatelessWidget {
           },
         );
       },
->>>>>>> Stashed changes
     );
   }
 }
