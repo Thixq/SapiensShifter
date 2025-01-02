@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/localization/localization.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
-import 'package:sapiensshifter/product/component/preview_order_card.dart';
 import 'package:sapiensshifter/product/models/order_model.dart';
 import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/order_info_bottom_sheet.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
@@ -40,7 +39,12 @@ class Thix extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(child: Blabla()),
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.all(8),
+          child: Blabla(),
+        ),
+      ),
     );
   }
 }

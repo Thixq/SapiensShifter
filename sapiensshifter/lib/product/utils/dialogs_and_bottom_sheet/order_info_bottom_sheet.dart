@@ -16,13 +16,16 @@ class OrderInfoBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IntrinsicHeight(
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: context.sized.mediumValue,
-          horizontal: context.sized.normalValue,
+      child: SafeArea(
+        child: Container(
+          padding: EdgeInsets.only(
+            top: context.sized.normalValue,
+            left: context.sized.normalValue,
+            right: context.sized.normalValue,
+          ),
+          alignment: Alignment.center,
+          child: _buildContent(context),
         ),
-        alignment: Alignment.center,
-        child: _buildContent(context),
       ),
     );
   }
