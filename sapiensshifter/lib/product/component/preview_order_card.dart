@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:sapiensshifter/product/component/order_card.dart';
+import 'package:sapiensshifter/product/models/order_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_utils_ui.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/table_export.dart';
 
-class PreviewOrderCard extends StatelessWidget {
-  const PreviewOrderCard({super.key});
+final class PreviewOrderCard extends StatelessWidget {
+  PreviewOrderCard({this.tableModel, super.key})
+      : orderModelList = tableModel?.orderList ?? [];
+  final TableModel? tableModel;
+  late final List<OrderModel>? orderModelList;
+  late final ValueNotifier<double> _totalPrice =
+      ValueNotifier<double>(tableModel?.totalPrice ?? 0);
+
+  String get _nullTableName => 'TableNameNull';
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: context.padding.normal,
       decoration: BoxDecoration(
-        border: Border.all(
-          color: context.general.colorScheme.primary,
-          width: 2,
-        ),
-        borderRadius: context.border.lowBorderRadius,
+        border: Border.all(),
+        borderRadius: context.border.normalBorderRadius,
       ),
-<<<<<<< Updated upstream
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -31,7 +38,6 @@ class PreviewOrderCard extends StatelessWidget {
                 '596₺',
               ),
             ],
-=======
       child: _buildContent(context),
     );
   }
@@ -80,14 +86,18 @@ class PreviewOrderCard extends StatelessWidget {
           valueListenable: _totalPrice,
           builder: (context, value, child) => Text(
             '${value.toStringAsFixed(2)}${'price_symbol'.tr()}',
->>>>>>> Stashed changes
           ),
           const Divider(
             color: Colors.blue,
             thickness: 2,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
+
+  List<OrderCard>? _orderModelToOrderCard(BuildContext context) =>
+      orderModelList
+          ?.map((orderModel) => OrderCard(orderModel: orderModel))
+          .toList();
 }

@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-class DashedDivider extends StatelessWidget {
+final class DashedDivider extends StatelessWidget {
   DashedDivider({
     double? dashSpace,
     Color color = Colors.black,
@@ -22,7 +22,7 @@ class DashedDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPaint(
       size: Size(double.infinity, padding),
-      painter: DashedLinePainter(
+      painter: _DashedLinePainter(
         dashSpace: dashSpace,
         dashWidth: dashWidth,
         paintter: paintter,
@@ -31,12 +31,11 @@ class DashedDivider extends StatelessWidget {
   }
 }
 
-class DashedLinePainter extends CustomPainter {
-  DashedLinePainter({
+final class _DashedLinePainter extends CustomPainter {
+  _DashedLinePainter({
     required this.paintter,
     required this.dashWidth,
     required this.dashSpace,
-    super.repaint,
   });
 
   final Paint paintter;

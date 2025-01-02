@@ -2,28 +2,26 @@
 
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/constant/color_constant.dart';
-<<<<<<< Updated upstream
 import 'package:sapiensshifter/product/utils/dialog/shift_dialog.dart';
-=======
 import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/shift_dialog.dart';
->>>>>>> Stashed changes
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 
-class WeekCard extends StatelessWidget {
-  WeekCard({
+final class WeekCard extends StatelessWidget {
+  const WeekCard({
     this.shiftDay,
     super.key,
   });
-  final double _width = 12.w; // Adjusted for responsive width
-  final double _fontSize = 20.sp; // Font size proportional to screen width
-  final double _iconSize = 6.w; // Icon size proportional to screen width
   final ShiftDay? shiftDay;
 
+  double get _width => 12.w;
+  double get _fontSize => 20.sp;
+  double get _iconSize => 6.w;
+
   BoxBorder? get isToday {
-    final shiftDayGGMM = shiftDay?.time?.ggmm;
+    final shiftDayGGMM = shiftDay?.time.sapiTimeExt.ggmm;
     if (shiftDayGGMM == null) return null;
-    return shiftDayGGMM == DateTime.now().ggmm
+    return shiftDayGGMM == DateTime.now().sapiTimeExt.ggmm
         ? Border.all(width: 4, color: ColorConstant.primaryColor)
         : null;
   }
@@ -32,7 +30,7 @@ class WeekCard extends StatelessWidget {
     context.popupManager.showLoader(
       barrierDismissible: true,
       widgetBuilder: (context) => ShiftDialog(
-        day: shiftDay,
+        shiftDay: shiftDay,
       ),
     );
   }

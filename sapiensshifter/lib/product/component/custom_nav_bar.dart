@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/models/nav_bar_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
-class CustomNavBar extends StatefulWidget {
-  const CustomNavBar({required this.items, super.key});
+final class CustomNavBar extends StatefulWidget {
+  const CustomNavBar({
+    required this.items,
+    this.initalIndex = 0,
+    super.key,
+  });
   final List<NavBarItem> items;
+  final int initalIndex;
 
   @override
   State<CustomNavBar> createState() => _CustomNavBarState();
@@ -14,13 +19,19 @@ class CustomNavBar extends StatefulWidget {
 
 class _CustomNavBarState extends State<CustomNavBar> {
   // TODO(kaan): RiverPod ile currentIndexi ayarla.
-  int _currentIndex = 1;
+  late int _currentIndex;
 
   final double _blurCount = 10;
   final double _navBarWidth = 70.w;
-  final Color _decorationColor = Colors.black.withOpacity(.2);
+  final Color _decorationColor = Colors.black.withValues(alpha: .2);
   late final Color _isSelectedColor;
-  final Color _unSelectedColor = Colors.white60.withOpacity(.5);
+  final Color _unSelectedColor = Colors.white60.withValues(alpha: .5);
+
+  @override
+  void initState() {
+    _currentIndex = widget.initalIndex;
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
@@ -30,26 +41,24 @@ class _CustomNavBarState extends State<CustomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRect(
+    return ClipRRect(
+      borderRadius: context.border.normalBorderRadius,
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: _blurCount, sigmaY: _blurCount),
         child: Container(
           padding: context.padding.low,
-          decoration: BoxDecoration(
-            borderRadius: context.border.normalBorderRadius,
-            color: _decorationColor,
-          ),
+          color: _decorationColor,
           width: _navBarWidth,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: generateNavBarButtons(widget.items),
+            children: _generateNavBarButtons(widget.items),
           ),
         ),
       ),
     );
   }
 
-  List<Widget> generateNavBarButtons(List<NavBarItem> items) {
+  List<Widget> _generateNavBarButtons(List<NavBarItem> items) {
     return items
         .asMap()
         .entries
