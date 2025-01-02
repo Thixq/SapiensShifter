@@ -23,21 +23,6 @@ final class PreviewOrderCard extends StatelessWidget {
         border: Border.all(),
         borderRadius: context.border.normalBorderRadius,
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Masa 12',
-                style: context.general.textTheme.titleMedium,
-              ),
-              const Text(
-                '596₺',
-              ),
-            ],
       child: _buildContent(context),
     );
   }
@@ -86,10 +71,6 @@ final class PreviewOrderCard extends StatelessWidget {
           valueListenable: _totalPrice,
           builder: (context, value, child) => Text(
             '${value.toStringAsFixed(2)}${'price_symbol'.tr()}',
-          ),
-          const Divider(
-            color: Colors.blue,
-            thickness: 2,
           ),
         ),
       ],
