@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class ImageBuilder extends StatelessWidget {
   const ImageBuilder({
     this.imageUrl,
+    this.borderRadius = BorderRadius.zero,
     IconData? iconData,
     double? errorIconSize,
     int? imageCacheWidth,
@@ -15,12 +16,22 @@ class ImageBuilder extends StatelessWidget {
   final int _imageCacheWidth;
   final double _errorIconSize;
   final IconData _iconData;
+  final BorderRadiusGeometry borderRadius;
 
   @override
   Widget build(BuildContext context) {
     return Image.network(
+      height: 50,
+      width: 50,
       imageUrl ?? '',
       fit: BoxFit.cover,
+      frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
+        return ClipRRect(
+          borderRadius: borderRadius,
+          child: child,
+        );
+      },
+      cacheHeight: _imageCacheWidth,
       cacheWidth: _imageCacheWidth,
       loadingBuilder: (context, child, loadingProgress) {
         if (loadingProgress == null) return child;
