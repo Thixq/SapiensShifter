@@ -46,11 +46,9 @@ class DynamicChoiceChipScreen extends StatelessWidget {
   DynamicChoiceChipScreen({super.key});
 
   final Map<String, double>? options = {
-    'Normal Süt': 0,
-    'Laktozsuz Süt': 0,
-    'Badem Sütü': 17.99,
-    'Yulaf Sütü': 17.99,
-    'Hindistan Cevizi Sütü': 17.99,
+    'Single Shot': 0,
+    'Double Shot': 0,
+    'Three Shot': 17.99,
   };
 
   @override
@@ -61,6 +59,9 @@ class DynamicChoiceChipScreen extends StatelessWidget {
       ),
       body: ChoiceChipList<double>(
         options: options,
+        onSelected: (value) {
+          print('Value: $value');
+        },
       ),
     );
   }
