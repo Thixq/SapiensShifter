@@ -62,6 +62,7 @@ class DynamicChoiceChipScreen extends StatelessWidget {
         onSelected: (value) {
           print('Value: $value');
         },
+
       ),
     );
   }
