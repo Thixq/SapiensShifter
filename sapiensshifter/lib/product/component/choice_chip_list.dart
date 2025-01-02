@@ -3,7 +3,7 @@ import 'package:sapiensshifter/product/component/custom_choice_chip.dart';
 
 class ChoiceChipList<T> extends StatelessWidget {
   ChoiceChipList({
-    required this.options,
+    this.options,
     this.defaultValue,
     super.key,
     this.onSelected,
@@ -11,14 +11,15 @@ class ChoiceChipList<T> extends StatelessWidget {
   final Map<String, T>? options;
   final MapEntry<String, T>? defaultValue;
   final ValueChanged<MapEntry<String, T>>? onSelected;
-  late ValueNotifier<MapEntry<String, T>?>? selectEntry =
+  late final ValueNotifier<MapEntry<String, T>?>? selectEntry =
       ValueNotifier(defaultValue ?? options?.entries.first);
 
   @override
   Widget build(BuildContext context) {
-    if (options == null && options!.isEmpty || selectEntry?.value == null) {
+    if ((options == null || options!.isEmpty) || selectEntry?.value == null) {
       return const SizedBox.shrink();
     }
+    onSelected?.call(selectEntry!.value!);
     return ValueListenableBuilder(
       valueListenable: selectEntry!,
       builder: (context, value, child) {
@@ -31,7 +32,7 @@ class ChoiceChipList<T> extends StatelessWidget {
               return CustomChoiceChip<T>(
                 onSelected: (value) {
                   selectEntry!.value = value;
-                  print(selectEntry?.value);
+                  onSelected?.call(value);
                 },
                 titleAndValue: options!.entries.toList()[index],
                 isSelected:
