@@ -11,19 +11,12 @@ final class CustomCircleAvatar extends StatelessWidget {
   final IconData fallbackIcon;
   final double radius;
 
-  // TODO(kaan): Placeholder url olayına bak.
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: radius,
-      foregroundImage: NetworkImage(
-        imageUrl ?? '',
-      ),
-      onForegroundImageError: (e, __) {
-        // TODO(kaan): exception ekle.
-        debugPrint('Failed to load avatar image: $e');
-      },
-      child: Icon(fallbackIcon),
+      foregroundImage: imageUrl != null ? NetworkImage(imageUrl!) : null,
+      child: const Icon(Icons.image_not_supported_rounded),
     );
   }
 }

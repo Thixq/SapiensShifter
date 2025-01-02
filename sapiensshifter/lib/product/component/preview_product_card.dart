@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/ui/image_builder.dart';
 
 final class PreviewProductCard extends StatelessWidget {
   const PreviewProductCard({
@@ -54,23 +55,10 @@ final class PreviewProductCard extends StatelessWidget {
       borderRadius: context.border.normalBorderRadius,
       child: AspectRatio(
         aspectRatio: _imageAspectRatio,
-        // TODO(kaan): Image Builder oluştur.
-        child: Image.network(
-          imageUrl,
-          fit: BoxFit.cover,
-          cacheWidth: _imageCacheWidth, // Daha standart bir çözünürlük
-          loadingBuilder: (context, child, loadingProgress) {
-            if (loadingProgress == null) return child;
-            return const Center(child: CircularProgressIndicator.adaptive());
-          },
-          errorBuilder: (context, error, stackTrace) {
-            return Center(
-              child: Icon(
-                Icons.image_not_supported_rounded,
-                size: _errorIconSize,
-              ),
-            );
-          },
+        child: ImageBuilder(
+          imageUrl: imageUrl,
+          imageCacheWidth: _imageCacheWidth,
+          errorIconSize: _errorIconSize,
         ),
       ),
     );

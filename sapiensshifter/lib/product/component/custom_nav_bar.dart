@@ -5,8 +5,13 @@ import 'package:sapiensshifter/product/models/nav_bar_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 final class CustomNavBar extends StatefulWidget {
-  const CustomNavBar({required this.items, super.key});
+  const CustomNavBar({
+    required this.items,
+    this.initalIndex = 0,
+    super.key,
+  });
   final List<NavBarItem> items;
+  final int initalIndex;
 
   @override
   State<CustomNavBar> createState() => _CustomNavBarState();
@@ -14,13 +19,19 @@ final class CustomNavBar extends StatefulWidget {
 
 class _CustomNavBarState extends State<CustomNavBar> {
   // TODO(kaan): RiverPod ile currentIndexi ayarla.
-  int _currentIndex = 1;
+  late int _currentIndex;
 
   final double _blurCount = 10;
   final double _navBarWidth = 70.w;
   final Color _decorationColor = Colors.black.withValues(alpha: .2);
   late final Color _isSelectedColor;
   final Color _unSelectedColor = Colors.white60.withValues(alpha: .5);
+
+  @override
+  void initState() {
+    _currentIndex = widget.initalIndex;
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
