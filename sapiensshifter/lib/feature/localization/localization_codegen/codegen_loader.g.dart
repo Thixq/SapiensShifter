@@ -21,6 +21,11 @@ class CodegenLoader extends AssetLoader {
       "drop_down_default": "Seçiniz",
       "drop_down_extra": "Extra Seçiniz",
     },
+    "order_info_bottom_sheet": {
+      "table_delete": "Masayı Sil",
+      "new_order": "Ürün Ekle",
+      "total": "Toplam: ",
+    },
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {"tr": tr};
 }

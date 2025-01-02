@@ -4,16 +4,18 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/component
 class SeparatorColumn<T extends Widget> extends StatelessWidget {
   SeparatorColumn({
     this.onListChanged,
-    this.widgets,
+    this.children,
     this.separator,
+    this.isDismissible = false,
     super.key,
   });
 
-  final List<T>? widgets;
+  final List<T>? children;
   final Widget? separator;
+  final bool isDismissible;
   final ValueChanged<List<T>>? onListChanged;
   late final ValueNotifier<List<T>> dynamicList =
-      ValueNotifier<List<T>>(widgets ?? []);
+      ValueNotifier<List<T>>(children ?? []);
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +28,12 @@ class SeparatorColumn<T extends Widget> extends StatelessWidget {
   }
 
   List<Widget> _addWidget(BuildContext context) {
-    if (widgets == null || widgets!.isEmpty) {
-      return widgets ?? [];
+    if (children == null || children!.isEmpty) {
+      return children ?? [];
     }
     final dismissibleWidgets = _dismissibleObjectConvert(context);
-    return _insertSeparators(dismissibleWidgets);
+    final widgets = _widgetList(context);
+    return _insertSeparators(isDismissible ? dismissibleWidgets : widgets);
   }
 
   List<Widget> _dismissibleObjectConvert(BuildContext context) {
@@ -47,6 +50,16 @@ class SeparatorColumn<T extends Widget> extends StatelessWidget {
           background: _buildDismissibleBackground(context),
           child: dynamicList.value[index],
         );
+      },
+    );
+    return dismissibleWidgets;
+  }
+
+  List<Widget> _widgetList(BuildContext context) {
+    final dismissibleWidgets = List<Widget>.generate(
+      dynamicList.value.length,
+      (index) {
+        return dynamicList.value[index];
       },
     );
     return dismissibleWidgets;
