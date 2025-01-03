@@ -32,9 +32,7 @@ class OrderInfoBottomSheet extends StatelessWidget {
 
   SeparatorColumn<Widget> _buildContent(BuildContext context) {
     return SeparatorColumn<Widget>(
-      separator: SizedBox(
-        height: context.sized.lowValue,
-      ),
+      separator: context.sized.emptySizedHeightBoxLow,
       children: [
         _buildTitle(context),
         _buildDeleteOrNew(context),
@@ -55,55 +53,60 @@ class OrderInfoBottomSheet extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: FilledButton(
-            style: ButtonStyle(
-              padding: WidgetStatePropertyAll(
-                context.padding.low,
-              ),
-              shape: const WidgetStatePropertyAll(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(12),
-                    topLeft: Radius.circular(12),
-                  ),
-                ),
-              ),
+          child: _buildOptionButton(
+            context,
+            // TODO(kaan): masa silme ve yeni ürün ekleme fonksiyonları ekle.
+            onPress: () {},
+            borderRadius: BorderRadius.only(
+              bottomLeft: context.border.normalRadius,
+              topLeft: context.border.normalRadius,
             ),
-            onPressed: () {},
-            child: Text(
-              LocaleKeys.order_info_bottom_sheet_table_delete.tr(),
-            ),
+            color: context.general.colorScheme.primary,
           ),
         ),
         Expanded(
-          child: FilledButton(
-            style: ButtonStyle(
-              backgroundColor: const WidgetStatePropertyAll(Colors.blue),
-              padding: WidgetStatePropertyAll(
-                context.padding.low,
-              ),
-              shape: const WidgetStatePropertyAll(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(12),
-                    topRight: Radius.circular(12),
-                  ),
-                ),
-              ),
+          child: _buildOptionButton(
+            context,
+            onPress: () {},
+            borderRadius: BorderRadius.only(
+              bottomRight: context.border.normalRadius,
+              topRight: context.border.normalRadius,
             ),
-            onPressed: () {},
-            child: Text(
-              LocaleKeys.order_info_bottom_sheet_new_order.tr(),
-            ),
+            color: Colors.blue,
           ),
         ),
       ],
     );
   }
 
+  FilledButton _buildOptionButton(
+    BuildContext context, {
+    required VoidCallback onPress,
+    required BorderRadius borderRadius,
+    required Color color,
+  }) {
+    return FilledButton(
+      style: ButtonStyle(
+        backgroundColor: WidgetStatePropertyAll(color),
+        padding: WidgetStatePropertyAll(
+          context.padding.low,
+        ),
+        shape: WidgetStatePropertyAll(
+          RoundedRectangleBorder(
+            borderRadius: borderRadius,
+          ),
+        ),
+      ),
+      onPressed: onPress,
+      child: Text(
+        LocaleKeys.order_info_bottom_sheet_new_order.tr(),
+      ),
+    );
+  }
+
   SizedBox _buildOrderList() {
     return SizedBox(
-      height: 200,
+      height: 20.h,
       child: ListView.separated(
         itemCount: tableModel?.orderList?.length ?? 0,
         itemBuilder: (context, index) => Row(
@@ -116,9 +119,8 @@ class OrderInfoBottomSheet extends StatelessWidget {
             Text(tableModel?.orderList?[index].orderName ?? _nullOrderName),
           ],
         ),
-        separatorBuilder: (context, index) => const SizedBox(
-          height: 10,
-        ),
+        separatorBuilder: (context, index) =>
+            context.sized.emptySizedHeightBoxLow,
       ),
     );
   }
@@ -128,7 +130,12 @@ class OrderInfoBottomSheet extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: Text(
         // ignore: lines_longer_than_80_chars
-        '${LocaleKeys.order_info_bottom_sheet_total.tr()}${tableModel?.totalPrice?.toStringAsFixed(2) ?? _nullPrice}${LocaleKeys.price_symbol.tr()}',
+        LocaleKeys.order_info_bottom_sheet_total.tr(
+          namedArgs: {
+            'price':
+                '${tableModel?.totalPrice?.toStringAsFixed(2) ?? _nullPrice}',
+          },
+        ),
       ),
     );
   }
