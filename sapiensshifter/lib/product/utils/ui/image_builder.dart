@@ -4,18 +4,16 @@ class ImageBuilder extends StatelessWidget {
   const ImageBuilder({
     this.imageUrl,
     this.borderRadius = BorderRadius.zero,
-    IconData? iconData,
-    double? errorIconSize,
-    int? imageCacheWidth,
+    this.iconData = Icons.image_not_supported_rounded,
+    this.errorIconSize = 48,
+    this.imageCacheWidth = 480,
     super.key,
-  })  : _imageCacheWidth = imageCacheWidth ?? 480,
-        _errorIconSize = errorIconSize ?? 48,
-        _iconData = iconData ?? Icons.image_not_supported_rounded;
+  });
 
   final String? imageUrl;
-  final int _imageCacheWidth;
-  final double _errorIconSize;
-  final IconData _iconData;
+  final int imageCacheWidth;
+  final double errorIconSize;
+  final IconData iconData;
   final BorderRadiusGeometry borderRadius;
 
   @override
@@ -31,8 +29,8 @@ class ImageBuilder extends StatelessWidget {
           child: child,
         );
       },
-      cacheHeight: _imageCacheWidth,
-      cacheWidth: _imageCacheWidth,
+      cacheHeight: imageCacheWidth,
+      cacheWidth: imageCacheWidth,
       loadingBuilder: (context, child, loadingProgress) {
         if (loadingProgress == null) return child;
         return const Center(child: CircularProgressIndicator.adaptive());
@@ -40,8 +38,8 @@ class ImageBuilder extends StatelessWidget {
       errorBuilder: (context, error, stackTrace) {
         return Center(
           child: Icon(
-            _iconData,
-            size: _errorIconSize,
+            iconData,
+            size: errorIconSize,
           ),
         );
       },

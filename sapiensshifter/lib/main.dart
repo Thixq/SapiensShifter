@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/localization/localization.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
-import 'package:sapiensshifter/product/models/people.dart';
-import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/new_chat_bottom_sheet.dart';
+import 'package:sapiensshifter/product/component/price_editing_card.dart';
+import 'package:sapiensshifter/product/models/product_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 void main() async {
@@ -37,6 +37,20 @@ class Thix extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: PriceEditingCard(
+            productModel: ProductModel(
+              price: 10,
+              productName: 'Caffee Latte',
+              imagePath: ''.ext.randomImage,
+            ),
+            increase: 10,
+          ),
+        ),
+      ),
+    );
   }
 }
