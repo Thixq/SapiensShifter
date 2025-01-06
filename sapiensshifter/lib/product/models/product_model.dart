@@ -1,4 +1,5 @@
-class ProductModel {
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+final class ProductModel {
   ProductModel({
     this.id,
     this.productName,
@@ -17,4 +18,9 @@ class ProductModel {
   final String? category;
   // TODO(kaan): Extra modelini ekle.
   final List<String>? extrasList;
+
+  @override
+  String toString() {
+    return 'ProductModel(id: $id, productName: $productName, description: $description, imagePath: $imagePath, price: $price, category: $category, extrasList: $extrasList)';
+  }
 }

@@ -32,22 +32,62 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Thix extends StatelessWidget {
+class Thix extends StatefulWidget {
   const Thix({super.key});
 
+  @override
+  State<Thix> createState() => _ThixState();
+}
+
+class _ThixState extends State<Thix> {
+  final productlist = [
+    ProductModel(
+      price: 10,
+      productName: 'Caffee Latte',
+      imagePath: ''.ext.randomImage,
+    ),
+    ProductModel(
+      price: 20,
+      productName: 'Caffee Latte',
+      imagePath: ''.ext.randomImage,
+    ),
+    ProductModel(
+      price: 10,
+      productName: 'Caffee Latte',
+      imagePath: ''.ext.randomImage,
+    ),
+    ProductModel(
+      price: 10,
+      productName: 'Caffee Latte',
+      imagePath: ''.ext.randomImage,
+    ),
+  ];
+  final List<ProductModel> selectList = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(8),
-          child: PriceEditingCard(
-            productModel: ProductModel(
-              price: 10,
-              productName: 'Caffee Latte',
-              imagePath: ''.ext.randomImage,
-            ),
-            increase: 10,
+          child: ListView(
+            children: productlist.map(
+              (productModel) {
+                return PriceEditingCard(
+                  productModel: productModel,
+                  onPress: (productModel, isSelect) {
+                    if (!selectList.contains(productModel)) {
+                      selectList.add(productModel);
+                      isSelect.value = true;
+                    } else {
+                      selectList.remove(productModel);
+                      isSelect.value = false;
+                    }
+
+                    print('SelectList: $selectList');
+                  },
+                );
+              },
+            ).toList(),
           ),
         ),
       ),
