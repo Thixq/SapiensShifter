@@ -6,6 +6,18 @@ final class ShiftDialog extends StatelessWidget {
   const ShiftDialog({this.shiftDay, super.key});
   final ShiftDay? shiftDay;
 
+  static Future<void> show(
+    BuildContext context, {
+    ShiftDay? shiftDay,
+  }) {
+    return showDialog(
+      context: context,
+      builder: (context) => ShiftDialog(
+        shiftDay: shiftDay,
+      ),
+    );
+  }
+
   String get _nullBranchText => 'Null';
   String get _nullBranchDateText => '--/--';
   String get _nullShiftTimeText => '00:00-00:00';
