@@ -1,5 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+
 extension SapiStringExtension on String? {
   _SapiStringExtension get sapiExt => _SapiStringExtension(this);
 }
@@ -21,4 +23,6 @@ final class _SapiStringExtension {
     }
     return _value;
   }
+
+  String get price_symbol => '$_value${LocaleKeys.price_symbol.tr()}';
 }
