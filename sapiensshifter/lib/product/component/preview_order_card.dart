@@ -70,7 +70,7 @@ final class PreviewOrderCard extends StatelessWidget {
         ValueListenableBuilder(
           valueListenable: _totalPrice,
           builder: (context, value, child) => Text(
-            '${value.toStringAsFixed(2)}${'price_symbol'.tr()}',
+            value.toStringAsFixed(2).sapiExt.price_symbol,
           ),
         ),
       ],
