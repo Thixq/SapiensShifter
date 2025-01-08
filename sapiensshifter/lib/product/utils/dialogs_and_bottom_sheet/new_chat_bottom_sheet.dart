@@ -4,13 +4,32 @@ import 'package:sapiensshifter/product/models/people.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 import 'package:sapiensshifter/product/utils/ui/separator_column.dart';
 
-class NewChatBottomSheet extends StatelessWidget {
-  NewChatBottomSheet({this.peopleList, super.key, this.onSelect});
+class NewChatBottomSheet extends StatefulWidget {
+  const NewChatBottomSheet({this.peopleList, super.key});
 
   final List<People>? peopleList;
+
+  static Future<People?> show(
+    BuildContext context, {
+    List<People>? peopleList,
+  }) =>
+      showModalBottomSheet<People?>(
+        backgroundColor: Colors.transparent,
+        isScrollControlled: true,
+        context: context,
+        builder: (context) => NewChatBottomSheet(
+          peopleList: peopleList,
+        ),
+      );
+
+  @override
+  State<NewChatBottomSheet> createState() => _NewChatBottomSheetState();
+}
+
+class _NewChatBottomSheetState extends State<NewChatBottomSheet> {
   final ValueNotifier<String> _searchQuery = ValueNotifier<String>('');
+
   final String _nullOrEmptyList = 'Boş Liste';
-  final ValueChanged<People>? onSelect;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +50,7 @@ class NewChatBottomSheet extends StatelessWidget {
             child: SeparatorColumn(
               separator: context.sized.emptySizedHeightBoxLow,
               children: [
-                _buildCap(context),
+                _buildNotch(context),
                 _buildSearchBar(context),
                 _buildPeopleList(),
               ],
@@ -43,7 +62,7 @@ class NewChatBottomSheet extends StatelessWidget {
   }
 
   Widget _buildPeopleList() {
-    return peopleList.ext.isNotNullOrEmpty
+    return widget.peopleList.ext.isNotNullOrEmpty
         ? ValueListenableBuilder(
             valueListenable: _searchQuery,
             builder: (context, query, child) {
@@ -58,8 +77,8 @@ class NewChatBottomSheet extends StatelessWidget {
 
   List<People> _filteredPeopleList(String query) {
     var filteredItems = <People>[];
-    if (peopleList.ext.isNotNullOrEmpty) {
-      filteredItems = peopleList!.where(
+    if (widget.peopleList.ext.isNotNullOrEmpty) {
+      filteredItems = widget.peopleList!.where(
         (item) {
           if (item.name.ext.isNotNullOrNoEmpty) {
             return item.name!.toLowerCase().contains(query.toLowerCase());
@@ -77,8 +96,7 @@ class NewChatBottomSheet extends StatelessWidget {
         itemCount: filteredItems.length,
         itemBuilder: (context, index) => MessageInfoListTile(
           onPressed: () {
-            onSelect?.call(filteredItems[index]);
-            context.route.pop();
+            context.route.pop(filteredItems[index]);
           },
           imageUrl: filteredItems[index].imagePath,
           title: filteredItems[index].name,
@@ -103,7 +121,7 @@ class NewChatBottomSheet extends StatelessWidget {
     );
   }
 
-  Container _buildCap(BuildContext context) {
+  Container _buildNotch(BuildContext context) {
     return Container(
       height: 8,
       width: 50,
