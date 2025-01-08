@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_utils_ui.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/table_export.dart';
-import 'package:sapiensshifter/product/utils/ui/image_builder.dart';
 
 class OrderInfoBottomSheet extends StatelessWidget {
   const OrderInfoBottomSheet({this.tableModel, super.key});
@@ -12,6 +11,16 @@ class OrderInfoBottomSheet extends StatelessWidget {
   String get _nullTableName => 'NullTableName';
   String get _nullOrderName => 'NullOrderName';
   double get _nullPrice => 0;
+
+  static Future<void> show(BuildContext context, {TableModel? tableModel}) =>
+      showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return OrderInfoBottomSheet(
+            tableModel: tableModel,
+          );
+        },
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +64,7 @@ class OrderInfoBottomSheet extends StatelessWidget {
         Expanded(
           child: _buildOptionButton(
             context,
+            title: LocaleKeys.order_info_bottom_sheet_table_delete.tr(),
             // TODO(kaan): masa silme ve yeni ürün ekleme fonksiyonları ekle.
             onPress: () {},
             borderRadius: BorderRadius.only(
@@ -67,6 +77,7 @@ class OrderInfoBottomSheet extends StatelessWidget {
         Expanded(
           child: _buildOptionButton(
             context,
+            title: LocaleKeys.order_info_bottom_sheet_new_order.tr(),
             onPress: () {},
             borderRadius: BorderRadius.only(
               bottomRight: context.border.normalRadius,
@@ -81,6 +92,7 @@ class OrderInfoBottomSheet extends StatelessWidget {
 
   FilledButton _buildOptionButton(
     BuildContext context, {
+    required String title,
     required VoidCallback onPress,
     required BorderRadius borderRadius,
     required Color color,
@@ -99,7 +111,7 @@ class OrderInfoBottomSheet extends StatelessWidget {
       ),
       onPressed: onPress,
       child: Text(
-        LocaleKeys.order_info_bottom_sheet_new_order.tr(),
+        title,
       ),
     );
   }
@@ -117,6 +129,17 @@ class OrderInfoBottomSheet extends StatelessWidget {
             ),
             context.sized.emptySizedWidthBoxLow3x,
             Text(tableModel?.orderList?[index].orderName ?? _nullOrderName),
+            Expanded(
+              child: Text(
+                (tableModel?.orderList?[index].price
+                            ?.toStringAsFixed(2)
+                            .padLeft(5, '0') ??
+                        '')
+                    .sapiExt
+                    .price_symbol,
+                textAlign: TextAlign.end,
+              ),
+            ),
           ],
         ),
         separatorBuilder: (context, index) =>
