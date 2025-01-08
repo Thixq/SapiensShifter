@@ -1,29 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/models/product_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
-import 'package:sapiensshifter/product/utils/ui/image_builder.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_utils_ui.dart';
 
-final class PriceEditingCard extends StatelessWidget {
-  PriceEditingCard({
+final class PriceEditingCard extends StatefulWidget {
+  const PriceEditingCard({
     required this.productModel,
     required this.onPress,
     super.key,
   });
 
   final ProductModel productModel;
-  final ValueNotifier<bool> isSelect = ValueNotifier<bool>(false);
-  final _previousPrice = ValueNotifier<double>(0);
-  final _currentPrice = ValueNotifier<double>(0);
   final void Function(ProductModel productModel, ValueNotifier<bool> isSelect)
       onPress;
 
   @override
-  Widget build(BuildContext context) {
-    _currentPrice.value = productModel.price ?? 0;
+  State<PriceEditingCard> createState() => _PriceEditingCardState();
+}
 
+class _PriceEditingCardState extends State<PriceEditingCard> {
+  final ValueNotifier<bool> isSelect = ValueNotifier<bool>(false);
+  bool hasPriceChanged = false;
+  double? _previousPrice = 0;
+  bool _isInitialPrice = true;
+
+  @override
+  void didUpdateWidget(covariant PriceEditingCard oldWidget) {
+    if (oldWidget.productModel.price != widget.productModel.price) {
+      hasPriceChanged = true;
+      if (_isInitialPrice) {
+        _previousPrice = oldWidget.productModel.price;
+        _isInitialPrice = false;
+      }
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        onPress(productModel, isSelect);
+        widget.onPress(widget.productModel, isSelect);
       },
       child: ValueListenableBuilder(
         valueListenable: isSelect,
@@ -64,34 +81,31 @@ final class PriceEditingCard extends StatelessWidget {
     return Row(
       children: [
         ImageBuilder(
-          imageUrl: productModel.imagePath,
+          imageUrl: widget.productModel.imagePath,
           borderRadius: context.border.lowBorderRadius,
         ),
         context.sized.emptySizedWidthBoxLow3x,
-        Text(productModel.productName ?? 'ProductNameNull'),
+        Text(widget.productModel.productName ?? 'ProductNameNull'),
       ],
     );
   }
 
   Widget _buildPriceInfo(BuildContext context) {
-    return ValueListenableBuilder<double>(
-      valueListenable: _currentPrice,
-      builder: (context, value, child) {
-        return Row(
-          children: [
-            Text(
-              '${_previousPrice.value.toStringAsFixed(2)}₺',
-              style: context.general.textTheme.labelSmall!
-                  .copyWith(decoration: TextDecoration.lineThrough),
-            ).ext.toVisible(value: value != productModel.price),
-            context.sized.emptySizedWidthBoxLow,
-            Text(
-              '${value.toStringAsFixed(2)}₺',
-              style: context.general.textTheme.titleMedium,
-            ),
-          ],
-        );
-      },
+    return Row(
+      children: [
+        Text(
+          '${_previousPrice?.toStringAsFixed(2) ?? 0.00}'.sapiExt.price_symbol,
+          style: context.general.textTheme.labelSmall!
+              .copyWith(decoration: TextDecoration.lineThrough),
+        ).ext.toVisible(value: hasPriceChanged),
+        context.sized.emptySizedWidthBoxLow,
+        Text(
+          '${widget.productModel.price?.toStringAsFixed(2) ?? 0.00}'
+              .sapiExt
+              .price_symbol,
+          style: context.general.textTheme.titleMedium,
+        ),
+      ],
     );
   }
 }
