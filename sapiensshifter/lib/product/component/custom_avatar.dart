@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 final class CustomCircleAvatar extends StatelessWidget {
   const CustomCircleAvatar({
@@ -15,7 +16,8 @@ final class CustomCircleAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: radius,
-      foregroundImage: imageUrl != null ? NetworkImage(imageUrl!) : null,
+      foregroundImage:
+          imageUrl.ext.isNotNullOrNoEmpty ? NetworkImage(imageUrl!) : null,
       child: const Icon(Icons.image_not_supported_rounded),
     );
   }
