@@ -1,5 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -24,7 +27,7 @@ void main() {
         operations: Operations.PLUS,
         value: 40,
       );
-      print(result);
+      log(result.toString());
     },
   );
 }
@@ -56,8 +59,9 @@ enum Operations { PLUS, MULTIPLICATION }
 
 // ignore: one_member_abstracts
 
-class Model {
-  Model({required this.id, required this.name, required this.price});
+@immutable
+final class Model {
+  const Model({required this.id, required this.name, required this.price});
 
   final String id;
   final String name;

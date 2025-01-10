@@ -19,11 +19,6 @@ final class ProductModel {
   // TODO(kaan): Extra modelini ekle.
   final List<String>? extrasList;
 
-  @override
-  String toString() {
-    return 'ProductModel(id: $id, productName: $productName, description: $description, imagePath: $imagePath, price: $price, category: $category, extrasList: $extrasList)';
-  }
-
   ProductModel copyWith({
     String? id,
     String? productName,
@@ -42,12 +37,5 @@ final class ProductModel {
       category: category ?? this.category,
       extrasList: extrasList ?? this.extrasList,
     );
-  }
-
-  @override
-  bool operator ==(covariant ProductModel other) {
-    if (identical(this, other)) return true;
-
-    return other.id == id;
   }
 }

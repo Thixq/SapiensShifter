@@ -8,9 +8,9 @@ class OrderInfoBottomSheet extends StatelessWidget {
 
   final TableModel? tableModel;
 
-  String get _nullTableName => 'NullTableName';
-  String get _nullOrderName => 'NullOrderName';
-  double get _nullPrice => 0;
+  String get _nullTableName => StringConstant.nullString.tr();
+  String get _nullOrderName => StringConstant.nullString.tr();
+  String get _nullPrice => StringConstant.nullDouble.tr();
 
   static Future<void> show(BuildContext context, {TableModel? tableModel}) =>
       showModalBottomSheet(
@@ -131,12 +131,11 @@ class OrderInfoBottomSheet extends StatelessWidget {
             Text(tableModel?.orderList?[index].orderName ?? _nullOrderName),
             Expanded(
               child: Text(
-                (tableModel?.orderList?[index].price
-                            ?.toStringAsFixed(2)
-                            .padLeft(5, '0') ??
-                        '')
+                (tableModel?.orderList?[index].price?.sapiDoubleExt
+                            .priceFraction ??
+                        _nullPrice)
                     .sapiExt
-                    .price_symbol,
+                    .priceSymbol,
                 textAlign: TextAlign.end,
               ),
             ),
@@ -152,11 +151,10 @@ class OrderInfoBottomSheet extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: Text(
-        // ignore: lines_longer_than_80_chars
         LocaleKeys.order_info_bottom_sheet_total.tr(
           namedArgs: {
-            'price':
-                '${tableModel?.totalPrice?.toStringAsFixed(2) ?? _nullPrice}',
+            'price': tableModel?.totalPrice?.sapiDoubleExt.priceFraction ??
+                _nullPrice,
           },
         ),
       ),

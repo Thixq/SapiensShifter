@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:sapiensshifter/product/models/product_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 import 'package:sapiensshifter/product/utils/ui/image_builder.dart';
 
 final class PreviewProductCard extends StatelessWidget {
   const PreviewProductCard({
     required this.onPressed,
-    required this.imageUrl,
-    required this.productName,
-    required this.productId,
-    required this.price,
+    this.productModel,
     super.key,
   });
-// TODO(kaan): Product model ekle.
-  final void Function(String productId) onPressed;
-  final String imageUrl;
-  final String productName;
-  final String productId;
-  final double price;
+  final void Function(String? productId) onPressed;
+  final ProductModel? productModel;
 
   Color get _cardColor => Colors.white;
   double get _cardElevation => 3;
@@ -24,6 +18,9 @@ final class PreviewProductCard extends StatelessWidget {
   double get _imageAspectRatio => 1.21;
   double get _errorIconSize => 48;
   int get _productMaxCharacter => 24;
+
+  String get _nullProductName => StringConstant.nullString.tr();
+  String get _nullPrice => StringConstant.nullDouble.tr();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +32,7 @@ final class PreviewProductCard extends StatelessWidget {
       ),
       child: InkWell(
         borderRadius: context.border.normalBorderRadius,
-        onTap: () => onPressed(productId),
+        onTap: () => onPressed(productModel?.id),
         child: Padding(
           padding: context.padding.low,
           child: Column(
@@ -56,7 +53,7 @@ final class PreviewProductCard extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: _imageAspectRatio,
         child: ImageBuilder(
-          imageUrl: imageUrl,
+          imageUrl: productModel?.imagePath,
           imageCacheWidth: _imageCacheWidth,
           errorIconSize: _errorIconSize,
         ),
@@ -72,14 +69,17 @@ final class PreviewProductCard extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              productName.sapiExt.maxCharacter(_productMaxCharacter) ??
-                  'productNameNull',
+              productModel?.productName.sapiExt
+                      .maxCharacter(_productMaxCharacter) ??
+                  _nullProductName,
               style: context.general.textTheme.titleSmall,
               overflow: TextOverflow.ellipsis,
             ),
           ),
           Text(
-            price.toStringAsFixed(2).sapiExt.price_symbol,
+            (productModel?.price?.sapiDoubleExt.priceFraction ?? _nullPrice)
+                .sapiExt
+                .priceSymbol,
             style: context.general.textTheme.labelSmall,
           ),
         ],

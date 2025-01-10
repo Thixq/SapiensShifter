@@ -13,7 +13,7 @@ final class PreviewOrderCard extends StatelessWidget {
   late final ValueNotifier<double> _totalPrice =
       ValueNotifier<double>(tableModel?.totalPrice ?? 0);
 
-  String get _nullTableName => 'TableNameNull';
+  String get _nullTableName => StringConstant.nullString.tr();
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ final class PreviewOrderCard extends StatelessWidget {
         ValueListenableBuilder(
           valueListenable: _totalPrice,
           builder: (context, value, child) => Text(
-            value.toStringAsFixed(2).sapiExt.price_symbol,
+            value.sapiDoubleExt.priceFraction.sapiExt.priceSymbol,
           ),
         ),
       ],

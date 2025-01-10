@@ -6,7 +6,7 @@ import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart' show AssetLoader;
 
-class CodegenLoader extends AssetLoader{
+class CodegenLoader extends AssetLoader {
   const CodegenLoader();
 
   @override
@@ -18,14 +18,19 @@ class CodegenLoader extends AssetLoader{
     "price_symbol": "₺",
     "confirm": "Onayla",
     "delete": "Sil",
+    "empty_items": "Boş Liste",
     "drop_down": {
       "drop_down_default": "Seçiniz",
-      "drop_down_extra": "Extra Seçiniz",
+      "drop_down_extra": "Ekstra Seçiniz",
     },
     "order_info_bottom_sheet": {
       "table_delete": "Masayı Sil",
       "new_order": "Ürün Ekle",
-      "total": "Toplam: ",
+      "total": "Toplam: {price}₺",
+    },
+    "null_value": {
+      "null_name": "Eksik Ve Hatalı",
+      "null_double": "00.00",
     },
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {"tr": tr};

@@ -20,6 +20,7 @@ class SeparatorColumn<T extends Widget> extends StatelessWidget {
 
   void _selecetItemDelete(int index) {
     dynamicList.value = List.from(dynamicList.value)..removeAt(index);
+    onListChanged?.call(dynamicList.value);
   }
 
   @override
@@ -47,47 +48,51 @@ class SeparatorColumn<T extends Widget> extends StatelessWidget {
       (index) {
         return Slidable(
           key: UniqueKey(),
-          endActionPane: ActionPane(
-            motion: const StretchMotion(),
-            dismissible: DismissiblePane(
-              onDismissed: () {
-                _selecetItemDelete(index);
-              },
-            ),
-            children: [
-              CustomSlidableAction(
-                onPressed: (BuildContext context) {
-                  _selecetItemDelete(index);
-                },
-                backgroundColor: context.general.colorScheme.primary,
-                foregroundColor: Colors.white,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  bottomLeft: Radius.circular(12),
-                ),
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Icon(
-                        Icons.delete,
-                        color: Colors.white,
-                      ),
-                      Text(
-                        LocaleKeys.delete.tr(),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+          endActionPane: _buildAction(index, context),
           child: dynamicList.value[index],
         );
       },
     );
     return dismissibleWidgets;
+  }
+
+  ActionPane _buildAction(int index, BuildContext context) {
+    return ActionPane(
+      motion: const StretchMotion(),
+      dismissible: DismissiblePane(
+        onDismissed: () {
+          _selecetItemDelete(index);
+        },
+      ),
+      children: [
+        CustomSlidableAction(
+          onPressed: (BuildContext context) {
+            _selecetItemDelete(index);
+          },
+          backgroundColor: context.general.colorScheme.primary,
+          foregroundColor: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: context.border.normalRadius,
+            bottomLeft: context.border.normalRadius,
+          ),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                ),
+                Text(
+                  LocaleKeys.delete.tr(),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   List<Widget> _widgetList(BuildContext context) {
