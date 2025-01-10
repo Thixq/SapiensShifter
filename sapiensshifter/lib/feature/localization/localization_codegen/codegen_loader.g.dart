@@ -14,18 +14,19 @@ class CodegenLoader extends AssetLoader{
     return Future.value(mapLocales[locale.toString()]);
   }
 
-  static const Map<String,dynamic> tr = {
-  "price_symbol": "₺",
-  "confirm": "Onayla",
-  "drop_down": {
-    "drop_down_default": "Seçiniz",
-    "drop_down_extra": "Extra Seçiniz"
-  },
-  "order_info_bottom_sheet": {
-    "table_delete": "Masayı Sil",
-    "new_order": "Ürün Ekle",
-    "total": "Toplam: {price}₺"
-  }
-};
-static const Map<String, Map<String,dynamic>> mapLocales = {"tr": tr};
+  static const Map<String, dynamic> tr = {
+    "price_symbol": "₺",
+    "confirm": "Onayla",
+    "delete": "Sil",
+    "drop_down": {
+      "drop_down_default": "Seçiniz",
+      "drop_down_extra": "Extra Seçiniz",
+    },
+    "order_info_bottom_sheet": {
+      "table_delete": "Masayı Sil",
+      "new_order": "Ürün Ekle",
+      "total": "Toplam: ",
+    },
+  };
+  static const Map<String, Map<String, dynamic>> mapLocales = {"tr": tr};
 }

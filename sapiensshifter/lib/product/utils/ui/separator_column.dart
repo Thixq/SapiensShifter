@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 class SeparatorColumn<T extends Widget> extends StatelessWidget {
@@ -16,6 +17,10 @@ class SeparatorColumn<T extends Widget> extends StatelessWidget {
   final ValueChanged<List<T>>? onListChanged;
   late final ValueNotifier<List<T>> dynamicList =
       ValueNotifier<List<T>>(children ?? []);
+
+  void _selecetItemDelete(int index) {
+    dynamicList.value = List.from(dynamicList.value)..removeAt(index);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,14 +45,44 @@ class SeparatorColumn<T extends Widget> extends StatelessWidget {
     final dismissibleWidgets = List<Widget>.generate(
       dynamicList.value.length,
       (index) {
-        return Dismissible(
+        return Slidable(
           key: UniqueKey(),
-          direction: DismissDirection.endToStart,
-          onDismissed: (direction) {
-            dynamicList.value = List.from(dynamicList.value)..removeAt(index);
-            onListChanged?.call(dynamicList.value);
-          },
-          background: _buildDismissibleBackground(context),
+          endActionPane: ActionPane(
+            motion: const StretchMotion(),
+            dismissible: DismissiblePane(
+              onDismissed: () {
+                _selecetItemDelete(index);
+              },
+            ),
+            children: [
+              CustomSlidableAction(
+                onPressed: (BuildContext context) {
+                  _selecetItemDelete(index);
+                },
+                backgroundColor: context.general.colorScheme.primary,
+                foregroundColor: Colors.white,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  bottomLeft: Radius.circular(12),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.delete,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        LocaleKeys.delete.tr(),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
           child: dynamicList.value[index],
         );
       },
@@ -63,21 +98,6 @@ class SeparatorColumn<T extends Widget> extends StatelessWidget {
       },
     );
     return dismissibleWidgets;
-  }
-
-  Container _buildDismissibleBackground(BuildContext context) {
-    return Container(
-      padding: context.padding.medium,
-      decoration: BoxDecoration(
-        color: context.general.colorScheme.primary,
-        borderRadius: context.border.normalBorderRadius,
-      ),
-      alignment: Alignment.centerRight,
-      child: const Icon(
-        Icons.delete,
-        color: Colors.white,
-      ),
-    );
   }
 
   List<Widget> _insertSeparators(List<Widget> items) {
