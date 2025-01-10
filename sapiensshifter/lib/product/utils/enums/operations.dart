@@ -1,0 +1,1 @@
+enum Operations { PLUS, MULTIPLICATION }

@@ -6,7 +6,7 @@ import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart' show AssetLoader;
 
-class CodegenLoader extends AssetLoader {
+class CodegenLoader extends AssetLoader{
   const CodegenLoader();
 
   @override

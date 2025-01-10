@@ -72,7 +72,7 @@ final class PreviewTableCard extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: 1,
       child: Text(
-        '${tableModel?.totalPrice ?? '--'}${'price_symbol'.tr()}',
+        '${tableModel?.totalPrice ?? '--'}'.sapiExt.price_symbol,
         textAlign: TextAlign.right,
       ),
     );

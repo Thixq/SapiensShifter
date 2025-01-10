@@ -79,7 +79,7 @@ final class PreviewProductCard extends StatelessWidget {
             ),
           ),
           Text(
-            '${price.toStringAsFixed(2)}${LocaleKeys.price_symbol.tr()}',
+            price.toStringAsFixed(2).sapiExt.price_symbol,
             style: context.general.textTheme.labelSmall,
           ),
         ],
