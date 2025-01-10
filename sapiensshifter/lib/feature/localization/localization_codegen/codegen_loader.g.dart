@@ -17,6 +17,7 @@ class CodegenLoader extends AssetLoader {
   static const Map<String, dynamic> tr = {
     "price_symbol": "₺",
     "confirm": "Onayla",
+    "delete": "Sil",
     "drop_down": {
       "drop_down_default": "Seçiniz",
       "drop_down_extra": "Extra Seçiniz",
