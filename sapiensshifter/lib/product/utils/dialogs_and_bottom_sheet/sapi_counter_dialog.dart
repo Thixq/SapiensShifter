@@ -3,14 +3,20 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/component
 
 class SapiCounterDialog extends StatefulWidget {
   const SapiCounterDialog({
-    required this.titleName,
-    required this.buttonText,
-    required this.onPressed,
+    this.titleName,
     super.key,
   });
-  final String titleName;
-  final String buttonText;
-  final void Function(int value) onPressed;
+  final String? titleName;
+
+  static Future<int?> show(BuildContext context, {String? titleName}) =>
+      showDialog(
+        context: context,
+        builder: (context) {
+          return SapiCounterDialog(
+            titleName: titleName,
+          );
+        },
+      );
 
   @override
   State<SapiCounterDialog> createState() => _SapiCounterDialogState();
@@ -44,7 +50,7 @@ class _SapiCounterDialogState extends State<SapiCounterDialog> {
               context.sized.emptySizedHeightBoxLow3x,
               _buildPeopleCount(context, _count),
               context.sized.emptySizedHeightBoxLow3x,
-              _buildPeopleCountButton(context, widget.onPressed),
+              _buildPeopleCountButton(context),
             ],
           ),
         ),
@@ -54,17 +60,15 @@ class _SapiCounterDialogState extends State<SapiCounterDialog> {
 
   Align _buildPeopleCountButton(
     BuildContext context,
-    void Function(int peopleCount) onPreesed,
   ) {
     return Align(
       alignment: Alignment.centerRight,
       child: FilledButton.tonal(
         onPressed: () {
-          onPreesed(_count);
-          context.route.pop();
+          context.route.pop(_count);
         },
         child: Text(
-          widget.buttonText,
+          LocaleKeys.confirm.tr(),
           style: _buttonTextStyle,
         ),
       ),
@@ -114,7 +118,7 @@ class _SapiCounterDialogState extends State<SapiCounterDialog> {
   }
 
   Text get title => Text(
-        widget.titleName,
+        widget.titleName ?? 'Null',
         style: _titleTextStyle,
       );
 }

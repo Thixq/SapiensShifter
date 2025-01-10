@@ -97,7 +97,7 @@ final class OrderCard extends StatelessWidget {
 
   Text _buildPrice(BuildContext context) {
     return Text(
-      '${orderModel?.price ?? _nullPrice}${'price_symbol'.tr()}',
+      '${orderModel?.price ?? _nullPrice}'.sapiExt.price_symbol,
       style: context.general.textTheme.labelSmall,
     );
   }
