@@ -18,6 +18,7 @@ class SvgAssetBuilder extends SvgBuilder {
     try {
       return await rootBundle.loadString(path);
     } catch (e) {
+      // TODO(kaan): Custom exception ekle.
       throw Exception(e);
     }
   }
