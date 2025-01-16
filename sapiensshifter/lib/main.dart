@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/localization/localization.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
-import 'package:sapiensshifter/product/component/preview_order_card.dart';
-import 'package:sapiensshifter/product/models/order_model.dart';
-import 'package:sapiensshifter/product/utils/enums/delivery_status.dart';
+import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/new_price_editing_dialog.dart';
+
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/table_export.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,22 +43,14 @@ class _ThixState extends State<Thix> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: PreviewOrderCard(
-          tableModel: TableModel(
-            tableName: 'Masa 12',
-            orderList: List.generate(
-              4,
-              (index) => OrderModel(
-                deliveryStatus: DeliveryStatus.HERE_IN,
-                imagePath: ''.ext.randomImage,
-                extras: ['eXtRa LaRgE cOfFeE pLs!!!'],
-                price: 1,
-                orderName: 'Coffee Latte',
-              ),
-            ),
-          ),
-        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          NewPriceEditingDialog.show(
+            context,
+            initalPrice: 12.34,
+            title: 'Masa 12',
+          );
+        },
       ),
     );
   }
