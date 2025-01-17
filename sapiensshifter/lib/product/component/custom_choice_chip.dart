@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
-class CustomChoiceChip<T> extends StatelessWidget {
+final class CustomChoiceChip<T> extends StatelessWidget {
   const CustomChoiceChip({
     required this.isSelected,
     required this.onSelected,
