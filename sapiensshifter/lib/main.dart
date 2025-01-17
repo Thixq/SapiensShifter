@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/localization/localization.dart';
+import 'package:sapiensshifter/feature/storage/shared_preferences/shared_preferences_service.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
-import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/new_price_editing_dialog.dart';
 
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
@@ -42,16 +42,6 @@ class Thix extends StatefulWidget {
 class _ThixState extends State<Thix> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          NewPriceEditingDialog.show(
-            context,
-            initalPrice: 12.34,
-            title: 'Masa 12',
-          );
-        },
-      ),
-    );
+    return const Scaffold();
   }
 }

@@ -36,6 +36,11 @@ dependencies:
   sizer: ^3.0.5
   flutter_svg: ^2.0.16
   kartal: ^4.1.0
+  equatable: ^2.0.7
+  json_annotation: ^4.9.0
+
+  #Local Storage
+  shared_preferences: ^2.3.5
 
   #UI
   animated_custom_dropdown: ^3.1.1
@@ -52,7 +57,15 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  #Analysis
   very_good_analysis: ^6.0.0
+
+  #Generator
+  build_runner: ^2.3.3
+  json_serializable: ^6.8.0
+
+  #Test
+  mockito: ^5.4.5
 
 
 flutter:
