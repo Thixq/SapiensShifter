@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/localization/localization.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
-
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 void main() async {
