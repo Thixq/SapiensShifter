@@ -39,6 +39,9 @@ dependencies:
   equatable: ^2.0.7
   json_annotation: ^4.9.0
 
+  #Network
+  http: ^1.2.2
+
   #Local Storage
   shared_preferences: ^2.3.5
 
