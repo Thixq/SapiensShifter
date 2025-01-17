@@ -1,10 +1,19 @@
-class People {
-  People({
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:sapiensshifter/product/interface/interface_model/i_base_model.dart';
+
+part 'people.g.dart';
+
+@JsonSerializable(checked: true)
+final class People extends Equatable implements IBaseModel {
+  const People({
     this.id,
     this.name,
     this.email,
     this.imagePath,
   });
+
+  factory People.fromJson(Map<String, dynamic> json) => _$PeopleFromJson(json);
 
   final String? id;
   final String? name;
@@ -12,8 +21,11 @@ class People {
   final String? imagePath;
 
   @override
-  String toString() {
-    // TODO: implement toString
-    return 'Id: $id, Name: $name, E-Mail: $email';
-  }
+  List<Object?> get props => [id, name, email, imagePath];
+
+  @override
+  People fromJson(Map<String, dynamic> json) => _$PeopleFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$PeopleToJson(this);
 }

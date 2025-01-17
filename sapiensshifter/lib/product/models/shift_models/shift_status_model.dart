@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' show Color, IconData;
 
-class ShiftStatus {
-  ShiftStatus({
+final class ShiftStatus {
+  const ShiftStatus({
     this.statusColor,
     this.statusIcon,
     this.statusTime,

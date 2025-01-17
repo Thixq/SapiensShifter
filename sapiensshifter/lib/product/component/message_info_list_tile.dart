@@ -8,14 +8,12 @@ final class MessageInfoListTile extends StatelessWidget {
     this.imageUrl,
     this.title,
     this.subTitle,
-    this.onErrorIcon,
     super.key,
   });
 
   final String? imageUrl;
   final String? title;
   final String? subTitle;
-  final IconData? onErrorIcon;
   final VoidCallback onPressed;
 
   @override

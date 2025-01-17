@@ -11,6 +11,8 @@ final class PreviewTableCard extends StatelessWidget {
   final TableModel? tableModel;
 
   int get _maxCharacter => 10;
+  String get _nullDash => '--';
+  String get _nullTimeDash => '--:--';
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +51,12 @@ final class PreviewTableCard extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          tableModel?.tableName.sapiExt.maxCharacter(_maxCharacter) ?? '--',
+          tableModel?.tableName.sapiExt.maxCharacter(_maxCharacter) ??
+              _nullDash,
           style: context.general.textTheme.titleMedium,
         ),
         Text(
-          tableModel?.timeStamp.sapiTimeExt.hhmm ?? '--:--',
+          tableModel?.timeStamp.sapiTimeExt.hhmm ?? _nullTimeDash,
           style: context.general.textTheme.bodySmall,
         ),
       ],
@@ -62,7 +65,7 @@ final class PreviewTableCard extends StatelessWidget {
 
   Widget _buildPeopleCount(BuildContext context) {
     return Text(
-      tableModel?.peopleCount.toString().padLeft(2, '0') ?? '--',
+      tableModel?.peopleCount.toString().padLeft(2, '0') ?? _nullDash,
       style: context.general.textTheme.displayMedium,
       textAlign: TextAlign.center,
     );
@@ -72,7 +75,7 @@ final class PreviewTableCard extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: 1,
       child: Text(
-        '${tableModel?.totalPrice ?? '--'}'.sapiExt.price_symbol,
+        '${tableModel?.totalPrice ?? _nullDash}'.sapiExt.priceSymbol,
         textAlign: TextAlign.right,
       ),
     );
