@@ -45,7 +45,7 @@ class SharedPreferencesService implements ILocalStorageService {
   }
 
   @override
-  Future<T?> read<T>(String key) {
+  Future<T?>? read<T>(String key) {
     return _prefs.get(key)! as Future<T>;
   }
 }
