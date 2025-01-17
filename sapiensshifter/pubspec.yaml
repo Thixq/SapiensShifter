@@ -60,7 +60,15 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  #Analysis
   very_good_analysis: ^6.0.0
+
+  #Generator
+  build_runner: ^2.3.3
+  json_serializable: ^6.8.0
+
+  #Test
+  mockito: ^5.4.5
 
 
 flutter:

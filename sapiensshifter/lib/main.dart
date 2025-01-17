@@ -40,10 +40,6 @@ class Thix extends StatefulWidget {
 class _ThixState extends State<Thix> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-      ),
-    );
+    return const Scaffold();
   }
 }

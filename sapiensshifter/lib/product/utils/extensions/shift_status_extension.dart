@@ -7,39 +7,39 @@ extension ShiftStatusExtension on ShiftStatusEnum {
   ShiftStatus get status {
     switch (this) {
       case ShiftStatusEnum.OPENING:
-        return ShiftStatus(
+        return const ShiftStatus(
           statusColor: ColorConstant.sunShine,
           statusIcon: Icons.sunny,
           statusTime: '08:00-16:00',
         );
       case ShiftStatusEnum.OPENING_SERVICE:
-        return ShiftStatus(
+        return const ShiftStatus(
           statusColor: ColorConstant.sunShine,
           statusIcon: Icons.sunny,
           statusTime: '10:00-18:00',
         );
       case ShiftStatusEnum.CLOSING:
-        return ShiftStatus(
+        return const ShiftStatus(
           statusColor: ColorConstant.nightCall,
           statusIcon: Icons.nightlight_round,
           statusTime: '16:00-24:00',
         );
       case ShiftStatusEnum.CLOSING_SERVICE:
-        return ShiftStatus(
+        return const ShiftStatus(
           statusColor: ColorConstant.nightCall,
           statusIcon: Icons.nightlight_round,
           statusTime: '15:00-23:00',
         );
       case ShiftStatusEnum.OFF_DAY:
-        return ShiftStatus(statusTime: 'Off Day');
+        return const ShiftStatus(statusTime: 'Off Day');
       case ShiftStatusEnum.FULL_DAY:
-        return ShiftStatus(
+        return const ShiftStatus(
           statusColor: ColorConstant.sunShine,
           statusIcon: Icons.schedule,
           statusTime: 'Full Day',
         );
       case ShiftStatusEnum.INTERMEDIARY:
-        return ShiftStatus(
+        return const ShiftStatus(
           statusColor: ColorConstant.nightCall,
           statusIcon: Icons.wb_twilight,
           statusTime: '13:00-21:00',

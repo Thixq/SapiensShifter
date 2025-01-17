@@ -24,6 +24,9 @@ class _PriceEditingCardState extends State<PriceEditingCard> {
   double? _previousPrice = 0;
   bool _isInitialPrice = true;
 
+  String get _nullProductName => StringConstant.nullString.tr();
+  String get _nullPrice => StringConstant.nullDouble.tr();
+
   @override
   void didUpdateWidget(covariant PriceEditingCard oldWidget) {
     if (oldWidget.productModel.price != widget.productModel.price) {
@@ -42,6 +45,7 @@ class _PriceEditingCardState extends State<PriceEditingCard> {
       onTap: () {
         widget.onPress(widget.productModel, isSelect);
       },
+      borderRadius: context.border.normalBorderRadius,
       child: ValueListenableBuilder(
         valueListenable: isSelect,
         builder: (context, value, child) => IntrinsicHeight(
@@ -85,7 +89,7 @@ class _PriceEditingCardState extends State<PriceEditingCard> {
           borderRadius: context.border.lowBorderRadius,
         ),
         context.sized.emptySizedWidthBoxLow3x,
-        Text(widget.productModel.productName ?? 'ProductNameNull'),
+        Text(widget.productModel.productName ?? _nullProductName),
       ],
     );
   }
@@ -94,15 +98,17 @@ class _PriceEditingCardState extends State<PriceEditingCard> {
     return Row(
       children: [
         Text(
-          '${_previousPrice?.toStringAsFixed(2) ?? 0.00}'.sapiExt.price_symbol,
+          (_previousPrice?.sapiDoubleExt.priceFraction ?? _nullPrice)
+              .sapiExt
+              .priceSymbol,
           style: context.general.textTheme.labelSmall!
               .copyWith(decoration: TextDecoration.lineThrough),
         ).ext.toVisible(value: hasPriceChanged),
         context.sized.emptySizedWidthBoxLow,
         Text(
-          '${widget.productModel.price?.toStringAsFixed(2) ?? 0.00}'
+          (widget.productModel.price?.sapiDoubleExt.priceFraction ?? _nullPrice)
               .sapiExt
-              .price_symbol,
+              .priceSymbol,
           style: context.general.textTheme.titleMedium,
         ),
       ],

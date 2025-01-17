@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/component/custom_choice_chip.dart';
 
-class ChoiceChipList<T> extends StatelessWidget {
+final class ChoiceChipList<T> extends StatelessWidget {
   ChoiceChipList({
     this.options,
     this.defaultValue,

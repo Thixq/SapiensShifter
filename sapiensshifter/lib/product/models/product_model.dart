@@ -1,6 +1,13 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-final class ProductModel {
-  ProductModel({
+import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:sapiensshifter/product/interface/interface_model/i_base_model.dart';
+import 'package:sapiensshifter/product/models/extras_model.dart';
+
+part 'product_model.g.dart';
+
+@JsonSerializable(checked: true)
+final class ProductModel extends Equatable implements IBaseModel {
+  const ProductModel({
     this.id,
     this.productName,
     this.description,
@@ -10,19 +17,16 @@ final class ProductModel {
     this.extrasList,
   });
 
+  factory ProductModel.fromJson(Map<String, dynamic> json) =>
+      _$ProductModelFromJson(json);
+
   final String? id;
   final String? productName;
   final String? description;
   final String? imagePath;
   final double? price;
   final String? category;
-  // TODO(kaan): Extra modelini ekle.
-  final List<String>? extrasList;
-
-  @override
-  String toString() {
-    return 'ProductModel(id: $id, productName: $productName, description: $description, imagePath: $imagePath, price: $price, category: $category, extrasList: $extrasList)';
-  }
+  final List<ExtrasModel>? extrasList;
 
   ProductModel copyWith({
     String? id,
@@ -31,7 +35,7 @@ final class ProductModel {
     String? imagePath,
     double? price,
     String? category,
-    List<String>? extrasList,
+    List<ExtrasModel>? extrasList,
   }) {
     return ProductModel(
       id: id ?? this.id,
@@ -45,9 +49,13 @@ final class ProductModel {
   }
 
   @override
-  bool operator ==(covariant ProductModel other) {
-    if (identical(this, other)) return true;
+  List<Object?> get props =>
+      [id, productName, description, imagePath, price, category];
 
-    return other.id == id;
-  }
+  @override
+  ProductModel fromJson(Map<String, dynamic> json) =>
+      _$ProductModelFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$ProductModelToJson(this);
 }

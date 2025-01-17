@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-class ColorConstant {
+final class ColorConstant {
   static const primaryColor = Color(0xFFF56A68);
   static const primaryShadow = Color(0xFFf78886);
   static const backgroundColor = Color(0xFFEEEEEE);

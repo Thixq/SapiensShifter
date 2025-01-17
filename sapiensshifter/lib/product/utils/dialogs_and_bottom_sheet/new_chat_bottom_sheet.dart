@@ -29,7 +29,7 @@ class NewChatBottomSheet extends StatefulWidget {
 class _NewChatBottomSheetState extends State<NewChatBottomSheet> {
   final ValueNotifier<String> _searchQuery = ValueNotifier<String>('');
 
-  final String _nullOrEmptyList = 'Boş Liste';
+  String get _nullOrEmptyList => LocaleKeys.empty_items.tr();
 
   @override
   Widget build(BuildContext context) {

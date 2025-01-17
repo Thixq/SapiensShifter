@@ -24,5 +24,5 @@ final class _SapiStringExtension {
     return _value;
   }
 
-  String get price_symbol => '$_value${LocaleKeys.price_symbol.tr()}';
+  String get priceSymbol => '$_value${LocaleKeys.price_symbol.tr()}';
 }

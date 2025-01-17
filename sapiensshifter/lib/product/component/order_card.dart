@@ -14,9 +14,10 @@ final class OrderCard extends StatelessWidget {
 
   final OrderModel? orderModel;
 
-  String get _nullOrderName => 'OrderNameNull';
-  String get _nullExtrasText => 'ExtrasNull';
-  String get _nullPrice => '0.00';
+  String get _nullOrderName => StringConstant.nullString.tr();
+  String get _nullExtrasText => StringConstant.nullString.tr();
+  String get _nullPrice => StringConstant.nullDouble.tr();
+  String get _errorAssetPath => 'assets/icon/ic_no_coffee.svg';
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +69,7 @@ final class OrderCard extends StatelessWidget {
   Widget _buildDelivery() {
     return SvgAssetBuilder(
       svgPath: orderModel?.deliveryStatus.toDeliveryPath,
-      errorSvgPath: 'assets/icon/ic_no_coffee.svg',
+      errorSvgPath: _errorAssetPath,
     );
   }
 
@@ -97,7 +98,9 @@ final class OrderCard extends StatelessWidget {
 
   Text _buildPrice(BuildContext context) {
     return Text(
-      '${orderModel?.price ?? _nullPrice}'.sapiExt.price_symbol,
+      (orderModel?.price?.sapiDoubleExt.priceFraction ?? _nullPrice)
+          .sapiExt
+          .priceSymbol,
       style: context.general.textTheme.labelSmall,
     );
   }
