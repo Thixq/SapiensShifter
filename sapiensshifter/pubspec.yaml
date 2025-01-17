@@ -36,6 +36,17 @@ dependencies:
   sizer: ^3.0.5
   flutter_svg: ^2.0.16
   kartal: ^4.1.0
+<<<<<<< Updated upstream
+=======
+  equatable: ^2.0.7
+  json_annotation: ^4.9.0
+
+  #Network
+  http: ^1.2.2
+
+  #Local Storage
+  shared_preferences: ^2.3.5
+>>>>>>> Stashed changes
 
   #UI
   animated_custom_dropdown: ^3.1.1
