@@ -1,7 +1,7 @@
 import 'package:sapiensshifter/feature/interface/i_local_storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPreferencesService implements ILocalStorageService {
+final class SharedPreferencesService implements ILocalStorageService {
   factory SharedPreferencesService.instance() => _instance;
 
   SharedPreferencesService._internal() {
