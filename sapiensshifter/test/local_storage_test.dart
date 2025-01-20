@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sapiensshifter/feature/interface/i_service/i_local_storage_service.dart';
+import 'package:sapiensshifter/feature/interface/i_local_storage_service.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesLocalStorageService implements ILocalStorageService {
