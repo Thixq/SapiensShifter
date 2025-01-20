@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "497068609218",
+    "firebase_url": "https://coffeesapiens-default-rtdb.firebaseio.com",
+    "project_id": "coffeesapiens",
+    "storage_bucket": "coffeesapiens.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497068609218:android:ef86a43b688c4313a0755b",
+        "android_client_info": {
+          "package_name": "com.coffeesapiens.sapiensshifter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497068609218-7kjvcoeg670mvhp2dkfcs1030gu9e9m5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.coffeesapiens.sapiensshifter",
+            "certificate_hash": "35a56fd506f87730d723f7ebafc55e3e28dcfdf2"
+          }
+        },
+        {
+          "client_id": "497068609218-icm3qqrthb6e96ac3blom8ac3vm6b5ba.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7cu7mtaQj_8-dldZdQObxXttA3XBXULI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497068609218-9pj8p90onvrqc27co1vpdl18g70d4h5j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "497068609218-1m0kcejg0l4hkhij7sit31ql8eicmsvl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.coffeesapiens.sapiensshifter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
