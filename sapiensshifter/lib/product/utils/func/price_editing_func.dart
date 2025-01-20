@@ -1,7 +1,7 @@
 import 'package:sapiensshifter/product/models/product_model.dart';
 import 'package:sapiensshifter/product/utils/enums/operations.dart';
 
-class PriceEditingFunc {
+final class PriceEditingFunc {
   static ChangePriceList findAndOperate({
     required double value,
     required Operations operations,
