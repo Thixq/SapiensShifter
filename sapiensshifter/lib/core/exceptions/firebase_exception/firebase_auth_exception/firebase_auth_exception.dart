@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_constructors_over_static_methods
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sapiensshifter/feature/exceptions/custom_exception_interface.dart';
+import 'package:sapiensshifter/core/exceptions/custom_exception_interface.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 class FirebaseAuthCustomException extends CustomException {

@@ -1,7 +1,7 @@
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:sapiensshifter/feature/exceptions/firebase_exception/firebase_auth_exception/social_credential_exception/index.dart';
-import 'package:sapiensshifter/feature/interface/strategy_interface/credential_strategy_interface.dart';
-import 'package:sapiensshifter/feature/model/custom_credential_model.dart';
+import 'package:sapiensshifter/core/exceptions/firebase_exception/firebase_auth_exception/social_credential_exception/index.dart';
+import 'package:sapiensshifter/core/interface/strategy_interface/credential_strategy_interface.dart';
+import 'package:sapiensshifter/core/model/custom_credential_model.dart';
 
 final class GoogleSignCredential implements CredentialStrategyInterface {
   @override

@@ -1,4 +1,4 @@
-import 'package:sapiensshifter/feature/model/sapi_user_model.dart';
+import 'package:sapiensshifter/core/model/sapi_user_model.dart';
 
 abstract class AuthOperationInterface {
   Future<bool> passwordUpdate(String newPassword);
