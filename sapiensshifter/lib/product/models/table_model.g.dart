@@ -29,7 +29,9 @@ TableModel _$TableModelFromJson(Map<String, dynamic> json) => $checkedCreate(
           orderList: $checkedConvert(
             'orderList',
             (v) => (v as List<dynamic>?)
-                ?.map((e) => OrderModel.fromJson(e as Map<String, dynamic>))
+                ?.map(
+                  (e) => OrderModel.fromJson(e as Map<String, dynamic>),
+                )
                 .toList(),
           ),
         );

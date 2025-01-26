@@ -23,9 +23,7 @@ ShiftWeek _$ShiftWeekFromJson(Map<String, dynamic> json) => $checkedCreate(
           week: $checkedConvert(
             'week',
             (v) => (v as List<dynamic>?)
-                ?.map(
-                  (e) => ShiftDay.fromJson(e as Map<String, dynamic>),
-                )
+                ?.map((e) => ShiftDay.fromJson(e as Map<String, dynamic>))
                 .toList(),
           ),
         );
