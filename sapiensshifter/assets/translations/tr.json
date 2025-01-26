@@ -15,5 +15,28 @@
     "null_value":{
         "null_name":"Eksik Ve Hatalı",
         "null_double":"00.00"
+    },
+    "all_exception":{
+        "default_exception":"Bir hata oluştu: {message}",
+        "local_cache_exception":{
+            "expected_type":"Anahtar için değer türü uyumsuzluğu: {key}. Beklenen: {expectedType}, Bulunan: {actualType}",
+            "not_found_key":"{key} anahtarı için değer bulunamadı",
+            "un_supported_value":"Desteklenmeyen değer türü: {valueType}"
+        },
+        "firebase_auth_exception":{
+            "invalid_email":"Geçersiz bir e-posta adresi girdiniz.",
+            "user_disabled":"Bu kullanıcı devre dışı bırakılmış.",
+            "user_not_found":"Bu e-posta adresiyle ilişkili bir kullanıcı bulunamadı.",
+            "wrong_password":"Hatalı şifre girdiniz.",
+            "email_already_use":"Bu e-posta adresi zaten bir hesapla ilişkilendirilmiş.",
+            "weak_password":"Şifre çok zayıf. Lütfen daha güçlü bir şifre seçin.",
+            "requires_recent_login":"Bu işlem yakın zamanda giriş yapmayı gerektirir. Lütfen tekrar giriş yapın.",
+            "network_request_failed":"Ağ hatası. Lütfen internet bağlantınızı kontrol edin.",
+            "user_token_expired":"Oturumunuz sona erdi. Lütfen tekrar giriş yapın.",
+            "invalid_photo_url":"Verilen fotoğraf URL'si geçersiz.",
+            "operation_not_allowed":"Bu işlem şu anda desteklenmiyor.",
+            "too_many_requests":"Çok fazla istek gönderildi. Lütfen daha sonra tekrar deneyin."
+            
+        }
     }
 }

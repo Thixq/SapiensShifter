@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sapiensshifter/feature/custom_error_and_exception_hanle/async_error_handler.dart';
-import 'package:sapiensshifter/feature/interface/service_interface/auth_manager_interface.dart';
+import 'package:sapiensshifter/feature/exceptions/firebase_exception/firebase_auth_exception/firebase_auth_exception.dart';
+import 'package:sapiensshifter/feature/interface/manager_interface/auth_manager_interface.dart';
 import 'package:sapiensshifter/feature/model/custom_credential_model.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 final class FirebaseAuthManagar extends AuthManagerInterface {
   FirebaseAuthManagar._internal() {
@@ -37,10 +39,20 @@ final class FirebaseAuthManagar extends AuthManagerInterface {
     return handleAsyncOperation(
       () async {
         await _auth.createUserWithEmailAndPassword(
-            email: email, password: password);
+          email: email,
+          password: password,
+        );
         return true;
       },
-      errorMessage: 'Failed to register user with email and password.',
+      errorTransformer: (error) {
+        if (error is FirebaseAuthException) {
+          return FirebaseAuthCustomException.fromFirebaseAuthException(error);
+        }
+        return Exception(
+          LocaleKeys.all_exception_default_exception
+              .tr(namedArgs: {'message': error.toString()}),
+        );
+      },
     );
   }
 
@@ -60,7 +72,15 @@ final class FirebaseAuthManagar extends AuthManagerInterface {
         await _auth.signInWithCredential(oAuthCredential);
         return true;
       },
-      errorMessage: 'Failed to sign in with credential.',
+      errorTransformer: (error) {
+        if (error is FirebaseAuthException) {
+          return FirebaseAuthCustomException.fromFirebaseAuthException(error);
+        }
+        return Exception(
+          LocaleKeys.all_exception_default_exception
+              .tr(namedArgs: {'message': error.toString()}),
+        );
+      },
     );
   }
 
@@ -72,10 +92,20 @@ final class FirebaseAuthManagar extends AuthManagerInterface {
     return handleAsyncOperation(
       () async {
         await _auth.signInWithEmailAndPassword(
-            email: email, password: password);
+          email: email,
+          password: password,
+        );
         return true;
       },
-      errorMessage: 'Failed to sign in with email and password.',
+      errorTransformer: (error) {
+        if (error is FirebaseAuthException) {
+          return FirebaseAuthCustomException.fromFirebaseAuthException(error);
+        }
+        return Exception(
+          LocaleKeys.all_exception_default_exception
+              .tr(namedArgs: {'message': error.toString()}),
+        );
+      },
     );
   }
 
@@ -86,7 +116,15 @@ final class FirebaseAuthManagar extends AuthManagerInterface {
         await _auth.signOut();
         return true;
       },
-      errorMessage: 'Failed to sign out.',
+      errorTransformer: (error) {
+        if (error is FirebaseAuthException) {
+          return FirebaseAuthCustomException.fromFirebaseAuthException(error);
+        }
+        return Exception(
+          LocaleKeys.all_exception_default_exception
+              .tr(namedArgs: {'message': error.toString()}),
+        );
+      },
     );
   }
 }
