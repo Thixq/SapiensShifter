@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/feature/firebase/firebase_auth/firebase_auth_managar.dart';
-import 'package:sapiensshifter/feature/firebase/firebase_auth/social_sign_credentians/google_sign_credential.dart';
-import 'package:sapiensshifter/feature/localization/localization.dart';
-import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
+import 'package:sapiensshifter/core/firebase/firebase_auth/firebase_auth_managar.dart';
+import 'package:sapiensshifter/core/firebase/firebase_auth/social_sign_credentians/google_sign_credential.dart';
+import 'package:sapiensshifter/core/localization/localization.dart';
+import 'package:sapiensshifter/core/theme/appliaction_theme.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 void main() async {

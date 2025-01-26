@@ -1,6 +1,6 @@
-import 'package:sapiensshifter/feature/custom_error_and_exception_hanle/async_error_handler.dart';
-import 'package:sapiensshifter/feature/exceptions/local_cache_exceptions/index.dart';
-import 'package:sapiensshifter/feature/interface/operation_interface/local_cache_operation_interface.dart';
+import 'package:sapiensshifter/core/custom_error_and_exception_hanle/async_error_handler.dart';
+import 'package:sapiensshifter/core/exceptions/local_cache_exceptions/index.dart';
+import 'package:sapiensshifter/core/interface/operation_interface/local_cache_operation_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final class SharedPreferencesOperation extends LocalCacheOperationInterface {

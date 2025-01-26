@@ -1,7 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/feature/constant/color_constant.dart';
+import 'package:sapiensshifter/core/constant/color_constant.dart';
 import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/shift_dialog.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';

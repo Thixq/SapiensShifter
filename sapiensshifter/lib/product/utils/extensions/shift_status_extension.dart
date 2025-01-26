@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart' show Icons;
-import 'package:sapiensshifter/feature/constant/color_constant.dart';
+import 'package:sapiensshifter/core/constant/color_constant.dart';
 import 'package:sapiensshifter/product/models/shift_models/shift_status_model.dart';
 import 'package:sapiensshifter/product/utils/enums/shift_status_enum.dart';
 

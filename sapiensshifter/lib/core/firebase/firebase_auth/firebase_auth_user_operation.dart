@@ -1,10 +1,10 @@
 // ignore_for_file: prefer_constructors_over_static_methods
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sapiensshifter/feature/custom_error_and_exception_hanle/async_error_handler.dart';
-import 'package:sapiensshifter/feature/exceptions/firebase_exception/firebase_auth_exception/firebase_auth_exception.dart';
-import 'package:sapiensshifter/feature/interface/operation_interface/auth_operation_interface.dart';
-import 'package:sapiensshifter/feature/model/sapi_user_model.dart';
+import 'package:sapiensshifter/core/custom_error_and_exception_hanle/async_error_handler.dart';
+import 'package:sapiensshifter/core/exceptions/firebase_exception/firebase_auth_exception/firebase_auth_exception.dart';
+import 'package:sapiensshifter/core/interface/operation_interface/auth_operation_interface.dart';
+import 'package:sapiensshifter/core/model/sapi_user_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 class FirebaseAuthUserOperation extends AuthOperationInterface {

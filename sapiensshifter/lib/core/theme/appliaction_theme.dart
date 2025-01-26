@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/feature/constant/color_constant.dart';
+import 'package:sapiensshifter/core/constant/color_constant.dart';
 
 final class SapiensTheme {
   SapiensTheme._();

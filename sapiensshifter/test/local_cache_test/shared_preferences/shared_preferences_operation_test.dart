@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:sapiensshifter/feature/local_cache/shared_preferences/shared_preferences_operation.dart';
+import 'package:sapiensshifter/core/local_cache/shared_preferences/shared_preferences_operation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // Mocking SharedPreferences
