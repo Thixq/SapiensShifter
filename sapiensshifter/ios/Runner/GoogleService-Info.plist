@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>497068609218-1m0kcejg0l4hkhij7sit31ql8eicmsvl.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.497068609218-1m0kcejg0l4hkhij7sit31ql8eicmsvl</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>497068609218-7kjvcoeg670mvhp2dkfcs1030gu9e9m5.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyD5CTcF55qYHunpczUWvr_2dE5osSVdreE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>497068609218</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.coffeesapiens.sapiensshifter</string>
+	<key>PROJECT_ID</key>
+	<string>coffeesapiens</string>
+	<key>STORAGE_BUCKET</key>
+	<string>coffeesapiens.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:497068609218:ios:70cf16b37567ee9aa0755b</string>
+	<key>DATABASE_URL</key>
+	<string>https://coffeesapiens-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
