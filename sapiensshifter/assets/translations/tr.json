@@ -35,8 +35,11 @@
             "user_token_expired":"Oturumunuz sona erdi. Lütfen tekrar giriş yapın.",
             "invalid_photo_url":"Verilen fotoğraf URL'si geçersiz.",
             "operation_not_allowed":"Bu işlem şu anda desteklenmiyor.",
-            "too_many_requests":"Çok fazla istek gönderildi. Lütfen daha sonra tekrar deneyin."
-            
+            "too_many_requests":"Çok fazla istek gönderildi. Lütfen daha sonra tekrar deneyin." 
+        },
+        "social_credential_exception":{
+            "failed_credential":"{social} ile oturum açılamadı: {error}",
+            "canceled_user":"Oturum açma işlemi kullanıcı tarafından iptal edildi."
         }
     }
 }

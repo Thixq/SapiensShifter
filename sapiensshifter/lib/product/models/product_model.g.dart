@@ -19,10 +19,11 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) =>
           price: $checkedConvert('price', (v) => (v as num?)?.toDouble()),
           category: $checkedConvert('category', (v) => v as String?),
           extrasList: $checkedConvert(
-              'extrasList',
-              (v) => (v as List<dynamic>?)
-                  ?.map((e) => ExtrasModel.fromJson(e as Map<String, dynamic>))
-                  .toList()),
+            'extrasList',
+            (v) => (v as List<dynamic>?)
+                ?.map((e) => ExtrasModel.fromJson(e as Map<String, dynamic>))
+                .toList(),
+          ),
         );
         return val;
       },

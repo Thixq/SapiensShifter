@@ -12,10 +12,14 @@ ShiftDay _$ShiftDayFromJson(Map<String, dynamic> json) => $checkedCreate(
       ($checkedConvert) {
         final val = ShiftDay(
           branch: $checkedConvert('branch', (v) => v as String?),
-          shiftStatus: $checkedConvert('shiftStatus',
-              (v) => $enumDecodeNullable(_$ShiftStatusEnumEnumMap, v)),
+          shiftStatus: $checkedConvert(
+            'shiftStatus',
+            (v) => $enumDecodeNullable(_$ShiftStatusEnumEnumMap, v),
+          ),
           time: $checkedConvert(
-              'time', (v) => v == null ? null : DateTime.parse(v as String)),
+            'time',
+            (v) => v == null ? null : DateTime.parse(v as String),
+          ),
         );
         return val;
       },

@@ -14,9 +14,10 @@ ExtrasModel _$ExtrasModelFromJson(Map<String, dynamic> json) => $checkedCreate(
           id: $checkedConvert('id', (v) => v as String?),
           name: $checkedConvert('name', (v) => v as String?),
           optionsList: $checkedConvert(
-              'optionsList',
-              (v) => const DoubleKeyMapConverter()
-                  .fromJson(v as Map<String, dynamic>?)),
+            'optionsList',
+            (v) => const DoubleKeyMapConverter()
+                .fromJson(v as Map<String, dynamic>?),
+          ),
         );
         return val;
       },
