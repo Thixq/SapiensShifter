@@ -1,4 +1,4 @@
-class SapiUserModel {
+final class SapiUserModel {
   SapiUserModel({
     required this.id,
     required this.photoUrl,

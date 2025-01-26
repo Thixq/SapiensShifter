@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sapiensshifter/feature/custom_error_and_exception_hanle/async_error_handler.dart';
+import 'package:sapiensshifter/feature/exceptions/firebase_exception/firebase_auth_exception/firebase_auth_exception.dart';
 import 'package:sapiensshifter/feature/interface/operation_interface/auth_operation_interface.dart';
 import 'package:sapiensshifter/feature/model/sapi_user_model.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 class FirebaseAuthUserOperation extends AuthOperationInterface {
   FirebaseAuthUserOperation._internal() {
@@ -32,9 +34,18 @@ class FirebaseAuthUserOperation extends AuthOperationInterface {
     return handleAsyncOperation(
       () async {
         await _user?.updateDisplayName(newName);
+        await _user?.reload();
         return true;
       },
-      errorMessage: 'It even occurred while the name was being updated.',
+      errorTransformer: (error) {
+        if (error is FirebaseAuthException) {
+          return FirebaseAuthCustomException.fromFirebaseAuthException(error);
+        }
+        return Exception(
+          LocaleKeys.all_exception_default_exception
+              .tr(namedArgs: {'message': error.toString()}),
+        );
+      },
     );
   }
 
@@ -43,9 +54,18 @@ class FirebaseAuthUserOperation extends AuthOperationInterface {
     return handleAsyncOperation(
       () async {
         await _user?.updatePassword(newPassword);
+        await _user?.reload();
         return true;
       },
-      errorMessage: 'It even occurred while the password was being updated.',
+      errorTransformer: (error) {
+        if (error is FirebaseAuthException) {
+          return FirebaseAuthCustomException.fromFirebaseAuthException(error);
+        }
+        return Exception(
+          LocaleKeys.all_exception_default_exception
+              .tr(namedArgs: {'message': error.toString()}),
+        );
+      },
     );
   }
 
@@ -54,9 +74,18 @@ class FirebaseAuthUserOperation extends AuthOperationInterface {
     return handleAsyncOperation(
       () async {
         await _user?.updatePhotoURL(newPhotoUrl);
+        await _user?.reload();
         return true;
       },
-      errorMessage: 'It even occurred while the photo was being updated.',
+      errorTransformer: (error) {
+        if (error is FirebaseAuthException) {
+          return FirebaseAuthCustomException.fromFirebaseAuthException(error);
+        }
+        return Exception(
+          LocaleKeys.all_exception_default_exception
+              .tr(namedArgs: {'message': error.toString()}),
+        );
+      },
     );
   }
 }

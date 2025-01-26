@@ -13,25 +13,20 @@ TableModel _$TableModelFromJson(Map<String, dynamic> json) => $checkedCreate(
         final val = TableModel(
           id: $checkedConvert('id', (v) => v as String?),
           tableName: $checkedConvert('tableName', (v) => v as String?),
-          timeStamp: $checkedConvert(
-            'timeStamp',
-            (v) => v == null ? null : DateTime.parse(v as String),
-          ),
+          timeStamp: $checkedConvert('timeStamp',
+              (v) => v == null ? null : DateTime.parse(v as String)),
           creatorId: $checkedConvert('creatorId', (v) => v as String?),
           branchName: $checkedConvert('branchName', (v) => v as String?),
           peopleCount:
               $checkedConvert('peopleCount', (v) => (v as num?)?.toInt()),
           status: $checkedConvert('status', (v) => v as bool?),
-          closingTime: $checkedConvert(
-            'closingTime',
-            (v) => v == null ? null : DateTime.parse(v as String),
-          ),
+          closingTime: $checkedConvert('closingTime',
+              (v) => v == null ? null : DateTime.parse(v as String)),
           orderList: $checkedConvert(
-            'orderList',
-            (v) => (v as List<dynamic>?)
-                ?.map((e) => OrderModel.fromJson(e as Map<String, dynamic>))
-                .toList(),
-          ),
+              'orderList',
+              (v) => (v as List<dynamic>?)
+                  ?.map((e) => OrderModel.fromJson(e as Map<String, dynamic>))
+                  .toList()),
         );
         return val;
       },
