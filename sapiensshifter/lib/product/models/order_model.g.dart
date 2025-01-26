@@ -14,10 +14,14 @@ OrderModel _$OrderModelFromJson(Map<String, dynamic> json) => $checkedCreate(
           orderName: $checkedConvert('orderName', (v) => v as String?),
           imagePath: $checkedConvert('imagePath', (v) => v as String?),
           price: $checkedConvert('price', (v) => (v as num?)?.toDouble()),
-          deliveryStatus: $checkedConvert('deliveryStatus',
-              (v) => $enumDecodeNullable(_$DeliveryStatusEnumMap, v)),
-          extras: $checkedConvert('extras',
-              (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()),
+          deliveryStatus: $checkedConvert(
+            'deliveryStatus',
+            (v) => $enumDecodeNullable(_$DeliveryStatusEnumMap, v),
+          ),
+          extras: $checkedConvert(
+            'extras',
+            (v) => (v as List<dynamic>?)?.map((e) => e as String).toList(),
+          ),
         );
         return val;
       },

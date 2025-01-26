@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_constructors_over_static_methods
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sapiensshifter/feature/custom_error_and_exception_hanle/async_error_handler.dart';
 import 'package:sapiensshifter/feature/exceptions/firebase_exception/firebase_auth_exception/firebase_auth_exception.dart';

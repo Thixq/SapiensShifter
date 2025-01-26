@@ -66,7 +66,6 @@ class _ThixState extends State<Thix> {
                 await _authManagar.signInWithCredential(
                   credential: credential,
                 );
-                print(_userOperation.user.email);
               },
               child: const Text('Google'),
             ),
