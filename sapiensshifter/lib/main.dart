@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/firebase/firebase_auth/firebase_auth_managar.dart';
-import 'package:sapiensshifter/feature/firebase/firebase_auth/firebase_auth_user_operation.dart';
 import 'package:sapiensshifter/feature/firebase/firebase_auth/social_sign_credentians/google_sign_credential.dart';
 import 'package:sapiensshifter/feature/localization/localization.dart';
 import 'package:sapiensshifter/feature/theme/appliaction_theme.dart';
@@ -44,8 +43,8 @@ class Thix extends StatefulWidget {
 
 class _ThixState extends State<Thix> {
   late final FirebaseAuthManagar _authManagar;
-  late final FirebaseAuthUserOperation _userOperation =
-      FirebaseAuthUserOperation.instance;
+  // late final FirebaseAuthUserOperation _userOperation =
+  //     FirebaseAuthUserOperation.instance;
 
   @override
   void initState() {
