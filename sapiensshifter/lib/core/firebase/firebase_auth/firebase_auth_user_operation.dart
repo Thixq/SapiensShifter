@@ -8,18 +8,20 @@ import 'package:sapiensshifter/core/model/sapi_user_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 class FirebaseAuthUserOperation extends AuthOperationInterface {
-  FirebaseAuthUserOperation._internal() {
-    _init();
+  FirebaseAuthUserOperation._() {
+    _initialize();
   }
 
-  Future<void> _init() async {
-    _user = FirebaseAuth.instance.currentUser;
-  }
+  static final FirebaseAuthUserOperation _instance =
+      FirebaseAuthUserOperation._();
 
-  static FirebaseAuthUserOperation get instance =>
-      FirebaseAuthUserOperation._internal();
+  static FirebaseAuthUserOperation get instance => _instance;
 
   late final User? _user;
+
+  void _initialize() {
+    _user = FirebaseAuth.instance.currentUser;
+  }
 
   @override
   SapiUserModel get user {
@@ -35,19 +37,13 @@ class FirebaseAuthUserOperation extends AuthOperationInterface {
   Future<bool> displayUpdate(String newName) async {
     return handleAsyncOperation(
       () async {
-        await _user?.updateDisplayName(newName);
-        await _user?.reload();
+        if (_user == null) throw Exception('User not initialized');
+        await _user.updateDisplayName(newName);
+        await _user.reload();
+        _user = FirebaseAuth.instance.currentUser;
         return true;
       },
-      errorTransformer: (error) {
-        if (error is FirebaseAuthException) {
-          return FirebaseAuthCustomException.fromFirebaseAuthException(error);
-        }
-        return Exception(
-          LocaleKeys.all_exception_default_exception
-              .tr(namedArgs: {'message': error.toString()}),
-        );
-      },
+      errorTransformer: _handleFirebaseAuthException,
     );
   }
 
@@ -55,39 +51,37 @@ class FirebaseAuthUserOperation extends AuthOperationInterface {
   Future<bool> passwordUpdate(String newPassword) async {
     return handleAsyncOperation(
       () async {
-        await _user?.updatePassword(newPassword);
-        await _user?.reload();
+        if (_user == null) throw Exception('User not initialized');
+        await _user.updatePassword(newPassword);
+        await _user.reload();
+        _user = FirebaseAuth.instance.currentUser;
         return true;
       },
-      errorTransformer: (error) {
-        if (error is FirebaseAuthException) {
-          return FirebaseAuthCustomException.fromFirebaseAuthException(error);
-        }
-        return Exception(
-          LocaleKeys.all_exception_default_exception
-              .tr(namedArgs: {'message': error.toString()}),
-        );
-      },
+      errorTransformer: _handleFirebaseAuthException,
     );
   }
 
   @override
-  Future<bool> photografUpdate(String newPhotoUrl) async {
+  Future<bool> photographUpdate(String newPhotoUrl) async {
     return handleAsyncOperation(
       () async {
-        await _user?.updatePhotoURL(newPhotoUrl);
-        await _user?.reload();
+        if (_user == null) throw Exception('User not initialized');
+        await _user.updatePhotoURL(newPhotoUrl);
+        await _user.reload();
+        _user = FirebaseAuth.instance.currentUser;
         return true;
       },
-      errorTransformer: (error) {
-        if (error is FirebaseAuthException) {
-          return FirebaseAuthCustomException.fromFirebaseAuthException(error);
-        }
-        return Exception(
-          LocaleKeys.all_exception_default_exception
-              .tr(namedArgs: {'message': error.toString()}),
-        );
-      },
+      errorTransformer: _handleFirebaseAuthException,
+    );
+  }
+
+  Exception _handleFirebaseAuthException(dynamic error) {
+    if (error is FirebaseAuthException) {
+      return FirebaseAuthCustomException.fromFirebaseAuthException(error);
+    }
+    return Exception(
+      LocaleKeys.all_exception_default_exception
+          .tr(namedArgs: {'message': error.toString()}),
     );
   }
 }

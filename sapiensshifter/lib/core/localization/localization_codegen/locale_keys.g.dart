@@ -1,6 +1,6 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, lines_longer_than_80_chars
 
 abstract class LocaleKeys {
   static const price_symbol = 'price_symbol';
@@ -21,6 +21,10 @@ abstract class LocaleKeys {
   static const null_value = 'null_value';
   static const all_exception_default_exception =
       'all_exception.default_exception';
+  static const all_exception_generic_exception_is_not_initialized =
+      'all_exception.generic_exception.is_not_initialized';
+  static const all_exception_generic_exception =
+      'all_exception.generic_exception';
   static const all_exception_local_cache_exception_expected_type =
       'all_exception.local_cache_exception.expected_type';
   static const all_exception_local_cache_exception_not_found_key =
@@ -55,6 +59,16 @@ abstract class LocaleKeys {
       'all_exception.firebase_auth_exception.too_many_requests';
   static const all_exception_firebase_auth_exception =
       'all_exception.firebase_auth_exception';
+  static const all_exception_firebase_firestore_exception_invalid_path_exception =
+      'all_exception.firebase_firestore_exception.invalid_path_exception';
+  static const all_exception_firebase_firestore_exception_batch_commit_exception =
+      'all_exception.firebase_firestore_exception.batch_commit_exception';
+  static const all_exception_firebase_firestore_exception_document_data_exception =
+      'all_exception.firebase_firestore_exception.document_data_exception';
+  static const all_exception_firebase_firestore_exception_document_not_found_exception =
+      'all_exception.firebase_firestore_exception.document_not_found_exception';
+  static const all_exception_firebase_firestore_exception =
+      'all_exception.firebase_firestore_exception';
   static const all_exception_social_credential_exception_failed_credential =
       'all_exception.social_credential_exception.failed_credential';
   static const all_exception_social_credential_exception_canceled_user =
