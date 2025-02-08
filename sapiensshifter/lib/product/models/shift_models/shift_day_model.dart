@@ -1,12 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:sapiensshifter/product/interface/interface_model/i_base_model.dart';
+import 'package:sapiensshifter/product/interface/interface_model/product_base_model_interface.dart';
 import 'package:sapiensshifter/product/utils/enums/shift_status_enum.dart';
 
 part 'shift_day_model.g.dart';
 
 @JsonSerializable(checked: true)
-final class ShiftDay extends Equatable implements IBaseModel {
+final class ShiftDay extends Equatable
+    implements ProductBaseModelInterface<ShiftDay> {
   const ShiftDay({
     this.branch,
     this.shiftStatus,

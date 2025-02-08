@@ -1,12 +1,13 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:sapiensshifter/product/interface/interface_model/i_base_model.dart';
+import 'package:sapiensshifter/product/interface/interface_model/product_base_model_interface.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 
 part 'shift_week_model.g.dart';
 
 @JsonSerializable(checked: true)
-final class ShiftWeek extends Equatable implements IBaseModel {
+final class ShiftWeek extends Equatable
+    implements ProductBaseModelInterface<ShiftWeek> {
   const ShiftWeek({
     this.id,
     this.weekStart,
