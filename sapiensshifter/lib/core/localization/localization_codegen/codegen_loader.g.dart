@@ -28,12 +28,13 @@ class CodegenLoader extends AssetLoader {
       "new_order": "Ürün Ekle",
       "total": "Toplam: {price}₺",
     },
-    "null_value": {
-      "null_name": "Eksik Ve Hatalı",
-      "null_double": "00.00",
-    },
+    "null_value": {"null_name": "Eksik Ve Hatalı", "null_double": "00.00"},
     "all_exception": {
       "default_exception": "Bir hata oluştu: {message}",
+      "generic_exception": {
+        "is_not_initialized":
+            "{instance} başlatılmadı. Önce initialize()'ı çağırın.",
+      },
       "local_cache_exception": {
         "expected_type":
             "Anahtar için değer türü uyumsuzluğu: {key}. Beklenen: {expectedType}, Bulunan: {actualType}",
@@ -59,6 +60,14 @@ class CodegenLoader extends AssetLoader {
         "operation_not_allowed": "Bu işlem şu anda desteklenmiyor.",
         "too_many_requests":
             "Çok fazla istek gönderildi. Lütfen daha sonra tekrar deneyin.",
+      },
+      "firebase_firestore_exception": {
+        "invalid_path_exception": "Hatalı dosya yolu.",
+        "batch_commit_exception":
+            "Bazı belgelerde hatta oluştu. Ayrıntılar: {failedDocs}",
+        "document_data_exception":
+            "Belgeden gelen veriler boş. Belge yolu: {path}",
+        "document_not_found_exception": "Belge bulunamadı. Belge yolu: {path}",
       },
       "social_credential_exception": {
         "failed_credential": "{social} ile oturum açılamadı: {error}",

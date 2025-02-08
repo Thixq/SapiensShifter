@@ -1,4 +1,5 @@
 import 'package:sapiensshifter/core/custom_error_and_exception_hanle/async_error_handler.dart';
+import 'package:sapiensshifter/core/exceptions/generic_exception/is_not_initialized_exception.dart';
 import 'package:sapiensshifter/core/exceptions/local_cache_exceptions/index.dart';
 import 'package:sapiensshifter/core/interface/operation_interface/local_cache_operation_interface.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,19 +11,28 @@ final class SharedPreferencesOperation extends LocalCacheOperationInterface {
       SharedPreferencesOperation._();
   static SharedPreferencesOperation get instance => _instance;
 
-  late final SharedPreferences _pref;
+  late final SharedPreferences? _pref;
 
-  Future<void> init() async {
+  Future<void> initialize() async {
     _pref = await SharedPreferences.getInstance();
   }
 
+  void _checkInitialization() {
+    if (_pref == null) {
+      throw IsNotInitializedException(
+        instanceName: 'SharedPreferencesOperation',
+      );
+    }
+  }
+
   Future<bool> _performWrite(String key, dynamic value) async {
-    final operations = <Type, Future<bool> Function()>{
-      String: () => _pref.setString(key, value as String),
-      bool: () => _pref.setBool(key, value as bool),
-      int: () => _pref.setInt(key, value as int),
-      double: () => _pref.setDouble(key, value as double),
-      List<String>: () => _pref.setStringList(key, value as List<String>),
+    _checkInitialization();
+    final operations = {
+      String: () => _pref!.setString(key, value as String),
+      bool: () => _pref!.setBool(key, value as bool),
+      int: () => _pref!.setInt(key, value as int),
+      double: () => _pref!.setDouble(key, value as double),
+      List<String>: () => _pref!.setStringList(key, value as List<String>),
     };
 
     final operation = operations[value.runtimeType];
@@ -48,7 +58,8 @@ final class SharedPreferencesOperation extends LocalCacheOperationInterface {
 
   @override
   Future<MapEntry<String, T>> getValue<T>({required String key}) async {
-    final value = _pref.get(key);
+    _checkInitialization();
+    final value = _pref!.get(key);
 
     if (value is T) {
       return MapEntry(key, value);
@@ -65,9 +76,10 @@ final class SharedPreferencesOperation extends LocalCacheOperationInterface {
 
   @override
   Future<Map<String, dynamic>> getAllValue() async {
+    _checkInitialization();
     return handleAsyncOperation(() async {
       return Map.fromEntries(
-        _pref.getKeys().map((key) {
+        _pref!.getKeys().map((key) {
           final value = _pref.get(key);
           return MapEntry(key, value);
         }),
@@ -80,7 +92,8 @@ final class SharedPreferencesOperation extends LocalCacheOperationInterface {
     required String key,
     required dynamic newValue,
   }) async {
-    if (!_pref.containsKey(key)) {
+    _checkInitialization();
+    if (!_pref!.containsKey(key)) {
       throw KeyNotFoundException(key);
     }
     return _performWrite(key, newValue);
@@ -88,7 +101,8 @@ final class SharedPreferencesOperation extends LocalCacheOperationInterface {
 
   @override
   Future<bool> delete({required String key}) async {
-    if (!_pref.containsKey(key)) {
+    _checkInitialization();
+    if (!_pref!.containsKey(key)) {
       throw KeyNotFoundException(key);
     }
     return handleAsyncOperation(() => _pref.remove(key));
