@@ -1,12 +1,11 @@
 import 'package:core/core.dart';
 import 'package:core/src/interfaces/localization_interface/localization_interface.dart';
+import 'package:core/src/interfaces/localization_interface/localization_mixin.dart';
 import 'package:test/test.dart';
 
 void main() {
   setUp(
-    () {
-      LocalizationProvider.setInstance(EasyLocalizationProvider());
-    },
+    () {},
   );
 
   test(
@@ -14,8 +13,8 @@ void main() {
     () {
       try {
         throw OneException('errors.invalid_email');
-      } catch (e) {
-        print(e.toString());
+      } catch (e, stack) {
+        print(stack);
       }
     },
   );
@@ -35,19 +34,13 @@ class EasyLocalizationProvider implements LocalizationProvider {
   }
 }
 
-class OneException extends BaseExceptionInterface {
+class OneException extends BaseExceptionInterface
+    with LocalizationOperationMixin {
   OneException(String code, [StackTrace? stackTrace])
       : super(
-            code, _getMessageFromCode(code), stackTrace ?? StackTrace.current);
-
-  static String _getMessageFromCode(String code) {
-    if (code == 'oneError') {
-      return 'oneError Message, oneError Message';
-    } else if (code == 'twoError') {
-      return 'twoError Message, twoError Message';
-    }
-    return 'Unknown error';
-  }
+            code,
+            LocalizationOperationMixin.getErrorMessage(code) ?? 'unknow-error',
+            stackTrace ?? StackTrace.current);
 
   @override
   String toString() => '$runtimeType: $code - $message';
