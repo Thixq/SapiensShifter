@@ -6,7 +6,12 @@ abstract class LocalizationProvider {
     _instance = provider;
   }
 
-  static LocalizationProvider? get instance => _instance;
+  static LocalizationProvider? get instance {
+    if (_instance == null) {
+      throw Exception('boş amk');
+    }
+    return _instance;
+  }
 
-  String getMessage(String key);
+  String? getMessage(String key);
 }
