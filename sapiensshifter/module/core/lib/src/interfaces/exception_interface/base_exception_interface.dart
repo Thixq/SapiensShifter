@@ -1,8 +1,9 @@
 abstract class BaseExceptionInterface implements Exception {
-  BaseExceptionInterface(this.code, this.message, [this.stackTrace]);
   String message;
-  final String code;
+  final String? code;
   final StackTrace? stackTrace;
+
+  BaseExceptionInterface(this.message, {this.code, this.stackTrace});
 
   @override
   String toString() {
