@@ -8,7 +8,9 @@ class ModuleFirebaseAuthException extends BaseExceptionInterface
 
   static String? _getErrorMessage(String code) {
     final String basePath = 'all_exception.firebase_auth_exception';
+
     final reCode = code.replaceAll('-', '_');
+
     return LocalizationOperationMixin.getErrorMessage('$basePath.$reCode');
   }
 

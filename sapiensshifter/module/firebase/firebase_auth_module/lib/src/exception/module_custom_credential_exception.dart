@@ -13,10 +13,8 @@ final class ModuleCustomCredentialException extends BaseExceptionInterface
       String code, Map<String, dynamic>? optionArgs) {
     final String basePath = 'all_exception.social_credential_exception';
 
-    final reCode = code.replaceAll('-', '_');
-
     return LocalizationOperationMixin.getErrorMessage(
-      '$basePath.$reCode',
+      '$basePath.$code',
       optionArgs: optionArgs,
     );
   }
