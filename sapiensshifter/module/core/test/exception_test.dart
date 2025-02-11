@@ -3,8 +3,7 @@ import 'package:core/core.dart';
 /// OneException: Sadece hata koduna göre mesaj belirleniyor.
 class OneException extends BaseExceptionInterface {
   OneException(String code, [StackTrace? stackTrace])
-      : super(
-            code, _getMessageFromCode(code), stackTrace ?? StackTrace.current);
+      : super(_getMessageFromCode(code), code: code, stackTrace: stackTrace);
 
   static String _getMessageFromCode(String code) {
     if (code == 'oneError') {
@@ -17,12 +16,6 @@ class OneException extends BaseExceptionInterface {
 
   @override
   String toString() => '$runtimeType: $code - $message';
-
-  @override
-  String getMessage(String key) {
-    // TODO: implement getMessage
-    throw UnimplementedError();
-  }
 }
 
 /// TwoException: Hata mesajı ve hatanın oluştuğu tarih bilgisine sahip.
@@ -30,7 +23,7 @@ class TwoException extends BaseExceptionInterface {
   final DateTime errorDate;
 
   TwoException(String code, this.errorDate, [StackTrace? stackTrace])
-      : super(code, _getMessageFromCode(code), stackTrace);
+      : super(_getMessageFromCode(code), code: code, stackTrace: stackTrace);
 
   static String _getMessageFromCode(String code) {
     if (code == 'oneError') {
@@ -43,17 +36,11 @@ class TwoException extends BaseExceptionInterface {
 
   @override
   String toString() => '$runtimeType: $message (Occurred at: $errorDate)';
-
-  @override
-  String getMessage(String key) {
-    // TODO: implement getMessage
-    throw UnimplementedError();
-  }
 }
 
 /// Örnek hata fırlatabilecek sınıf
-class oneClass {
-  const oneClass(this.a);
+class OneClass {
+  const OneClass(this.a);
   final int a;
 
   void someFunc() {
@@ -72,13 +59,14 @@ class oneClass {
 Future<bool> processOneClass(int value) async {
   return await handleAsyncOperation<bool, OneException>(
     () async {
-      oneClass(value).someFunc();
-      return true;
+      OneClass(value).someFunc();
+      throw UnimplementedError('blabla');
+      // return true;
     },
     errorTransformer: (error, [stackTrace]) {
       print("Logged OneException: ${error.message}");
       // Gelen OneException'ı TwoException'a dönüştürüyoruz.
-      return TwoException(error.code, DateTime.now(), stackTrace);
+      return TwoException(error.code ?? '', DateTime.now(), stackTrace);
     },
   );
 }
@@ -88,9 +76,6 @@ void main() async {
   try {
     print(await processOneClass(
         150)); // 150 değeri verildiği için OneException fırlatılacak.
-  } on TwoException catch (e) {
-    // print("Caught TwoException: ${e.toString()}");
-    print(e);
   } catch (e) {
     print(e);
   }

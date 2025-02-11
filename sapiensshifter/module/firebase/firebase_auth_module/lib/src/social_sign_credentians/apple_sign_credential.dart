@@ -1,24 +1,32 @@
 import 'package:core/core.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
+import '../exception/module_custom_credential_exception.dart';
+
 final class AppleSignCredential implements CredentialStrategyInterface {
   @override
   Future<CustomCredential> call() async {
-    try {
-      final appleCredential = await SignInWithApple.getAppleIDCredential(
-        scopes: [
-          AppleIDAuthorizationScopes.email,
-          AppleIDAuthorizationScopes.fullName,
-        ],
-      );
+    return handleAsyncOperation<CustomCredential, Exception>(
+      () async {
+        final appleCredential = await SignInWithApple.getAppleIDCredential(
+          scopes: [
+            AppleIDAuthorizationScopes.email,
+            AppleIDAuthorizationScopes.fullName,
+          ],
+        );
 
-      return CustomCredential(
-        providerId: 'apple',
-        accessToken: appleCredential.identityToken,
-        idToken: appleCredential.authorizationCode,
-      );
-    } catch (e) {
-      throw FailedCredentialException(social: 'Apple', error: e.toString());
-    }
+        return CustomCredential(
+          providerId: 'apple',
+          accessToken: appleCredential.identityToken,
+          idToken: appleCredential.authorizationCode,
+        );
+      },
+      errorTransformer: (error, [stackTrace]) {
+        return ModuleCustomCredentialException(
+          code: 'failed_credential',
+          optionArgs: {'social': 'Apple', 'error': error.toString()},
+        );
+      },
+    );
   }
 }

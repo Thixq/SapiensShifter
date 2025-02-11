@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_constructors_over_static_methods
 
-import 'dart:math';
-
 import 'package:core/core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth_module/src/utils/mixin/handle_exception_error_transformer_mixin.dart';
 
-class FirebaseAuthUserOperation extends AuthOperationInterface {
+class FirebaseAuthUserOperation extends AuthOperationInterface
+    with HandleExceptionErrorTransformerMixin {
   FirebaseAuthUserOperation._() {
     _initialize();
   }
@@ -33,7 +33,7 @@ class FirebaseAuthUserOperation extends AuthOperationInterface {
 
   @override
   Future<bool> displayUpdate(String newName) async {
-    return handleAsyncOperation(
+    return handleAsyncOperation<bool, FirebaseAuthException>(
       () async {
         if (_user == null) throw Exception('User not initialized');
         await _user.updateDisplayName(newName);
@@ -41,13 +41,13 @@ class FirebaseAuthUserOperation extends AuthOperationInterface {
         _user = FirebaseAuth.instance.currentUser;
         return true;
       },
-      errorTransformer: _handleFirebaseAuthException,
+      errorTransformer: handleFirebaseAuthException,
     );
   }
 
   @override
   Future<bool> passwordUpdate(String newPassword) async {
-    return handleAsyncOperation<bool>(
+    return handleAsyncOperation<bool, FirebaseAuthException>(
       () async {
         if (_user == null) throw Exception('User not initialized');
         await _user.updatePassword(newPassword);
@@ -55,13 +55,13 @@ class FirebaseAuthUserOperation extends AuthOperationInterface {
         _user = FirebaseAuth.instance.currentUser;
         return true;
       },
-      errorTransformer: (error, [stackTrace]) {},
+      errorTransformer: handleFirebaseAuthException,
     );
   }
 
   @override
   Future<bool> photographUpdate(String newPhotoUrl) async {
-    return handleAsyncOperation(
+    return handleAsyncOperation<bool, FirebaseAuthException>(
       () async {
         if (_user == null) throw Exception('User not initialized');
         await _user.updatePhotoURL(newPhotoUrl);
@@ -69,17 +69,7 @@ class FirebaseAuthUserOperation extends AuthOperationInterface {
         _user = FirebaseAuth.instance.currentUser;
         return true;
       },
-      errorTransformer: _handleFirebaseAuthException,
-    );
-  }
-
-  Exception _handleFirebaseAuthException(dynamic error) {
-    if (error is FirebaseAuthException) {
-      return FirebaseAuthCustomException.fromFirebaseAuthException(error);
-    }
-    return Exception(
-      LocaleKeys.all_exception_default_exception
-          .tr(namedArgs: {'message': error.toString()}),
+      errorTransformer: handleFirebaseAuthException,
     );
   }
 }
