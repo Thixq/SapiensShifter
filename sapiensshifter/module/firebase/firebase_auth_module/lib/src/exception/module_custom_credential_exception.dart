@@ -6,20 +6,22 @@ final class ModuleCustomCredentialException extends BaseExceptionInterface
       {required String code,
       Map<String, dynamic>? optionArgs,
       StackTrace? stackTrace})
-      : super(_getErrorMessage(code, optionArgs) ?? defaultFirebaseErrorMessage,
-            code: code, stackTrace: stackTrace ?? StackTrace.current);
+      : super(
+            _getErrorMessage(code, optionArgs) ?? _defaultFirebaseErrorMessage,
+            code: code,
+            stackTrace: stackTrace ?? StackTrace.current);
 
   static String? _getErrorMessage(
       String code, Map<String, dynamic>? optionArgs) {
     final String basePath = 'all_exception.social_credential_exception';
 
-    return LocalizationOperationMixin.getErrorMessage(
+    return LocalizationOperationMixin.getMessage(
       '$basePath.$code',
       optionArgs: optionArgs,
     );
   }
 
-  static String get defaultFirebaseErrorMessage => 'Unknown Error';
+  static String get _defaultFirebaseErrorMessage => 'Unknown Error';
 
   @override
   String toString() =>

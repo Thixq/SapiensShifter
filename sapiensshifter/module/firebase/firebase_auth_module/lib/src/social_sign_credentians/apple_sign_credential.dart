@@ -21,12 +21,11 @@ final class AppleSignCredential implements CredentialStrategyInterface {
           idToken: appleCredential.authorizationCode,
         );
       },
-      errorTransformer: (error, [stackTrace]) {
-        return ModuleCustomCredentialException(
-          code: 'failed_credential',
-          optionArgs: {'social': 'Apple', 'error': error.toString()},
-        );
-      },
+      errorTransformer: (error, [stackTrace]) =>
+          ModuleCustomCredentialException(
+        code: 'failed_credential',
+        optionArgs: {'social': 'Apple', 'error': error.toString()},
+      ),
     );
   }
 }

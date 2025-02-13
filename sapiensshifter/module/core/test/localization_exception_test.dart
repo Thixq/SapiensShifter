@@ -38,7 +38,7 @@ class OneException extends BaseExceptionInterface
     with LocalizationOperationMixin {
   OneException(String path, String code, [StackTrace? stackTrace])
       : super(
-            LocalizationOperationMixin.getErrorMessage('$path.$code') ??
+            LocalizationOperationMixin.getMessage('$path.$code') ??
                 'unknown-error',
             code: code,
             stackTrace: stackTrace);
