@@ -3,7 +3,7 @@ import 'package:core/core.dart';
 class ModuleFirebaseAuthException extends BaseExceptionInterface
     with LocalizationOperationMixin {
   ModuleFirebaseAuthException({required String code, StackTrace? stackTrace})
-      : super(_getErrorMessage(code) ?? defaultFirebaseErrorMessage,
+      : super(_getErrorMessage(code) ?? _defaultFirebaseErrorMessage,
             code: code, stackTrace: stackTrace ?? StackTrace.current);
 
   static String? _getErrorMessage(String code) {
@@ -11,10 +11,10 @@ class ModuleFirebaseAuthException extends BaseExceptionInterface
 
     final reCode = code.replaceAll('-', '_');
 
-    return LocalizationOperationMixin.getErrorMessage('$basePath.$reCode');
+    return LocalizationOperationMixin.getMessage('$basePath.$reCode');
   }
 
-  static String get defaultFirebaseErrorMessage => 'Unknown Error';
+  static String get _defaultFirebaseErrorMessage => 'Unknown Error';
 
   @override
   String toString() =>
