@@ -1,13 +1,11 @@
 // ignore_for_file: prefer_constructors_over_static_methods
 
+import 'package:core/core.dart';
+import 'package:firebase_auth_module/src/utils/mixin/handle_exception_error_transformer_mixin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sapiensshifter/core/custom_error_and_exception_hanle/async_error_handler.dart';
-import 'package:sapiensshifter/core/exceptions/firebase_exception/firebase_auth_exception/firebase_auth_exception.dart';
-import 'package:sapiensshifter/core/interface/manager_interface/auth_manager_interface.dart';
-import 'package:sapiensshifter/core/model/custom_credential_model.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
-final class FirebaseAuthManagar extends AuthManagerInterface {
+final class FirebaseAuthManagar extends AuthManagerInterface
+    with HandleExceptionErrorTransformerMixin {
   FirebaseAuthManagar._internal() {
     _init();
   }
@@ -45,15 +43,7 @@ final class FirebaseAuthManagar extends AuthManagerInterface {
         );
         return true;
       },
-      errorTransformer: (error) {
-        if (error is FirebaseAuthException) {
-          return FirebaseAuthCustomException.fromFirebaseAuthException(error);
-        }
-        return Exception(
-          LocaleKeys.all_exception_default_exception
-              .tr(namedArgs: {'message': error.toString()}),
-        );
-      },
+      errorTransformer: handleFirebaseAuthException,
     );
   }
 
@@ -73,15 +63,7 @@ final class FirebaseAuthManagar extends AuthManagerInterface {
         await _auth.signInWithCredential(oAuthCredential);
         return true;
       },
-      errorTransformer: (error) {
-        if (error is FirebaseAuthException) {
-          return FirebaseAuthCustomException.fromFirebaseAuthException(error);
-        }
-        return Exception(
-          LocaleKeys.all_exception_default_exception
-              .tr(namedArgs: {'message': error.toString()}),
-        );
-      },
+      errorTransformer: handleFirebaseAuthException,
     );
   }
 
@@ -98,15 +80,7 @@ final class FirebaseAuthManagar extends AuthManagerInterface {
         );
         return true;
       },
-      errorTransformer: (error) {
-        if (error is FirebaseAuthException) {
-          return FirebaseAuthCustomException.fromFirebaseAuthException(error);
-        }
-        return Exception(
-          LocaleKeys.all_exception_default_exception
-              .tr(namedArgs: {'message': error.toString()}),
-        );
-      },
+      errorTransformer: handleFirebaseAuthException,
     );
   }
 
@@ -117,15 +91,7 @@ final class FirebaseAuthManagar extends AuthManagerInterface {
         await _auth.signOut();
         return true;
       },
-      errorTransformer: (error) {
-        if (error is FirebaseAuthException) {
-          return FirebaseAuthCustomException.fromFirebaseAuthException(error);
-        }
-        return Exception(
-          LocaleKeys.all_exception_default_exception
-              .tr(namedArgs: {'message': error.toString()}),
-        );
-      },
+      errorTransformer: handleFirebaseAuthException,
     );
   }
 }
