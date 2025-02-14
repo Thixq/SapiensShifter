@@ -1,39 +1,67 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Firebase Firestore Operation
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## Overview
+`FirebaseFirestoreOperation` is a type-safe class designed to handle Firestore operations efficiently. It works with models implementing `BaseModelInterface<T>` and provides a structured way to perform CRUD (Create, Read, Update, Delete) operations using Firestore's SDK.
 
 ## Features
+- **CRUD Operations:**
+  - Add (`addItem`, `addAllItem`)
+  - Update (`update`, `replaceItem`)
+  - Delete (`deleteItem`)
+  - Retrieve (`getItem`, `getItemsQuery`)
+- **Error Handling:**
+  - Uses `handleAsyncOperation<bool, FirebaseException>` for structured exception handling.
+  - Custom exception `ModuleFirestoreException` is thrown when an error occurs.
+- **Batch Processing:**
+  - Supports batch operations with `_processBatchedOperations`, ensuring efficient handling of Firestore limits.
+  - `_deleteCollection` removes all documents within a collection using Firestore’s `WriteBatch`.
+- **Helper Mixin:**
+  - `FirestoreHelperMixin` provides additional helper functions such as `_getCollectionAndDocId` to manage Firestore paths efficiently.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
+## How It Works
+### 1. **Adding an Item**
 ```dart
-const like = 'sample';
+await firestoreOperation.addItem(
+  path: 'users/user123',
+  item: UserModel(name: 'John Doe', age: 30),
+);
+```
+- If `user123` exists, the document is updated.
+- If `user123` does not exist, a new document is created.
+
+### 2. **Adding Multiple Items in Batch**
+```dart
+await firestoreOperation.addAllItem(
+  path: 'users',
+  items: [UserModel(name: 'Alice'), UserModel(name: 'Bob')],
+);
+```
+- Adds multiple users in a single batch (max 500 per batch).
+
+### 3. **Retrieving an Item**
+```dart
+UserModel user = await firestoreOperation.getItem(path: 'users/user123');
+print(user.name);
 ```
 
-## Additional information
+### 4. **Querying Multiple Items**
+```dart
+List<UserModel> users = await firestoreOperation.getItemsQuery(path: 'users');
+```
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+### 5. **Updating an Item**
+```dart
+await firestoreOperation.update(
+  path: 'users/user123',
+  value: {'age': 31},
+);
+```
+
+### 6. **Deleting an Item**
+```dart
+await firestoreOperation.deleteItem(path: 'users/user123');
+```
+
+## Conclusion
+`FirebaseFirestoreOperation` simplifies Firestore operations, ensuring efficiency, error handling, and batch processing for large-scale applications.
+
