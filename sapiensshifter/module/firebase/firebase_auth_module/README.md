@@ -1,39 +1,58 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# Firebase Authentication Module
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages). 
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages). 
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+This module provides an authentication system using Firebase, supporting email/password authentication and social logins (Google, Apple). It includes error handling, credential management, and user operations.
 
 ## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
-
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+- Firebase email/password authentication
+- Google & Apple social login integration
+- Exception handling with localization support
+- User profile management (update display name, password, and profile picture)
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
-
+### Authentication Manager
+Handles authentication processes like signing in and registering users.
 ```dart
-const like = 'sample';
+final authManager = FirebaseAuthManagar.instance;
+
+await authManager.registerInWithEmailAndPassword(
+  email: 'user@example.com',
+  password: 'securepassword',
+);
 ```
 
-## Additional information
+### Social Login (Google & Apple)
+Uses different credential strategies for authentication.
+```dart
+final googleCredential = GoogleSignCredential();
+final userCredential = await googleCredential.call();
+```
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+### Exception Handling
+Provides structured error handling for Firebase authentication errors.
+```dart
+try {
+  await authManager.signInWithEmailAndPassword(
+    email: 'user@example.com',
+    password: 'wrongpassword',
+  );
+} catch (e) {
+  print(e.toString());
+}
+```
+
+### User Profile Management
+Allows updating user information such as display name, password, and profile photo.
+```dart
+final userOperation = FirebaseAuthUserOperation.instance;
+await userOperation.displayUpdate('New Name');
+```
+
+## Dependencies
+- `firebase_auth`
+- `google_sign_in`
+- `sign_in_with_apple`
+
+## License
+This project is open-source and free to use.
+
