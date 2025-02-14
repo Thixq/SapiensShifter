@@ -10,9 +10,14 @@ class ModuleFirestoreException extends BaseExceptionInterface
   /// - [stackTrace]: The stack trace at the point of error occurrence.
   ModuleFirestoreException(String code,
       {Map<String, dynamic>? optionArgs, StackTrace? stackTrace})
-      : super('',
-            code: _getMessage(code, optionArgs: optionArgs),
+      : super(
+            _getMessage(code, optionArgs: optionArgs) ??
+                _defaultFirebaseErrorMessage,
+            code: code,
             stackTrace: stackTrace ?? StackTrace.current);
+
+  /// A static getter that returns a default error message when a localized one is not found.
+  static String get _defaultFirebaseErrorMessage => 'Unknown Error';
 
   /// Retrieves the localized error message for a given Firestore error code.
   /// - [code]: The specific Firestore error code.
