@@ -2,7 +2,7 @@
 
 import 'package:core/core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth_module/src/utils/mixin/handle_exception_error_transformer_mixin.dart';
+import 'utils/mixin/handle_exception_error_transformer_mixin.dart';
 
 class FirebaseAuthUserOperation extends AuthOperationInterface
     with HandleExceptionErrorTransformerMixin {

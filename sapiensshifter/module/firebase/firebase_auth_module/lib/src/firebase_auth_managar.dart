@@ -1,8 +1,9 @@
+// firebase_auth_manager.dart
 // ignore_for_file: prefer_constructors_over_static_methods
 
 import 'package:core/core.dart';
-import 'package:firebase_auth_module/src/utils/mixin/handle_exception_error_transformer_mixin.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'utils/mixin/handle_exception_error_transformer_mixin.dart';
 
 final class FirebaseAuthManagar extends AuthManagerInterface
     with HandleExceptionErrorTransformerMixin {
@@ -11,6 +12,8 @@ final class FirebaseAuthManagar extends AuthManagerInterface
   }
 
   late final FirebaseAuth _auth;
+  late final Map<String, OAuthCredential Function(CustomCredential)>
+      _credentialProviders;
 
   void _init() {
     _auth = FirebaseAuth.instance;
@@ -24,9 +27,6 @@ final class FirebaseAuthManagar extends AuthManagerInterface
           ),
     };
   }
-
-  late final Map<String, OAuthCredential Function(CustomCredential)>
-      _credentialProviders;
 
   static FirebaseAuthManagar get instance => FirebaseAuthManagar._internal();
 

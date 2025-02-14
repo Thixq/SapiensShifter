@@ -37,5 +37,5 @@ abstract class NetworkStoreQueryInterface {
   ///
   /// Returns:
   /// A result of generic type [T] that represents the outcome of applying the query.
-  T applyToCollection<T>(String path);
+  T applyToQuery<T>(String path);
 }
