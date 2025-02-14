@@ -1,4 +1,4 @@
-part 'filter_operator_enum.dart';
+import './filter_operator_enum.dart';
 
 class FilterCondition {
   FilterCondition({

@@ -1,7 +1,8 @@
 /// Support for doing something awesome.
 ///
 /// More dartdocs go here.
-library;
+// ignore: unnecessary_library_name
+library core;
 
 export 'src/firebase_auth_managar.dart';
 export 'src/firebase_auth_user_operation.dart';
