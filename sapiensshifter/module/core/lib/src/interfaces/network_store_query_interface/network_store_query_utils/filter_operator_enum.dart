@@ -1,4 +1,3 @@
-part of 'filter_condition.dart';
 
 enum FilterOperator {
   isEqualTo,
