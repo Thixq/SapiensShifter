@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
 
 class FirebaseFirestoreCustomQuery extends NetworkStoreQueryInterface {
+  /// Creates a custom Firestore query with optional filters, ordering, and limits.
   FirebaseFirestoreCustomQuery({
     super.limit,
     super.limitToLast,
@@ -9,15 +10,21 @@ class FirebaseFirestoreCustomQuery extends NetworkStoreQueryInterface {
     super.filters,
   });
 
+  /// Applies the configured query parameters to a Firestore collection.
+  ///
+  /// - [path]: The Firestore collection path to query.
+  /// - Returns a Firestore [Query] object with applied filters, ordering, and limits.
   @override
   T applyToQuery<T>(String path) {
     Query<Object?> query = FirebaseFirestore.instance.collection(path);
 
+    // Apply filters to the query if any exist.
     filters?.forEach((filter) {
       final field = filter.field;
       final value = filter.value;
       final operator = filter.operator;
 
+      // Map of supported Firestore filter operations.
       final operationMap = {
         FilterOperator.isEqualTo: () =>
             query = query.where(field, isEqualTo: value),
@@ -42,15 +49,16 @@ class FirebaseFirestoreCustomQuery extends NetworkStoreQueryInterface {
         FilterOperator.isNull: () => query = query.where(field, isNull: true),
       };
 
+      // Apply the corresponding filter operation.
       operationMap[operator]?.call();
     });
 
-    // Sıralama uygula
+    // Apply ordering to the query if specified.
     orderBy?.forEach((order) {
       query = query.orderBy(order.field, descending: order.descending);
     });
 
-    // Limitleri uygula
+    // Apply limits to the query.
     if (limitToLast != null) {
       query = query.limitToLast(limitToLast!);
     } else if (limit != null) {
