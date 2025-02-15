@@ -15,7 +15,7 @@ final class ModuleCustomCredentialException extends BaseExceptionInterface
   /// [stackTrace]: An optional StackTrace. If not provided, the current stack trace is used.
   ModuleCustomCredentialException({
     required String code,
-    Map<String, dynamic>? optionArgs,
+    Map<String, String>? optionArgs,
     StackTrace? stackTrace,
   }) : super(
           // Fetch a localized error message based on the provided [code] and [optionArgs].
@@ -33,7 +33,7 @@ final class ModuleCustomCredentialException extends BaseExceptionInterface
   ///
   /// Returns the localized message as a String if available; otherwise, returns null.
   static String? _getErrorMessage(
-      String code, Map<String, dynamic>? optionArgs) {
+      String code, Map<String, String>? optionArgs) {
     // Define the base path for localization keys related to social credential exceptions.
     final String localzationBasePath =
         'all_exception.social_credential_exception';
@@ -54,5 +54,5 @@ final class ModuleCustomCredentialException extends BaseExceptionInterface
   /// The output includes the runtime type of the exception, the error code, and the error message.
   @override
   String toString() =>
-      '$runtimeType: Error Code: $code - Error Message: $message';
+      '$runtimeType - Error Code: $code - Error Message: $message';
 }

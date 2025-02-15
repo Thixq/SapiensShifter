@@ -13,7 +13,7 @@ mixin LocalizationOperationMixin {
   /// [optionArgs]: An optional map of arguments that may be used to format the message.
   ///
   /// Returns the localized message as a [String] if available, otherwise returns null.
-  static String? getMessage(String key, {Map<String, dynamic>? optionArgs}) {
+  static String? getMessage(String key, {Map<String, String>? optionArgs}) {
     // Retrieve the singleton instance of LocalizationProvider.
     // The provider handles accessing localization data throughout the app.
     final instance = LocalizationProvider.instance;

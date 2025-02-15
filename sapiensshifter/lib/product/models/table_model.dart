@@ -1,13 +1,13 @@
+import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:sapiensshifter/product/interface/interface_model/product_base_model_interface.dart';
 import 'package:sapiensshifter/product/models/order_model.dart';
 
 part 'table_model.g.dart';
 
 @JsonSerializable(checked: true)
-final class TableModel extends Equatable
-    implements ProductBaseModelInterface<TableModel> {
+final class TableModel extends BaseModelInterface<TableModel>
+    with EquatableMixin {
   const TableModel({
     this.id,
     this.tableName,

@@ -11,6 +11,21 @@ dependencies:
   flutter:
     sdk: flutter
 
+  #Core
+  core:
+    path: module/core
+
+  #Auth
+  firebase_auth_module:
+    path: module/firebase/firebase_auth_module
+
+  #Database
+  firebase_firestore_module:
+    path: module/firebase/firebase_firestore_module
+
+  #Local Cache
+  sharhed_preferences_module:
+    path: module/local_cache/sharhed_preferences_module
 
   #Utilts
   sizer: ^3.0.5

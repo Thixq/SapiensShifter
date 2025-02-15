@@ -10,7 +10,7 @@ environment:
 # Add regular dependencies here.
 dependencies:
   # path: ^1.8.0
-  meta: ^1.16.0
+  meta: ^1.15.0
 
     #Core Package
   core:

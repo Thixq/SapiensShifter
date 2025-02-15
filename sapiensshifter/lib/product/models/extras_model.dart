@@ -1,12 +1,12 @@
+import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:sapiensshifter/product/interface/interface_model/product_base_model_interface.dart';
 
 part 'extras_model.g.dart';
 
 @JsonSerializable(checked: true)
-final class ExtrasModel extends Equatable
-    implements ProductBaseModelInterface<ExtrasModel> {
+final class ExtrasModel extends BaseModelInterface<ExtrasModel>
+    with EquatableMixin {
   const ExtrasModel({
     this.id,
     this.name,

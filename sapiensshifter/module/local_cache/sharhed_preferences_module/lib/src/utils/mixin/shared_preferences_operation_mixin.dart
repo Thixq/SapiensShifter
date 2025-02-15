@@ -34,7 +34,7 @@ mixin class SharedPreferencesOperationMixin {
     } else {
       // If the type is not supported, throw an exception with details.
       throw ModuleSharedPreferencesException('un_supported_value',
-          optionArgs: {'valueType': value.runtimeType});
+          optionArgs: {'valueType': value.runtimeType.toString()});
     }
   }
 }
