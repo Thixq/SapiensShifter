@@ -1,7 +1,7 @@
+import 'package:core/core.dart';
+import 'package:firebase_auth_module/firebase_auth_module.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/core/firebase/firebase_auth/firebase_auth_managar.dart';
-import 'package:sapiensshifter/core/firebase/firebase_auth/social_sign_credentians/google_sign_credential.dart';
 import 'package:sapiensshifter/core/localization/localization.dart';
 import 'package:sapiensshifter/core/theme/appliaction_theme.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
@@ -10,6 +10,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp();
+
+  LocalizationProvider.setInstance(EasyLocal());
+
   runApp(
     LanguageManager(
       child: const MyApp(),
@@ -60,10 +63,12 @@ class _ThixState extends State<Thix> {
           children: [
             TextButton(
               onPressed: () async {
-                final googleCredential = await GoogleSignCredential().call();
-                await _authManagar.signInWithCredential(
-                  credential: googleCredential,
-                );
+                try {
+                  final asd = await GoogleSignCredential().call();
+                  await _authManagar.signInWithCredential(credential: asd);
+                } catch (e) {
+                  print(e);
+                }
               },
               child: const Text('Google'),
             ),
@@ -71,12 +76,26 @@ class _ThixState extends State<Thix> {
               width: 16,
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () async {
+                try {
+                  final asd = await AppleSignCredential().call();
+                  await _authManagar.signInWithCredential(credential: asd);
+                } catch (e) {
+                  print(e);
+                }
+              },
               child: const Text('Apple'),
             ),
           ],
         ),
       ),
     );
+  }
+}
+
+class EasyLocal extends LocalizationProvider {
+  @override
+  String? getMessage(String key, {Map<String, String>? optionArgs}) {
+    return key.tr(namedArgs: optionArgs);
   }
 }

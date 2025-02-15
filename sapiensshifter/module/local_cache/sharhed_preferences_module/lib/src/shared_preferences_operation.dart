@@ -68,8 +68,8 @@ final class SharedPreferencesOperation extends LocalCacheOperationInterface
     } else {
       throw ModuleSharedPreferencesException('expected_type', optionArgs: {
         'key': key,
-        'expectedType': T.runtimeType,
-        'actualType': value.runtimeType
+        'expectedType': T.runtimeType.toString(),
+        'actualType': value.runtimeType.toString()
       });
     }
   }

@@ -53,7 +53,9 @@ mixin class FirestoreHelperMixin {
     if (failedItems.isNotEmpty) {
       throw ModuleFirestoreException(
         'batch_commit_exception',
-        optionArgs: {'failedDocs': failedItems.map(errorMapper).toList()},
+        optionArgs: {
+          'failedDocs': failedItems.map(errorMapper).toList().toString()
+        },
       );
     }
   }

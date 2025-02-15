@@ -27,7 +27,7 @@ final class GoogleSignCredential implements CredentialStrategyInterface {
         // Initiate the sign-in process with Google.
         // If the user cancels, `googleUser` will be null.
         final googleUser = await GoogleSignIn().signIn();
-        
+
         // Check if the sign-in process was canceled by the user.
         if (googleUser == null) {
           // Throw a custom exception indicating that the user canceled the sign-in process.
@@ -39,15 +39,18 @@ final class GoogleSignCredential implements CredentialStrategyInterface {
 
         // Construct and return a CustomCredential using the obtained tokens.
         return CustomCredential(
-          providerId: 'google',               // Identifies the provider as Google.
-          accessToken: googleAuth.accessToken, // The access token for Google APIs.
-          idToken: googleAuth.idToken,         // The ID token for authentication purposes.
+          providerId: 'google', // Identifies the provider as Google.
+          accessToken:
+              googleAuth.accessToken, // The access token for Google APIs.
+          idToken:
+              googleAuth.idToken, // The ID token for authentication purposes.
         );
       },
       // In case of any error during the sign-in process, this error transformer
       // converts the error into a ModuleCustomCredentialException with a standard error code
       // and additional context information.
-      errorTransformer: (error, [stackTrace]) => ModuleCustomCredentialException(
+      errorTransformer: (error, [stackTrace]) =>
+          ModuleCustomCredentialException(
         code: 'failed_credential',
         optionArgs: {'social': 'Google', 'error': error.toString()},
       ),

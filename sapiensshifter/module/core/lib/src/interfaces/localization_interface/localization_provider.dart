@@ -23,5 +23,5 @@ abstract class LocalizationProvider {
   /// [optionArgs]: An optional map of arguments used for formatting the message.
   ///
   /// Returns the localized message as a [String] if found; otherwise, it returns null.
-  String? getMessage(String key, {Map<String, dynamic>? optionArgs});
+  String? getMessage(String key, {Map<String, String>? optionArgs});
 }
