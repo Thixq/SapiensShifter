@@ -21,8 +21,7 @@ final class FirebaseAuthManagar extends AuthManagerInterface {
             accessToken: credential.accessToken,
             idToken: credential.idToken,
           ),
-      'facebook': (CustomCredential credential) =>
-          FacebookAuthProvider.credential(
+      'apple': (CustomCredential credential) => AppleAuthProvider.credential(
             credential.accessToken!,
           ),
     };

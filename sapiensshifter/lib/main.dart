@@ -60,10 +60,9 @@ class _ThixState extends State<Thix> {
           children: [
             TextButton(
               onPressed: () async {
-                final googleCredential = GoogleSignCredential();
-                final credential = await googleCredential();
+                final googleCredential = await GoogleSignCredential().call();
                 await _authManagar.signInWithCredential(
-                  credential: credential,
+                  credential: googleCredential,
                 );
               },
               child: const Text('Google'),
