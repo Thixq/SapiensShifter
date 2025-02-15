@@ -15,8 +15,7 @@ import 'shared_preferences_operation_test.mocks.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   late SharedPreferencesOperation spOperation;
-  late MockSharedPreferences
-      mockPref; // @GenerateMocks ile oluşturulan mock sınıfı
+  late MockSharedPreferences mockPref;
 
   setUp(() async {
     SharedPreferences.setMockInitialValues({});
