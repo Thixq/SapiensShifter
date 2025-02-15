@@ -53,7 +53,7 @@ final class FirebaseAuthManagar extends AuthManagerInterface
   Future<bool> registerInWithEmailAndPassword({
     required String email,
     required String password,
-  }) {
+  }) async {
     return handleAsyncOperation(
       () async {
         await _auth.createUserWithEmailAndPassword(
@@ -75,7 +75,7 @@ final class FirebaseAuthManagar extends AuthManagerInterface
   @override
   Future<bool> signInWithCredential({
     required CustomCredential credential,
-  }) {
+  }) async {
     return handleAsyncOperation(
       () async {
         // Retrieve the corresponding authentication function for the given provider.
@@ -110,7 +110,7 @@ final class FirebaseAuthManagar extends AuthManagerInterface
   Future<bool> signInWithEmailAndPassword({
     required String email,
     required String password,
-  }) {
+  }) async {
     return handleAsyncOperation(
       () async {
         await _auth.signInWithEmailAndPassword(
@@ -128,7 +128,7 @@ final class FirebaseAuthManagar extends AuthManagerInterface
   ///
   /// Returns `true` if sign-out is successful, otherwise an exception is thrown.
   @override
-  Future<bool> signOut() {
+  Future<bool> signOut() async {
     return handleAsyncOperation(
       () async {
         await _auth.signOut();

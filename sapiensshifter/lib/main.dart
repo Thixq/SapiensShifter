@@ -1,7 +1,9 @@
 import 'package:core/core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_module/firebase_auth_module.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:sapiensshifter/core/exception_handler/async_exception_handler.dart';
 import 'package:sapiensshifter/core/localization/localization.dart';
 import 'package:sapiensshifter/core/theme/appliaction_theme.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
@@ -48,10 +50,11 @@ class _ThixState extends State<Thix> {
   late final FirebaseAuthManagar _authManagar;
   // late final FirebaseAuthUserOperation _userOperation =
   //     FirebaseAuthUserOperation.instance;
-
+  final auth = FirebaseAuthUserOperation.instance;
   @override
   void initState() {
     _authManagar = FirebaseAuthManagar.instance;
+
     super.initState();
   }
 
@@ -63,12 +66,13 @@ class _ThixState extends State<Thix> {
           children: [
             TextButton(
               onPressed: () async {
-                try {
-                  final asd = await GoogleSignCredential().call();
-                  await _authManagar.signInWithCredential(credential: asd);
-                } catch (e) {
-                  print(e);
-                }
+                await asyncExceptionHandler(
+                  () async {
+                    final asd = await GoogleSignCredential().call();
+                    await _authManagar.signInWithCredential(credential: asd);
+                  },
+                  context: context,
+                );
               },
               child: const Text('Google'),
             ),
