@@ -34,8 +34,8 @@ class _NewChatBottomSheetState extends State<NewChatBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
-      initialChildSize: .85, // Tam ekran başlatır
-      minChildSize: 0.4, // Minimum yüksekliği
+      initialChildSize: .85,
+      minChildSize: 0.4,
       builder: (_, controller) {
         return Container(
           decoration: BoxDecoration(
