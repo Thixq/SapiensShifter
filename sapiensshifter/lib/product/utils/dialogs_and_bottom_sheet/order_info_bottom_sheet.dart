@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/export_utils_ui.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/table_export.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/utils_utils_ui_export.dart';
 
 class OrderInfoBottomSheet extends StatelessWidget {
   const OrderInfoBottomSheet({this.tableModel, super.key});
