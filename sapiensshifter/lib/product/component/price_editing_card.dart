@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/models/product_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/export_utils_ui.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/utils_utils_ui_export.dart';
 
 final class PriceEditingCard extends StatefulWidget {
   const PriceEditingCard({
