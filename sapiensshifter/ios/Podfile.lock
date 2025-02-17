@@ -1157,7 +1157,7 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.36):
     - BoringSSL-GRPC/Interface (= 0.0.36)
   - BoringSSL-GRPC/Interface (0.0.36)
-  - cloud_firestore (5.6.2):
+  - cloud_firestore (5.6.3):
     - Firebase/Firestore (= 11.7.0)
     - firebase_core
     - Flutter
@@ -1439,7 +1439,7 @@ SPEC CHECKSUMS:
   abseil: d121da9ef7e2ff4cab7666e76c5a3e0915ae08c3
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
   BoringSSL-GRPC: ca6a8e5d04812fce8ffd6437810c2d46f925eaeb
-  cloud_firestore: 47917b80e3ce4bea3c162429d85345e500cc7d9c
+  cloud_firestore: 176d7a2e629c6473b1f99c413e27efe08715e7af
   device_info_plus: 71ffc6ab7634ade6267c7a93088ed7e4f74e5896
   Firebase: a64bf6a8546e6eab54f1c715cd6151f39d2329f4
   firebase_auth: a1aa0a20e8de111be5b9a5a2ba73201877f9f53d
@@ -1454,7 +1454,7 @@ SPEC CHECKSUMS:
   FirebaseFirestoreInternal: 953e31e70db09d928b927b65761171c680d2ea9b
   FirebaseSharedSwift: 672954eac7b141d6954fab9a32d45d6b1d922df8
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  google_sign_in_ios: 0ab078e60da6dfe23cbc55c83502b52bba1aad63
+  google_sign_in_ios: 19297361f2c51d7d8ac0201b866ef1fa5d1f94a8
   GoogleSignIn: d4281ab6cf21542b1cfaff85c191f230b399d2db
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
   "gRPC-C++": 2fa52b3141e7789a28a737f251e0c45b4cb20a87

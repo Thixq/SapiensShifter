@@ -1,18 +1,14 @@
-import 'package:core/core.dart';
 import 'package:firebase_auth_module/firebase_auth_module.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/core/exception_handler/async_exception_handler.dart';
+import 'package:sapiensshifter/core/init/app_configure.dart';
 import 'package:sapiensshifter/core/localization/localization.dart';
 import 'package:sapiensshifter/core/theme/appliaction_theme.dart';
+import 'package:sapiensshifter/feature/splash/view/splash_view.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
-  await Firebase.initializeApp();
-
-  LocalizationProvider.setInstance(EasyLocal());
+  await AppConfigure.initialize();
 
   runApp(
     LanguageManager(
@@ -32,7 +28,7 @@ class MyApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         localizationsDelegates: context.localizationDelegates,
         locale: context.locale,
-        home: const Thix(),
+        home: const SplashView(),
       ),
     );
   }
@@ -93,12 +89,5 @@ class _ThixState extends State<Thix> {
         ),
       ),
     );
-  }
-}
-
-class EasyLocal extends LocalizationProvider {
-  @override
-  String? getMessage(String key, {Map<String, String>? optionArgs}) {
-    return key.tr(namedArgs: optionArgs);
   }
 }

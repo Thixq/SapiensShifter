@@ -36,12 +36,10 @@ dependencies:
 
   #Firebase
   firebase_core: ^3.10.0
-  firebase_auth: ^5.4.0
-  cloud_firestore: ^5.6.2
 
-  #Social Sign
-  google_sign_in: ^6.2.2
-  sign_in_with_apple: ^6.1.4
+  #State
+  flutter_bloc: ^9.0.0
+  flutter_riverpod: ^2.6.1
 
   #Network
   http: ^1.2.2
@@ -80,6 +78,8 @@ flutter:
 
   assets:
     - assets/icon/
+    - assets/icon/order_status_ic/
+    - assets/icon/social_sign_ic/
     - assets/logo/
     - assets/translations/
 
