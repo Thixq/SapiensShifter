@@ -63,8 +63,11 @@ class _ThixState extends State<Thix> {
               onPressed: () async {
                 await asyncExceptionHandler(
                   () async {
-                    final asd = await GoogleSignCredential().call();
-                    await _authManagar.signInWithCredential(credential: asd);
+                    final googleCredential =
+                        await GoogleSignCredential().call();
+                    await _authManagar.signInWithCredential(
+                      credential: googleCredential,
+                    );
                   },
                   context: context,
                 );
