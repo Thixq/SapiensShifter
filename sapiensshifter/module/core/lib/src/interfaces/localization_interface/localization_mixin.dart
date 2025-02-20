@@ -6,7 +6,7 @@ import 'package:core/src/interfaces/localization_interface/localization_provider
 ///
 /// This mixin offers a static method to retrieve localized messages
 /// based on a provided key and optional parameters.
-mixin LocalizationOperationMixin {
+mixin class LocalizationOperationMixin {
   /// Retrieves a localized message for the given [key].
   ///
   /// [key]: The identifier used to fetch the corresponding localized message.
