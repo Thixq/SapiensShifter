@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:sapiensshifter/core/init/app_dependency.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 class AppConfigure {
@@ -11,6 +12,7 @@ class AppConfigure {
     await EasyLocalization.ensureInitialized();
     await Firebase.initializeApp();
     LocalizationProvider.setInstance(EasyLocal());
+    await AppDependency.setup();
   }
 }
 

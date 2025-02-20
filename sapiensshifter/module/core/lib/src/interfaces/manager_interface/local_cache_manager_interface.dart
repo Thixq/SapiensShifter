@@ -1,10 +1,12 @@
+import 'package:core/src/interfaces/interface.dart';
+
 /// An abstract interface for managing local cache operations.
 /// Implementations of this interface are responsible for initializing and removing local cache data.
-abstract class LocalCacheManagerInterface {
+abstract class ILocalCacheManager {
   /// Creates a [LocalCacheManagerInterface] instance.
   ///
   /// The [path] parameter is optional and represents the file or storage path where the cache is located.
-  const LocalCacheManagerInterface({this.path});
+  const ILocalCacheManager({this.path, required this.cacheOperation});
 
   /// Initializes the local cache.
   ///
@@ -23,4 +25,5 @@ abstract class LocalCacheManagerInterface {
 
   /// The file or storage path where the local cache is stored.
   final String? path;
+  final ILocalCacheOperation cacheOperation;
 }

@@ -1,10 +1,10 @@
-import 'network_store_query_utils/filter_condition.dart';
-import 'network_store_query_utils/order_by_condition.dart';
+import 'network_query_utils/filter_condition.dart';
+import 'network_query_utils/order_by_condition.dart';
 
 /// An abstract interface for constructing and applying network store queries.
 /// This interface allows you to define various query parameters such as limits,
 /// ordering, and filtering that can be applied to a collection in a network store.
-abstract class NetworkStoreQueryInterface {
+abstract class INetworkQuery {
   /// Creates an instance of [NetworkStoreQueryInterface].
   ///
   /// Parameters:
@@ -12,7 +12,7 @@ abstract class NetworkStoreQueryInterface {
   /// - [limitToLast]: Optional. The maximum number of items to retrieve from the end of the collection.
   /// - [orderBy]: Optional. A list of conditions that specify the ordering of the query results.
   /// - [filters]: Optional. A list of conditions to filter the query results.
-  NetworkStoreQueryInterface({
+  INetworkQuery({
     this.limit,
     this.limitToLast,
     this.orderBy,

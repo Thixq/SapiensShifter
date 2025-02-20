@@ -6,8 +6,7 @@ import 'package:sapiensshifter/product/models/extras_model.dart';
 part 'product_model.g.dart';
 
 @JsonSerializable(checked: true)
-final class ProductModel extends BaseModelInterface<ProductModel>
-    with EquatableMixin {
+final class ProductModel extends IBaseModel<ProductModel> with EquatableMixin {
   const ProductModel({
     this.id,
     this.productName,

@@ -3,7 +3,7 @@ import 'package:core/src/models/custom_credential_model.dart';
 /// This abstract class defines the interface for an authentication manager.
 /// It contains methods for handling authentication operations such as
 /// signing in, registering, signing in with custom credentials, and signing out.
-abstract class AuthManagerInterface {
+abstract class IAuthManager {
   /// Signs in a user using their email and password.
   ///
   /// Parameters:

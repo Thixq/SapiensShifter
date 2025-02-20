@@ -7,8 +7,7 @@ import 'package:sapiensshifter/product/utils/enums/delivery_status.dart';
 part 'order_model.g.dart';
 
 @JsonSerializable(checked: true)
-final class OrderModel extends BaseModelInterface<OrderModel>
-    with EquatableMixin {
+final class OrderModel extends IBaseModel<OrderModel> with EquatableMixin {
   const OrderModel({
     this.orderName,
     this.imagePath,

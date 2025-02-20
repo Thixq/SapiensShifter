@@ -1,5 +1,5 @@
-abstract class BaseModelInterface<T> {
-  const BaseModelInterface();
+abstract class IBaseModel<T> {
+  const IBaseModel();
   T fromJson(Map<String, dynamic> json);
   Map<String, dynamic> toJson();
 }

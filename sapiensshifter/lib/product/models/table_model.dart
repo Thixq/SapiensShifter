@@ -6,8 +6,7 @@ import 'package:sapiensshifter/product/models/order_model.dart';
 part 'table_model.g.dart';
 
 @JsonSerializable(checked: true)
-final class TableModel extends BaseModelInterface<TableModel>
-    with EquatableMixin {
+final class TableModel extends IBaseModel<TableModel> with EquatableMixin {
   const TableModel({
     this.id,
     this.tableName,

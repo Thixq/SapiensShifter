@@ -4,6 +4,7 @@
 import 'package:core/core.dart';
 // Importing Firebase Authentication package for user-related operations
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth_module/src/model/user_model.dart';
 // Importing the mixin that transforms Firebase authentication errors
 import 'utils/mixin/handle_exception_error_transformer_mixin.dart';
 
@@ -11,29 +12,19 @@ import 'utils/mixin/handle_exception_error_transformer_mixin.dart';
 ///
 /// This class provides methods for updating the user's display name, password,
 /// and profile picture. It also retrieves the current user's details.
-class FirebaseAuthUserOperation extends AuthOperationInterface
+class FirebaseAuthUserOperation extends IAuthOperation
     with HandleExceptionErrorTransformerMixin {
   /// Private constructor to prevent external instantiation.
   ///
   /// Calls the [_initialize] method to set up the current user.
-  FirebaseAuthUserOperation._() {
-    _initialize();
+  FirebaseAuthUserOperation(FirebaseAuth instance) {
+    _user = instance.currentUser;
   }
-
-  /// Singleton instance of [FirebaseAuthUserOperation].
-  static final FirebaseAuthUserOperation _instance =
-      FirebaseAuthUserOperation._();
-
-  /// Provides the singleton instance of [FirebaseAuthUserOperation].
-  static FirebaseAuthUserOperation get instance => _instance;
 
   /// Holds the currently authenticated user.
   late User? _user;
 
   /// Initializes the Firebase user instance by fetching the current authenticated user.
-  void _initialize() {
-    _user = FirebaseAuth.instance.currentUser;
-  }
 
   /// Returns the currently authenticated user's details as a [UserModel].
   ///

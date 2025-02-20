@@ -10,18 +10,22 @@ part 'utils/mixin/firestore_helper_mixin.dart';
 
 // The FirebaseFirestoreOperation class is a generic class that works with models extending BaseModelInterface.
 // It performs asynchronous Firestore operations like adding, updating, fetching, and deleting documents.
-final class FirebaseFirestoreOperation<T extends BaseModelInterface<T>>
-    extends NetworkStoreOperationInterface<T> with FirestoreHelperMixin {
+final class FirebaseFirestoreOperation extends INetworkOperation
+    with FirestoreHelperMixin {
   // Constructor initializes the Firestore instance, which is used for performing Firestore operations.
   FirebaseFirestoreOperation({required FirebaseFirestore firestore})
       : _firestore = firestore;
+
+  factory FirebaseFirestoreOperation.base() {
+    return FirebaseFirestoreOperation(firestore: FirebaseFirestore.instance);
+  }
 
   late final FirebaseFirestore
       _firestore; // Firestore instance to interact with the database.
 
   // `addItem` adds a single item to Firestore. If a document ID exists, it updates that document, otherwise, it adds a new one.
   @override
-  Future<bool> addItem({
+  Future<bool> addItem<T extends IBaseModel<T>>({
     required String path, // Path to the collection and document in Firestore.
     required T
         item, // The item to be added, which is a model implementing `BaseModelInterface<T>`.
@@ -48,7 +52,7 @@ final class FirebaseFirestoreOperation<T extends BaseModelInterface<T>>
 
   // `addAllItem` adds multiple items in batches. It cannot operate on specific documents, only entire collections.
   @override
-  Future<bool> addAllItem({
+  Future<bool> addAllItem<T extends IBaseModel<T>>({
     required String path, // Path to the Firestore collection.
     required List<T> items, // List of items to add.
   }) {
@@ -109,7 +113,8 @@ final class FirebaseFirestoreOperation<T extends BaseModelInterface<T>>
 
   // `getItem` retrieves a single item from Firestore based on the path.
   @override
-  Future<T> getItem({required String path, String? key}) async {
+  Future<T> getItem<T extends IBaseModel<T>>(
+      {required String path, String? key}) async {
     return handleAsyncOperation<T, FirebaseException>(
       () async {
         final (collectionPath, docId) = _getCollectionAndDocId(path);
@@ -128,7 +133,7 @@ final class FirebaseFirestoreOperation<T extends BaseModelInterface<T>>
                       throw ModuleFirestoreException('document_data_exception',
                           optionArgs: {'path': path});
                     }
-                    return (T as BaseModelInterface<T>).fromJson(data);
+                    return (T as IBaseModel<T>).fromJson(data);
                   },
                   toFirestore: (model, _) => model.toJson(),
                 );
@@ -150,10 +155,10 @@ final class FirebaseFirestoreOperation<T extends BaseModelInterface<T>>
 
   // `getItemsQuery` retrieves a list of items from Firestore based on a query.
   @override
-  Future<List<T>> getItemsQuery({
+  Future<List<T>> getItemsQuery<T extends IBaseModel<T>>({
     required String path, // Path to the Firestore collection.
     String? key, // Optional key, used to identify the document.
-    NetworkStoreQueryInterface? query, // Optional query for filtering the data.
+    INetworkQuery? query, // Optional query for filtering the data.
   }) async {
     return handleAsyncOperation<List<T>, FirebaseException>(
       () async {
@@ -180,7 +185,7 @@ final class FirebaseFirestoreOperation<T extends BaseModelInterface<T>>
         // Map each document to the model type and return the list of items.
         final items = querySnapshot.docs
             .map(
-              (doc) => (T as BaseModelInterface<T>).fromJson(doc.data()),
+              (doc) => (T as IBaseModel<T>).fromJson(doc.data()),
             )
             .cast<T>()
             .toList();
@@ -192,7 +197,7 @@ final class FirebaseFirestoreOperation<T extends BaseModelInterface<T>>
 
   // `replaceItem` replaces an existing item in Firestore based on the provided path and key.
   @override
-  Future<bool> replaceItem({
+  Future<bool> replaceItem<T extends IBaseModel<T>>({
     required String path, // Path to the document.
     required T item, // The item to replace the existing document with.
     String? key, // Optional key to identify the document to be replaced.
@@ -243,9 +248,9 @@ final class FirebaseFirestoreOperation<T extends BaseModelInterface<T>>
     );
   }
 
-  Stream<dynamic> getStream({
+  Stream<dynamic> getStream<T extends IBaseModel<T>>({
     required String path,
-    NetworkStoreQueryInterface? query,
+    INetworkQuery? query,
   }) {
     final (collectionPath, docId) = _getCollectionAndDocId(path);
 
@@ -258,7 +263,7 @@ final class FirebaseFirestoreOperation<T extends BaseModelInterface<T>>
                     throw ModuleFirestoreException('document_data_exception',
                         optionArgs: {'path': path});
                   }
-                  return (T as BaseModelInterface<T>).fromJson(data);
+                  return (T as IBaseModel<T>).fromJson(data);
                 },
                 toFirestore: (model, _) => model.toJson(),
               );
@@ -278,7 +283,7 @@ final class FirebaseFirestoreOperation<T extends BaseModelInterface<T>>
                 collectionRef.path);
       }
       return collectionRef.snapshots().map((querySnapshot) => querySnapshot.docs
-          .map((doc) => (T as BaseModelInterface<T>).fromJson(doc.data()))
+          .map((doc) => (T as IBaseModel<T>).fromJson(doc.data()))
           .toList());
     }
   }
