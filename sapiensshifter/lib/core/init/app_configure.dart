@@ -1,17 +1,27 @@
+import 'dart:async';
+
 import 'package:core/core.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/core/init/app_dependency.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
-class AppConfigure {
-  AppConfigure._();
-
-  static Future<void> initialize() async {
+final class AppConfigure {
+  Future<void> initialize() async {
     WidgetsFlutterBinding.ensureInitialized();
+
+    await runZonedGuarded<Future<void>>(
+      _initialize,
+      (error, stack) {},
+    );
+  }
+
+  Future<void> _initialize() async {
     await EasyLocalization.ensureInitialized();
     await Firebase.initializeApp();
+    // To activate the localizations within modules that use the core package.
     LocalizationProvider.setInstance(EasyLocal());
+    // Dependency Injection
     await AppDependency.setup();
   }
 }

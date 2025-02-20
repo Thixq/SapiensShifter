@@ -1,4 +1,4 @@
-/// Localization provider interface (compatible with Easy Localization or other systems).
+/// Localization provider interface (compatible with Localization systems).
 abstract class LocalizationProvider {
   /// Private static variable to hold the singleton instance of the LocalizationProvider.
   static LocalizationProvider? _instance;

@@ -45,8 +45,6 @@ dependencies:
   #Network
   http: ^1.2.2
 
-  #Local Storage
-  shared_preferences: ^2.5.2
 
   #UI
   animated_custom_dropdown: ^3.1.1
