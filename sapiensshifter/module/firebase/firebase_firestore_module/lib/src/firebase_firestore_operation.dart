@@ -250,9 +250,6 @@ final class FirebaseFirestoreOperation<T extends BaseModelInterface<T>>
     final (collectionPath, docId) = _getCollectionAndDocId(path);
 
     if (docId != null) {
-      if (query != null) {
-        throw ModuleFirestoreException('invalid_query_exception');
-      }
       final docRef =
           _firestore.collection(collectionPath).doc(docId).withConverter<T>(
                 fromFirestore: (snapshot, _) {
