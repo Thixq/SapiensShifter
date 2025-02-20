@@ -7,4 +7,5 @@
 library;
 
 export 'src/firebase_firestore_custom_query.dart';
+export 'src/firebase_firestore_manager.dart';
 export 'src/firebase_firestore_operation.dart';

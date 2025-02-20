@@ -1,10 +1,11 @@
 import 'package:core/core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'firebase_auth_user_operation.dart';
 import 'utils/mixin/handle_exception_error_transformer_mixin.dart';
 
 /// This class provides methods for signing in, signing out, and registering users
 /// using email/password or social login providers (Google, Apple).
-final class FirebaseAuthManagar extends AuthManagerInterface
+final class FirebaseAuthManagar extends IAuthManager
     with HandleExceptionErrorTransformerMixin {
   /// Private named constructor to prevent external instantiation.
   ///
@@ -13,18 +14,15 @@ final class FirebaseAuthManagar extends AuthManagerInterface
     _init();
   }
 
-  /// Firebase Authentication instance used to interact with authentication services.
-  late final FirebaseAuth _auth;
-
-  /// A mapping of social authentication providers to their corresponding credential functions.
+  /// Provides a singleton instance of [FirebaseAuthManagar].
   ///
-  /// This allows dynamic retrieval of OAuth credentials for supported providers (Google, Apple).
-  late final Map<String, OAuthCredential Function(CustomCredential)>
-      _credentialProviders;
+  /// Ensures that only one instance of this class exists throughout the app.
+  static FirebaseAuthManagar get instance => FirebaseAuthManagar._internal();
 
   /// Initializes Firebase Authentication and sets up credential provider mappings.
   void _init() {
     _auth = FirebaseAuth.instance;
+    _authUserOperation = FirebaseAuthUserOperation(_auth);
 
     // Mapping authentication providers to their respective credential retrieval functions.
     _credentialProviders = {
@@ -38,10 +36,17 @@ final class FirebaseAuthManagar extends AuthManagerInterface
     };
   }
 
-  /// Provides a singleton instance of [FirebaseAuthManagar].
+  /// Firebase Authentication instance used to interact with authentication services.
+  late final FirebaseAuth _auth;
+  late final FirebaseAuthUserOperation _authUserOperation;
+
+  FirebaseAuthUserOperation get authUserOperation => _authUserOperation;
+
+  /// A mapping of social authentication providers to their corresponding credential functions.
   ///
-  /// Ensures that only one instance of this class exists throughout the app.
-  static FirebaseAuthManagar get instance => FirebaseAuthManagar._internal();
+  /// This allows dynamic retrieval of OAuth credentials for supported providers (Google, Apple).
+  late final Map<String, OAuthCredential Function(CustomCredential)>
+      _credentialProviders;
 
   /// Registers a new user using email and password.
   ///

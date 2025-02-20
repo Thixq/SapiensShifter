@@ -7,8 +7,7 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/shift_exp
 part 'shift_week_model.g.dart';
 
 @JsonSerializable(checked: true)
-final class ShiftWeek extends BaseModelInterface<ShiftWeek>
-    with EquatableMixin {
+final class ShiftWeek extends IBaseModel<ShiftWeek> with EquatableMixin {
   const ShiftWeek({
     this.id,
     this.weekStart,

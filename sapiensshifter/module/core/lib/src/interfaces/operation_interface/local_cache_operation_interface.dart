@@ -1,6 +1,6 @@
 /// An abstract interface for performing operations on a local cache.
 /// This interface provides methods to write, read, update, and delete cached data.
-abstract class LocalCacheOperationInterface {
+abstract class ILocalCacheOperation {
   /// Writes a value to the local cache using the provided key.
   ///
   /// Parameters:

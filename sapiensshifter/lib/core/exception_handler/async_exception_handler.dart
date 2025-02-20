@@ -37,6 +37,6 @@ Future<T> asyncExceptionHandler<T, E extends BaseExceptionInterface>(
     await _showErrorDialog(context, error);
     rethrow;
   } finally {
-    // TODO: loglama yapılacak
+    // TODO(kaan): loglama yapılacak
   }
 }

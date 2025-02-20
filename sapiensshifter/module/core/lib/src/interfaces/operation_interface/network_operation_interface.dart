@@ -1,10 +1,10 @@
-import 'package:core/src/interfaces/network_store_query_interface/network_store_query_interface.dart';
+import 'package:core/src/interfaces/network_query_interface/network_query_interface.dart';
 import 'package:core/src/models/base_model_interface.dart';
 
 /// An abstract interface for performing operations on a network store for items of type [T].
 /// The type [T] must extend [BaseModelInterface<T>], ensuring that it conforms to the required
 /// model structure for network operations.
-abstract class NetworkStoreOperationInterface<T extends BaseModelInterface<T>> {
+abstract class INetworkOperation<T extends IBaseModel<T>> {
   /// Retrieves a single item from the network store.
   ///
   /// Parameters:
@@ -28,7 +28,7 @@ abstract class NetworkStoreOperationInterface<T extends BaseModelInterface<T>> {
   Future<List<T>> getItemsQuery({
     required String path,
     String? key,
-    NetworkStoreQueryInterface? query,
+    INetworkQuery? query,
   });
 
   /// Adds a new item to the network store.

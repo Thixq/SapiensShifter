@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
 
-class FirebaseFirestoreCustomQuery extends NetworkStoreQueryInterface {
+class FirebaseFirestoreCustomQuery extends INetworkQuery {
   /// Creates a custom Firestore query with optional filters, ordering, and limits.
   FirebaseFirestoreCustomQuery({
     super.limit,

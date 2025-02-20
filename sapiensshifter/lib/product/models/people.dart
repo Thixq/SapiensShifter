@@ -6,7 +6,7 @@ part 'people.g.dart';
 
 @JsonSerializable(checked: true)
 // ignore: public_member_api_docs
-final class People extends BaseModelInterface<People> with EquatableMixin {
+final class People extends IBaseModel<People> with EquatableMixin {
   const People({
     this.id,
     this.name,

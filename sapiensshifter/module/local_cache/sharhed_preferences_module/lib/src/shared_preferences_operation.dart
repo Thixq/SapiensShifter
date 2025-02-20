@@ -9,7 +9,7 @@ import 'package:meta/meta.dart';
 part './utils/mixin/shared_preferences_operation_mixin.dart';
 
 /// A singleton class that implements local cache operations using SharedPreferences.
-final class SharedPreferencesOperation extends LocalCacheOperationInterface
+final class SharedPreferencesOperation extends ILocalCacheOperation
     with SharedPreferencesOperationMixin {
   // Private constructor to enforce the singleton pattern.
   SharedPreferencesOperation._();

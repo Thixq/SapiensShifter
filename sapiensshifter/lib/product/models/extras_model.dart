@@ -5,8 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'extras_model.g.dart';
 
 @JsonSerializable(checked: true)
-final class ExtrasModel extends BaseModelInterface<ExtrasModel>
-    with EquatableMixin {
+final class ExtrasModel extends IBaseModel<ExtrasModel> with EquatableMixin {
   const ExtrasModel({
     this.id,
     this.name,
