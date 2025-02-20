@@ -243,6 +243,49 @@ final class FirebaseFirestoreOperation<T extends BaseModelInterface<T>>
     );
   }
 
+  Stream<dynamic> getStream({
+    required String path,
+    NetworkStoreQueryInterface? query,
+  }) {
+    final (collectionPath, docId) = _getCollectionAndDocId(path);
+
+    if (docId != null) {
+      if (query != null) {
+        throw ModuleFirestoreException('invalid_query_exception');
+      }
+      final docRef =
+          _firestore.collection(collectionPath).doc(docId).withConverter<T>(
+                fromFirestore: (snapshot, _) {
+                  final data = snapshot.data();
+                  if (data == null) {
+                    throw ModuleFirestoreException('document_data_exception',
+                        optionArgs: {'path': path});
+                  }
+                  return (T as BaseModelInterface<T>).fromJson(data);
+                },
+                toFirestore: (model, _) => model.toJson(),
+              );
+      return docRef.snapshots().map((snapshot) {
+        if (!snapshot.exists) {
+          throw ModuleFirestoreException('document_not_found_exception',
+              optionArgs: {'path': path});
+        }
+        return snapshot.data()!;
+      });
+    } else {
+      CollectionReference<Map<String, dynamic>> collectionRef =
+          _firestore.collection(collectionPath);
+      if (query != null) {
+        collectionRef =
+            query.applyToQuery<CollectionReference<Map<String, dynamic>>>(
+                collectionRef.path);
+      }
+      return collectionRef.snapshots().map((querySnapshot) => querySnapshot.docs
+          .map((doc) => (T as BaseModelInterface<T>).fromJson(doc.data()))
+          .toList());
+    }
+  }
+
   // Helper method to delete all documents in a Firestore collection.
   Future<void> _deleteCollection(CollectionReference collection) async {
     const batchLimit = 500; // Limit the number of operations per batch to 500.
