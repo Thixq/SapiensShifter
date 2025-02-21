@@ -4,7 +4,7 @@ import 'package:core/src/models/base_model_interface.dart';
 /// An abstract interface for performing operations on a network store for items of type [T].
 /// The type [T] must extend [BaseModelInterface<T>], ensuring that it conforms to the required
 /// model structure for network operations.
-abstract class INetworkOperation<T extends IBaseModel<T>> {
+abstract class INetworkOperation {
   /// Retrieves a single item from the network store.
   ///
   /// Parameters:
@@ -13,7 +13,8 @@ abstract class INetworkOperation<T extends IBaseModel<T>> {
   ///
   /// Returns:
   /// A [Future] that resolves to an instance of [T] representing the retrieved item.
-  Future<T> getItem({required String path, String? key});
+  Future<T> getItem<T extends IBaseModel<T>>(
+      {required String path, String? key});
 
   /// Retrieves a list of items from the network store based on a query.
   ///
@@ -25,7 +26,7 @@ abstract class INetworkOperation<T extends IBaseModel<T>> {
   ///
   /// Returns:
   /// A [Future] that resolves to a list of items of type [T] matching the query criteria.
-  Future<List<T>> getItemsQuery({
+  Future<List<T>> getItemsQuery<T extends IBaseModel<T>>({
     required String path,
     String? key,
     INetworkQuery? query,
@@ -39,7 +40,7 @@ abstract class INetworkOperation<T extends IBaseModel<T>> {
   ///
   /// Returns:
   /// A [Future] that resolves to `true` if the item was successfully added, otherwise `false`.
-  Future<bool> addItem({
+  Future<bool> addItem<T extends IBaseModel<T>>({
     required String path,
     required T item,
   });
@@ -52,7 +53,8 @@ abstract class INetworkOperation<T extends IBaseModel<T>> {
   ///
   /// Returns:
   /// A [Future] that resolves to `true` if all items were successfully added, otherwise `false`.
-  Future<bool> addAllItem({required String path, required List<T> items});
+  Future<bool> addAllItem<T extends IBaseModel<T>>(
+      {required String path, required List<T> items});
 
   /// Updates specific fields of an existing item in the network store.
   ///
@@ -76,7 +78,7 @@ abstract class INetworkOperation<T extends IBaseModel<T>> {
   ///
   /// Returns:
   /// A [Future] that resolves to `true` if the replacement was successful, otherwise `false`.
-  Future<bool> replaceItem({
+  Future<bool> replaceItem<T extends IBaseModel<T>>({
     required String path,
     required T item,
     String? key,

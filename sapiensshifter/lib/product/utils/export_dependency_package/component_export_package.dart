@@ -1,5 +1,5 @@
 export 'package:easy_localization/easy_localization.dart';
-export 'package:kartal/kartal.dart' hide MapExtension;
+export 'package:kartal/kartal.dart' hide CustomLogger, MapExtension;
 export 'package:sapiensshifter/core/localization/localization_codegen/locale_keys.g.dart';
 export 'package:sizer/sizer.dart';
 
