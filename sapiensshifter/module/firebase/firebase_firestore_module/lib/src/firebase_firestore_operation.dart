@@ -16,10 +16,6 @@ final class FirebaseFirestoreOperation extends INetworkOperation
   FirebaseFirestoreOperation({required FirebaseFirestore firestore})
       : _firestore = firestore;
 
-  factory FirebaseFirestoreOperation.base() {
-    return FirebaseFirestoreOperation(firestore: FirebaseFirestore.instance);
-  }
-
   late final FirebaseFirestore
       _firestore; // Firestore instance to interact with the database.
 

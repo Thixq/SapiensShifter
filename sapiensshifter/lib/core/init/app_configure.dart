@@ -10,18 +10,12 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/component
 final class AppConfigure {
   Future<void> initialize() async {
     WidgetsFlutterBinding.ensureInitialized();
-
-    await runZonedGuarded<Future<void>>(
-      _initialize,
-      (error, stack) {},
-    );
-  }
-
-  Future<void> _initialize() async {
     await EasyLocalization.ensureInitialized();
     await Firebase.initializeApp();
     // To activate the localizations within modules that use the core package.
     LocalizationProvider.setInstance(EasyLocalizatonProvider());
+    await DeviceUtility.instance.initPackageInfo();
+
     // Dependency Injection
     await AppDependency.setup();
   }
