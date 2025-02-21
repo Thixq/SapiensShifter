@@ -6,7 +6,7 @@ class CustomLogger {
 
   void info(String message) => _logger.info(message);
   void warning(String message) => _logger.warning(message);
-  void error(String message, [Object? error, StackTrace? stackTrace]) {
+  void error(String message, {Object? error, StackTrace? stackTrace}) {
     _logger.severe('$message - Error: $error', error, stackTrace);
   }
 
