@@ -7,10 +7,9 @@ import 'package:sapiensshifter/feature/splash/view/splash_view.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 void main() async {
-  await AppConfigure().initialize();
-
-  await ZoneManager.runAppInZone(
+  ZoneManager.runAppInZone(
     () async {
+      await AppConfigure.initialize();
       runApp(
         LanguageManager(
           child: const MyApp(),

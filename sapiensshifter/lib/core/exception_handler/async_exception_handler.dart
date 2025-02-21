@@ -1,5 +1,4 @@
 // ignore_for_file: inference_failure_on_function_invocation
-
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 
@@ -23,20 +22,19 @@ Future<void> _showErrorDialog(
   );
 }
 
-Future<T> asyncExceptionHandler<T, E extends BaseExceptionInterface>(
+Future<T>? asyncHandler<T, E extends BaseExceptionInterface>(
   Future<T> Function() operation, {
   required BuildContext context,
-  void Function(Exception)? onError,
+  void Function(Object error, [StackTrace? stackTrace])? onError,
 }) async {
   try {
     return await operation();
-  } on E catch (error) {
+  } catch (error, stack) {
     if (onError != null) {
-      onError(error);
+      onError(error, stack);
+      return Future.value();
     }
-    await _showErrorDialog(context, error);
+    if (error is BaseExceptionInterface) await _showErrorDialog(context, error);
     rethrow;
-  } finally {
-    // TODO(kaan): loglama yapılacak
   }
 }
