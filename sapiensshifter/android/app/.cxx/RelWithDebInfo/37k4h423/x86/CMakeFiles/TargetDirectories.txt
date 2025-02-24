@@ -1,0 +1,2 @@
+/Users/kaan/Desktop/Development/SapiensShifter/sapiensshifter/android/app/.cxx/RelWithDebInfo/37k4h423/x86/CMakeFiles/edit_cache.dir
+/Users/kaan/Desktop/Development/SapiensShifter/sapiensshifter/android/app/.cxx/RelWithDebInfo/37k4h423/x86/CMakeFiles/rebuild_cache.dir
