@@ -21,6 +21,9 @@
         "generic_exception":{
             "is_not_initialized":"{instance} başlatılmadı. Önce initialize()'ı çağırın."
         },
+        "network_error_exception":{
+            "no_network_connection":"İnternet bağlantısı yok. İnternet bağlantınızı kontrol edin."
+        },
         "local_cache_exception":{
             "expected_type":"Anahtar için değer türü uyumsuzluğu: {key}. Beklenen: {expectedType}, Bulunan: {actualType}",
             "not_found_key":"{key} anahtarı için değer bulunamadı",

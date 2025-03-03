@@ -34,8 +34,7 @@ class EasyLocalizationProvider implements LocalizationProvider {
   }
 }
 
-class OneException extends BaseExceptionInterface
-    with LocalizationOperationMixin {
+class OneException extends IBaseException with LocalizationOperationMixin {
   OneException(String path, String code, [StackTrace? stackTrace])
       : super(
             LocalizationOperationMixin.getMessage('$path.$code') ??

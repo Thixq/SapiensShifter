@@ -2,7 +2,7 @@ import 'package:core/core.dart';
 
 /// Exception class for handling Firestore-related errors.
 /// Uses localization to fetch appropriate error messages.
-class ModuleFirestoreException extends BaseExceptionInterface
+class ModuleFirestoreException extends IBaseException
     with LocalizationOperationMixin {
   /// Constructor to initialize the Firestore exception.
   /// - [code]: The error code identifying the specific Firestore issue.
