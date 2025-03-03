@@ -3,28 +3,28 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'firebase_auth_user_operation.dart';
 import 'utils/mixin/handle_exception_error_transformer_mixin.dart';
 
-/// This class provides methods for signing in, signing out, and registering users
-/// using email/password or social login providers (Google, Apple).
+/// Manages user authentication using Firebase Auth.
+/// Supports email/password and social logins (Google, Apple).
 final class FirebaseAuthManagar extends IAuthManager
     with HandleExceptionErrorTransformerMixin {
-  /// Private named constructor to prevent external instantiation.
-  ///
-  /// This constructor initializes Firebase Authentication and the supported credential providers.
-  FirebaseAuthManagar._internal() {
+  /// Private constructor that initializes Firebase Auth and related operations.
+  FirebaseAuthManagar._internal(FirebaseAuth firebaseAuth) {
+    _auth = firebaseAuth;
+    _authUserOperation = FirebaseAuthUserOperation(_auth);
     _init();
   }
 
-  /// Provides a singleton instance of [FirebaseAuthManagar].
-  ///
-  /// Ensures that only one instance of this class exists throughout the app.
-  static FirebaseAuthManagar get instance => FirebaseAuthManagar._internal();
+  /// Creates an instance using the provided FirebaseAuth.
+  static FirebaseAuthManagar instanceFor(FirebaseAuth firebaseAuth) {
+    return FirebaseAuthManagar._internal(firebaseAuth);
+  }
 
-  /// Initializes Firebase Authentication and sets up credential provider mappings.
+  /// Returns a singleton instance of FirebaseAuthManagar.
+  static FirebaseAuthManagar get instance =>
+      FirebaseAuthManagar._internal(FirebaseAuth.instance);
+
+  /// Sets up social login providers with their credential functions.
   void _init() {
-    _auth = FirebaseAuth.instance;
-    _authUserOperation = FirebaseAuthUserOperation(_auth);
-
-    // Mapping authentication providers to their respective credential retrieval functions.
     _credentialProviders = {
       'google': (CustomCredential credential) => GoogleAuthProvider.credential(
             accessToken: credential.accessToken,
@@ -36,24 +36,22 @@ final class FirebaseAuthManagar extends IAuthManager
     };
   }
 
-  /// Firebase Authentication instance used to interact with authentication services.
-  late final FirebaseAuth _auth;
-  late final FirebaseAuthUserOperation _authUserOperation;
+  /// The FirebaseAuth instance for authentication operations.
+  late FirebaseAuth _auth;
 
+  /// Provides additional Firebase user operations.
+  late final FirebaseAuthUserOperation _authUserOperation;
   FirebaseAuthUserOperation get authUserOperation => _authUserOperation;
 
-  /// A mapping of social authentication providers to their corresponding credential functions.
-  ///
-  /// This allows dynamic retrieval of OAuth credentials for supported providers (Google, Apple).
+  /// Maps social providers to functions that create OAuth credentials.
   late final Map<String, OAuthCredential Function(CustomCredential)>
       _credentialProviders;
 
   /// Registers a new user using email and password.
   ///
-  /// - [email]: The user's email address.
-  /// - [password]: The user's password.
-  ///
-  /// Returns `true` if registration is successful, otherwise an exception is thrown.
+  /// [email]: User's email address.
+  /// [password]: User's password.
+  /// Returns true if registration is successful; otherwise, throws an error.
   @override
   Future<bool> registerInWithEmailAndPassword({
     required String email,
@@ -67,23 +65,21 @@ final class FirebaseAuthManagar extends IAuthManager
         );
         return true;
       },
-      // Handles any FirebaseAuthException that occurs during registration.
       errorTransformer: handleFirebaseAuthException,
     );
   }
 
-  /// Signs in a user using third-party authentication credentials (Google, Apple).
+  /// Signs in a user using social login credentials.
   ///
-  /// - [credential]: The authentication credentials obtained from a provider.
-  ///
-  /// Returns `true` if sign-in is successful, otherwise an exception is thrown.
+  /// [credential]: The credential from a social provider.
+  /// Returns true if sign-in is successful; otherwise, throws an error.
   @override
   Future<bool> signInWithCredential({
     required CustomCredential credential,
   }) async {
     return handleAsyncOperation(
       () async {
-        // Retrieve the corresponding authentication function for the given provider.
+        // Get the credential function for the provider.
         final providerFunction = _credentialProviders[credential.providerId];
 
         // If the provider is not supported, throw an error.
@@ -93,24 +89,20 @@ final class FirebaseAuthManagar extends IAuthManager
           );
         }
 
-        // Obtain the OAuth credential from the provider function.
+        // Create the OAuth credential and sign in.
         final oAuthCredential = providerFunction(credential);
-
-        // Sign in with the obtained OAuth credential.
         await _auth.signInWithCredential(oAuthCredential);
         return true;
       },
-      // Handles any FirebaseAuthException that occurs during sign-in.
       errorTransformer: handleFirebaseAuthException,
     );
   }
 
-  /// Signs in an existing user using email and password.
+  /// Signs in a user using email and password.
   ///
-  /// - [email]: The user's email address.
-  /// - [password]: The user's password.
-  ///
-  /// Returns `true` if sign-in is successful, otherwise an exception is thrown.
+  /// [email]: User's email address.
+  /// [password]: User's password.
+  /// Returns true if sign-in is successful; otherwise, throws an error.
   @override
   Future<bool> signInWithEmailAndPassword({
     required String email,
@@ -124,14 +116,13 @@ final class FirebaseAuthManagar extends IAuthManager
         );
         return true;
       },
-      // Handles any FirebaseAuthException that occurs during sign-in.
       errorTransformer: handleFirebaseAuthException,
     );
   }
 
-  /// Signs out the currently authenticated user.
+  /// Signs out the currently logged-in user.
   ///
-  /// Returns `true` if sign-out is successful, otherwise an exception is thrown.
+  /// Returns true if sign-out is successful; otherwise, throws an error.
   @override
   Future<bool> signOut() async {
     return handleAsyncOperation(
@@ -139,7 +130,6 @@ final class FirebaseAuthManagar extends IAuthManager
         await _auth.signOut();
         return true;
       },
-      // Handles any FirebaseAuthException that occurs during sign-out.
       errorTransformer: handleFirebaseAuthException,
     );
   }
