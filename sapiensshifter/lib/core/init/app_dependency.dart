@@ -16,7 +16,7 @@ class AppDependency {
         () => SharedPreferencesOperation.instance,
       )
       ..registerLazySingleton<FirebaseFirestoreManager>(
-        FirebaseFirestoreManager.new,
+        () => FirebaseFirestoreManager.instance,
       );
   }
 }
