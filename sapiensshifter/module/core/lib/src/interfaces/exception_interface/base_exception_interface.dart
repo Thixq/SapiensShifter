@@ -1,6 +1,6 @@
 /// An abstract base class for custom exceptions.
 /// Implements Dart's built-in Exception interface.
-abstract class BaseExceptionInterface implements Exception {
+abstract class IBaseException implements Exception {
   /// A descriptive error message detailing what went wrong.
   String message;
 
@@ -14,7 +14,7 @@ abstract class BaseExceptionInterface implements Exception {
   ///
   /// [message] is required to describe the error.
   /// [code] and [stackTrace] are optional parameters.
-  BaseExceptionInterface(this.message, {this.code, this.stackTrace});
+  IBaseException(this.message, {this.code, this.stackTrace});
 
   /// Overrides the default toString method to provide a detailed string representation
   /// of the exception, including the runtime type, error code, and error message.

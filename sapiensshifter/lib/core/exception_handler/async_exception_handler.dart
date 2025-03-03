@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 /// Hata dialogunu göstermek için ortak metodumuz.
 Future<void> _showErrorDialog(
   BuildContext context,
-  BaseExceptionInterface error,
+  IBaseException error,
 ) async {
   await showAdaptiveDialog(
     context: context,
@@ -22,7 +22,7 @@ Future<void> _showErrorDialog(
   );
 }
 
-Future<T>? asyncHandler<T, E extends BaseExceptionInterface>(
+Future<T>? asyncHandler<T, E extends IBaseException>(
   Future<T> Function() operation, {
   required BuildContext context,
   void Function(Object error, [StackTrace? stackTrace])? onError,
@@ -34,7 +34,7 @@ Future<T>? asyncHandler<T, E extends BaseExceptionInterface>(
       onError(error, stack);
       return Future.value();
     }
-    if (error is BaseExceptionInterface) await _showErrorDialog(context, error);
+    if (error is IBaseException) await _showErrorDialog(context, error);
     rethrow;
   }
 }

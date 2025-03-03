@@ -19,7 +19,7 @@ mixin HandleExceptionErrorTransformerMixin {
   /// - [stackTrace]: An optional stack trace, defaulting to null if not provided.
   ///
   /// Returns a [ModuleFirebaseAuthException] representing the transformed error.
-  BaseExceptionInterface handleFirebaseAuthException(
+  IBaseException handleFirebaseAuthException(
     FirebaseAuthException exception, [
     StackTrace? stackTrace,
   ]) {

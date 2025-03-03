@@ -1,6 +1,6 @@
 import 'package:core/core.dart';
 
-final class ModuleSharedPreferencesException extends BaseExceptionInterface {
+final class ModuleSharedPreferencesException extends IBaseException {
   ModuleSharedPreferencesException(String code,
       {Map<String, String>? optionArgs, StackTrace? stackTrace})
       : super(
