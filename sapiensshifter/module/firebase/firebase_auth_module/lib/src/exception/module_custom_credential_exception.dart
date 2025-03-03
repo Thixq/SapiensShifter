@@ -6,7 +6,7 @@ import 'package:core/core.dart';
 ///
 /// This exception extends the BaseExceptionInterface to standardize error handling
 /// and uses the LocalizationOperationMixin to retrieve localized error messages.
-final class ModuleCustomCredentialException extends BaseExceptionInterface
+final class ModuleCustomCredentialException extends IBaseException
     with LocalizationOperationMixin {
   /// Constructor for creating a [ModuleCustomCredentialException] instance.
   ///

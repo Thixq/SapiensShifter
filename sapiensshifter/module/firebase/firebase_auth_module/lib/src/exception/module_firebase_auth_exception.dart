@@ -6,7 +6,7 @@ import 'package:core/core.dart';
 ///
 /// This exception extends the BaseExceptionInterface to provide a standard error structure
 /// and utilizes LocalizationOperationMixin to fetch localized error messages based on error codes.
-class ModuleFirebaseAuthException extends BaseExceptionInterface
+class ModuleFirebaseAuthException extends IBaseException
     with LocalizationOperationMixin {
   /// Constructor for creating a [ModuleFirebaseAuthException] instance.
   ///
