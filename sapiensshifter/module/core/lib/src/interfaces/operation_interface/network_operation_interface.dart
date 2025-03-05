@@ -14,7 +14,7 @@ abstract class INetworkOperation {
   /// Returns:
   /// A [Future] that resolves to an instance of [T] representing the retrieved item.
   Future<T> getItem<T extends IBaseModel<T>>(
-      {required String path, String? key});
+      {required String path, required T model, String? key});
 
   /// Retrieves a list of items from the network store based on a query.
   ///
@@ -28,6 +28,7 @@ abstract class INetworkOperation {
   /// A [Future] that resolves to a list of items of type [T] matching the query criteria.
   Future<List<T>> getItemsQuery<T extends IBaseModel<T>>({
     required String path,
+    required T model,
     String? key,
     INetworkQuery? query,
   });
