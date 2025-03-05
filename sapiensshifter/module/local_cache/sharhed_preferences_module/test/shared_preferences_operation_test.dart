@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mockito/mockito.dart';
 import 'package:sharhed_preferences_module/src/excepiton/module_shared_preferences_exception.dart';
 import 'package:sharhed_preferences_module/src/shared_preferences_operation.dart';
-import 'init/localization_provider.dart';
+import 'localization_config/localization_provider.dart';
 
 @GenerateMocks([SharedPreferences])
 import 'shared_preferences_operation_test.mocks.dart';
