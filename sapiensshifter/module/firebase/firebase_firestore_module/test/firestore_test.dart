@@ -19,6 +19,8 @@ import 'package:firebase_firestore_module/src/exception/module_firestore_excepti
     MockSpec<QuerySnapshot<Map<String, dynamic>>>(),
     MockSpec<QueryDocumentSnapshot<Map<String, dynamic>>>(),
     MockSpec<DocumentSnapshot<Map<String, dynamic>>>(),
+    MockSpec<DocumentReference<TestModel>>(as: #TestModelDocRef),
+    MockSpec<DocumentSnapshot<TestModel>>(as: #TestModelDocSnapshot),
   ],
 )
 import 'firestore_test.mocks.dart';
@@ -29,6 +31,8 @@ class TestModel implements IBaseModel<TestModel> {
   final String name;
 
   TestModel({required this.id, required this.name});
+
+  factory TestModel.empty() => TestModel(id: '', name: '');
 
   @override
   Map<String, dynamic> toJson() => {'id': id, 'name': name};
@@ -216,30 +220,32 @@ void main() {
     test('doküman var ise model olarak döner', () async {
       // Hazırlık: path "testCollection/testDoc"
       const path = 'testCollection/testDoc';
-      final testData = {'id': '1', 'name': 'Test'};
+      final testData = TestModel(id: '1', name: 'name');
       final mockCollection = MockCollectionReference();
-      final mockDocSnapshot = MockDocumentSnapshot();
       final mockDocRef = MockDocumentReference();
+      final testModelDocRef = TestModelDocRef();
+      final testModelDocSnapshot = TestModelDocSnapshot();
 
       when(mockFirestore.collection('testCollection'))
           .thenReturn(mockCollection);
-      when(mockCollection.doc('testDoc')).thenReturn(mockDocRef);
 
+      when(mockCollection.doc('testDoc')).thenReturn(mockDocRef);
       when(mockDocRef.withConverter<TestModel>(
         fromFirestore: anyNamed('fromFirestore'),
         toFirestore: anyNamed('toFirestore'),
-      )).thenReturn(mockDocRef);
-      when(mockDocRef.get()).thenAnswer((_) async => mockDocSnapshot);
-      when(mockDocSnapshot.exists).thenReturn(true);
-      when(mockDocSnapshot.data()).thenReturn(testData);
+      )).thenReturn(testModelDocRef);
+      when(testModelDocRef.get()).thenAnswer((_) async => testModelDocSnapshot);
+      when(testModelDocSnapshot.exists).thenReturn(true);
+      when(testModelDocSnapshot.data()).thenReturn(testData);
 
       // Çalıştırma
-      final result = await firestoreOperation.getItem<TestModel>(path: path);
+      final result = await firestoreOperation.getItem<TestModel>(
+          path: path, model: TestModel.empty());
 
       // Doğrulama
       expect(result, isA<TestModel>());
       expect(result.id, equals('1'));
-      expect(result.name, equals('Test'));
+      expect(result.name, equals('name'));
     });
 
     test('docId olmadan çağrılırsa exception fırlatır', () async {
@@ -248,7 +254,8 @@ void main() {
 
       // Çalıştırma & Doğrulama
       expect(
-          () async => await firestoreOperation.getItem<TestModel>(path: path),
+          () async => await firestoreOperation.getItem<TestModel>(
+              path: path, model: TestModel.empty()),
           throwsA(isA<ModuleFirestoreException>()));
     });
   });
@@ -273,8 +280,8 @@ void main() {
       when(mockQueryDoc2.data()).thenReturn(testData2);
 
       // Çalıştırma
-      final result =
-          await firestoreOperation.getItemsQuery<TestModel>(path: path);
+      final result = await firestoreOperation.getItemsQuery<TestModel>(
+          path: path, model: TestModel.empty());
 
       // Doğrulama
       expect(result, isA<List<TestModel>>());
@@ -288,8 +295,8 @@ void main() {
       const path = 'testCollection/testDoc';
 
       expect(
-          () async =>
-              await firestoreOperation.getItemsQuery<TestModel>(path: path),
+          () async => await firestoreOperation.getItemsQuery<TestModel>(
+              path: path, model: TestModel.empty()),
           throwsA(isA<ModuleFirestoreException>()));
     });
   });
@@ -315,8 +322,10 @@ void main() {
 
       // Doğrulama
       expect(result, isTrue);
-      verify(mockDocRef.set(testModel.toJson(), SetOptions(merge: false)))
-          .called(1);
+      verify(mockDocRef.set(
+        testModel.toJson(),
+        argThat(isA<SetOptions>().having((opt) => opt.merge, 'merge', false)),
+      )).called(1);
     });
 
     test('docId veya key eksikse exception fırlatır', () async {
@@ -367,38 +376,29 @@ void main() {
     });
   });
 
-  group('getStream', () {
-    test('doküman stream\'i döner', () async {
-      // Hazırlık: path "testCollection/testDoc"
+  group('get stream', () {
+    test('doküman streami doğru model ile döner', () async {
       const path = 'testCollection/testDoc';
       final testData = {'id': '1', 'name': 'Test'};
-      final mockCollection = MockCollectionReference();
+
       final mockDocRef = MockDocumentReference();
       final mockDocSnapshot = MockDocumentSnapshot();
 
-      when(mockFirestore.collection('testCollection'))
-          .thenReturn(mockCollection);
-      when(mockCollection.doc('testDoc')).thenReturn(mockDocRef);
-      when(mockDocRef.withConverter<TestModel>(
-        fromFirestore: anyNamed('fromFirestore'),
-        toFirestore: anyNamed('toFirestore'),
-      )).thenReturn(mockDocRef as DocumentReference<TestModel>);
+      when(mockFirestore.doc(path)).thenReturn(mockDocRef);
       when(mockDocRef.snapshots())
           .thenAnswer((_) => Stream.value(mockDocSnapshot));
-      when(mockDocSnapshot.exists).thenReturn(true);
       when(mockDocSnapshot.data()).thenReturn(testData);
 
-      // Çalıştırma
-      final stream = firestoreOperation.getStream<TestModel>(path: path);
+      final stream = firestoreOperation.streamDocument<TestModel>(
+          docPath: path, model: TestModel.empty());
       final result = await stream.first;
 
-      // Doğrulama
       expect(result, isA<TestModel>());
-      expect((result as TestModel).id, equals('1'));
+      expect(result.id, equals('1'));
+      expect(result.name, equals('Test'));
     });
 
-    test('koleksiyon stream\'i döner', () async {
-      // Hazırlık: path "testCollection"
+    test('koleksiyon stream i doğru model listesi ile döner', () async {
       const path = 'testCollection';
       final testData1 = {'id': '1', 'name': 'Test1'};
       final testData2 = {'id': '2', 'name': 'Test2'};
@@ -408,23 +408,21 @@ void main() {
       final mockQueryDoc1 = MockQueryDocumentSnapshot();
       final mockQueryDoc2 = MockQueryDocumentSnapshot();
 
-      when(mockFirestore.collection('testCollection'))
-          .thenReturn(mockCollection);
+      when(mockFirestore.collection(path)).thenReturn(mockCollection);
       when(mockCollection.snapshots())
           .thenAnswer((_) => Stream.value(mockQuerySnapshot));
       when(mockQuerySnapshot.docs).thenReturn([mockQueryDoc1, mockQueryDoc2]);
       when(mockQueryDoc1.data()).thenReturn(testData1);
       when(mockQueryDoc2.data()).thenReturn(testData2);
 
-      // Çalıştırma
-      final stream = firestoreOperation.getStream<TestModel>(path: path);
-      final result = await stream.first as List<TestModel>;
+      final stream = firestoreOperation.streamCollection<TestModel>(
+          collectionPath: path, model: TestModel.empty());
+      final result = await stream.first;
 
-      // Doğrulama
       expect(result, isA<List<TestModel>>());
       expect(result.length, equals(2));
       expect(result[0].id, equals('1'));
-      expect(result[1].id, equals('2'));
+      expect(result[1].name, equals('Test2'));
     });
   });
 }

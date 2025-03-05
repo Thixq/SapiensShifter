@@ -110,7 +110,7 @@ final class FirebaseFirestoreOperation extends INetworkOperation
   // `getItem` retrieves a single item from Firestore based on the path.
   @override
   Future<T> getItem<T extends IBaseModel<T>>(
-      {required String path, String? key}) async {
+      {required String path, required T model, String? key}) async {
     return handleAsyncOperation<T, FirebaseException>(
       () async {
         final (collectionPath, docId) = _getCollectionAndDocId(path);
@@ -129,7 +129,7 @@ final class FirebaseFirestoreOperation extends INetworkOperation
                       throw ModuleFirestoreException('document_data_exception',
                           optionArgs: {'path': path});
                     }
-                    return (T as IBaseModel<T>).fromJson(data);
+                    return model.fromJson(data);
                   },
                   toFirestore: (model, _) => model.toJson(),
                 );
@@ -153,6 +153,7 @@ final class FirebaseFirestoreOperation extends INetworkOperation
   @override
   Future<List<T>> getItemsQuery<T extends IBaseModel<T>>({
     required String path, // Path to the Firestore collection.
+    required T model,
     String? key, // Optional key, used to identify the document.
     INetworkQuery? query, // Optional query for filtering the data.
   }) async {
@@ -181,7 +182,9 @@ final class FirebaseFirestoreOperation extends INetworkOperation
         // Map each document to the model type and return the list of items.
         final items = querySnapshot.docs
             .map(
-              (doc) => (T as IBaseModel<T>).fromJson(doc.data()),
+              (doc) {
+                return model.fromJson(doc.data());
+              },
             )
             .cast<T>()
             .toList();
@@ -244,44 +247,32 @@ final class FirebaseFirestoreOperation extends INetworkOperation
     );
   }
 
-  Stream<dynamic> getStream<T extends IBaseModel<T>>({
-    required String path,
-    INetworkQuery? query,
-  }) {
-    final (collectionPath, docId) = _getCollectionAndDocId(path);
-
-    if (docId != null) {
-      final docRef =
-          _firestore.collection(collectionPath).doc(docId).withConverter<T>(
-                fromFirestore: (snapshot, _) {
-                  final data = snapshot.data();
-                  if (data == null) {
-                    throw ModuleFirestoreException('document_data_exception',
-                        optionArgs: {'path': path});
-                  }
-                  return (T as IBaseModel<T>).fromJson(data);
-                },
-                toFirestore: (model, _) => model.toJson(),
-              );
-      return docRef.snapshots().map((snapshot) {
-        if (!snapshot.exists) {
-          throw ModuleFirestoreException('document_not_found_exception',
-              optionArgs: {'path': path});
-        }
-        return snapshot.data()!;
-      });
-    } else {
-      CollectionReference<Map<String, dynamic>> collectionRef =
-          _firestore.collection(collectionPath);
-      if (query != null) {
-        collectionRef =
-            query.applyToQuery<CollectionReference<Map<String, dynamic>>>(
-                collectionRef.path);
+  Stream<T> streamDocument<T extends IBaseModel>(
+      {required String docPath, required T model}) {
+    return _firestore.doc(docPath).snapshots().map((docSnapshot) {
+      final data = docSnapshot.data();
+      if (data != null) {
+        return model.fromJson(data);
+      } else {
+        throw Exception("Belirtilen doküman bulunamadı: $docPath");
       }
-      return collectionRef.snapshots().map((querySnapshot) => querySnapshot.docs
-          .map((doc) => (T as IBaseModel<T>).fromJson(doc.data()))
-          .toList());
-    }
+    });
+  }
+
+  Stream<List<T>> streamCollection<T extends IBaseModel>(
+      {required String collectionPath, required T model}) {
+    return _firestore
+        .collection(collectionPath)
+        .snapshots()
+        .map((querySnapshot) {
+      return querySnapshot.docs
+          .map((docSnapshot) {
+            final data = docSnapshot.data();
+            return model.fromJson(data);
+          })
+          .cast<T>()
+          .toList();
+    });
   }
 
   // Helper method to delete all documents in a Firestore collection.
