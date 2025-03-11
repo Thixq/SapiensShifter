@@ -34,7 +34,7 @@ class NotificationService {
     );
     await _channelManager.initialize(
       _localNotificationsPlugin,
-      channels: NotificationChannelConfig.baseConfigList,
+      channels: NotificationChannelConfig.baseNotificationChannelList,
     );
     await _firebaseMessaging.requestPermission();
 
