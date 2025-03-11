@@ -10,6 +10,7 @@ final class NotificationChannelManager {
       NotificationChannelManager._();
 
   late final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin;
+
   late final List<NotificationChannelConfig> _channels;
 
   /// Initializes the manager with the local notifications plugin and a list of channels.

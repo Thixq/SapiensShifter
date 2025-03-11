@@ -17,7 +17,7 @@ final class NotificationChannelConfig {
   final Importance importance;
 
   /// Default list of notification channels used in the application.
-  static List<NotificationChannelConfig> get baseConfigList => [
+  static List<NotificationChannelConfig> get baseNotificationChannelList => [
         const NotificationChannelConfig(
           id: 'general_channel',
           name: 'General Notification',
