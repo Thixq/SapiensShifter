@@ -45,7 +45,7 @@ class FirebaseAuthUserOperation extends IAuthOperation
   ///
   /// Returns `true` if the update is successful, otherwise throws an exception.
   @override
-  Future<bool> displayUpdate(String newName) async {
+  Future<bool> displayNameUpdate(String newName) async {
     return handleAsyncOperation<bool, FirebaseAuthException>(
       () async {
         if (_user == null) throw Exception('User not initialized');
@@ -54,8 +54,6 @@ class FirebaseAuthUserOperation extends IAuthOperation
         await _user!.updateDisplayName(newName);
         await _user!.reload();
 
-        // Refresh the user instance
-        _user = FirebaseAuth.instance.currentUser;
         return true;
       },
       // Handles any FirebaseAuthException that occurs during the update.
@@ -78,8 +76,6 @@ class FirebaseAuthUserOperation extends IAuthOperation
         await _user!.updatePassword(newPassword);
         await _user!.reload();
 
-        // Refresh the user instance
-        _user = FirebaseAuth.instance.currentUser;
         return true;
       },
       // Handles any FirebaseAuthException that occurs during the update.
@@ -102,8 +98,6 @@ class FirebaseAuthUserOperation extends IAuthOperation
         await _user!.updatePhotoURL(newPhotoUrl);
         await _user!.reload();
 
-        // Refresh the user instance
-        _user = FirebaseAuth.instance.currentUser;
         return true;
       },
       // Handles any FirebaseAuthException that occurs during the update.
