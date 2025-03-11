@@ -20,7 +20,7 @@ abstract class IAuthOperation {
   ///
   /// Returns:
   /// A [Future] that resolves to `true` if the display name update is successful, otherwise `false`.
-  Future<bool> displayUpdate(String newName);
+  Future<bool> displayNameUpdate(String newName);
 
   /// Updates the user's profile photograph URL.
   ///
