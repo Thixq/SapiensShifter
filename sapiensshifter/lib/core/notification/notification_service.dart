@@ -1,102 +1,87 @@
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:sapiensshifter/core/notification/notification_channel_config.dart';
-import 'package:sapiensshifter/core/notification/notification_channel_manager.dart';
-
-@pragma('vm:entry-point')
-Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // Arka plan çalışırken Firebase'i başlatın
-  await Firebase.initializeApp();
-}
+import 'package:sapiensshifter/core/notification/notification_channels.dart';
 
 class NotificationService {
-  NotificationService._();
-  static final NotificationService instance = NotificationService._();
+  factory NotificationService() => _instance;
+  NotificationService._internal();
+  static final NotificationService _instance = NotificationService._internal();
 
-  final FlutterLocalNotificationsPlugin _localNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
+  late FlutterLocalNotificationsPlugin _notificationsPlugin;
 
-  final _channelManager = NotificationChannelManager.instance;
-
-  /// Servisi başlatır: bildirim ayarlarını yapar, izinleri kontrol eder ve mesaj dinleyicilerini ekler.
   Future<void> initialize() async {
-    // Android ve iOS için bildirim ayarları
-    const androidInitializationSettings =
+    _notificationsPlugin = FlutterLocalNotificationsPlugin();
+
+    const androidSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
-    const iosInitializationSettings = DarwinInitializationSettings();
+    const iOSSettings = DarwinInitializationSettings();
 
-    const initializationSettings = InitializationSettings(
-      android: androidInitializationSettings,
-      iOS: iosInitializationSettings,
-    );
-    await _channelManager.initialize(
-      _localNotificationsPlugin,
-      channels: NotificationChannelConfig.baseNotificationChannelList,
-    );
-    await _firebaseMessaging.requestPermission();
-
-    // Bildirime tıklandığında çalışacak callback
-    await _localNotificationsPlugin.initialize(
-      initializationSettings,
-      onDidReceiveNotificationResponse: _onDidReceiveNotificationResponse,
+    await _notificationsPlugin.initialize(
+      const InitializationSettings(
+        android: androidSettings,
+        iOS: iOSSettings,
+      ),
     );
 
-    // Foreground (uygulama açıkken) gelen mesajları dinle
-    FirebaseMessaging.onMessage.listen(
-      (event) {
-        print('object');
-        _showLocalNotification(event);
-      },
-    );
-
-    // Kullanıcı bildirime tıkladığında (uygulama arka planda veya kapalıyken)
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      debugPrint('Bildirim açıldı: ${message.messageId}');
-      // Burada ilgili ekran yönlendirmesi yapılabilir.
-    });
-
-    final fcmToken = await _firebaseMessaging.getToken();
-    debugPrint('Firebase Messaging TOKEN: $fcmToken');
+    await _createAndroidChannels();
+    await _requestIOSPermissions();
   }
 
-  /// Bildirime tıklandığında çağrılan callback
-  void _onDidReceiveNotificationResponse(NotificationResponse response) {
-    debugPrint(
-      'Bildirim seçildi, payload: ${response.payload}',
-    );
-    // Payload içeriğine göre yönlendirme veya işlem gerçekleştirin.
-  }
-
-  /// Firebase’den gelen RemoteMessage’i yerel bildirim olarak gösterir
-  Future<void> _showLocalNotification(RemoteMessage message) async {
-    final notification = message.notification;
-    final android = message.notification?.android;
-
-    if (notification != null && android != null) {
-      final channelId = message.notification?.android?.channelId;
-      final androidDetails = _channelManager.getAndroidNotificationDetails(
-        channelId: channelId,
-      );
-
-      final notificationDetails = NotificationDetails(
-        android: androidDetails,
-        iOS: const DarwinNotificationDetails(
-          presentAlert: true,
-          presentSound: true,
-          presentBadge: true,
-        ),
-      );
-
-      await _localNotificationsPlugin.show(
-        notification.hashCode,
-        notification.title,
-        notification.body,
-        notificationDetails,
-        payload: message.data.isNotEmpty ? message.data.toString() : null,
-      );
+  Future<void> _createAndroidChannels() async {
+    for (final channel in NotificationChannels.androidChannels) {
+      await _notificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()
+          ?.createNotificationChannel(
+            AndroidNotificationChannel(
+              channel.id,
+              channel.name,
+              description: channel.description,
+              importance: channel.importance,
+              sound: channel.sound != null
+                  ? RawResourceAndroidNotificationSound(channel.sound)
+                  : null,
+            ),
+          );
     }
+  }
+
+  Future<void> _requestIOSPermissions() async {
+    await _notificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin>()
+        ?.requestPermissions(
+          alert: true,
+          badge: true,
+          sound: true,
+          critical: true,
+        );
+  }
+
+  Future<void> showNotification({
+    required int id,
+    required String title,
+    required String body,
+    required String channelId,
+    String? payload,
+  }) async {
+    const androidDetails = AndroidNotificationDetails(
+      'general_channel',
+      'General Notifications',
+      importance: Importance.max,
+      priority: Priority.high,
+    );
+
+    const iOSDetails = DarwinNotificationDetails();
+
+    await _notificationsPlugin.show(
+      id,
+      title,
+      body,
+      const NotificationDetails(
+        android: androidDetails,
+        iOS: iOSDetails,
+      ),
+      payload: payload,
+    );
   }
 }
