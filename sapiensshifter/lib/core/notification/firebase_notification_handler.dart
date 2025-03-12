@@ -45,6 +45,7 @@ class FirebaseNotificationHandler {
     );
   }
 
+  // TODO(kaan): Deep linking
   void _handleBackgroundMessage(RemoteMessage message) {
     // Handle background/opened notifications
   }
