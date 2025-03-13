@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/core/init/product_configure.dart';
+import 'package:sapiensshifter/core/init/app_config/product_configure.dart';
 import 'package:sapiensshifter/core/localization/localization.dart';
 import 'package:sapiensshifter/core/logging/zone_manager.dart';
 import 'package:sapiensshifter/core/routing/routing_manager.dart';
