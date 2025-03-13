@@ -11,13 +11,15 @@ import 'package:sapiensshifter/core/notification/firebase_notification_handler.d
 import 'package:sapiensshifter/core/notification/notification_service.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
-final class AppConfigure {
-  AppConfigure._();
+final class ProductConfigure {
+  ProductConfigure._();
   static Future<void> initialize() async {
     WidgetsFlutterBinding.ensureInitialized();
     LoggingManager.init();
     await EasyLocalization.ensureInitialized();
     await Firebase.initializeApp();
+
+    // Notificaton setup
     final notificationService = NotificationService();
     await notificationService.initialize();
     final firebaseHandler = FirebaseNotificationHandler(notificationService);
