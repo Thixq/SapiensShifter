@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/core/init/app_configure.dart';
+import 'package:sapiensshifter/core/init/product_configure.dart';
 import 'package:sapiensshifter/core/localization/localization.dart';
 import 'package:sapiensshifter/core/logging/zone_manager.dart';
 import 'package:sapiensshifter/core/routing/routing_manager.dart';
@@ -10,7 +10,7 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/component
 void main() async {
   ZoneManager.runAppInZone(
     () async {
-      await AppConfigure.initialize();
+      await ProductConfigure.initialize();
       runApp(
         LanguageManager(
           child: Sizer(
