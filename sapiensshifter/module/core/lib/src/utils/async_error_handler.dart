@@ -5,7 +5,7 @@ import '../interfaces/exception_interface/base_exception_interface.dart';
 ///
 /// This allows you to convert a caught exception into a custom exception type
 /// that implements [BaseExceptionInterface].
-typedef ErrorTransformer<E> = IBaseException Function(
+typedef ErrorTransformer<E extends Object?> = IBaseException Function(
   E error, [
   StackTrace? stackTrace,
 ]);

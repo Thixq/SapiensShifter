@@ -20,6 +20,6 @@ abstract class IBaseException implements Exception {
   /// of the exception, including the runtime type, error code, and error message.
   @override
   String toString() {
-    return 'Error Run Type:$runtimeType, Error Code: $code, Error Message: $message.';
+    return 'Error Run Type: $runtimeType, Error Code: $code, Error Message: $message.';
   }
 }

@@ -1,24 +1,23 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/core/logging/custom_logger.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
-import 'package:sapiensshifter/product/utils/ui/svg_asset_builder.dart';
+import 'package:sapiensshifter/core/state/base/base_state.dart';
+import 'package:sapiensshifter/feature/splash/mixin/splash_mixin.dart';
+import 'package:sapiensshifter/feature/splash/view/widget/logo_svg.dart';
 
 @RoutePage()
-class SplashView extends StatelessWidget {
-  SplashView({super.key});
-  final _logger = CustomLogger('Splash View');
-  late final String a;
+class SplashView extends StatefulWidget {
+  const SplashView({super.key});
 
   @override
+  State<SplashView> createState() => _SplashViewState();
+}
+
+class _SplashViewState extends BaseState<SplashView> with SplashViewMixin {
+  @override
   Widget build(BuildContext context) {
-    _logger.info('Splash start');
-    return Scaffold(
+    return const Scaffold(
       body: Center(
-        child: SvgAssetBuilder(
-          svgPath: 'assets/logo/coffee_sapiens_logo.svg',
-          builderSize: Size(50.w, 50.h),
-        ),
+        child: LogoSvg(),
       ),
     );
   }
