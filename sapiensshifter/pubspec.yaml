@@ -90,6 +90,8 @@ flutter:
     - assets/icon/order_status_ic/
     - assets/icon/social_sign_ic/
     - assets/logo/
+    - assets/images/
+    - assets/images/onboard/
     - assets/translations/
 
   fonts:
