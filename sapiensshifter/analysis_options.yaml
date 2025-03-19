@@ -5,3 +5,6 @@ analyzer:
     lines_longer_than_80_chars: ignore
     public_member_api_docs: ignore
     sort_pub_dependencies: ignore
+  exclude:
+    - "**/*.g.dart"
+    - "*.g.dart"

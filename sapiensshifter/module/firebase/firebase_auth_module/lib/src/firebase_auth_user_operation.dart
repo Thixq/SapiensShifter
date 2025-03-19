@@ -4,7 +4,6 @@
 import 'package:core/core.dart';
 // Importing Firebase Authentication package for user-related operations
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth_module/src/model/user_model.dart';
 // Importing the mixin that transforms Firebase authentication errors
 import 'utils/mixin/handle_exception_error_transformer_mixin.dart';
 
@@ -30,9 +29,10 @@ class FirebaseAuthUserOperation extends IAuthOperation
   ///
   /// If no user is authenticated, fields will be `null`.
   @override
-  UserModel get user {
+  UserModel? get user {
+    if (_user == null) return null;
     return UserModel(
-      id: _user?.uid,
+      id: _user!.uid,
       photoUrl: _user?.photoURL,
       displayName: _user?.displayName,
       email: _user?.email,

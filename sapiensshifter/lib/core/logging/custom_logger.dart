@@ -17,7 +17,7 @@ class CustomLogger {
   /// Logs an error message with optional [error] object and [stackTrace].
   /// The error is logged at the severe level.
   void error(String message, {Object? error, StackTrace? stackTrace}) {
-    _logger.severe('$message - Error: $error', error, stackTrace);
+    _logger.severe(message, error, stackTrace);
   }
 
   /// Logs a debug message.

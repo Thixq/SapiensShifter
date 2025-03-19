@@ -27,8 +27,7 @@ class LoggingManager {
 
     // Override Flutter's default error handling to print Flutter errors to the console.
     FlutterError.onError = (FlutterErrorDetails details) {
-      // Log Flutter error details to the console.
-      // Note: This currently prints the last logMessage; you might consider using details.toString() for more specific info.
+      // TODO(kaan): [_logMessage] sanki burda dolmuyo dolması lazım mı? Bir bak.
       debugPrint(_logMessage);
     };
   }

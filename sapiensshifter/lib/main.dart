@@ -29,6 +29,7 @@ class _MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      title: 'Sapiens Shifter',
       routerConfig: _routing.config(),
       theme: SapiensTheme.instance.lightTheme,
       supportedLocales: context.supportedLocales,

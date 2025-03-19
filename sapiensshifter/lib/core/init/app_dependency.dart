@@ -1,4 +1,3 @@
-import 'package:firebase_auth_module/firebase_auth_module.dart';
 import 'package:firebase_firestore_module/firebase_firestore_module.dart';
 import 'package:get_it/get_it.dart';
 import 'package:sapiensshifter/core/state/view_model/product_view_model.dart';
@@ -10,14 +9,13 @@ class AppDependency {
 
   static Future<void> setup() async {
     _getIt
-      ..registerLazySingleton<FirebaseAuthManagar>(
-        () => FirebaseAuthManagar.instance,
-      )
       ..registerLazySingleton<FirebaseFirestoreManager>(
         () => FirebaseFirestoreManager.instance,
       )
-      ..registerLazySingleton<SharedPreferencesOperation>(
-        () => SharedPreferencesOperation.instance,
+      ..registerLazySingleton<SharedPreferencesManager>(
+        () => SharedPreferencesManager(
+          cacheOperation: SharedPreferencesOperation.instance,
+        ),
       )
       ..registerLazySingleton<ProductViewModel>(
         ProductViewModel.new,

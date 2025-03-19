@@ -39,10 +39,10 @@ void main() {
       when(mockUser.email).thenReturn('test@example.com');
 
       final userModel = authOperation.user;
-      expect(userModel.id, equals('user123'));
-      expect(userModel.photoUrl, equals('http://photo.url'));
-      expect(userModel.displayName, equals('Test User'));
-      expect(userModel.email, equals('test@example.com'));
+      expect(userModel?.id, equals('user123'));
+      expect(userModel?.photoUrl, equals('http://photo.url'));
+      expect(userModel?.displayName, equals('Test User'));
+      expect(userModel?.email, equals('test@example.com'));
     });
 
     test('displayUpdate, updateDisplayName ve reload metodlarını çağırır',
