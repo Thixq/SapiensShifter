@@ -3,7 +3,6 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
-import 'package:sapiensshifter/core/routing/routing_manager.gr.dart';
 import 'package:sapiensshifter/feature/splash/view_model/enum/splash_state_enum.dart';
 
 final class SplashViewModel {
@@ -18,8 +17,8 @@ final class SplashViewModel {
   Future<bool> get isFirstOpen async {
     return ErrorUtil.runWithErrorHandling(
       action: () async {
-        final result =
-            await _localCahce.cacheOperation.getValue<bool>(key: 'isFirstOpen');
+        final result = await _localCahce.cacheOperation
+            .getValue<bool>(key: 'isFirstLaunch');
         return result.value;
       },
       errorHandler: ServiceErrorHandler(),
@@ -36,12 +35,12 @@ final class SplashViewModel {
       case SplashStateEnum.NO_NETWORK:
         return;
       case SplashStateEnum.FIRST_LAUNCH:
-        route.replace(const SignInRoute());
+        route.replaceNamed('/onboard');
 
       case SplashStateEnum.RETURNIG_USER:
         return;
       case SplashStateEnum.NEW_USER:
-        return;
+        route.replaceNamed('/sign/signin');
     }
   }
 }

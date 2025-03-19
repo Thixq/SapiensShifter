@@ -12,5 +12,6 @@ class RoutingManager extends RootStackRouter {
   List<AutoRoute> get routes => [
         AutoRoute(path: '/', page: SplashRoute.page, initial: true),
         AutoRoute(path: '/sign/signin/', page: SignInRoute.page),
+        AutoRoute(path: '/onboard/', page: OnboardRoute.page),
       ];
 }
