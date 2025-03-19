@@ -11,7 +11,7 @@ final class SplashViewModel {
   final ILocalCacheManager _localCahce;
   final IAuthManager _authManagar;
 
-  Future<bool?> isFirstOpen() async {
+  Future<bool> get isFirstOpen async {
     return ErrorUtil.runWithErrorHandling(
       action: () async {
         final result =
