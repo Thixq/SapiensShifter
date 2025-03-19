@@ -1,19 +1,28 @@
-import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:sapiensshifter/core/exception/network_disable_excepiton.dart';
-import 'package:sapiensshifter/core/logging/custom_logger.dart';
+import 'package:sapiensshifter/core/exception/exceptions/network_disable_excepiton.dart';
+import 'package:sapiensshifter/core/exception/handler/custom_handler/ui_error_handler.dart';
+import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 
 mixin class NetworkConnectionStatus {
-  final _logger = CustomLogger('NetworkConnectionStatusLogger');
   final Uri _defaultUrl = Uri.parse('https://www.google.com');
-  Future<bool> isNetworkAvailable() async {
-    final respone = await http.get(_defaultUrl);
-    if (respone.statusCode == HttpStatus.ok) {
-      _logger.info('Network Connection Successful');
-      return true;
-    } else {
-      _logger.warning('Network Connection Failed');
-      throw NetworkDisableExcepiton('no_network_connection');
-    }
+  Future<bool> isNetworkAvailable(BuildContext context) async {
+    const timeoutSeconds = 5;
+
+    return ErrorUtil.runWithErrorHandling<bool>(
+      action: () async {
+        final response = await http
+            .head(_defaultUrl)
+            .timeout(const Duration(seconds: timeoutSeconds));
+
+        // 200-299 durum kodları başarılı kabul edilir
+        debugPrint('Timeout atınca status code: ${response.statusCode}');
+        return response.statusCode >= 200 && response.statusCode < 300;
+      },
+      errorMapper: (error, [stackTrace]) =>
+          NetworkExcepiton('no_network_connection', stackTrace: stackTrace),
+      errorHandler: UIErrorHandler(context),
+      fallbackValue: false,
+    );
   }
 }

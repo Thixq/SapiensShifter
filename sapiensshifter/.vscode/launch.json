@@ -1,0 +1,105 @@
+{
+    // Olası öznitelikler hakkında bilgi edinmek için IntelliSense kullanın.
+    // Mevcut özniteliklerin açıklamalarını görüntülemek için üzerine gelin.
+    // Daha fazla bilgi için şu adresi ziyaret edin: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "sapiensshifter",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "sapiensshifter (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "sapiensshifter (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "core",
+            "cwd": "module/core",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "core (profile mode)",
+            "cwd": "module/core",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "core (release mode)",
+            "cwd": "module/core",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "firebase_auth_module",
+            "cwd": "module/firebase/firebase_auth_module",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "firebase_auth_module (profile mode)",
+            "cwd": "module/firebase/firebase_auth_module",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "firebase_auth_module (release mode)",
+            "cwd": "module/firebase/firebase_auth_module",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "firebase_firestore_module",
+            "cwd": "module/firebase/firebase_firestore_module",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "firebase_firestore_module (profile mode)",
+            "cwd": "module/firebase/firebase_firestore_module",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "firebase_firestore_module (release mode)",
+            "cwd": "module/firebase/firebase_firestore_module",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "sharhed_preferences_module",
+            "cwd": "module/local_cache/sharhed_preferences_module",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "sharhed_preferences_module (profile mode)",
+            "cwd": "module/local_cache/sharhed_preferences_module",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "sharhed_preferences_module (release mode)",
+            "cwd": "module/local_cache/sharhed_preferences_module",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
