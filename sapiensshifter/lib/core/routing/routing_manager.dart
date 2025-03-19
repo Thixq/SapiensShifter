@@ -10,6 +10,6 @@ class RoutingManager extends RootStackRouter {
 
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: SplashRoute.page, initial: true),
+        AutoRoute(path: '/', page: SplashRoute.page, initial: true),
       ];
 }

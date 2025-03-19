@@ -23,7 +23,12 @@ mixin SplashViewMixin on BaseState<SplashView> {
   }
 
   Future<void> _make() async {
-    await isNetworkAvailable(context);
-    await _splashViewModel.isFirstOpen();
+    if (await isNetworkAvailable(context)) {
+      if (await _splashViewModel.isFirstOpen) {
+      } else {
+        if (_splashViewModel.isUserOpen) {
+        } else {}
+      }
+    } else {}
   }
 }
