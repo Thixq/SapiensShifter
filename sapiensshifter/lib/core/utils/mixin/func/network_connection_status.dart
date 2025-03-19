@@ -8,15 +8,11 @@ mixin class NetworkConnectionStatus {
   final Uri _defaultUrl = Uri.parse('https://www.google.com');
   Future<bool> isNetworkAvailable(BuildContext context) async {
     const timeoutSeconds = 5;
-
     return ErrorUtil.runWithErrorHandling<bool>(
       action: () async {
         final response = await http
             .head(_defaultUrl)
             .timeout(const Duration(seconds: timeoutSeconds));
-
-        // 200-299 durum kodları başarılı kabul edilir
-        debugPrint('Timeout atınca status code: ${response.statusCode}');
         return response.statusCode >= 200 && response.statusCode < 300;
       },
       errorMapper: (error, [stackTrace]) =>
