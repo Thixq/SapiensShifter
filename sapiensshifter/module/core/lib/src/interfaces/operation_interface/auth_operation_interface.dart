@@ -1,4 +1,4 @@
-import 'package:core/src/models/base_model_interface.dart';
+import 'package:core/src/models/user_model.dart';
 
 /// An abstract interface for performing various authentication operations on a user's profile.
 /// This interface includes methods for updating the user's password, display name,
@@ -34,6 +34,6 @@ abstract class IAuthOperation {
   /// Retrieves the current user model.
   ///
   /// Returns:
-  /// A [IBaseModel] representing the current user.
-  IBaseModel get user;
+  /// A [UserModel] representing the current user.
+  UserModel? get user;
 }

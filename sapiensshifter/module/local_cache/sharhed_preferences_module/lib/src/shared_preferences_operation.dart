@@ -14,12 +14,11 @@ final class SharedPreferencesOperation extends ILocalCacheOperation
   // Private constructor to enforce the singleton pattern.
   SharedPreferencesOperation._();
 
-  // A single, private instance of SharedPreferencesOperation.
-  static final SharedPreferencesOperation _instance =
-      SharedPreferencesOperation._();
+  static SharedPreferencesOperation? _instance = SharedPreferencesOperation._();
 
   // Public getter to access the singleton instance.
-  static SharedPreferencesOperation get instance => _instance;
+  static SharedPreferencesOperation get instance =>
+      _instance ??= SharedPreferencesOperation._();
 
   // Late initialization of the SharedPreferences instance.
   late final SharedPreferences _pref;

@@ -8,9 +8,9 @@ import 'utils/mixin/handle_exception_error_transformer_mixin.dart';
 final class FirebaseAuthManagar extends IAuthManager
     with HandleExceptionErrorTransformerMixin {
   /// Private constructor that initializes Firebase Auth and related operations.
-  FirebaseAuthManagar._internal(FirebaseAuth firebaseAuth) {
+  FirebaseAuthManagar._internal(FirebaseAuth firebaseAuth)
+      : super(FirebaseAuthUserOperation(firebaseAuth)) {
     _auth = firebaseAuth;
-    _authUserOperation = FirebaseAuthUserOperation(_auth);
     _init();
   }
 
@@ -37,11 +37,7 @@ final class FirebaseAuthManagar extends IAuthManager
   }
 
   /// The FirebaseAuth instance for authentication operations.
-  late FirebaseAuth _auth;
-
-  /// Provides additional Firebase user operations.
-  late final FirebaseAuthUserOperation _authUserOperation;
-  FirebaseAuthUserOperation get authUserOperation => _authUserOperation;
+  static late FirebaseAuth _auth;
 
   /// Maps social providers to functions that create OAuth credentials.
   late final Map<String, OAuthCredential Function(CustomCredential)>
