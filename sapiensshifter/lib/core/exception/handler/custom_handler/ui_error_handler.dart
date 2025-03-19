@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:sapiensshifter/core/exception/handler/app_handler.dart';
 import 'package:sapiensshifter/core/utils/mixin/exception/show_excepiton_dialog/show_exception_dialog.dart';
 
-class UIErrorHandler extends AppErrorHandler with ShowExceptionDialogMixin {
+/// Using [UIErrorHandler] allows the received error to be displayed on the
+/// screen with a popup.
+final class UIErrorHandler extends AppErrorHandler
+    with ShowExceptionDialogMixin {
   UIErrorHandler(this.context);
   final BuildContext context;
 
