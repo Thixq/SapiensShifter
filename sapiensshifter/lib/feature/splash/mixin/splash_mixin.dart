@@ -25,11 +25,11 @@ mixin SplashViewMixin on BaseState<SplashView> {
 
   Future<void> get _goRoute async {
     if (mounted) {
-      _splashViewModel.route(context, await _make());
+      _splashViewModel.route(context, await _check());
     }
   }
 
-  Future<SplashStateEnum> _make() async {
+  Future<SplashStateEnum> _check() async {
     if (!await isNetworkAvailable(context)) return SplashStateEnum.NO_NETWORK;
     if (!await _splashViewModel.isFirstOpen) {
       return SplashStateEnum.FIRST_LAUNCH;
