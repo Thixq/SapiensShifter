@@ -52,6 +52,7 @@ dependencies:
   #UI
   animated_custom_dropdown: ^3.1.1
   flutter_slidable: ^3.1.2
+  smooth_page_indicator: ^1.2.1
 
   #Localization
   easy_localization: ^3.0.7
@@ -90,6 +91,8 @@ flutter:
     - assets/icon/order_status_ic/
     - assets/icon/social_sign_ic/
     - assets/logo/
+    - assets/images/
+    - assets/images/onboard/
     - assets/translations/
 
   fonts:
