@@ -17,7 +17,7 @@ class OnboardContentViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageView.builder(
-      onPageChanged: (index) => onPageChanged,
+      onPageChanged: onPageChanged,
       controller: _controller,
       itemCount: _contentList.length,
       itemBuilder: (context, index) =>

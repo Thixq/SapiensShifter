@@ -13,7 +13,10 @@ final class OnboardContentCard extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(_content.imagePath),
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Image.asset(_content.imagePath),
+        ),
         Text(
           _content.title,
           style: context.general.textTheme.titleMedium,
