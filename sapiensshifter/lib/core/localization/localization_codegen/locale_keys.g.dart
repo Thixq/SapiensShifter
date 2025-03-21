@@ -7,6 +7,9 @@ abstract class  LocaleKeys {
   static const confirm = 'confirm';
   static const delete = 'delete';
   static const empty_items = 'empty_items';
+  static const next = 'next';
+  static const previous = 'previous';
+  static const done = 'done';
   static const drop_down_drop_down_default = 'drop_down.drop_down_default';
   static const drop_down_drop_down_extra = 'drop_down.drop_down_extra';
   static const drop_down = 'drop_down';
@@ -48,5 +51,16 @@ abstract class  LocaleKeys {
   static const all_exception_social_credential_exception_canceled_user = 'all_exception.social_credential_exception.canceled_user';
   static const all_exception_social_credential_exception = 'all_exception.social_credential_exception';
   static const all_exception = 'all_exception';
+  static const page_onboard_onboard_content_content_title_order = 'page.onboard.onboard_content.content_title.order';
+  static const page_onboard_onboard_content_content_title_shift = 'page.onboard.onboard_content.content_title.shift';
+  static const page_onboard_onboard_content_content_title_warehouse = 'page.onboard.onboard_content.content_title.warehouse';
+  static const page_onboard_onboard_content_content_title = 'page.onboard.onboard_content.content_title';
+  static const page_onboard_onboard_content_content_desc_order_desc = 'page.onboard.onboard_content.content_desc.order_desc';
+  static const page_onboard_onboard_content_content_desc_shift_desc = 'page.onboard.onboard_content.content_desc.shift_desc';
+  static const page_onboard_onboard_content_content_desc_warehouse_desc = 'page.onboard.onboard_content.content_desc.warehouse_desc';
+  static const page_onboard_onboard_content_content_desc = 'page.onboard.onboard_content.content_desc';
+  static const page_onboard_onboard_content = 'page.onboard.onboard_content';
+  static const page_onboard = 'page.onboard';
+  static const page = 'page';
 
 }

@@ -17,8 +17,9 @@ final class OnboardViewModel extends BaseCubit<OnboardState> {
   final List<OnboardContentModel> contentList;
 
   void pageChanged(int newPage) {
-    final clampIndex = newPage.clamp(0, contentList.length);
+    final clampIndex = newPage.clamp(0, contentList.length - 1);
     emit(state.copyWith(currentIndex: clampIndex));
+    _islastPage();
   }
 
   void nextPage() {
@@ -27,6 +28,19 @@ final class OnboardViewModel extends BaseCubit<OnboardState> {
 
   void previousPage() {
     pageChanged(state.currentIndex - 1);
+  }
+
+  void _islastPage() {
+    if (state.currentIndex == contentList.length - 1) {
+      emit(state.copyWith(isLastPage: true));
+    } else {
+      emit(state.copyWith(isLastPage: false));
+    }
+  }
+
+  Future<bool> finishOnboardWrtie() async {
+    return _localCacheManager.cacheOperation
+        .write<bool>(key: 'isFirstLaunch', value: true);
   }
 
   Future<bool> writeFirstLaunch(BuildContext context) async {

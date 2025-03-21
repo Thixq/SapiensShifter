@@ -19,6 +19,9 @@ class CodegenLoader extends AssetLoader{
   "confirm": "Onayla",
   "delete": "Sil",
   "empty_items": "Boş Liste",
+  "next": "Devam",
+  "previous": "Geri",
+  "done": "Tamam",
   "drop_down": {
     "drop_down_default": "Seçiniz",
     "drop_down_extra": "Ekstra Seçiniz"
@@ -68,6 +71,22 @@ class CodegenLoader extends AssetLoader{
     "social_credential_exception": {
       "failed_credential": "{social} ile oturum açılamadı: {error}",
       "canceled_user": "Oturum açma işlemi kullanıcı tarafından iptal edildi."
+    }
+  },
+  "page": {
+    "onboard": {
+      "onboard_content": {
+        "content_title": {
+          "order": "Sipariş",
+          "shift": "Vardiya",
+          "warehouse": "Depo"
+        },
+        "content_desc": {
+          "order_desc": "Şiparişleri Sapiens Shifter uygulaması ile alabilirsin.",
+          "shift_desc": "Vardiyalarını haftalık olarak takip edebilirisin. Yeni vardiyların için bildirim alabilirsin.",
+          "warehouse_desc": "Şublerin ihtiyaçlarını Sapiens Shifter üzerinden geçebilirsin. İş arkadaşların ile iş hakkında sohbet edebilirsin."
+        }
+      }
     }
   }
 };

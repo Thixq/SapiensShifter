@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:sapiensshifter/core/constant/page_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/feature/splash/view_model/enum/splash_state_enum.dart';
@@ -35,12 +36,12 @@ final class SplashViewModel {
       case SplashStateEnum.NO_NETWORK:
         return;
       case SplashStateEnum.FIRST_LAUNCH:
-        route.replaceNamed('/onboard');
+        route.replaceNamed(PagePathConstant.onboard);
 
       case SplashStateEnum.RETURNIG_USER:
         return;
       case SplashStateEnum.NEW_USER:
-        route.replaceNamed('/sign/signin');
+        route.replaceNamed(PagePathConstant.signIn);
     }
   }
 }
