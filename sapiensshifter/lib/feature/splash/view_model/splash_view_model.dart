@@ -40,6 +40,7 @@ final class SplashViewModel {
 
       case SplashStateEnum.RETURNIG_USER:
         return;
+
       case SplashStateEnum.NEW_USER:
         route.replaceNamed(PagePathConstant.signIn);
     }
