@@ -21,6 +21,10 @@ abstract class  LocaleKeys {
   static const null_value_null_name = 'null_value.null_name';
   static const null_value_null_double = 'null_value.null_double';
   static const null_value = 'null_value';
+  static const validate_email_wrong_email_syntax = 'validate.email.wrong_email_syntax';
+  static const validate_email_empty_email = 'validate.email.empty_email';
+  static const validate_email = 'validate.email';
+  static const validate = 'validate';
   static const all_exception_default_exception = 'all_exception.default_exception';
   static const all_exception_generic_exception_is_not_initialized = 'all_exception.generic_exception.is_not_initialized';
   static const all_exception_generic_exception = 'all_exception.generic_exception';
