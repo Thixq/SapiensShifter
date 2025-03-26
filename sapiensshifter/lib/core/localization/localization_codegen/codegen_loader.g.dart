@@ -15,6 +15,7 @@ class CodegenLoader extends AssetLoader{
   }
 
   static const Map<String,dynamic> _tr = {
+  "coffee_sapiens": "Coffe Sapiens",
   "price_symbol": "₺",
   "confirm": "Onayla",
   "delete": "Sil",
@@ -34,6 +35,12 @@ class CodegenLoader extends AssetLoader{
   "null_value": {
     "null_name": "Eksik Ve Hatalı",
     "null_double": "00.00"
+  },
+  "validate": {
+    "email": {
+      "wrong_email_syntax": "Lütfen geçerli e-posta adresi girin.",
+      "empty_email": "E-posta girin."
+    }
   },
   "all_exception": {
     "default_exception": "Bir hata oluştu: {message}",
@@ -87,6 +94,13 @@ class CodegenLoader extends AssetLoader{
           "warehouse_desc": "Şublerin ihtiyaçlarını Sapiens Shifter üzerinden geçebilirsin. İş arkadaşların ile iş hakkında sohbet edebilirsin."
         }
       }
+    },
+    "sign_sign_in": {
+      "recovery_password": "Şifremi Unuttum",
+      "sign_in": "Giriş Yap",
+      "or": "ya da",
+      "not_a_member": "Üye değil misiniz?",
+      "register_now": "Hemen Üye olun!"
     }
   }
 };

@@ -58,7 +58,7 @@ class SvgAssetBuilder extends SvgBuilder {
               return _buildSizedBox(child: SvgPicture.string(snapshot.data!));
           }
         }
-        return const Icon(Icons.abc);
+        return const Icon(Icons.error);
       },
     );
   }

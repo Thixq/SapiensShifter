@@ -3,6 +3,7 @@
 // ignore_for_file: constant_identifier_names
 
 abstract class  LocaleKeys {
+  static const coffee_sapiens = 'coffee_sapiens';
   static const price_symbol = 'price_symbol';
   static const confirm = 'confirm';
   static const delete = 'delete';
@@ -20,6 +21,10 @@ abstract class  LocaleKeys {
   static const null_value_null_name = 'null_value.null_name';
   static const null_value_null_double = 'null_value.null_double';
   static const null_value = 'null_value';
+  static const validate_email_wrong_email_syntax = 'validate.email.wrong_email_syntax';
+  static const validate_email_empty_email = 'validate.email.empty_email';
+  static const validate_email = 'validate.email';
+  static const validate = 'validate';
   static const all_exception_default_exception = 'all_exception.default_exception';
   static const all_exception_generic_exception_is_not_initialized = 'all_exception.generic_exception.is_not_initialized';
   static const all_exception_generic_exception = 'all_exception.generic_exception';
@@ -61,6 +66,12 @@ abstract class  LocaleKeys {
   static const page_onboard_onboard_content_content_desc = 'page.onboard.onboard_content.content_desc';
   static const page_onboard_onboard_content = 'page.onboard.onboard_content';
   static const page_onboard = 'page.onboard';
+  static const page_sign_sign_in_recovery_password = 'page.sign_sign_in.recovery_password';
+  static const page_sign_sign_in_sign_in = 'page.sign_sign_in.sign_in';
+  static const page_sign_sign_in_or = 'page.sign_sign_in.or';
+  static const page_sign_sign_in_not_a_member = 'page.sign_sign_in.not_a_member';
+  static const page_sign_sign_in_register_now = 'page.sign_sign_in.register_now';
+  static const page_sign_sign_in = 'page.sign_sign_in';
   static const page = 'page';
 
 }
