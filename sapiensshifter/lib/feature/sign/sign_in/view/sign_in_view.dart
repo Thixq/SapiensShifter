@@ -7,6 +7,7 @@ import 'package:sapiensshifter/feature/sign/sign_in/view/model/social_button_mod
 import 'package:sapiensshifter/product/component/sapi_button.dart';
 import 'package:sapiensshifter/product/component/sapi_text_field.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart';
 import 'package:sapiensshifter/product/utils/ui/svg_asset_builder.dart';
 
 part './widget/input_field.dart';
@@ -30,37 +31,41 @@ class _SignInViewState extends BaseState<SignInView> with SignInViewMixin {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: const SignInAppbar(),
-      body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: context.padding.normal,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Expanded(child: SizedBox.expand()),
-                InputField(
-                  email: emailTextController,
-                  password: passwordTextController,
-                  formState: formState,
-                  recoveryPassword: () {
-                    formState.currentState!.validate();
-                  },
-                ),
-                SignInButton(
-                  onPress: () => viewModel.signInWithEmailAndPassword(
-                    email: emailTextController.text,
-                    password: passwordTextController.text,
+      body: KeyboardDismissOnTap(
+        child: SafeArea(
+          child: Center(
+            child: Padding(
+              padding: context.padding.horizontalNormal,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Expanded(child: SizedBox.expand()),
+                  InputField(
+                    email: emailTextController,
+                    password: passwordTextController,
+                    formState: formState,
+                    recoveryPassword: () {
+                      formState.currentState!.validate();
+                    },
                   ),
-                ),
-                const SignInDivider(),
-                SocialSignInButtons(
-                  socialButtonList: socialButtonList,
-                ),
-                const Expanded(child: SizedBox.expand()),
-                RegisterRouteButton(
-                  onPress: routeRegisterPage,
-                ),
-              ],
+                  SignInButton(
+                    onPress: () => viewModel.signInWithEmailAndPassword(
+                      email: emailTextController.text,
+                      password: passwordTextController.text,
+                    ),
+                  ),
+                  context.sized.emptySizedHeightBoxLow3x,
+                  const SignInDivider(),
+                  context.sized.emptySizedHeightBoxLow,
+                  SocialSignInButtons(
+                    socialButtonList: socialButtonList,
+                  ),
+                  const Expanded(child: SizedBox.expand()),
+                  RegisterRouteButton(
+                    onPress: routeRegisterPage,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
