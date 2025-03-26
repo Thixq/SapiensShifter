@@ -8,8 +8,6 @@ import 'package:sapiensshifter/product/component/sapi_button.dart';
 import 'package:sapiensshifter/product/component/sapi_text_field.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart';
-import 'package:sapiensshifter/product/utils/ui/svg_asset_builder.dart';
-
 part './widget/input_field.dart';
 part './widget/register_route_button.dart';
 part './widget/sign_in_appbar.dart';
@@ -44,9 +42,7 @@ class _SignInViewState extends BaseState<SignInView> with SignInViewMixin {
                     email: emailTextController,
                     password: passwordTextController,
                     formState: formState,
-                    recoveryPassword: () {
-                      formState.currentState!.validate();
-                    },
+                    recoveryPassword: recoveryPassword,
                   ),
                   SignInButton(
                     onPress: () => viewModel.signInWithEmailAndPassword(

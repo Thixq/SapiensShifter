@@ -54,6 +54,14 @@ mixin SignInViewMixin on BaseState<SignInView> {
     context.router.replaceNamed('/sign/register/');
   }
 
+  void recoveryPassword() {
+    if (formState.currentState?.validate() ?? false) {
+      _signInViewModel.recoveryPassword(
+        email: emailTextController.text,
+      );
+    }
+  }
+
   @override
   void dispose() {
     emailTextController.dispose();
