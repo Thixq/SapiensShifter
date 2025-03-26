@@ -8,7 +8,7 @@ class SignInAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text('Coffee Sapiens'),
+      title: Text(LocaleKeys.coffee_sapiens.tr()),
     );
   }
 

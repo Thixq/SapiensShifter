@@ -16,7 +16,7 @@ class SignInDivider extends StatelessWidget {
             endIndent: context.sized.normalValue,
           ),
         ),
-        const Text('ya da'),
+        Text(LocaleKeys.page_sign_sign_in_or.tr()),
         Expanded(
           child: Divider(
             height: 32,

@@ -15,6 +15,7 @@ class CodegenLoader extends AssetLoader{
   }
 
   static const Map<String,dynamic> _tr = {
+  "coffee_sapiens": "Coffe Sapiens",
   "price_symbol": "₺",
   "confirm": "Onayla",
   "delete": "Sil",
@@ -87,6 +88,13 @@ class CodegenLoader extends AssetLoader{
           "warehouse_desc": "Şublerin ihtiyaçlarını Sapiens Shifter üzerinden geçebilirsin. İş arkadaşların ile iş hakkında sohbet edebilirsin."
         }
       }
+    },
+    "sign_sign_in": {
+      "recovery_password": "Şifremi Unuttum",
+      "sign_in": "Giriş Yap",
+      "or": "ya da",
+      "not_a_member": "Üye değil misiniz?",
+      "register_now": "Hemen Üye olun!"
     }
   }
 };

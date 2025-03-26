@@ -44,7 +44,7 @@ class InputField extends StatelessWidget {
             child: CupertinoButton(
               onPressed: recoveryPassword,
               child: Text(
-                'Recovery Password',
+                LocaleKeys.page_sign_sign_in_recovery_password.tr(),
                 style: context.general.textTheme.bodySmall,
               ),
             ),
