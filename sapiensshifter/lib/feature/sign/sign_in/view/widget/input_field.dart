@@ -30,11 +30,14 @@ class InputField extends StatelessWidget {
               }
               return null;
             },
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.emailAddress,
             controller: email,
             autofillHints: const [AutofillHints.email],
           ),
           context.sized.emptySizedHeightBoxLow,
           SapiTextField(
+            keyboardType: TextInputType.visiblePassword,
             controller: password,
             isPassword: true,
             autofillHints: const [AutofillHints.password],
