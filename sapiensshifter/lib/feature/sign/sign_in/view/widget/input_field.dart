@@ -23,10 +23,10 @@ class InputField extends StatelessWidget {
           SapiTextField(
             validator: (text) {
               if (text == null || text.isEmpty) {
-                return 'Plase Email';
+                return LocaleKeys.validate_email_empty_email.tr();
               }
               if (!text.ext.isValidEmail) {
-                return 'bu email değil kral düzelt';
+                return LocaleKeys.validate_email_wrong_email_syntax.tr();
               }
               return null;
             },
