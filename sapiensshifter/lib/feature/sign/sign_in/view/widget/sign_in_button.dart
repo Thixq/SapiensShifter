@@ -13,7 +13,7 @@ class SignInButton extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: 1,
       child: SapiButton(
-        buttonText: 'Sign In',
+        buttonText: LocaleKeys.page_sign_sign_in_sign_in.tr(),
         onPressed: onPress,
       ),
     );

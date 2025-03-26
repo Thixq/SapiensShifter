@@ -14,14 +14,14 @@ class RegisterRouteButton extends StatelessWidget {
       onPressed: onPress,
       child: RichText(
         text: TextSpan(
-          text: 'Not a member?',
+          text: LocaleKeys.page_sign_sign_in_not_a_member.tr(),
           style: TextStyle(
             color: context.general.colorScheme.onPrimary,
           ),
-          children: const [
+          children: [
             TextSpan(
-              text: 'Register Now!',
-              style: TextStyle(color: CupertinoColors.activeBlue),
+              text: LocaleKeys.page_sign_sign_in_register_now.tr(),
+              style: const TextStyle(color: CupertinoColors.activeBlue),
             ),
           ],
         ),
