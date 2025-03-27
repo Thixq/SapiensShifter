@@ -7,6 +7,7 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_
 
 part './widget/register_input_form.dart';
 part './widget/sign_in_route_button.dart';
+part './widget/register_button.dart';
 
 @RoutePage()
 class RegisterView extends StatefulWidget {
@@ -34,15 +35,13 @@ class _RegisterViewState extends State<RegisterView> {
                 const Expanded(child: SizedBox.expand()),
                 const RegisterInputForm(),
                 context.sized.emptySizedHeightBoxLow3x,
-                FractionallySizedBox(
-                  widthFactor: 1,
-                  child: SapiButton(
-                    buttonText: 'buttonText',
-                    onPressed: () {},
-                  ),
+                RegisterButton(
+                  onPress: () {},
                 ),
                 const Expanded(flex: 2, child: SizedBox.expand()),
-                const SignInRouteButton(),
+                SignInRouteButton(
+                  onPress: () {},
+                ),
               ],
             ),
           ),

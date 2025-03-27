@@ -66,12 +66,20 @@ abstract class  LocaleKeys {
   static const page_onboard_onboard_content_content_desc = 'page.onboard.onboard_content.content_desc';
   static const page_onboard_onboard_content = 'page.onboard.onboard_content';
   static const page_onboard = 'page.onboard';
-  static const page_sign_sign_in_recovery_password = 'page.sign_sign_in.recovery_password';
-  static const page_sign_sign_in_sign_in = 'page.sign_sign_in.sign_in';
-  static const page_sign_sign_in_or = 'page.sign_sign_in.or';
-  static const page_sign_sign_in_not_a_member = 'page.sign_sign_in.not_a_member';
-  static const page_sign_sign_in_register_now = 'page.sign_sign_in.register_now';
-  static const page_sign_sign_in = 'page.sign_sign_in';
+  static const page_sign_email = 'page.sign.email';
+  static const page_sign_password = 'page.sign.password';
+  static const page_sign_username = 'page.sign.username';
+  static const page_sign_sign_in_recovery_password = 'page.sign.sign_in.recovery_password';
+  static const page_sign_sign_in_sign_in = 'page.sign.sign_in.sign_in';
+  static const page_sign_sign_in_or = 'page.sign.sign_in.or';
+  static const page_sign_sign_in_not_a_member = 'page.sign.sign_in.not_a_member';
+  static const page_sign_sign_in_register_now = 'page.sign.sign_in.register_now';
+  static const page_sign_sign_in = 'page.sign.sign_in';
+  static const page_sign_register_registerText = 'page.sign.register.registerText';
+  static const page_sign_register_member = 'page.sign.register.member';
+  static const page_sign_register_sign_in = 'page.sign.register.sign_in';
+  static const page_sign_register = 'page.sign.register';
+  static const page_sign = 'page.sign';
   static const page = 'page';
 
 }

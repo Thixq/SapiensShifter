@@ -9,14 +9,14 @@ class RegisterInputForm extends StatelessWidget {
       child: SeparatorColumn(
         mainAxisSize: MainAxisSize.min,
         separator: context.sized.emptySizedHeightBoxLow,
-        children: const [
+        children: [
           SapiTextField(
-            hintText: 'Username',
+            hintText: LocaleKeys.page_sign_username.tr(),
           ),
           SapiTextField(
-            hintText: 'E-mail',
+            hintText: LocaleKeys.page_sign_email.tr(),
           ),
-          SapiTextField(hintText: 'Password'),
+          SapiTextField(hintText: LocaleKeys.page_sign_password.tr()),
         ],
       ),
     );

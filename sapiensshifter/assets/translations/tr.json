@@ -79,12 +79,22 @@
                 }
             }
         },
-        "sign_sign_in":{
-            "recovery_password":"Şifremi Unuttum",
-            "sign_in":"Giriş Yap",
-            "or":"ya da",
-            "not_a_member":"Üye değil misiniz?",
-            "register_now":"Hemen Üye olun!"
+        "sign":{
+            "email":"E-posta",
+            "password":"Şifre",
+            "username":"Ad",
+            "sign_in":{
+                "recovery_password":"Şifremi Unuttum",
+                "sign_in":"Giriş Yap",
+                "or":"ya da",
+                "not_a_member":"Üye değil misiniz? ",
+                "register_now":"Hemen üye olun!"
+            },
+            "register":{
+                "registerText":"Kayıt Ol",
+                "member":"Üye misiniz? ",
+                "sign_in":"Giriş yapın!"
+            }
         }
     }
 }
