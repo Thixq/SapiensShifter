@@ -40,6 +40,10 @@ class CodegenLoader extends AssetLoader{
     "email": {
       "wrong_email_syntax": "Lütfen geçerli e-posta adresi girin.",
       "empty_email": "E-posta girin."
+    },
+    "password": {
+      "empty_passwrod": "Lütfen şifre giriniz.",
+      "min_length": "En az 8 haneli şifre giriniz."
     }
   },
   "all_exception": {
@@ -60,7 +64,7 @@ class CodegenLoader extends AssetLoader{
       "user_disabled": "Bu kullanıcı devre dışı bırakılmış.",
       "user_not_found": "Bu e-posta adresiyle ilişkili bir kullanıcı bulunamadı.",
       "wrong_password": "Hatalı şifre girdiniz.",
-      "email_already_use": "Bu e-posta adresi zaten bir hesapla ilişkilendirilmiş.",
+      "email_already_in_use": "Bu e-posta adresi zaten bir hesapla ilişkilendirilmiş.",
       "weak_password": "Şifre çok zayıf. Lütfen daha güçlü bir şifre seçin.",
       "requires_recent_login": "Bu işlem yakın zamanda giriş yapmayı gerektirir. Lütfen tekrar giriş yapın.",
       "network_request_failed": "Ağ hatası. Lütfen internet bağlantınızı kontrol edin.",
@@ -95,12 +99,22 @@ class CodegenLoader extends AssetLoader{
         }
       }
     },
-    "sign_sign_in": {
-      "recovery_password": "Şifremi Unuttum",
-      "sign_in": "Giriş Yap",
-      "or": "ya da",
-      "not_a_member": "Üye değil misiniz?",
-      "register_now": "Hemen Üye olun!"
+    "sign": {
+      "email": "E-posta",
+      "password": "Şifre",
+      "username": "Ad",
+      "sign_in": {
+        "recovery_password": "Şifremi Unuttum",
+        "sign_in": "Giriş Yap",
+        "or": "ya da",
+        "not_a_member": "Üye değil misiniz? ",
+        "register_now": "Hemen üye olun!"
+      },
+      "register": {
+        "registerText": "Kayıt Ol",
+        "member": "Üye misiniz? ",
+        "sign_in": "Giriş yapın!"
+      }
     }
   }
 };

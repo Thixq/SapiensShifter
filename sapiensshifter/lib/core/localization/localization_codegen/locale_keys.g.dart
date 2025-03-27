@@ -24,6 +24,9 @@ abstract class  LocaleKeys {
   static const validate_email_wrong_email_syntax = 'validate.email.wrong_email_syntax';
   static const validate_email_empty_email = 'validate.email.empty_email';
   static const validate_email = 'validate.email';
+  static const validate_password_empty_passwrod = 'validate.password.empty_passwrod';
+  static const validate_password_min_length = 'validate.password.min_length';
+  static const validate_password = 'validate.password';
   static const validate = 'validate';
   static const all_exception_default_exception = 'all_exception.default_exception';
   static const all_exception_generic_exception_is_not_initialized = 'all_exception.generic_exception.is_not_initialized';
@@ -38,7 +41,7 @@ abstract class  LocaleKeys {
   static const all_exception_firebase_auth_exception_user_disabled = 'all_exception.firebase_auth_exception.user_disabled';
   static const all_exception_firebase_auth_exception_user_not_found = 'all_exception.firebase_auth_exception.user_not_found';
   static const all_exception_firebase_auth_exception_wrong_password = 'all_exception.firebase_auth_exception.wrong_password';
-  static const all_exception_firebase_auth_exception_email_already_use = 'all_exception.firebase_auth_exception.email_already_use';
+  static const all_exception_firebase_auth_exception_email_already_in_use = 'all_exception.firebase_auth_exception.email_already_in_use';
   static const all_exception_firebase_auth_exception_weak_password = 'all_exception.firebase_auth_exception.weak_password';
   static const all_exception_firebase_auth_exception_requires_recent_login = 'all_exception.firebase_auth_exception.requires_recent_login';
   static const all_exception_firebase_auth_exception_network_request_failed = 'all_exception.firebase_auth_exception.network_request_failed';
@@ -66,12 +69,20 @@ abstract class  LocaleKeys {
   static const page_onboard_onboard_content_content_desc = 'page.onboard.onboard_content.content_desc';
   static const page_onboard_onboard_content = 'page.onboard.onboard_content';
   static const page_onboard = 'page.onboard';
-  static const page_sign_sign_in_recovery_password = 'page.sign_sign_in.recovery_password';
-  static const page_sign_sign_in_sign_in = 'page.sign_sign_in.sign_in';
-  static const page_sign_sign_in_or = 'page.sign_sign_in.or';
-  static const page_sign_sign_in_not_a_member = 'page.sign_sign_in.not_a_member';
-  static const page_sign_sign_in_register_now = 'page.sign_sign_in.register_now';
-  static const page_sign_sign_in = 'page.sign_sign_in';
+  static const page_sign_email = 'page.sign.email';
+  static const page_sign_password = 'page.sign.password';
+  static const page_sign_username = 'page.sign.username';
+  static const page_sign_sign_in_recovery_password = 'page.sign.sign_in.recovery_password';
+  static const page_sign_sign_in_sign_in = 'page.sign.sign_in.sign_in';
+  static const page_sign_sign_in_or = 'page.sign.sign_in.or';
+  static const page_sign_sign_in_not_a_member = 'page.sign.sign_in.not_a_member';
+  static const page_sign_sign_in_register_now = 'page.sign.sign_in.register_now';
+  static const page_sign_sign_in = 'page.sign.sign_in';
+  static const page_sign_register_registerText = 'page.sign.register.registerText';
+  static const page_sign_register_member = 'page.sign.register.member';
+  static const page_sign_register_sign_in = 'page.sign.register.sign_in';
+  static const page_sign_register = 'page.sign.register';
+  static const page_sign = 'page.sign';
   static const page = 'page';
 
 }

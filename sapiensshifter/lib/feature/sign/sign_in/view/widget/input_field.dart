@@ -21,15 +21,8 @@ class InputField extends StatelessWidget {
       child: Column(
         children: [
           SapiTextField(
-            validator: (text) {
-              if (text == null || text.isEmpty) {
-                return LocaleKeys.validate_email_empty_email.tr();
-              }
-              if (!text.ext.isValidEmail) {
-                return LocaleKeys.validate_email_wrong_email_syntax.tr();
-              }
-              return null;
-            },
+            hintText: LocaleKeys.page_sign_email.tr(),
+            validator: FormValidator.emailValidator,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
             controller: email,
@@ -37,22 +30,27 @@ class InputField extends StatelessWidget {
           ),
           context.sized.emptySizedHeightBoxLow,
           SapiTextField(
+            hintText: LocaleKeys.page_sign_password.tr(),
             keyboardType: TextInputType.visiblePassword,
             controller: password,
             isPassword: true,
             autofillHints: const [AutofillHints.password],
           ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: CupertinoButton(
-              onPressed: recoveryPassword,
-              child: Text(
-                LocaleKeys.page_sign_sign_in_recovery_password.tr(),
-                style: context.general.textTheme.bodySmall,
-              ),
-            ),
-          ),
+          _recoveryPasswordButton(context),
         ],
+      ),
+    );
+  }
+
+  Align _recoveryPasswordButton(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: CupertinoButton(
+        onPressed: recoveryPassword,
+        child: Text(
+          LocaleKeys.page_sign_sign_in_recovery_password.tr(),
+          style: context.general.textTheme.bodySmall,
+        ),
       ),
     );
   }
