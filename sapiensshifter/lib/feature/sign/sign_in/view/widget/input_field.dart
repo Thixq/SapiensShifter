@@ -22,7 +22,7 @@ class InputField extends StatelessWidget {
         children: [
           SapiTextField(
             hintText: LocaleKeys.page_sign_email.tr(),
-            validator: _validator,
+            validator: FormValidator.emailValidator,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
             controller: email,
@@ -53,15 +53,5 @@ class InputField extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String? _validator(String? text) {
-    if (text == null || text.isEmpty) {
-      return LocaleKeys.validate_email_empty_email.tr();
-    }
-    if (!text.ext.isValidEmail) {
-      return LocaleKeys.validate_email_wrong_email_syntax.tr();
-    }
-    return null;
   }
 }
