@@ -21,6 +21,7 @@ class InputField extends StatelessWidget {
       child: Column(
         children: [
           SapiTextField(
+            hintText: LocaleKeys.page_sign_email.tr(),
             validator: _validator,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
@@ -29,6 +30,7 @@ class InputField extends StatelessWidget {
           ),
           context.sized.emptySizedHeightBoxLow,
           SapiTextField(
+            hintText: LocaleKeys.page_sign_password.tr(),
             keyboardType: TextInputType.visiblePassword,
             controller: password,
             isPassword: true,
