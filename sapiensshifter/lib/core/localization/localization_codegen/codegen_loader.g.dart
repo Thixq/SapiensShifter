@@ -64,7 +64,7 @@ class CodegenLoader extends AssetLoader{
       "user_disabled": "Bu kullanıcı devre dışı bırakılmış.",
       "user_not_found": "Bu e-posta adresiyle ilişkili bir kullanıcı bulunamadı.",
       "wrong_password": "Hatalı şifre girdiniz.",
-      "email_already_use": "Bu e-posta adresi zaten bir hesapla ilişkilendirilmiş.",
+      "email_already_in_use": "Bu e-posta adresi zaten bir hesapla ilişkilendirilmiş.",
       "weak_password": "Şifre çok zayıf. Lütfen daha güçlü bir şifre seçin.",
       "requires_recent_login": "Bu işlem yakın zamanda giriş yapmayı gerektirir. Lütfen tekrar giriş yapın.",
       "network_request_failed": "Ağ hatası. Lütfen internet bağlantınızı kontrol edin.",

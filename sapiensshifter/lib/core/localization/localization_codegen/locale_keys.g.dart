@@ -41,7 +41,7 @@ abstract class  LocaleKeys {
   static const all_exception_firebase_auth_exception_user_disabled = 'all_exception.firebase_auth_exception.user_disabled';
   static const all_exception_firebase_auth_exception_user_not_found = 'all_exception.firebase_auth_exception.user_not_found';
   static const all_exception_firebase_auth_exception_wrong_password = 'all_exception.firebase_auth_exception.wrong_password';
-  static const all_exception_firebase_auth_exception_email_already_use = 'all_exception.firebase_auth_exception.email_already_use';
+  static const all_exception_firebase_auth_exception_email_already_in_use = 'all_exception.firebase_auth_exception.email_already_in_use';
   static const all_exception_firebase_auth_exception_weak_password = 'all_exception.firebase_auth_exception.weak_password';
   static const all_exception_firebase_auth_exception_requires_recent_login = 'all_exception.firebase_auth_exception.requires_recent_login';
   static const all_exception_firebase_auth_exception_network_request_failed = 'all_exception.firebase_auth_exception.network_request_failed';
