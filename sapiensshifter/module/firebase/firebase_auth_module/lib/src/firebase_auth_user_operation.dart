@@ -17,11 +17,10 @@ class FirebaseAuthUserOperation extends IAuthOperation
   ///
   /// Calls the [_initialize] method to set up the current user.
   FirebaseAuthUserOperation(FirebaseAuth instance) {
-    _user = instance.currentUser;
+    _firebaseAuth = instance;
   }
 
-  /// Holds the currently authenticated user.
-  late User? _user;
+  late final FirebaseAuth _firebaseAuth;
 
   /// Initializes the Firebase user instance by fetching the current authenticated user.
 
@@ -30,12 +29,12 @@ class FirebaseAuthUserOperation extends IAuthOperation
   /// If no user is authenticated, fields will be `null`.
   @override
   UserModel? get user {
-    if (_user == null) return null;
+    if (_firebaseAuth.currentUser == null) return null;
     return UserModel(
-      id: _user!.uid,
-      photoUrl: _user?.photoURL,
-      displayName: _user?.displayName,
-      email: _user?.email,
+      id: _firebaseAuth.currentUser!.uid,
+      photoUrl: _firebaseAuth.currentUser?.photoURL,
+      displayName: _firebaseAuth.currentUser?.displayName,
+      email: _firebaseAuth.currentUser?.email,
     );
   }
 
@@ -48,11 +47,12 @@ class FirebaseAuthUserOperation extends IAuthOperation
   Future<bool> displayNameUpdate(String newName) async {
     return handleAsyncOperation<bool, FirebaseAuthException>(
       () async {
-        if (_user == null) throw Exception('User not initialized');
+        if (_firebaseAuth.currentUser == null)
+          throw Exception('User not initialized');
 
         // Update the display name in Firebase
-        await _user!.updateDisplayName(newName);
-        await _user!.reload();
+        await _firebaseAuth.currentUser!.updateDisplayName(newName);
+        await _firebaseAuth.currentUser!.reload();
 
         return true;
       },
@@ -70,11 +70,12 @@ class FirebaseAuthUserOperation extends IAuthOperation
   Future<bool> passwordUpdate(String newPassword) async {
     return handleAsyncOperation<bool, FirebaseAuthException>(
       () async {
-        if (_user == null) throw Exception('User not initialized');
+        if (_firebaseAuth.currentUser == null)
+          throw Exception('User not initialized');
 
         // Update the password in Firebase
-        await _user!.updatePassword(newPassword);
-        await _user!.reload();
+        await _firebaseAuth.currentUser!.updatePassword(newPassword);
+        await _firebaseAuth.currentUser!.reload();
 
         return true;
       },
@@ -92,11 +93,12 @@ class FirebaseAuthUserOperation extends IAuthOperation
   Future<bool> photographUpdate(String newPhotoUrl) async {
     return handleAsyncOperation<bool, FirebaseAuthException>(
       () async {
-        if (_user == null) throw Exception('User not initialized');
+        if (_firebaseAuth.currentUser == null)
+          throw Exception('User not initialized');
 
         // Update the profile picture URL in Firebase
-        await _user!.updatePhotoURL(newPhotoUrl);
-        await _user!.reload();
+        await _firebaseAuth.currentUser!.updatePhotoURL(newPhotoUrl);
+        await _firebaseAuth.currentUser!.reload();
 
         return true;
       },
