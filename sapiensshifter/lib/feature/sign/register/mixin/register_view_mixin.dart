@@ -18,6 +18,16 @@ mixin RegisterViewMixin on BaseState<RegisterView> {
     context.router.replaceNamed('/sign/signin/');
   }
 
+  void register() {
+    if (formState.currentState?.validate() ?? false) {
+      _registerViewModel.registerWithEmailAndPassword(
+        name: userNameTextController.text,
+        email: emailTextController.text,
+        password: passwordTextController.text,
+      );
+    }
+  }
+
   @override
   void initState() {
     _registerViewModel = RegisterViewModel(FirebaseAuthManagar.instance);

@@ -19,6 +19,7 @@ class RegisterViewModel {
           password: password,
         );
         await _updateDisplayName(name);
+        print(_authManager.authOperation.user?.email);
         return true;
       },
       errorHandler: ServiceErrorHandler(),
