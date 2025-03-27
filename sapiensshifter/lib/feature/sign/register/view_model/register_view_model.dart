@@ -7,6 +7,10 @@ class RegisterViewModel {
 
   final IAuthManager _authManager;
 
+  Future<void> signout() async {
+    await _authManager.signOut();
+  }
+
   Future<void> registerWithEmailAndPassword({
     required String name,
     required String email,
@@ -19,7 +23,7 @@ class RegisterViewModel {
           password: password,
         );
         await _updateDisplayName(name);
-        print(_authManager.authOperation.user?.email);
+
         return true;
       },
       errorHandler: ServiceErrorHandler(),
