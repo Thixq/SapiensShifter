@@ -25,11 +25,6 @@ class _RegisterViewState extends BaseState<RegisterView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await viewModel.signout();
-        },
-      ),
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(LocaleKeys.coffee_sapiens.tr()),
