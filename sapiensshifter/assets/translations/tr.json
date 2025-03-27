@@ -24,6 +24,10 @@
         "email":{
             "wrong_email_syntax":"Lütfen geçerli e-posta adresi girin.",
             "empty_email":"E-posta girin."
+        },
+        "password":{
+            "empty_passwrod":"Lütfen şifre giriniz.",
+            "min_length":"En az 8 haneli şifre giriniz."
         }
     },
     "all_exception":{

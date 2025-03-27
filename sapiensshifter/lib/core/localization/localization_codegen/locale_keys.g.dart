@@ -24,6 +24,9 @@ abstract class  LocaleKeys {
   static const validate_email_wrong_email_syntax = 'validate.email.wrong_email_syntax';
   static const validate_email_empty_email = 'validate.email.empty_email';
   static const validate_email = 'validate.email';
+  static const validate_password_empty_passwrod = 'validate.password.empty_passwrod';
+  static const validate_password_min_length = 'validate.password.min_length';
+  static const validate_password = 'validate.password';
   static const validate = 'validate';
   static const all_exception_default_exception = 'all_exception.default_exception';
   static const all_exception_generic_exception_is_not_initialized = 'all_exception.generic_exception.is_not_initialized';
