@@ -6,6 +6,7 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/component
 import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart';
 
 part './widget/register_input_form.dart';
+part './widget/sign_in_route_button.dart';
 
 @RoutePage()
 class RegisterView extends StatefulWidget {
@@ -41,24 +42,7 @@ class _RegisterViewState extends State<RegisterView> {
                   ),
                 ),
                 const Expanded(flex: 2, child: SizedBox.expand()),
-                CupertinoButton(
-                  onPressed: () {},
-                  child: RichText(
-                    text: TextSpan(
-                      text: LocaleKeys.page_sign_sign_in_not_a_member.tr(),
-                      style: TextStyle(
-                        color: context.general.colorScheme.onPrimary,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: LocaleKeys.page_sign_sign_in_register_now.tr(),
-                          style: const TextStyle(
-                              color: CupertinoColors.activeBlue),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                const SignInRouteButton(),
               ],
             ),
           ),
