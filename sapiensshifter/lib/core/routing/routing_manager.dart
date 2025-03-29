@@ -19,5 +19,6 @@ class RoutingManager extends RootStackRouter {
         AutoRoute(path: PagePathConstant.onboard, page: OnboardRoute.page),
         AutoRoute(path: PagePathConstant.signIn, page: SignInRoute.page),
         AutoRoute(path: PagePathConstant.register, page: RegisterRoute.page),
+        AutoRoute(path: PagePathConstant.home, page: HomeRoute.page),
       ];
 }

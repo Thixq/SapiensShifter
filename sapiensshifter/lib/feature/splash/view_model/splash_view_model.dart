@@ -39,7 +39,7 @@ final class SplashViewModel {
         route.replaceNamed(PagePathConstant.onboard);
 
       case SplashStateEnum.RETURNIG_USER:
-        route.replaceNamed(PagePathConstant.register);
+        route.replaceNamed(PagePathConstant.home);
 
       case SplashStateEnum.NEW_USER:
         route.replaceNamed(PagePathConstant.signIn);

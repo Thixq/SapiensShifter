@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth_module/firebase_auth_module.dart';
 import 'package:flutter/widgets.dart';
+import 'package:sapiensshifter/core/constant/page_path_constant.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/sign/register/view/register_view.dart';
 import 'package:sapiensshifter/feature/sign/register/view_model/register_view_model.dart';
@@ -18,13 +19,14 @@ mixin RegisterViewMixin on BaseState<RegisterView> {
     context.router.replaceNamed('/sign/signin/');
   }
 
-  void register() {
+  Future<void> register() async {
     if (formState.currentState?.validate() ?? false) {
-      _registerViewModel.registerWithEmailAndPassword(
+      await _registerViewModel.registerWithEmailAndPassword(
         name: userNameTextController.text,
         email: emailTextController.text,
         password: passwordTextController.text,
       );
+      if (mounted) await context.router.replaceNamed(PagePathConstant.home);
     }
   }
 

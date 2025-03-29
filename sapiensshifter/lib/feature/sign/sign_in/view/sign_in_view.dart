@@ -1,14 +1,14 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart' show CupertinoButton, CupertinoColors;
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/sign/sign_in/mixin/sign_in_view_mixin.dart';
-import 'package:sapiensshifter/feature/sign/sign_in/view/model/social_button_model.dart';
+import 'package:sapiensshifter/feature/sign/sign_in/model/social_button_model.dart';
 import 'package:sapiensshifter/feature/sign/validator/form_validator.dart';
-import 'package:sapiensshifter/product/component/sapi_button.dart';
-import 'package:sapiensshifter/product/component/sapi_text_field.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart';
+
 part './widget/input_field.dart';
 part './widget/register_route_button.dart';
 part './widget/sign_in_appbar.dart';
@@ -46,10 +46,9 @@ class _SignInViewState extends BaseState<SignInView> with SignInViewMixin {
                     recoveryPassword: recoveryPassword,
                   ),
                   SignInButton(
-                    onPress: () => viewModel.signInWithEmailAndPassword(
-                      email: emailTextController.text,
-                      password: passwordTextController.text,
-                    ),
+                    onPress: () async {
+                      await signIn();
+                    },
                   ),
                   context.sized.emptySizedHeightBoxLow3x,
                   const SignInDivider(),

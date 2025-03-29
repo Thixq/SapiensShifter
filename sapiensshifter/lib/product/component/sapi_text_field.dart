@@ -52,20 +52,24 @@ class _SapiTextFieldState extends State<SapiTextField> {
       contentPadding: context.padding.normal,
       suffixIcon: _suffixIconVal,
       hintText: hintText,
-      border:
-          OutlineInputBorder(borderRadius: context.border.normalBorderRadius),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(context.sized.normalValue),
+      ),
     );
   }
 
   bool get _obscureTextVal => widget.isPassword && _visibilityChange;
 
-  IconButton? get _suffixIconVal => widget.isPassword
-      ? IconButton(
-          onPressed: _changeSuffixIcon,
-          icon: Icon(
-            _visibilityChange
-                ? _visibilityOffSuffixIcon
-                : _visibilitySuffixIcon,
+  Widget? get _suffixIconVal => widget.isPassword
+      ? Padding(
+          padding: const EdgeInsets.only(right: 12),
+          child: IconButton(
+            onPressed: _changeSuffixIcon,
+            icon: Icon(
+              _visibilityChange
+                  ? _visibilityOffSuffixIcon
+                  : _visibilitySuffixIcon,
+            ),
           ),
         )
       : null;
