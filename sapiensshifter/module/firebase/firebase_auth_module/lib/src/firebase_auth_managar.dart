@@ -129,4 +129,12 @@ final class FirebaseAuthManagar extends IAuthManager
       errorTransformer: handleFirebaseAuthException,
     );
   }
+
+  @override
+  Future<bool> recoveryPassword({required String email}) async {
+    return handleAsyncOperation(() async {
+      await _auth.sendPasswordResetEmail(email: email);
+      return true;
+    }, errorTransformer: handleFirebaseAuthException);
+  }
 }

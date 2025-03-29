@@ -15,7 +15,8 @@ abstract class IAuthManager {
   /// - [password]: The password of the user.
   ///
   /// Returns:
-  /// - A [Future] that resolves to `true` if the sign-in was successful, otherwise `false`.
+  /// - A [Future] that resolves to `true` if the sign-in was successful,
+  /// otherwise `false`.
   Future<bool> signInWithEmailAndPassword({
     required String email,
     required String password,
@@ -28,7 +29,8 @@ abstract class IAuthManager {
   /// - [password]: The password of the user.
   ///
   /// Returns:
-  /// - A [Future] that resolves to `true` if the registration was successful, otherwise `false`.
+  /// - A [Future] that resolves to `true` if the registration was successful,
+  /// otherwise `false`.
   Future<bool> registerInWithEmailAndPassword({
     required String email,
     required String password,
@@ -41,12 +43,24 @@ abstract class IAuthManager {
   ///   This can be used for authentication with third-party providers.
   ///
   /// Returns:
-  /// - A [Future] that resolves to `true` if the sign-in was successful, otherwise `false`.
+  /// - A [Future] that resolves to `true` if the sign-in was successful,
+  /// otherwise `false`.
   Future<bool> signInWithCredential({required CustomCredential credential});
+
+// Initiates the password recovery process by sending a reset link to the user's email address.
+  ///
+  /// Parameters:
+  /// - [email]: The email address associated with the account for which the password recovery is requested.
+  ///
+  /// Returns:
+  /// - A [Future] that resolves to `true` if the recovery process was
+  /// successfully initiated, otherwise `false`.
+  Future<bool> recoveryPassword({required String email});
 
   /// Signs out the currently authenticated user.
   ///
   /// Returns:
-  /// - A [Future] that resolves to `true` if the sign-out was successful, otherwise `false`.
+  /// - A [Future] that resolves to `true` if the sign-out was successful,
+  /// otherwise `false`.
   Future<bool> signOut();
 }
