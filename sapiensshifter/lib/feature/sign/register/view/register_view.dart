@@ -46,7 +46,9 @@ class _RegisterViewState extends BaseState<RegisterView>
                   ),
                   context.sized.emptySizedHeightBoxLow3x,
                   RegisterButton(
-                    onPress: register,
+                    onPress: () async {
+                      await register();
+                    },
                   ),
                   const Expanded(flex: 2, child: SizedBox.expand()),
                   SignInRouteButton(

@@ -1,31 +1,32 @@
 import 'dart:ui' show ImageFilter;
 
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/product/models/nav_bar_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+
+part './model/custom_nav_bar_item_model.dart';
 
 final class CustomNavBar extends StatefulWidget {
   const CustomNavBar({
     required this.items,
+    required this.onChange,
     this.initalIndex = 0,
     super.key,
   });
   final List<NavBarItem> items;
   final int initalIndex;
+  final ValueChanged<int> onChange;
 
   @override
   State<CustomNavBar> createState() => _CustomNavBarState();
 }
 
 class _CustomNavBarState extends State<CustomNavBar> {
-  // TODO(kaan): RiverPod ile currentIndexi ayarla.
   late int _currentIndex;
 
   final double _blurCount = 10;
-  final double _navBarWidth = 70.w;
-  final Color _decorationColor = Colors.black.withValues(alpha: .2);
+  final Color _decorationColor = Colors.white.withValues(alpha: .2);
   late final Color _isSelectedColor;
-  final Color _unSelectedColor = Colors.white60.withValues(alpha: .5);
+  final Color _unSelectedColor = Colors.white.withValues(alpha: .5);
 
   @override
   void initState() {
@@ -42,14 +43,14 @@ class _CustomNavBarState extends State<CustomNavBar> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: context.border.normalBorderRadius,
+      borderRadius: BorderRadius.circular(context.sized.normalValue),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: _blurCount, sigmaY: _blurCount),
         child: Container(
           padding: context.padding.low,
           color: _decorationColor,
-          width: _navBarWidth,
           child: Row(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: _generateNavBarButtons(widget.items),
           ),
@@ -85,6 +86,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
       onPressed: () {
         setState(() {
           _currentIndex = index;
+          widget.onChange(index);
         });
         if (isSelected && onPress != null) {
           onPress();

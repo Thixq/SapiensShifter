@@ -1,7 +1,7 @@
 export '../../component/choice_chip_list.dart';
 export '../../component/custom_avatar.dart';
 export '../../component/custom_choice_chip.dart';
-export '../../component/custom_nav_bar.dart';
+export '../../component/custom_nav_bar/custom_nav_bar.dart';
 export '../../component/message_info_list_tile.dart';
 export '../../component/order_card.dart';
 export '../../component/preview_order_card.dart';

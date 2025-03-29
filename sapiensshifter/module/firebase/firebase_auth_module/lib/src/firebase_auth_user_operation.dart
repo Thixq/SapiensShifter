@@ -47,8 +47,9 @@ class FirebaseAuthUserOperation extends IAuthOperation
   Future<bool> displayNameUpdate(String newName) async {
     return handleAsyncOperation<bool, FirebaseAuthException>(
       () async {
-        if (_firebaseAuth.currentUser == null)
+        if (_firebaseAuth.currentUser == null) {
           throw Exception('User not initialized');
+        }
 
         // Update the display name in Firebase
         await _firebaseAuth.currentUser!.updateDisplayName(newName);
@@ -70,8 +71,9 @@ class FirebaseAuthUserOperation extends IAuthOperation
   Future<bool> passwordUpdate(String newPassword) async {
     return handleAsyncOperation<bool, FirebaseAuthException>(
       () async {
-        if (_firebaseAuth.currentUser == null)
+        if (_firebaseAuth.currentUser == null) {
           throw Exception('User not initialized');
+        }
 
         // Update the password in Firebase
         await _firebaseAuth.currentUser!.updatePassword(newPassword);
@@ -93,8 +95,9 @@ class FirebaseAuthUserOperation extends IAuthOperation
   Future<bool> photographUpdate(String newPhotoUrl) async {
     return handleAsyncOperation<bool, FirebaseAuthException>(
       () async {
-        if (_firebaseAuth.currentUser == null)
+        if (_firebaseAuth.currentUser == null) {
           throw Exception('User not initialized');
+        }
 
         // Update the profile picture URL in Firebase
         await _firebaseAuth.currentUser!.updatePhotoURL(newPhotoUrl);
