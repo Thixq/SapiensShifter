@@ -4,6 +4,9 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/component
 
 class SeparatorColumn<T extends Widget> extends StatelessWidget {
   SeparatorColumn({
+    this.mainAxisAlignment = MainAxisAlignment.start,
+    this.mainAxisSize = MainAxisSize.max,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
     this.onListChanged,
     this.children,
     this.separator,
@@ -17,6 +20,9 @@ class SeparatorColumn<T extends Widget> extends StatelessWidget {
   final ValueChanged<List<T>>? onListChanged;
   late final ValueNotifier<List<T>> dynamicList =
       ValueNotifier<List<T>>(children ?? []);
+  final MainAxisAlignment mainAxisAlignment;
+  final MainAxisSize mainAxisSize;
+  final CrossAxisAlignment crossAxisAlignment;
 
   void _selecetItemDelete(int index) {
     dynamicList.value = List.from(dynamicList.value)..removeAt(index);
@@ -28,6 +34,9 @@ class SeparatorColumn<T extends Widget> extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: dynamicList,
       builder: (context, value, child) => Column(
+        mainAxisAlignment: mainAxisAlignment,
+        mainAxisSize: mainAxisSize,
+        crossAxisAlignment: crossAxisAlignment,
         children: _addWidget(context),
       ),
     );
