@@ -5,6 +5,7 @@ import 'package:sapiensshifter/core/constant/page_path_constant.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/sign/register/view/register_view.dart';
 import 'package:sapiensshifter/feature/sign/register/view_model/register_view_model.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
 
 mixin RegisterViewMixin on BaseState<RegisterView> {
   late final RegisterViewModel _registerViewModel;
@@ -26,7 +27,11 @@ mixin RegisterViewMixin on BaseState<RegisterView> {
         email: emailTextController.text,
         password: passwordTextController.text,
       );
-      if (mounted) await context.router.replaceNamed(PagePathConstant.home);
+      if (mounted) {
+        await context.router.replaceNamed(
+          PagePathConstant.home.sapiExt.withParams({'pageIndex': 1})!,
+        );
+      }
     }
   }
 

@@ -11,7 +11,9 @@ part './widget/body_page.dart';
 
 @RoutePage()
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  const HomeView({@PathParam('pageIndex') required this.pageIndex, super.key});
+
+  final int pageIndex;
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -25,7 +27,7 @@ class _HomeViewState extends BaseState<HomeView> with HomeViewMixin {
         children: [
           BodyPage(pageController: pageController, pages: pages),
           NavBar(
-            initalIndex: 1,
+            initalIndex: widget.pageIndex,
             navBarItem: navBarItems,
             onChange: goPage,
           ),
