@@ -65,14 +65,21 @@ mixin class FirestoreHelperMixin {
   /// - If the path represents a collection (odd number of segments), returns (collectionPath, null).
   /// - If the path represents a document (even number of segments), returns (collectionPath, docId).
   (String, String?) _getCollectionAndDocId(String path) {
-    final pathSegments = path.split('/');
+    // 1. Baştaki/sondaki '/' temizle, boş segmentleri kaldır
+    final cleanedPath = path.replaceAll(RegExp(r'^/+|/+$'), '');
+    final pathSegments =
+        cleanedPath.split('/').where((s) => s.isNotEmpty).toList();
 
-    if (pathSegments.length.isOdd) {
-      return (path, null); // Path represents a collection.
-    } else {
+    // 2. Firestore path kontrolü
+    if (pathSegments.isEmpty) {
+      return ('', null); // Kök koleksiyon (root)
+    } else if (pathSegments.length.isEven) {
+      // Çift sayıda segment: Son segment DOCUMENT ID
       final docId = pathSegments.removeLast();
-      final collectionPath = pathSegments.join('/');
-      return (collectionPath, docId); // Path represents a document.
+      return (pathSegments.join('/'), docId);
+    } else {
+      // Tek sayıda segment: COLLECTION path (son segment koleksiyon adı)
+      return (pathSegments.join('/'), null);
     }
   }
 }
