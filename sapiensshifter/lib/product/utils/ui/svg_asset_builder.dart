@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sapiensshifter/product/interface/utils_interface/i_svg_builder.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 class SvgAssetBuilder extends SvgBuilder {
   const SvgAssetBuilder({

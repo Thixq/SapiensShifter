@@ -4,7 +4,7 @@ import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/home/mixin/home_view_mixin.dart';
 import 'package:sapiensshifter/feature/home/model/page_item.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 part './widget/nav_bar.dart';
 part './widget/body_page.dart';

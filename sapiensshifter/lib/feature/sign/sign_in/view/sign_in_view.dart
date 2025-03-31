@@ -6,7 +6,7 @@ import 'package:sapiensshifter/feature/sign/sign_in/mixin/sign_in_view_mixin.dar
 import 'package:sapiensshifter/feature/sign/sign_in/model/social_button_model.dart';
 import 'package:sapiensshifter/feature/sign/validator/form_validator.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart';
 
 part './widget/input_field.dart';
