@@ -10,6 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i6;
+import 'package:flutter/material.dart' as _i7;
 import 'package:sapiensshifter/feature/home/view/home_view.dart' as _i1;
 import 'package:sapiensshifter/feature/onboard/view/onboard_view.dart' as _i2;
 import 'package:sapiensshifter/feature/sign/register/view/register_view.dart'
@@ -20,18 +21,43 @@ import 'package:sapiensshifter/feature/splash/view/splash_view.dart' as _i5;
 
 /// generated route for
 /// [_i1.HomeView]
-class HomeRoute extends _i6.PageRouteInfo<void> {
-  const HomeRoute({List<_i6.PageRouteInfo>? children})
-    : super(HomeRoute.name, initialChildren: children);
+class HomeRoute extends _i6.PageRouteInfo<HomeRouteArgs> {
+  HomeRoute({
+    required int pageIndex,
+    _i7.Key? key,
+    List<_i6.PageRouteInfo>? children,
+  }) : super(
+         HomeRoute.name,
+         args: HomeRouteArgs(pageIndex: pageIndex, key: key),
+         rawPathParams: {'pageIndex': pageIndex},
+         initialChildren: children,
+       );
 
   static const String name = 'HomeRoute';
 
   static _i6.PageInfo page = _i6.PageInfo(
     name,
     builder: (data) {
-      return const _i1.HomeView();
+      final pathParams = data.inheritedPathParams;
+      final args = data.argsAs<HomeRouteArgs>(
+        orElse: () => HomeRouteArgs(pageIndex: pathParams.getInt('pageIndex')),
+      );
+      return _i1.HomeView(pageIndex: args.pageIndex, key: args.key);
     },
   );
+}
+
+class HomeRouteArgs {
+  const HomeRouteArgs({required this.pageIndex, this.key});
+
+  final int pageIndex;
+
+  final _i7.Key? key;
+
+  @override
+  String toString() {
+    return 'HomeRouteArgs{pageIndex: $pageIndex, key: $key}';
+  }
 }
 
 /// generated route for
