@@ -42,5 +42,5 @@ Map<String, dynamic> _$TableModelToJson(TableModel instance) =>
       'peopleCount': instance.peopleCount,
       'status': instance.status,
       'closingTime': instance.closingTime?.toIso8601String(),
-      'orderList': instance.orderList,
+      'orderList': instance.orderList?.map((e) => e.toJson()).toList(),
     };

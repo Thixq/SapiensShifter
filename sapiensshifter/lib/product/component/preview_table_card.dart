@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/models/table_model.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 final class PreviewTableCard extends StatelessWidget {
   const PreviewTableCard({required this.tableModel, this.onPressed, super.key});
@@ -75,7 +75,9 @@ final class PreviewTableCard extends StatelessWidget {
     return FractionallySizedBox(
       widthFactor: 1,
       child: Text(
-        '${tableModel?.totalPrice ?? _nullDash}'.sapiExt.priceSymbol,
+        (tableModel?.totalPrice.sapiDoubleExt.priceFraction ?? _nullDash)
+            .sapiExt
+            .priceSymbol,
         textAlign: TextAlign.right,
       ),
     );

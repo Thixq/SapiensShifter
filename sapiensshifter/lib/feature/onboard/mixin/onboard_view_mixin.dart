@@ -6,7 +6,7 @@ import 'package:sapiensshifter/feature/onboard/view/onboard_view.dart';
 import 'package:sapiensshifter/feature/onboard/view/widget/model/onboard_content_model.dart';
 import 'package:sapiensshifter/feature/onboard/view_model/onboard_view_model.dart';
 import 'package:sapiensshifter/feature/onboard/view_model/state/onboard_state.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 mixin OnboardViewMixin on BaseState<OnboardView> {
   late final PageController pageController;

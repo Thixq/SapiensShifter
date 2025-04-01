@@ -1,4 +1,4 @@
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart'
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart'
     show LocaleKeys, StringExtension, StringTranslateExtension;
 
 final class FormValidator {

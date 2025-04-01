@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardPageIndicator extends StatelessWidget {

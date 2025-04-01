@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/component/message_info_list_tile.dart';
 import 'package:sapiensshifter/product/models/people.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/ui/separator_column.dart';
 
 class NewChatBottomSheet extends StatefulWidget {
