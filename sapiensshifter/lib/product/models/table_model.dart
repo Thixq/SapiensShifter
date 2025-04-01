@@ -5,7 +5,7 @@ import 'package:sapiensshifter/product/models/order_model.dart';
 
 part 'table_model.g.dart';
 
-@JsonSerializable(checked: true)
+@JsonSerializable(checked: true, explicitToJson: true)
 final class TableModel extends IBaseModel<TableModel> with EquatableMixin {
   const TableModel({
     this.id,
@@ -18,9 +18,9 @@ final class TableModel extends IBaseModel<TableModel> with EquatableMixin {
     this.closingTime,
     this.orderList,
   });
-
   factory TableModel.fromJson(Map<String, dynamic> json) =>
       _$TableModelFromJson(json);
+
   final String? id;
   final String? tableName;
   final DateTime? timeStamp;
