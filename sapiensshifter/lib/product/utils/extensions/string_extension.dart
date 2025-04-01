@@ -1,6 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 extension SapiStringExtension on String? {
   _SapiStringExtension get sapiExt => _SapiStringExtension(this);

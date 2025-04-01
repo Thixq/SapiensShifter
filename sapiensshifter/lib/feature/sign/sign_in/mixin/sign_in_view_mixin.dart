@@ -7,7 +7,7 @@ import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/sign/sign_in/model/social_button_model.dart';
 import 'package:sapiensshifter/feature/sign/sign_in/view/sign_in_view.dart';
 import 'package:sapiensshifter/feature/sign/sign_in/view_model/sign_in_view_model.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 mixin SignInViewMixin on BaseState<SignInView> {
   late final SignInViewModel _signInViewModel;

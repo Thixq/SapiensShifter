@@ -9,23 +9,22 @@ mixin HomeViewMixin on BaseState<HomeView> {
   final initalIndex = 1;
   late final PageController pageController;
 
-  final pages = <PageItem>[
-    PageItem(
-      page: const TablesView(),
-      navBarItem: NavBarItem(icon: Icons.message),
-    ),
-    PageItem(
-      page: const TablesView(),
-      navBarItem: NavBarItem(
-        icon: Icons.table_bar,
-        onPress: () => print('object'),
-      ),
-    ),
-    PageItem(
-      page: const TablesView(),
-      navBarItem: NavBarItem(icon: Icons.ssid_chart),
-    ),
-  ];
+  List<PageItem> get pages => <PageItem>[
+        PageItem(
+          page: const ColoredBox(color: Colors.blue),
+          navBarItem: NavBarItem(icon: Icons.message),
+        ),
+        PageItem(
+          page: const TablesView(),
+          navBarItem: NavBarItem(
+            icon: Icons.table_bar,
+          ),
+        ),
+        PageItem(
+          page: const ColoredBox(color: Colors.deepPurpleAccent),
+          navBarItem: NavBarItem(icon: Icons.ssid_chart),
+        ),
+      ];
 
   List<NavBarItem> get navBarItems {
     return pages

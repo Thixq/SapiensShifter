@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/feature/onboard/view/widget/model/onboard_content_model.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 final class OnboardContentCard extends StatelessWidget {
   const OnboardContentCard({required OnboardContentModel content, super.key})

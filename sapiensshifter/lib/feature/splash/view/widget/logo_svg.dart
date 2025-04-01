@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/core/constant/image_path_constant.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/ui/svg_asset_builder.dart';
 
 class LogoSvg extends StatelessWidget {
