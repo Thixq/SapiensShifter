@@ -4,6 +4,7 @@ import 'package:sapiensshifter/feature/home/model/page_item.dart';
 import 'package:sapiensshifter/feature/home/view/home_view.dart';
 import 'package:sapiensshifter/feature/tables/view/tables_view.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/dialogs_and_bottom_sheet.dart';
 
 mixin HomeViewMixin on BaseState<HomeView> {
   final initalIndex = 1;
@@ -18,6 +19,16 @@ mixin HomeViewMixin on BaseState<HomeView> {
           page: const TablesView(),
           navBarItem: NavBarItem(
             icon: Icons.table_bar,
+            onPress: () {
+              SapiCounterDialog.show(
+                context,
+                titleName: 'Masa 1',
+                done: (title, count) {
+                  print(title);
+                  print(count);
+                },
+              );
+            },
           ),
         ),
         PageItem(
