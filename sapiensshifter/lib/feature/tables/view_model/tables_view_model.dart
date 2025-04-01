@@ -14,13 +14,13 @@ class TablesViewModel {
     final result = await ErrorUtil.runWithErrorHandling<List<TableModel>>(
       action: () async {
         return _networkManager.networkOperation.getItemsQuery(
-          path: '/table/kanyon/open',
+          path: 'table/kanyon/open',
           model: const TableModel(),
         );
       },
       customLogger: CustomLogger('TablesViewModel'),
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: [],
+      fallbackValue: const [],
     );
     return result;
   }
