@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart';
 
 class SapiCounterDialog extends StatefulWidget {
   const SapiCounterDialog({
-    this.titleName,
+    required this.titleName,
+    required this.done,
     super.key,
   });
-  final String? titleName;
 
-  static Future<int?> show(BuildContext context, {String? titleName}) =>
+  final String titleName;
+  final void Function(String, int) done;
+
+  static Future<int?> show(
+    BuildContext context, {
+    required String titleName,
+    required void Function(String title, int count) done,
+  }) =>
       showDialog(
         context: context,
         builder: (context) {
           return SapiCounterDialog(
             titleName: titleName,
+            done: done,
           );
         },
       );
@@ -23,18 +32,24 @@ class SapiCounterDialog extends StatefulWidget {
 }
 
 class _SapiCounterDialogState extends State<SapiCounterDialog> {
-  int _count = 0;
+  late int _count = 0;
   late final TextStyle? _buttonTextStyle;
-  late final TextStyle? _titleTextStyle;
 
   int get _minMaxCount => _count.clamp(0, 8);
+  late String _title;
+
+  @override
+  void initState() {
+    _count = 0;
+    _title = widget.titleName;
+    super.initState();
+  }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     final textTheme = context.general.textTheme;
     _buttonTextStyle = textTheme.labelMedium;
-    _titleTextStyle = textTheme.titleMedium;
   }
 
   @override
@@ -46,7 +61,12 @@ class _SapiCounterDialogState extends State<SapiCounterDialog> {
           padding: context.padding.normal,
           child: Column(
             children: [
-              title,
+              EditableTextFieldWithIcon(
+                initialText: widget.titleName,
+                onSubmitted: (value) {
+                  _title = value;
+                },
+              ),
               context.sized.emptySizedHeightBoxLow3x,
               _buildPeopleCount(context, _count),
               context.sized.emptySizedHeightBoxLow3x,
@@ -65,7 +85,8 @@ class _SapiCounterDialogState extends State<SapiCounterDialog> {
       alignment: Alignment.centerRight,
       child: FilledButton.tonal(
         onPressed: () {
-          context.route.pop(_count);
+          context.route.pop();
+          widget.done(_title, _count);
         },
         child: Text(
           LocaleKeys.confirm.tr(),
@@ -116,9 +137,4 @@ class _SapiCounterDialogState extends State<SapiCounterDialog> {
       icon: Icon(icon),
     );
   }
-
-  Text get title => Text(
-        widget.titleName ?? 'Null',
-        style: _titleTextStyle,
-      );
 }
