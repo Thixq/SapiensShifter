@@ -5,6 +5,7 @@ import 'package:sapiensshifter/feature/home/view/home_view.dart';
 import 'package:sapiensshifter/feature/tables/view/tables_view.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/dialogs_and_bottom_sheet.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/table_export.dart';
 
 mixin HomeViewMixin on BaseState<HomeView> {
   final initalIndex = 1;
@@ -23,10 +24,7 @@ mixin HomeViewMixin on BaseState<HomeView> {
               SapiCounterDialog.show(
                 context,
                 titleName: 'Masa 1',
-                done: (title, count) {
-                  print(title);
-                  print(count);
-                },
+                done: newTable,
               );
             },
           ),
@@ -36,6 +34,15 @@ mixin HomeViewMixin on BaseState<HomeView> {
           navBarItem: NavBarItem(icon: Icons.ssid_chart),
         ),
       ];
+
+  void newTable(String tableName, int peopleCount) {
+    // TODO(kaan): route menu view
+    // ignore: unused_local_variable
+    final newTableModel = TableModel(
+      peopleCount: peopleCount,
+      tableName: tableName,
+    );
+  }
 
   List<NavBarItem> get navBarItems {
     return pages
