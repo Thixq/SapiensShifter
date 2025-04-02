@@ -85,8 +85,8 @@ class _SapiCounterDialogState extends State<SapiCounterDialog> {
       alignment: Alignment.centerRight,
       child: FilledButton.tonal(
         onPressed: () {
-          context.route.pop();
           widget.done(_title, _count);
+          context.route.pop();
         },
         child: Text(
           LocaleKeys.confirm.tr(),
