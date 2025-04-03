@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:sapiensshifter/core/routing/routing_manager.gr.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/home/model/page_item.dart';
 import 'package:sapiensshifter/feature/home/view/home_view.dart';
@@ -42,6 +44,7 @@ mixin HomeViewMixin on BaseState<HomeView> {
       peopleCount: peopleCount,
       tableName: tableName,
     );
+    context.router.push<TableModel>(MenuRoute(table: newTableModel));
   }
 
   List<NavBarItem> get navBarItems {

@@ -72,7 +72,8 @@ final class PreviewProductCard extends StatelessWidget {
               productModel?.productName.sapiExt
                       .maxCharacter(_productMaxCharacter) ??
                   _nullProductName,
-              style: context.general.textTheme.titleSmall,
+              style: context.general.textTheme.titleSmall!
+                  .copyWith(fontSize: 14.sp),
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -80,7 +81,8 @@ final class PreviewProductCard extends StatelessWidget {
             (productModel?.price?.sapiDoubleExt.priceFraction ?? _nullPrice)
                 .sapiExt
                 .priceSymbol,
-            style: context.general.textTheme.labelSmall,
+            style: context.general.textTheme.labelSmall!
+                .copyWith(fontWeight: FontWeight.w200),
           ),
         ],
       ),

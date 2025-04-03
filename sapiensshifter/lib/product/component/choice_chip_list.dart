@@ -5,9 +5,11 @@ final class ChoiceChipList<T> extends StatelessWidget {
   ChoiceChipList({
     this.options,
     this.defaultValue,
+    this.isWrap = false,
     super.key,
     this.onSelected,
   });
+  final bool isWrap;
   final Map<String, T>? options;
   final MapEntry<String, T>? defaultValue;
   final ValueChanged<MapEntry<String, T>>? onSelected;
@@ -23,24 +25,48 @@ final class ChoiceChipList<T> extends StatelessWidget {
     return ValueListenableBuilder(
       valueListenable: selectEntry!,
       builder: (context, value, child) {
-        return Wrap(
-          spacing: 8,
-          runSpacing: 4,
-          children: List.generate(
-            options!.entries.length,
-            (index) {
-              return CustomChoiceChip<T>(
-                onSelected: (value) {
-                  selectEntry!.value = value;
-                  onSelected?.call(value);
-                },
-                titleAndValue: options!.entries.toList()[index],
-                isSelected:
-                    selectEntry!.value!.key == options!.keys.toList()[index],
+        return isWrap
+            ? Wrap(
+                spacing: 8,
+                runSpacing: 4,
+                children: List.generate(
+                  options!.entries.length,
+                  (index) {
+                    return CustomChoiceChip<T>(
+                      onSelected: (value) {
+                        selectEntry!.value = value;
+                        onSelected?.call(value);
+                      },
+                      titleAndValue: options!.entries.toList()[index],
+                      isSelected: selectEntry!.value!.key ==
+                          options!.keys.toList()[index],
+                    );
+                  },
+                ),
+              )
+            : SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: List.generate(
+                    options!.entries.length,
+                    (index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: CustomChoiceChip<T>(
+                          onSelected: (value) {
+                            selectEntry!.value = value;
+                            onSelected?.call(value);
+                          },
+                          titleAndValue: options!.entries.toList()[index],
+                          isSelected: selectEntry!.value!.key ==
+                              options!.keys.toList()[index],
+                        ),
+                      );
+                    },
+                  ),
+                ),
               );
-            },
-          ),
-        );
       },
     );
   }
