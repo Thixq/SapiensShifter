@@ -25,19 +25,12 @@ class _CustomNavBarState extends State<CustomNavBar> {
 
   final double _blurCount = 10;
   final Color _decorationColor = Colors.white.withValues(alpha: .2);
-  late final Color _isSelectedColor;
   final Color _unSelectedColor = Colors.white.withValues(alpha: .5);
 
   @override
   void initState() {
     _currentIndex = widget.initalIndex;
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    _isSelectedColor = context.general.colorScheme.primary;
-    super.didChangeDependencies();
   }
 
   @override
@@ -79,9 +72,10 @@ class _CustomNavBarState extends State<CustomNavBar> {
     void Function()? onPress,
   }) {
     final isSelected = _currentIndex == index;
+    final selectedColor = context.general.colorScheme.primary;
     return IconButton(
       style: IconButton.styleFrom(
-        backgroundColor: isSelected ? _isSelectedColor : _unSelectedColor,
+        backgroundColor: isSelected ? selectedColor : _unSelectedColor,
       ),
       onPressed: () {
         setState(() {

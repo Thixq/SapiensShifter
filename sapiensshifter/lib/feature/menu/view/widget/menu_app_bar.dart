@@ -1,0 +1,34 @@
+part of '../menu_view.dart';
+
+class MenuAppBar<T> extends StatelessWidget implements PreferredSizeWidget {
+  const MenuAppBar({
+    required this.title,
+    required this.onSelected,
+    super.key,
+  });
+
+  final String? title;
+  final void Function(MapEntry<String, String> filter) onSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<MenuViewModel, MenuViewState>(
+      buildWhen: (previous, current) =>
+          current.categories != previous.categories,
+      builder: (context, state) => AppBar(
+        clipBehavior: Clip.none,
+        title: Text(title ?? StringConstant.nullString.tr()),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(48),
+          child: ChoiceChipList<String>(
+            onSelected: onSelected,
+            options: state.categories,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 48);
+}
