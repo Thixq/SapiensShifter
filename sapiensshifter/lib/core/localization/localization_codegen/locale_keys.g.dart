@@ -84,5 +84,15 @@ abstract class  LocaleKeys {
   static const page_sign_register = 'page.sign.register';
   static const page_sign = 'page.sign';
   static const page = 'page';
+  static const category_all = 'category.all';
+  static const category_hot_coffees = 'category.hot_coffees';
+  static const category_sandwiches = 'category.sandwiches';
+  static const category_coffee_beans = 'category.coffee_beans';
+  static const category_soft_drink = 'category.soft_drink';
+  static const category_dessert = 'category.dessert';
+  static const category_herbal_teas = 'category.herbal_teas';
+  static const category_brewed_coffees = 'category.brewed_coffees';
+  static const category_cold_coffees = 'category.cold_coffees';
+  static const category = 'category';
 
 }

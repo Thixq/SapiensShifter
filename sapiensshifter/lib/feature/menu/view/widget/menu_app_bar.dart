@@ -8,7 +8,7 @@ class MenuAppBar extends StatelessWidget implements PreferredSizeWidget {
   });
 
   final String? title;
-  final void Function(MapEntry<String, String> filter) onSelected;
+  final void Function(MapEntry<String, String> category) onSelected;
 
   @override
   Widget build(BuildContext context) {
