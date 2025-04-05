@@ -116,6 +116,17 @@ class CodegenLoader extends AssetLoader{
         "sign_in": "Giriş yapın!"
       }
     }
+  },
+  "category": {
+    "all": "Hepsi",
+    "hot_coffees": "Sıcak Kahveler",
+    "sandwiches": "Sandviçler",
+    "coffee_beans": "Kahve Çekirdekleri",
+    "soft_drink": "Meşrubatlar",
+    "dessert": "Tatlılar",
+    "herbal_teas": "Bitki Çayları",
+    "brewed_coffees": "Demeleme Kahveler",
+    "cold_coffees": "Soğuk Kahveler"
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"tr": _tr};
