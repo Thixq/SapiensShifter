@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sapiensshifter/product/utils/enums/localization_path_enum.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 final class CustomChoiceChip<T> extends StatelessWidget {
@@ -21,7 +22,9 @@ final class CustomChoiceChip<T> extends StatelessWidget {
       ),
       side: BorderSide.none,
       backgroundColor: Colors.white,
-      label: Text(titleAndValue.key),
+      label: Text(
+        titleAndValue.key.sapiExt.textLocale(LocalizationPathEnum.category),
+      ),
       selected: isSelected,
       onSelected: (bool selected) {
         onSelected(titleAndValue);
