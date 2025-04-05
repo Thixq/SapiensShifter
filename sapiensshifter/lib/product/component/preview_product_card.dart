@@ -9,7 +9,7 @@ final class PreviewProductCard extends StatelessWidget {
     this.productModel,
     super.key,
   });
-  final void Function(String? productId) onPressed;
+  final void Function(ProductModel? productId) onPressed;
   final ProductModel? productModel;
 
   Color get _cardColor => Colors.white;
@@ -32,7 +32,7 @@ final class PreviewProductCard extends StatelessWidget {
       ),
       child: InkWell(
         borderRadius: context.border.normalBorderRadius,
-        onTap: () => onPressed(productModel?.id),
+        onTap: () => onPressed(productModel),
         child: Padding(
           padding: context.padding.low,
           child: Column(
