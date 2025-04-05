@@ -1,3 +1,5 @@
+import 'dart:collection' show SplayTreeMap;
+
 import 'package:core/core.dart';
 import 'package:firebase_firestore_module/firebase_firestore_module.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
@@ -35,7 +37,7 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
   }
 
   Future<void> getCategories() async {
-    final categories = <String, String>{};
+    final categories = SplayTreeMap<String, String>();
     final result = await getProducts<CategoriesModel>(
       path: '/categories',
       item: CategoriesModel(),
@@ -57,7 +59,7 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
     final result = await getProducts<ProductModel>(
       path: '/products',
       item: const ProductModel(),
-      query: query,
+      query: newQuery != '0' ? query : null,
     );
     emit(state.copyWith(productList: result));
   }
