@@ -6,6 +6,7 @@ import 'package:sapiensshifter/core/logging/custom_logger.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/menu/view_model/state/menu_view_state.dart';
 import 'package:sapiensshifter/product/models/categories_model.dart';
+import 'package:sapiensshifter/product/models/order_model.dart';
 import 'package:sapiensshifter/product/models/product_model.dart';
 
 class MenuViewModel extends BaseCubit<MenuViewState> {
@@ -59,5 +60,11 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
       query: query,
     );
     emit(state.copyWith(productList: result));
+  }
+
+  void addOrder({required OrderModel order}) {
+    final newTable =
+        state.table.copyWith(orderList: [...state.table.orderList, order]);
+    emit(state.copyWith(table: newTable));
   }
 }

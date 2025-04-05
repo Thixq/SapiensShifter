@@ -8,7 +8,7 @@ class PreviewProductCardGridList extends StatelessWidget {
   });
 
   final List<ProductModel> productList;
-  final void Function(ProductModel? prdouctId) onPressed;
+  final void Function(ProductModel? product) onPressed;
 
   @override
   Widget build(BuildContext context) {

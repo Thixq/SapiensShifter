@@ -17,7 +17,7 @@ mixin MenuViewMixin on BaseState<MenuView> {
   @override
   void initState() {
     _menuViewModel = MenuViewModel(
-      MenuViewState(productList: [], categories: {}),
+      MenuViewState(productList: [], categories: {}, table: widget.table),
       networkManager: FirebaseFirestoreManager.instance,
     );
     _menuViewModel.getCategories();

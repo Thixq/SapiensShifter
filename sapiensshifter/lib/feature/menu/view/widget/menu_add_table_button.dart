@@ -20,13 +20,21 @@ class AddTableButton extends StatelessWidget {
         Positioned(
           top: -11.sp,
           right: -11.sp,
-          child: Badge(
-            padding: EdgeInsets.all(8.sp),
-            alignment: Alignment.bottomLeft,
-            label: const Text('9'),
-          ),
+          child: _badge(),
         ),
       ],
+    );
+  }
+
+  Widget _badge() {
+    return BlocBuilder<MenuViewModel, MenuViewState>(
+      buildWhen: (previous, current) =>
+          current.table.orderList != previous.table.orderList,
+      builder: (context, state) => Badge(
+        padding: EdgeInsets.all(8.sp),
+        alignment: Alignment.bottomLeft,
+        label: Text('${state.table.orderList.length}'),
+      ),
     );
   }
 }
