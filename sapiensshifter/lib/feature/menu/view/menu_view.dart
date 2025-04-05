@@ -33,9 +33,7 @@ class _MenuViewState extends BaseState<MenuView> with MenuViewMixin {
         floatingActionButton: const AddTableButton(),
         appBar: MenuAppBar(
           title: widget.table.tableName,
-          onSelected: (filter) {
-            viewModel.changeCategory(filter.value);
-          },
+          onSelected: (category) => viewModel.changeCategory(category.value),
         ),
         body: _content(context),
       ),
@@ -50,7 +48,7 @@ class _MenuViewState extends BaseState<MenuView> with MenuViewMixin {
             current.productList != previous.productList,
         builder: (context, state) => PreviewProductCardGridList(
           productList: state.productList,
-          onPressed: (prdouct) {},
+          onPressed: (product) {},
         ),
       ),
     );

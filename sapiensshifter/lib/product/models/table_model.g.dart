@@ -24,9 +24,12 @@ TableModel _$TableModelFromJson(Map<String, dynamic> json) => $checkedCreate(
               (v) => v == null ? null : DateTime.parse(v as String)),
           orderList: $checkedConvert(
               'orderList',
-              (v) => (v as List<dynamic>?)
-                  ?.map((e) => OrderModel.fromJson(e as Map<String, dynamic>))
-                  .toList()),
+              (v) =>
+                  (v as List<dynamic>?)
+                      ?.map(
+                          (e) => OrderModel.fromJson(e as Map<String, dynamic>))
+                      .toList() ??
+                  const []),
         );
         return val;
       },
@@ -42,5 +45,5 @@ Map<String, dynamic> _$TableModelToJson(TableModel instance) =>
       'peopleCount': instance.peopleCount,
       'status': instance.status,
       'closingTime': instance.closingTime?.toIso8601String(),
-      'orderList': instance.orderList?.map((e) => e.toJson()).toList(),
+      'orderList': instance.orderList.map((e) => e.toJson()).toList(),
     };

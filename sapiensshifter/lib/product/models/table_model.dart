@@ -18,7 +18,7 @@ final class TableModel extends IBaseModel<TableModel> with EquatableMixin {
     this.peopleCount,
     this.status,
     this.closingTime,
-    this.orderList,
+    this.orderList = const [],
   });
   factory TableModel.fromJson(Map<String, dynamic> json) =>
       _$TableModelFromJson(json);
@@ -31,7 +31,7 @@ final class TableModel extends IBaseModel<TableModel> with EquatableMixin {
   final int? peopleCount;
   final bool? status;
   final DateTime? closingTime;
-  final List<OrderModel>? orderList;
+  final List<OrderModel> orderList;
 
   @override
   List<Object?> get props => [id, tableName, timeStamp, creatorId, branchName];
@@ -43,8 +43,8 @@ final class TableModel extends IBaseModel<TableModel> with EquatableMixin {
   Map<String, dynamic> toJson() => _$TableModelToJson(this);
 
   // ignore: use_if_null_to_convert_nulls_to_bools
-  double? get totalPrice => orderList?.isNotEmpty == true
-      ? orderList!
+  double? get totalPrice => orderList.isNotEmpty == true
+      ? orderList
           .where(
             (e) => e.price != null,
           )
