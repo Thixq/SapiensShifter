@@ -1,4 +1,5 @@
 import 'package:core/core.dart';
+import 'package:firebase_firestore_module/firebase_firestore_module.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/logging/custom_logger.dart';
@@ -48,11 +49,14 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
     emit(state.copyWith(categories: categories));
   }
 
-  Future<void> changeFilter(INetworkQuery newQuery) async {
+  Future<void> changeCategory(String newQuery) async {
+    final query = FirebaseFirestoreCustomQuery(
+      filters: [FilterCondition(field: 'category', value: newQuery)],
+    );
     final result = await getProducts<ProductModel>(
-      path: '/product',
+      path: '/products',
       item: const ProductModel(),
-      query: newQuery,
+      query: query,
     );
     emit(state.copyWith(productList: result));
   }

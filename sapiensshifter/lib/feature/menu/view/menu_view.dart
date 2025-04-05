@@ -31,10 +31,10 @@ class _MenuViewState extends BaseState<MenuView> with MenuViewMixin {
       create: (context) => viewModel,
       child: Scaffold(
         floatingActionButton: const AddTableButton(),
-        appBar: MenuAppBar<String>(
+        appBar: MenuAppBar(
           title: widget.table.tableName,
           onSelected: (filter) {
-            debugPrint(filter.toString());
+            viewModel.changeCategory(filter.value);
           },
         ),
         body: _content(context),
@@ -42,22 +42,16 @@ class _MenuViewState extends BaseState<MenuView> with MenuViewMixin {
     );
   }
 
-  Padding _content(BuildContext context) {
+  Widget _content(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.sized.normalValue),
-      child: PreviewProductCardGridList(
-        productList: List.generate(
-          20,
-          (index) => const ProductModel(
-            productName: 'Coffee Latte',
-            category: 'Soğuk',
-            description: 'blabla',
-            id: 'uid1',
-            imagePath: 'https://cataas.com/cat',
-            price: 12.49,
-          ),
+      child: BlocBuilder<MenuViewModel, MenuViewState>(
+        buildWhen: (previous, current) =>
+            current.productList != previous.productList,
+        builder: (context, state) => PreviewProductCardGridList(
+          productList: state.productList,
+          onPressed: (prdouct) {},
         ),
-        onPressed: (prdouctId) {},
       ),
     );
   }

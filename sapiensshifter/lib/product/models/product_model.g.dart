@@ -18,11 +18,8 @@ ProductModel _$ProductModelFromJson(Map<String, dynamic> json) =>
           imagePath: $checkedConvert('imagePath', (v) => v as String?),
           price: $checkedConvert('price', (v) => (v as num?)?.toDouble()),
           category: $checkedConvert('category', (v) => v as String?),
-          extrasList: $checkedConvert(
-              'extrasList',
-              (v) => (v as List<dynamic>?)
-                  ?.map((e) => ExtrasModel.fromJson(e as Map<String, dynamic>))
-                  .toList()),
+          productOptions: $checkedConvert('productOptions',
+              (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()),
         );
         return val;
       },
@@ -36,5 +33,5 @@ Map<String, dynamic> _$ProductModelToJson(ProductModel instance) =>
       'imagePath': instance.imagePath,
       'price': instance.price,
       'category': instance.category,
-      'extrasList': instance.extrasList,
+      'productOptions': instance.productOptions,
     };

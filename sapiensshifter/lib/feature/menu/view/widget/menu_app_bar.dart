@@ -1,6 +1,6 @@
 part of '../menu_view.dart';
 
-class MenuAppBar<T> extends StatelessWidget implements PreferredSizeWidget {
+class MenuAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MenuAppBar({
     required this.title,
     required this.onSelected,

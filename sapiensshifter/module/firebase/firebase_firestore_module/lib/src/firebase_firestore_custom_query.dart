@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
 
-class FirebaseFirestoreCustomQuery extends INetworkQuery {
+final class FirebaseFirestoreCustomQuery extends INetworkQuery {
   /// Creates a custom Firestore query with optional filters, ordering, and limits.
   FirebaseFirestoreCustomQuery({
     super.limit,
@@ -16,7 +16,8 @@ class FirebaseFirestoreCustomQuery extends INetworkQuery {
   /// - Returns a Firestore [Query] object with applied filters, ordering, and limits.
   @override
   T applyToQuery<T>(String path) {
-    Query<Object?> query = FirebaseFirestore.instance.collection(path);
+    Query<Map<String, dynamic>> query =
+        FirebaseFirestore.instance.collection(path);
 
     // Apply filters to the query if any exist.
     filters?.forEach((filter) {
