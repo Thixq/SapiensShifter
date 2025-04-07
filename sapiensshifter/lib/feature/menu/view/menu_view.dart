@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sapiensshifter/core/routing/routing_manager.gr.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/menu/mixin/menu_view_mixin.dart';
 import 'package:sapiensshifter/feature/menu/view_model/menu_view_model.dart';
@@ -48,7 +49,12 @@ class _MenuViewState extends BaseState<MenuView> with MenuViewMixin {
             current.productList != previous.productList,
         builder: (context, state) => PreviewProductCardGridList(
           productList: state.productList,
-          onPressed: (product) {},
+          onPressed: (product) {
+            //? product null safety
+            if (product != null) {
+              AutoRouter.of(context).push(OrderDetailRoute(product: product));
+            }
+          },
         ),
       ),
     );

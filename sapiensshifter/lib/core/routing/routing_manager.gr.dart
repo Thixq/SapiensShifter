@@ -9,25 +9,28 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i7;
-import 'package:flutter/material.dart' as _i8;
+import 'package:auto_route/auto_route.dart' as _i8;
+import 'package:flutter/material.dart' as _i9;
 import 'package:sapiensshifter/feature/home/view/home_view.dart' as _i1;
 import 'package:sapiensshifter/feature/menu/view/menu_view.dart' as _i2;
 import 'package:sapiensshifter/feature/onboard/view/onboard_view.dart' as _i3;
-import 'package:sapiensshifter/feature/sign/register/view/register_view.dart'
+import 'package:sapiensshifter/feature/order_detail_view/view/order_detail_view.dart'
     as _i4;
-import 'package:sapiensshifter/feature/sign/sign_in/view/sign_in_view.dart'
+import 'package:sapiensshifter/feature/sign/register/view/register_view.dart'
     as _i5;
-import 'package:sapiensshifter/feature/splash/view/splash_view.dart' as _i6;
-import 'package:sapiensshifter/product/models/table_model.dart' as _i9;
+import 'package:sapiensshifter/feature/sign/sign_in/view/sign_in_view.dart'
+    as _i6;
+import 'package:sapiensshifter/feature/splash/view/splash_view.dart' as _i7;
+import 'package:sapiensshifter/product/models/product_model.dart' as _i11;
+import 'package:sapiensshifter/product/models/table_model.dart' as _i10;
 
 /// generated route for
 /// [_i1.HomeView]
-class HomeRoute extends _i7.PageRouteInfo<HomeRouteArgs> {
+class HomeRoute extends _i8.PageRouteInfo<HomeRouteArgs> {
   HomeRoute({
     required int pageIndex,
-    _i8.Key? key,
-    List<_i7.PageRouteInfo>? children,
+    _i9.Key? key,
+    List<_i8.PageRouteInfo>? children,
   }) : super(
          HomeRoute.name,
          args: HomeRouteArgs(pageIndex: pageIndex, key: key),
@@ -37,7 +40,7 @@ class HomeRoute extends _i7.PageRouteInfo<HomeRouteArgs> {
 
   static const String name = 'HomeRoute';
 
-  static _i7.PageInfo page = _i7.PageInfo(
+  static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
       final pathParams = data.inheritedPathParams;
@@ -54,7 +57,7 @@ class HomeRouteArgs {
 
   final int pageIndex;
 
-  final _i8.Key? key;
+  final _i9.Key? key;
 
   @override
   String toString() {
@@ -64,11 +67,11 @@ class HomeRouteArgs {
 
 /// generated route for
 /// [_i2.MenuView]
-class MenuRoute extends _i7.PageRouteInfo<MenuRouteArgs> {
+class MenuRoute extends _i8.PageRouteInfo<MenuRouteArgs> {
   MenuRoute({
-    required _i9.TableModel table,
-    _i8.Key? key,
-    List<_i7.PageRouteInfo>? children,
+    required _i10.TableModel table,
+    _i9.Key? key,
+    List<_i8.PageRouteInfo>? children,
   }) : super(
          MenuRoute.name,
          args: MenuRouteArgs(table: table, key: key),
@@ -77,7 +80,7 @@ class MenuRoute extends _i7.PageRouteInfo<MenuRouteArgs> {
 
   static const String name = 'MenuRoute';
 
-  static _i7.PageInfo page = _i7.PageInfo(
+  static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<MenuRouteArgs>();
@@ -89,9 +92,9 @@ class MenuRoute extends _i7.PageRouteInfo<MenuRouteArgs> {
 class MenuRouteArgs {
   const MenuRouteArgs({required this.table, this.key});
 
-  final _i9.TableModel table;
+  final _i10.TableModel table;
 
-  final _i8.Key? key;
+  final _i9.Key? key;
 
   @override
   String toString() {
@@ -101,13 +104,13 @@ class MenuRouteArgs {
 
 /// generated route for
 /// [_i3.OnboardView]
-class OnboardRoute extends _i7.PageRouteInfo<void> {
-  const OnboardRoute({List<_i7.PageRouteInfo>? children})
+class OnboardRoute extends _i8.PageRouteInfo<void> {
+  const OnboardRoute({List<_i8.PageRouteInfo>? children})
     : super(OnboardRoute.name, initialChildren: children);
 
   static const String name = 'OnboardRoute';
 
-  static _i7.PageInfo page = _i7.PageInfo(
+  static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
       return const _i3.OnboardView();
@@ -116,49 +119,86 @@ class OnboardRoute extends _i7.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.RegisterView]
-class RegisterRoute extends _i7.PageRouteInfo<void> {
-  const RegisterRoute({List<_i7.PageRouteInfo>? children})
+/// [_i4.OrderDetailView]
+class OrderDetailRoute extends _i8.PageRouteInfo<OrderDetailRouteArgs> {
+  OrderDetailRoute({
+    required _i11.ProductModel product,
+    _i9.Key? key,
+    List<_i8.PageRouteInfo>? children,
+  }) : super(
+         OrderDetailRoute.name,
+         args: OrderDetailRouteArgs(product: product, key: key),
+         initialChildren: children,
+       );
+
+  static const String name = 'OrderDetailRoute';
+
+  static _i8.PageInfo page = _i8.PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<OrderDetailRouteArgs>();
+      return _i4.OrderDetailView(product: args.product, key: args.key);
+    },
+  );
+}
+
+class OrderDetailRouteArgs {
+  const OrderDetailRouteArgs({required this.product, this.key});
+
+  final _i11.ProductModel product;
+
+  final _i9.Key? key;
+
+  @override
+  String toString() {
+    return 'OrderDetailRouteArgs{product: $product, key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i5.RegisterView]
+class RegisterRoute extends _i8.PageRouteInfo<void> {
+  const RegisterRoute({List<_i8.PageRouteInfo>? children})
     : super(RegisterRoute.name, initialChildren: children);
 
   static const String name = 'RegisterRoute';
 
-  static _i7.PageInfo page = _i7.PageInfo(
+  static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return const _i4.RegisterView();
+      return const _i5.RegisterView();
     },
   );
 }
 
 /// generated route for
-/// [_i5.SignInView]
-class SignInRoute extends _i7.PageRouteInfo<void> {
-  const SignInRoute({List<_i7.PageRouteInfo>? children})
+/// [_i6.SignInView]
+class SignInRoute extends _i8.PageRouteInfo<void> {
+  const SignInRoute({List<_i8.PageRouteInfo>? children})
     : super(SignInRoute.name, initialChildren: children);
 
   static const String name = 'SignInRoute';
 
-  static _i7.PageInfo page = _i7.PageInfo(
+  static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return const _i5.SignInView();
+      return const _i6.SignInView();
     },
   );
 }
 
 /// generated route for
-/// [_i6.SplashView]
-class SplashRoute extends _i7.PageRouteInfo<void> {
-  const SplashRoute({List<_i7.PageRouteInfo>? children})
+/// [_i7.SplashView]
+class SplashRoute extends _i8.PageRouteInfo<void> {
+  const SplashRoute({List<_i8.PageRouteInfo>? children})
     : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
-  static _i7.PageInfo page = _i7.PageInfo(
+  static _i8.PageInfo page = _i8.PageInfo(
     name,
     builder: (data) {
-      return const _i6.SplashView();
+      return const _i7.SplashView();
     },
   );
 }
