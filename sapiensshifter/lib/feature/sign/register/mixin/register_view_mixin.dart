@@ -17,21 +17,28 @@ mixin RegisterViewMixin on BaseState<RegisterView> {
   late final GlobalKey<FormState> formState;
 
   void routeSignIn() {
-    context.router.replaceNamed('/sign/signin/');
+    context.router.replacePath('/sign/signin/');
   }
 
   Future<void> register() async {
     if (formState.currentState?.validate() ?? false) {
-      await _registerViewModel.registerWithEmailAndPassword(
+      final result = await _registerViewModel.registerWithEmailAndPassword(
         name: userNameTextController.text,
         email: emailTextController.text,
         password: passwordTextController.text,
+        context: context,
       );
-      if (mounted) {
-        await context.router.replaceNamed(
-          PagePathConstant.home.sapiExt.withParams({'pageIndex': 1})!,
-        );
+      if (result) {
+        await _goHome();
       }
+    }
+  }
+
+  Future<void> _goHome() async {
+    if (mounted) {
+      await context.router.replacePath(
+        PagePathConstant.home.sapiExt.withParams({'pageIndex': 1})!,
+      );
     }
   }
 
