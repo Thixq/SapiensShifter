@@ -83,6 +83,8 @@ abstract class  LocaleKeys {
   static const page_sign_register_sign_in = 'page.sign.register.sign_in';
   static const page_sign_register = 'page.sign.register';
   static const page_sign = 'page.sign';
+  static const page_order_detail_service_type = 'page.order_detail.service_type';
+  static const page_order_detail = 'page.order_detail';
   static const page = 'page';
   static const category_all = 'category.all';
   static const category_hot_coffees = 'category.hot_coffees';
@@ -94,5 +96,19 @@ abstract class  LocaleKeys {
   static const category_brewed_coffees = 'category.brewed_coffees';
   static const category_cold_coffees = 'category.cold_coffees';
   static const category = 'category';
+  static const options_milk_options = 'options.milk_options';
+  static const options_shot_options = 'options.shot_options';
+  static const options_milk_regular_milk = 'options.milk.regular_milk';
+  static const options_milk_lactose_free = 'options.milk.lactose_free';
+  static const options_milk_almond_milk = 'options.milk.almond_milk';
+  static const options_milk_coconut_milk = 'options.milk.coconut_milk';
+  static const options_milk_soy_milk = 'options.milk.soy_milk';
+  static const options_milk_oat_milk = 'options.milk.oat_milk';
+  static const options_milk = 'options.milk';
+  static const options_shot_single_shot = 'options.shot.single_shot';
+  static const options_shot_double_shot = 'options.shot.double_shot';
+  static const options_shot_triple_shot = 'options.shot.triple_shot';
+  static const options_shot = 'options.shot';
+  static const options = 'options';
 
 }

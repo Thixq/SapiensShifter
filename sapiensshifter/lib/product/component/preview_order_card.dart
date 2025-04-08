@@ -34,7 +34,7 @@ final class PreviewOrderCard extends StatelessWidget {
       children: [
         _buildNameandTotalPrice(context),
         DashedDivider(color: context.general.colorScheme.primary),
-        SeparatorColumn<OrderCard>(
+        SeparatorListWidget<OrderCard>(
           isDismissible: true,
           separator: context.sized.emptySizedHeightBoxLow,
           onListChanged: (value) {

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/component/custom_choice_chip.dart';
+import 'package:sapiensshifter/product/utils/enums/localization_path_enum.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 final class ChoiceChipList<T> extends StatelessWidget {
   ChoiceChipList({
+    this.localizationPathEnum,
     this.options,
     this.defaultValue,
     this.isWrap = false,
@@ -15,6 +18,7 @@ final class ChoiceChipList<T> extends StatelessWidget {
   final ValueChanged<MapEntry<String, T>>? onSelected;
   late final ValueNotifier<MapEntry<String, T>?>? selectEntry =
       ValueNotifier(defaultValue ?? options?.entries.first);
+  final LocalizationPathEnum? localizationPathEnum;
 
   @override
   Widget build(BuildContext context) {
@@ -27,46 +31,37 @@ final class ChoiceChipList<T> extends StatelessWidget {
       builder: (context, value, child) {
         return isWrap
             ? Wrap(
-                spacing: 8,
                 runSpacing: 4,
-                children: List.generate(
-                  options!.entries.length,
-                  (index) {
-                    return CustomChoiceChip<T>(
-                      onSelected: (value) {
-                        selectEntry!.value = value;
-                        onSelected?.call(value);
-                      },
-                      titleAndValue: options!.entries.toList()[index],
-                      isSelected: selectEntry!.value!.key ==
-                          options!.keys.toList()[index],
-                    );
-                  },
-                ),
+                children: _buildChipList(context),
               )
             : SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: List.generate(
-                    options!.entries.length,
-                    (index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 8),
-                        child: CustomChoiceChip<T>(
-                          onSelected: (value) {
-                            selectEntry!.value = value;
-                            onSelected?.call(value);
-                          },
-                          titleAndValue: options!.entries.toList()[index],
-                          isSelected: selectEntry!.value!.key ==
-                              options!.keys.toList()[index],
-                        ),
-                      );
-                    },
-                  ),
+                  children: _buildChipList(context),
                 ),
               );
+      },
+    );
+  }
+
+  List<Widget> _buildChipList(BuildContext context) {
+    return List.generate(
+      options!.entries.length,
+      (index) {
+        return Padding(
+          padding: EdgeInsets.only(right: context.sized.lowValue),
+          child: CustomChoiceChip<T>(
+            onSelected: (value) {
+              selectEntry!.value = value;
+              onSelected?.call(value);
+            },
+            titleAndValue: options!.entries.toList()[index],
+            isSelected:
+                selectEntry!.value!.key == options!.keys.toList()[index],
+            localizationPathEnum: localizationPathEnum,
+          ),
+        );
       },
     );
   }

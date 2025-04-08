@@ -39,8 +39,8 @@ class OrderInfoBottomSheet extends StatelessWidget {
     );
   }
 
-  SeparatorColumn<Widget> _buildContent(BuildContext context) {
-    return SeparatorColumn<Widget>(
+  SeparatorListWidget<Widget> _buildContent(BuildContext context) {
+    return SeparatorListWidget<Widget>(
       separator: context.sized.emptySizedHeightBoxLow,
       children: [
         _buildTitle(context),

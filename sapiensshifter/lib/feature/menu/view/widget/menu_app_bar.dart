@@ -23,6 +23,7 @@ class MenuAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: ChoiceChipList<String>(
             onSelected: onSelected,
             options: state.categories,
+            localizationPathEnum: LocalizationPathEnum.category,
           ),
         ),
       ),

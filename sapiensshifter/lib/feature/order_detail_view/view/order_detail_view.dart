@@ -1,11 +1,31 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sapiensshifter/core/state/base/base_state.dart';
+import 'package:sapiensshifter/feature/order_detail_view/mixin/order_detail_mixin.dart';
+import 'package:sapiensshifter/feature/order_detail_view/view/widget/shimmer_options_list.dart';
+import 'package:sapiensshifter/feature/order_detail_view/view_model/order_detail_view_model.dart';
+import 'package:sapiensshifter/feature/order_detail_view/view_model/state/order_detail_state.dart';
+import 'package:sapiensshifter/product/component/custom_radio/custom_radio_viewer.dart';
+import 'package:sapiensshifter/product/component/custom_radio/model/custom_radio_model.dart';
+import 'package:sapiensshifter/product/component/sapi_button.dart';
+import 'package:sapiensshifter/product/models/extras_model.dart';
 import 'package:sapiensshifter/product/models/product_model.dart';
+import 'package:sapiensshifter/product/utils/enums/delivery_status.dart';
+import 'package:sapiensshifter/product/utils/enums/localization_path_enum.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart'
+    show ChoiceChipList;
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart'
     show ImageBuilder;
+import 'package:sapiensshifter/product/utils/ui/separator_list_widget.dart';
 
 part './widget/order_detail_view_app_bar.dart';
+part './widget/title_content.dart';
+part './widget/body_content.dart';
+part './widget/delivery_options.dart';
+part './widget/option_widget.dart';
+part './widget/sumbit_button.dart';
 
 @RoutePage()
 class OrderDetailView extends StatefulWidget {
@@ -17,49 +37,29 @@ class OrderDetailView extends StatefulWidget {
   State<OrderDetailView> createState() => _OrderDetailViewState();
 }
 
-class _OrderDetailViewState extends State<OrderDetailView> {
+class _OrderDetailViewState extends BaseState<OrderDetailView>
+    with OrderDetailMixin {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: OrderDetailViewAppBar(
-        productName: widget.product.productName,
-      ),
-      body: Column(
-        children: [
-          Flexible(
-            flex: 2,
-            child: Container(
-              padding: const EdgeInsets.all(12),
-              color: Colors.blue,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 56.sp,
-                    child: AspectRatio(
-                      aspectRatio: 1,
-                      child: ImageBuilder(
-                        borderRadius: BorderRadius.circular(32),
-                        fit: BoxFit.none,
-                        imageUrl: widget.product.imagePath,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    widget.product.description ??
-                        StringConstant.nullString.tr(),
-                    style: context.general.textTheme.bodySmall,
-                  ),
-                ],
-              ),
+    return BlocProvider(
+      create: (context) => viewModel,
+      child: Scaffold(
+        appBar: OrderDetailViewAppBar(
+          productName: widget.product.productName,
+        ),
+        body: Column(
+          children: [
+            Title(productModel: widget.product),
+            Body(
+              deliveryOptions: deliveryOptions,
+              deliveryChange: viewModel.changeDelivery,
+              optionChange: viewModel.totalPriceAndOptionsList,
+              onSumbit: viewModel.sumbit,
+              extrasList:
+                  viewModel.getExtras(optionsId: widget.product.productOptions),
             ),
-          ),
-          Flexible(
-            flex: 3,
-            child: Container(
-              color: Colors.deepPurpleAccent,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

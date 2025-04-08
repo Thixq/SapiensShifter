@@ -30,17 +30,13 @@ final class ExtrasModel extends IBaseModel<ExtrasModel> with EquatableMixin {
   @override
   Map<String, dynamic> toJson() => _$ExtrasModelToJson(this);
 
-  Map<String, double>? allOptionsMapEntry() {
-    final convertedMap = <String, double>{};
+  Map<String, double>? get allOptionsMapEntry {
     if (optionsList == null || optionsList!.isEmpty) return null;
 
-    for (final entries in optionsList!.entries) {
-      for (final item in entries.value) {
-        final key = entries.key;
-        convertedMap.addEntries([MapEntry(item, key)]);
-      }
-    }
-    return convertedMap;
+    return {
+      for (final entry in optionsList!.entries)
+        for (final item in entry.value) item: entry.key,
+    };
   }
 }
 
