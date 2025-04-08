@@ -85,7 +85,5 @@ class OrderDetailViewModel extends BaseCubit<OrderDetailState> {
             .copyWith(extras: state.selecetedOptions.values.toList()),
       ),
     );
-
-    print(state.order);
   }
 }
