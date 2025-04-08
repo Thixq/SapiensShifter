@@ -8,6 +8,7 @@ import 'package:sapiensshifter/feature/menu/view_model/menu_view_model.dart';
 import 'package:sapiensshifter/feature/menu/view_model/state/menu_view_state.dart';
 import 'package:sapiensshifter/product/models/product_model.dart';
 import 'package:sapiensshifter/product/models/table_model.dart';
+import 'package:sapiensshifter/product/utils/enums/localization_path_enum.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 

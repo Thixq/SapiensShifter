@@ -7,11 +7,13 @@ final class CustomChoiceChip<T> extends StatelessWidget {
     required this.isSelected,
     required this.onSelected,
     required this.titleAndValue,
+    required this.localizationPathEnum,
     super.key,
   });
   final MapEntry<String, T> titleAndValue;
   final bool isSelected;
   final ValueChanged<MapEntry<String, T>> onSelected;
+  final LocalizationPathEnum? localizationPathEnum;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,9 @@ final class CustomChoiceChip<T> extends StatelessWidget {
       side: BorderSide.none,
       backgroundColor: Colors.white,
       label: Text(
-        titleAndValue.key.sapiExt.textLocale(LocalizationPathEnum.category),
+        localizationPathEnum != null
+            ? titleAndValue.key.sapiExt.textLocale(localizationPathEnum!)
+            : titleAndValue.key,
       ),
       selected: isSelected,
       onSelected: (bool selected) {

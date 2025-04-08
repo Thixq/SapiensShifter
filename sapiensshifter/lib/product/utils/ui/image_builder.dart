@@ -7,13 +7,13 @@ class ImageBuilder extends StatelessWidget {
     this.borderRadius = BorderRadius.zero,
     this.iconData = Icons.image_not_supported_rounded,
     this.errorIconSize = 48,
-    this.imageCacheWidth = 480,
+    this.imageCache = 480,
     this.fit = BoxFit.cover,
     super.key,
   });
 
   final String? imageUrl;
-  final int imageCacheWidth;
+  final int imageCache;
   final double errorIconSize;
   final IconData iconData;
   final BorderRadiusGeometry borderRadius;
@@ -22,7 +22,7 @@ class ImageBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      memCacheWidth: imageCacheWidth,
+      memCacheWidth: imageCache,
       imageUrl: imageUrl ?? '',
       imageBuilder: (context, imageProvider) {
         return Container(
