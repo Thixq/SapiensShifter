@@ -37,7 +37,7 @@ mixin SignInViewMixin on BaseState<SignInView> {
           final result = await _signInViewModel.signInWithCredential(
             signCredential: await AppleSignCredential().call(),
           );
-          if (result) await goHome();
+          if (result) await _goHome();
         },
       ),
       SocialButtonModel(
@@ -46,7 +46,7 @@ mixin SignInViewMixin on BaseState<SignInView> {
           final result = await _signInViewModel.signInWithCredential(
             signCredential: await GoogleSignCredential().call(),
           );
-          if (result) await goHome();
+          if (result) await _goHome();
         },
       ),
     ];
@@ -55,24 +55,25 @@ mixin SignInViewMixin on BaseState<SignInView> {
 
   Future<void> signIn() async {
     if (formState.currentState?.validate() ?? false) {
-      await viewModel.signInWithEmailAndPassword(
+      final result = await viewModel.signInWithEmailAndPassword(
         email: emailTextController.text,
         password: passwordTextController.text,
+        context: context,
       );
-      await goHome();
+      if (result) await _goHome();
     }
   }
 
-  Future<void> goHome() async {
+  Future<void> _goHome() async {
     if (mounted) {
-      await context.router.replaceNamed(
+      await context.router.replacePath(
         PagePathConstant.home.sapiExt.withParams({'pageIndex': 1})!,
       );
     }
   }
 
   void routeRegisterPage() {
-    context.router.replaceNamed(PagePathConstant.register);
+    context.router.replacePath(PagePathConstant.register);
   }
 
   void recoveryPassword() {

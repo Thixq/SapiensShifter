@@ -51,18 +51,19 @@ dependencies:
 
   #UI
   animated_custom_dropdown: ^3.1.1
-  flutter_slidable: ^3.1.2
+  flutter_slidable: ^4.0.0
   smooth_page_indicator: ^1.2.1
   shimmer: ^3.0.0
+  cached_network_image: ^3.4.1
 
   #Localization
   easy_localization: ^3.0.7
 
   #Route
-  auto_route: ^9.3.0+1
+  auto_route: ^10.0.1
 
   #Notification
-  flutter_local_notifications: ^18.0.1
+  flutter_local_notifications: ^19.0.0
 
   cupertino_icons: ^1.0.8
   
@@ -73,12 +74,12 @@ dev_dependencies:
     sdk: flutter
 
   #Analysis
-  very_good_analysis: ^6.0.0
+  very_good_analysis: ^7.0.0
 
   #Generator
   build_runner: ^2.3.3
   json_serializable: ^6.8.0
-  auto_route_generator: ^9.3.1
+  auto_route_generator: ^10.0.1
 
   #Test
   mockito: ^5.4.5

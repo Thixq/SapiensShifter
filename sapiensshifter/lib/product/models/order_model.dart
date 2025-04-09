@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -33,4 +34,20 @@ final class OrderModel extends IBaseModel<OrderModel> with EquatableMixin {
 
   @override
   Map<String, dynamic> toJson() => _$OrderModelToJson(this);
+
+  OrderModel copyWith({
+    String? orderName,
+    String? imagePath,
+    double? price,
+    DeliveryStatus? deliveryStatus,
+    List<String>? extras,
+  }) {
+    return OrderModel(
+      orderName: orderName ?? this.orderName,
+      imagePath: imagePath ?? this.imagePath,
+      price: price ?? this.price,
+      deliveryStatus: deliveryStatus ?? this.deliveryStatus,
+      extras: extras ?? this.extras,
+    );
+  }
 }

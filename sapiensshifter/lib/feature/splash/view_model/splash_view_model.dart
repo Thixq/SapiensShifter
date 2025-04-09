@@ -37,15 +37,15 @@ final class SplashViewModel {
       case SplashStateEnum.NO_NETWORK:
         return;
       case SplashStateEnum.FIRST_LAUNCH:
-        route.replaceNamed(PagePathConstant.onboard);
+        route.replacePath(PagePathConstant.onboard);
 
       case SplashStateEnum.RETURNIG_USER:
-        route.replaceNamed(
+        route.replacePath(
           PagePathConstant.home.sapiExt.withParams({'pageIndex': 1})!,
         );
 
       case SplashStateEnum.NEW_USER:
-        route.replaceNamed(PagePathConstant.signIn);
+        route.replacePath(PagePathConstant.signIn);
     }
   }
 }

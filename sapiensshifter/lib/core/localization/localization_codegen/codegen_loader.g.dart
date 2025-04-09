@@ -115,6 +115,9 @@ class CodegenLoader extends AssetLoader{
         "member": "Üye misiniz? ",
         "sign_in": "Giriş yapın!"
       }
+    },
+    "order_detail": {
+      "service_type": "Servis"
     }
   },
   "category": {
@@ -127,6 +130,23 @@ class CodegenLoader extends AssetLoader{
     "herbal_teas": "Bitki Çayları",
     "brewed_coffees": "Demeleme Kahveler",
     "cold_coffees": "Soğuk Kahveler"
+  },
+  "options": {
+    "milk_options": "Süt Seçenekleri",
+    "shot_options": "Shot Seçenekleri",
+    "milk": {
+      "regular_milk": "Normal Süt",
+      "lactose_free": "Laktozsuz Süt",
+      "almond_milk": "Badem sütü",
+      "coconut_milk": "Hindistan Cevizi Sütü",
+      "soy_milk": "Soya Sütü",
+      "oat_milk": "Yulaf Sütü"
+    },
+    "shot": {
+      "single_shot": "Tek Shot",
+      "double_shot": "İki Shot",
+      "triple_shot": "Üç Shot"
+    }
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"tr": _tr};

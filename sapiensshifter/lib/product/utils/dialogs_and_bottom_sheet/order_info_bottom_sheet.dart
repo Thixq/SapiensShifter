@@ -39,8 +39,8 @@ class OrderInfoBottomSheet extends StatelessWidget {
     );
   }
 
-  SeparatorColumn<Widget> _buildContent(BuildContext context) {
-    return SeparatorColumn<Widget>(
+  SeparatorListWidget<Widget> _buildContent(BuildContext context) {
+    return SeparatorListWidget<Widget>(
       separator: context.sized.emptySizedHeightBoxLow,
       children: [
         _buildTitle(context),
@@ -120,18 +120,18 @@ class OrderInfoBottomSheet extends StatelessWidget {
     return SizedBox(
       height: 20.h,
       child: ListView.separated(
-        itemCount: tableModel?.orderList?.length ?? 0,
+        itemCount: tableModel?.orderList.length ?? 0,
         itemBuilder: (context, index) => Row(
           children: [
             ImageBuilder(
               borderRadius: BorderRadius.circular(12),
-              imageUrl: tableModel?.orderList?[index].imagePath,
+              imageUrl: tableModel?.orderList[index].imagePath,
             ),
             context.sized.emptySizedWidthBoxLow3x,
-            Text(tableModel?.orderList?[index].orderName ?? _nullOrderName),
+            Text(tableModel?.orderList[index].orderName ?? _nullOrderName),
             Expanded(
               child: Text(
-                (tableModel?.orderList?[index].price?.sapiDoubleExt
+                (tableModel?.orderList[index].price?.sapiDoubleExt
                             .priceFraction ??
                         _nullPrice)
                     .sapiExt
