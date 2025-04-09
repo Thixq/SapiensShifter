@@ -3,8 +3,9 @@ import 'package:firebase_firestore_module/firebase_firestore_module.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
-import 'package:sapiensshifter/feature/order_detail_view/view_model/state/order_detail_state.dart';
+import 'package:sapiensshifter/feature/order_detail/view_model/state/order_detail_state.dart';
 import 'package:sapiensshifter/product/models/extras_model.dart';
+import 'package:sapiensshifter/product/models/order_model.dart';
 import 'package:sapiensshifter/product/utils/enums/delivery_status.dart';
 
 class OrderDetailViewModel extends BaseCubit<OrderDetailState> {
@@ -78,12 +79,7 @@ class OrderDetailViewModel extends BaseCubit<OrderDetailState> {
     emit(state.copyWith(order: state.order.copyWith(deliveryStatus: delivery)));
   }
 
-  void sumbit() {
-    emit(
-      state.copyWith(
-        order: state.order
-            .copyWith(extras: state.selecetedOptions.values.toList()),
-      ),
-    );
+  OrderModel get sumbit {
+    return state.order.copyWith(extras: state.selecetedOptions.values.toList());
   }
 }

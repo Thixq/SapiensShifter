@@ -50,10 +50,12 @@ class _MenuViewState extends BaseState<MenuView> with MenuViewMixin {
             current.productList != previous.productList,
         builder: (context, state) => PreviewProductCardGridList(
           productList: state.productList,
-          onPressed: (product) {
+          onPressed: (product) async {
             //? product null safety
             if (product != null) {
-              AutoRouter.of(context).push(OrderDetailRoute(product: product));
+              final result = await AutoRouter.of(context)
+                  .push(OrderDetailRoute(product: product));
+              print(result);
             }
           },
         ),
