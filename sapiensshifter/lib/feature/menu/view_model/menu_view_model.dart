@@ -53,6 +53,7 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
   }
 
   Future<void> changeCategory(String newQuery) async {
+    emit(state.copyWith(isLoading: true));
     final query = FirebaseFirestoreCustomQuery(
       filters: [FilterCondition(field: 'category', value: newQuery)],
     );
@@ -61,7 +62,7 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
       item: const ProductModel(),
       query: newQuery != '0' ? query : null,
     );
-    emit(state.copyWith(productList: result));
+    emit(state.copyWith(productList: result, isLoading: false));
   }
 
   void addOrder({required OrderModel order}) {
