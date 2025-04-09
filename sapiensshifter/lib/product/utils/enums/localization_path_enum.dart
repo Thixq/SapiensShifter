@@ -2,7 +2,9 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/export_pa
     show LocaleKeys;
 
 enum LocalizationPathEnum {
-  category(LocaleKeys.category);
+  category(LocaleKeys.category),
+
+  options(LocaleKeys.options);
 
   const LocalizationPathEnum(this.basePath);
 

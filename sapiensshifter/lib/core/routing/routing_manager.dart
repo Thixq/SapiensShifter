@@ -21,5 +21,9 @@ class RoutingManager extends RootStackRouter {
         AutoRoute(path: PagePathConstant.register, page: RegisterRoute.page),
         AutoRoute(path: PagePathConstant.home, page: HomeRoute.page),
         AutoRoute(path: PagePathConstant.menu, page: MenuRoute.page),
+        AutoRoute(
+          path: PagePathConstant.orderDetail,
+          page: OrderDetailRoute.page,
+        ),
       ];
 }

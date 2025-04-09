@@ -1,5 +1,7 @@
 import 'package:core/core.dart';
-import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
+import 'package:flutter/material.dart';
+
+import 'package:sapiensshifter/core/exception/handler/custom_handler/ui_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 
 class RegisterViewModel {
@@ -11,12 +13,14 @@ class RegisterViewModel {
     await _authManager.signOut();
   }
 
-  Future<void> registerWithEmailAndPassword({
+  ///[context] value is required to draw the line on the screen with pop-up
+  Future<bool> registerWithEmailAndPassword({
     required String name,
     required String email,
     required String password,
+    required BuildContext context,
   }) async {
-    await ErrorUtil.runWithErrorHandling(
+    return ErrorUtil.runWithErrorHandling(
       action: () async {
         await _authManager.registerInWithEmailAndPassword(
           email: email,
@@ -26,7 +30,7 @@ class RegisterViewModel {
 
         return true;
       },
-      errorHandler: ServiceErrorHandler(),
+      errorHandler: UIErrorHandler(context),
       fallbackValue: false,
     );
   }

@@ -19,10 +19,11 @@ class MenuAppBar extends StatelessWidget implements PreferredSizeWidget {
         clipBehavior: Clip.none,
         title: Text(title ?? StringConstant.nullString.tr()),
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(48),
+          preferredSize: Size.fromHeight(28.sp),
           child: ChoiceChipList<String>(
             onSelected: onSelected,
             options: state.categories,
+            localizationPathEnum: LocalizationPathEnum.category,
           ),
         ),
       ),
@@ -30,5 +31,5 @@ class MenuAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 48);
+  Size get preferredSize => Size.fromHeight(kToolbarHeight + 28.sp);
 }

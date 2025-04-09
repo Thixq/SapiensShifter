@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
-class SeparatorColumn<T extends Widget> extends StatelessWidget {
-  SeparatorColumn({
+class SeparatorListWidget<T extends Widget> extends StatelessWidget {
+  SeparatorListWidget({
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.mainAxisSize = MainAxisSize.max,
     this.crossAxisAlignment = CrossAxisAlignment.center,
@@ -12,6 +12,7 @@ class SeparatorColumn<T extends Widget> extends StatelessWidget {
     this.separator,
     this.isDismissible = false,
     super.key,
+    this.axis = Axis.vertical,
   });
 
   final List<T>? children;
@@ -23,6 +24,7 @@ class SeparatorColumn<T extends Widget> extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment;
   final MainAxisSize mainAxisSize;
   final CrossAxisAlignment crossAxisAlignment;
+  final Axis axis;
 
   void _selecetItemDelete(int index) {
     dynamicList.value = List.from(dynamicList.value)..removeAt(index);
@@ -33,12 +35,24 @@ class SeparatorColumn<T extends Widget> extends StatelessWidget {
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
       valueListenable: dynamicList,
-      builder: (context, value, child) => Column(
-        mainAxisAlignment: mainAxisAlignment,
-        mainAxisSize: mainAxisSize,
-        crossAxisAlignment: crossAxisAlignment,
-        children: _addWidget(context),
-      ),
+      builder: (context, value, child) {
+        switch (axis) {
+          case Axis.horizontal:
+            return Row(
+              crossAxisAlignment: crossAxisAlignment,
+              mainAxisAlignment: mainAxisAlignment,
+              mainAxisSize: mainAxisSize,
+              children: _addWidget(context),
+            );
+          case Axis.vertical:
+            return Column(
+              mainAxisAlignment: mainAxisAlignment,
+              mainAxisSize: mainAxisSize,
+              crossAxisAlignment: crossAxisAlignment,
+              children: _addWidget(context),
+            );
+        }
+      },
     );
   }
 

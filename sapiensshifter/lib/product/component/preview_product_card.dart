@@ -54,7 +54,7 @@ final class PreviewProductCard extends StatelessWidget {
         aspectRatio: _imageAspectRatio,
         child: ImageBuilder(
           imageUrl: productModel?.imagePath,
-          imageCacheWidth: _imageCacheWidth,
+          imageCache: _imageCacheWidth,
           errorIconSize: _errorIconSize,
         ),
       ),
@@ -73,7 +73,7 @@ final class PreviewProductCard extends StatelessWidget {
                       .maxCharacter(_productMaxCharacter) ??
                   _nullProductName,
               style: context.general.textTheme.titleSmall!
-                  .copyWith(fontSize: 14.sp),
+                  .copyWith(fontSize: 12.sp),
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -82,7 +82,7 @@ final class PreviewProductCard extends StatelessWidget {
                 .sapiExt
                 .priceSymbol,
             style: context.general.textTheme.labelSmall!
-                .copyWith(fontWeight: FontWeight.w200),
+                .copyWith(fontWeight: FontWeight.w200, fontSize: 12.sp),
           ),
         ],
       ),
