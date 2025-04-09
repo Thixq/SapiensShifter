@@ -11,10 +11,12 @@ import 'package:sapiensshifter/product/models/table_model.dart';
 import 'package:sapiensshifter/product/utils/enums/localization_path_enum.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
+import 'package:shimmer/shimmer.dart';
 
 part './widget/menu_app_bar.dart';
 part './widget/preview_product_card_grid_list.dart';
 part './widget/menu_add_table_button.dart';
+part './widget/shimmer_preview_product_card.dart';
 
 @RoutePage()
 class MenuView extends StatefulWidget {
@@ -48,17 +50,21 @@ class _MenuViewState extends BaseState<MenuView> with MenuViewMixin {
       child: BlocBuilder<MenuViewModel, MenuViewState>(
         buildWhen: (previous, current) =>
             current.productList != previous.productList,
-        builder: (context, state) => PreviewProductCardGridList(
-          productList: state.productList,
-          onPressed: (product) async {
-            //? product null safety
-            if (product != null) {
-              final result = await AutoRouter.of(context)
-                  .push(OrderDetailRoute(product: product));
-              print(result);
-            }
-          },
-        ),
+        builder: (context, state) {
+          if (state.isLoading) {
+            return ShimmerPreviewProductCard();
+          }
+          return PreviewProductCardGridList(
+            productList: state.productList,
+            onPressed: (product) async {
+              if (product != null) {
+                final result = await AutoRouter.of(context)
+                    .push(OrderDetailRoute(product: product));
+                print(result);
+              }
+            },
+          );
+        },
       ),
     );
   }
