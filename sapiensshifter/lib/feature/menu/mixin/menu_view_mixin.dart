@@ -18,10 +18,11 @@ mixin MenuViewMixin on BaseState<MenuView> {
   void initState() {
     _menuViewModel = MenuViewModel(
       MenuViewState(
-          isLoading: false,
-          productList: [],
-          categories: {},
-          table: widget.table),
+        isLoading: false,
+        productList: [],
+        categories: {},
+        table: widget.table,
+      ),
       networkManager: FirebaseFirestoreManager.instance,
     );
     _menuViewModel.getCategories();

@@ -35,7 +35,11 @@ class _MenuViewState extends BaseState<MenuView> with MenuViewMixin {
     return BlocProvider(
       create: (context) => viewModel,
       child: Scaffold(
-        floatingActionButton: const AddTableButton(),
+        floatingActionButton: AddTableButton(
+          onSumbit: () {
+            // TODO(kaan): add Database table;
+          },
+        ),
         appBar: MenuAppBar(
           title: widget.table.tableName,
           onSelected: (category) => viewModel.changeCategory(category.value),
