@@ -17,7 +17,7 @@ class ZoneManager {
       (error, stackTrace) {
         // Log the caught error with an appropriate message, including error details and stack trace.
         _logger.error(
-          'Global error caught!',
+          'Global error caught! \n $error',
           error: error,
           stackTrace: stackTrace,
         );
