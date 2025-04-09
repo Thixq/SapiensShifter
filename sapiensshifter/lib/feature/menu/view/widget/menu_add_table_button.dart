@@ -2,8 +2,11 @@ part of '../menu_view.dart';
 
 class AddTableButton extends StatelessWidget {
   const AddTableButton({
+    required this.onSumbit,
     super.key,
   });
+
+  final VoidCallback onSumbit;
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +17,7 @@ class AddTableButton extends StatelessWidget {
         FloatingActionButton(
           child: const Icon(Icons.check),
           onPressed: () {
+            onSumbit();
             context.router.maybePop();
           },
         ),
