@@ -33,7 +33,7 @@ class OnboardSlider extends StatelessWidget {
             onboardViewModel.nextPage();
             if (state.isLastPage) {
               onboardViewModel.finishOnboardWrtie();
-              context.router.replaceNamed('/sign/signin');
+              context.router.replacePath('/sign/signin');
             }
           },
           onPreviousButton: onboardViewModel.previousPage,

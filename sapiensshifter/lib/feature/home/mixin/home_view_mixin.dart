@@ -1,4 +1,7 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth_module/firebase_auth_module.dart';
 import 'package:flutter/material.dart';
+import 'package:sapiensshifter/core/routing/routing_manager.gr.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/home/model/page_item.dart';
 import 'package:sapiensshifter/feature/home/view/home_view.dart';
@@ -14,7 +17,12 @@ mixin HomeViewMixin on BaseState<HomeView> {
   List<PageItem> get pages => <PageItem>[
         PageItem(
           page: const ColoredBox(color: Colors.blue),
-          navBarItem: NavBarItem(icon: Icons.message),
+          navBarItem: NavBarItem(
+            icon: Icons.message,
+            onPress: () async {
+              await FirebaseAuthManagar.instance.signOut();
+            },
+          ),
         ),
         PageItem(
           page: const TablesView(),
@@ -36,12 +44,11 @@ mixin HomeViewMixin on BaseState<HomeView> {
       ];
 
   void newTable(String tableName, int peopleCount) {
-    // TODO(kaan): route menu view
-    // ignore: unused_local_variable
     final newTableModel = TableModel(
       peopleCount: peopleCount,
       tableName: tableName,
     );
+    context.router.push<TableModel>(MenuRoute(table: newTableModel));
   }
 
   List<NavBarItem> get navBarItems {

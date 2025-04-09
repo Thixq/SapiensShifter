@@ -168,16 +168,16 @@ final class FirebaseFirestoreOperation extends INetworkOperation
 
         // Get the reference to the collection.
         var collectionRef = _firestore.collection(collectionPath);
+        Query<Map<String, dynamic>> queryCollectionRef = collectionRef;
 
         // If a query is provided, apply it to the Firestore collection reference.
         if (query != null) {
-          collectionRef =
-              query.applyToQuery<CollectionReference<Map<String, dynamic>>>(
-                  collectionRef.path);
+          queryCollectionRef = query
+              .applyToQuery<Query<Map<String, dynamic>>>(collectionRef.path);
         }
 
         // Fetch the query snapshot, which contains the documents in the collection.
-        final querySnapshot = await collectionRef.get();
+        final querySnapshot = await queryCollectionRef.get();
 
         // Map each document to the model type and return the list of items.
         final items = querySnapshot.docs

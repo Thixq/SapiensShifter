@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart' show BuildContext, Locale;
-import 'package:sapiensshifter/core/constant/string_constant.dart';
 import 'package:sapiensshifter/core/localization/localization_codegen/codegen_loader.g.dart';
+import 'package:sapiensshifter/product/constant/string_constant.dart';
 
 // ignore: lines_longer_than_80_chars
 /// `LanguageManager` is responsible for managing language-related configurations.

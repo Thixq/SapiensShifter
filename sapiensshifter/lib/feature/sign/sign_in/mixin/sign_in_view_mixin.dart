@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth_module/firebase_auth_module.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:sapiensshifter/core/constant/image_path_constant.dart';
 import 'package:sapiensshifter/core/constant/page_path_constant.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/sign/sign_in/model/social_button_model.dart';
 import 'package:sapiensshifter/feature/sign/sign_in/view/sign_in_view.dart';
 import 'package:sapiensshifter/feature/sign/sign_in/view_model/sign_in_view_model.dart';
+import 'package:sapiensshifter/product/constant/image_path_constant.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 mixin SignInViewMixin on BaseState<SignInView> {
@@ -37,7 +37,7 @@ mixin SignInViewMixin on BaseState<SignInView> {
           final result = await _signInViewModel.signInWithCredential(
             signCredential: await AppleSignCredential().call(),
           );
-          if (result) await goHome();
+          if (result) await _goHome();
         },
       ),
       SocialButtonModel(
@@ -46,7 +46,7 @@ mixin SignInViewMixin on BaseState<SignInView> {
           final result = await _signInViewModel.signInWithCredential(
             signCredential: await GoogleSignCredential().call(),
           );
-          if (result) await goHome();
+          if (result) await _goHome();
         },
       ),
     ];
@@ -55,24 +55,25 @@ mixin SignInViewMixin on BaseState<SignInView> {
 
   Future<void> signIn() async {
     if (formState.currentState?.validate() ?? false) {
-      await viewModel.signInWithEmailAndPassword(
+      final result = await viewModel.signInWithEmailAndPassword(
         email: emailTextController.text,
         password: passwordTextController.text,
+        context: context,
       );
-      await goHome();
+      if (result) await _goHome();
     }
   }
 
-  Future<void> goHome() async {
+  Future<void> _goHome() async {
     if (mounted) {
-      await context.router.replaceNamed(
+      await context.router.replacePath(
         PagePathConstant.home.sapiExt.withParams({'pageIndex': 1})!,
       );
     }
   }
 
   void routeRegisterPage() {
-    context.router.replaceNamed(PagePathConstant.register);
+    context.router.replacePath(PagePathConstant.register);
   }
 
   void recoveryPassword() {

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ImageBuilder extends StatelessWidget {
@@ -6,43 +7,43 @@ class ImageBuilder extends StatelessWidget {
     this.borderRadius = BorderRadius.zero,
     this.iconData = Icons.image_not_supported_rounded,
     this.errorIconSize = 48,
-    this.imageCacheWidth = 480,
+    this.imageCache = 480,
+    this.fit = BoxFit.cover,
     super.key,
   });
 
   final String? imageUrl;
-  final int imageCacheWidth;
+  final int imageCache;
   final double errorIconSize;
   final IconData iconData;
   final BorderRadiusGeometry borderRadius;
+  final BoxFit? fit;
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(
-      height: 50,
-      width: 50,
-      imageUrl ?? '',
-      fit: BoxFit.cover,
-      frameBuilder: (context, child, frame, wasSynchronouslyLoaded) {
-        return ClipRRect(
-          borderRadius: borderRadius,
-          child: child,
-        );
-      },
-      cacheHeight: imageCacheWidth,
-      cacheWidth: imageCacheWidth,
-      loadingBuilder: (context, child, loadingProgress) {
-        if (loadingProgress == null) return child;
-        return const Center(child: CircularProgressIndicator.adaptive());
-      },
-      errorBuilder: (context, error, stackTrace) {
-        return Center(
-          child: Icon(
-            iconData,
-            size: errorIconSize,
+    return CachedNetworkImage(
+      memCacheWidth: imageCache,
+      imageUrl: imageUrl ?? '',
+      imageBuilder: (context, imageProvider) {
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: borderRadius,
+            image: DecorationImage(
+              image: imageProvider,
+              fit: fit,
+            ),
           ),
         );
       },
+      placeholder: (context, url) => const Center(
+        child: CircularProgressIndicator.adaptive(),
+      ),
+      errorWidget: (context, url, error) => Center(
+        child: Icon(
+          iconData,
+          size: errorIconSize,
+        ),
+      ),
     );
   }
 }
