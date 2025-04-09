@@ -1,7 +1,6 @@
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:sapiensshifter/product/models/extras_model.dart';
 
 part 'product_model.g.dart';
 
@@ -14,7 +13,7 @@ final class ProductModel extends IBaseModel<ProductModel> with EquatableMixin {
     this.imagePath,
     this.price,
     this.category,
-    this.extrasList,
+    this.productOptions,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
@@ -26,7 +25,7 @@ final class ProductModel extends IBaseModel<ProductModel> with EquatableMixin {
   final String? imagePath;
   final double? price;
   final String? category;
-  final List<ExtrasModel>? extrasList;
+  final List<String>? productOptions;
 
   ProductModel copyWith({
     String? id,
@@ -35,7 +34,7 @@ final class ProductModel extends IBaseModel<ProductModel> with EquatableMixin {
     String? imagePath,
     double? price,
     String? category,
-    List<ExtrasModel>? extrasList,
+    List<String>? extrasList,
   }) {
     return ProductModel(
       id: id ?? this.id,
@@ -44,7 +43,7 @@ final class ProductModel extends IBaseModel<ProductModel> with EquatableMixin {
       imagePath: imagePath ?? this.imagePath,
       price: price ?? this.price,
       category: category ?? this.category,
-      extrasList: extrasList ?? this.extrasList,
+      productOptions: extrasList ?? productOptions,
     );
   }
 

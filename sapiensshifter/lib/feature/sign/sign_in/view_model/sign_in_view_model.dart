@@ -1,5 +1,7 @@
 import 'package:core/core.dart';
+import 'package:flutter/material.dart' show BuildContext;
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
+import 'package:sapiensshifter/core/exception/handler/custom_handler/ui_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 
 final class SignInViewModel {
@@ -15,16 +17,18 @@ final class SignInViewModel {
     );
   }
 
+  ///[context] value is required to draw the line on the screen with pop-up
   Future<bool> signInWithEmailAndPassword({
     required String email,
     required String password,
+    required BuildContext context,
   }) {
     return ErrorUtil.runWithErrorHandling(
       action: () => _authManager.signInWithEmailAndPassword(
         email: email,
         password: password,
       ),
-      errorHandler: ServiceErrorHandler(),
+      errorHandler: UIErrorHandler(context),
       fallbackValue: false,
     );
   }

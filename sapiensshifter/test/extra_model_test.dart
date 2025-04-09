@@ -13,7 +13,7 @@ void main() {
           17.99: const ['Oat Milk', 'Almond Milk', 'Coconut Milk'],
         },
       );
-      final result = milkOptions.allOptionsMapEntry();
+      final result = milkOptions.allOptionsMapEntry;
       // ignore: avoid_print
       print(result);
     },

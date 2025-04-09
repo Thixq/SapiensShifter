@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:sapiensshifter/product/utils/enums/localization_path_enum.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 extension SapiStringExtension on String? {
@@ -25,6 +26,15 @@ final class _SapiStringExtension {
   }
 
   String get priceSymbol => '$_value${LocaleKeys.price_symbol.tr()}';
+
+  ///With the given [LocalizationPathEnum] you can use the localized text in
+  ///[EasyLocalization] that is located in this file path.
+  String textLocale(LocalizationPathEnum basePath) {
+    if (_value != null) {
+      return '${basePath.basePath}.$_value'.tr();
+    }
+    return LocaleKeys.null_value_null_name.tr();
+  }
 
   /// Replaces the dynamic segments in the string with values from the provided [params] map.
   ///

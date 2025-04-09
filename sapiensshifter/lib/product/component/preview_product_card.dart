@@ -9,7 +9,7 @@ final class PreviewProductCard extends StatelessWidget {
     this.productModel,
     super.key,
   });
-  final void Function(String? productId) onPressed;
+  final void Function(ProductModel? productId) onPressed;
   final ProductModel? productModel;
 
   Color get _cardColor => Colors.white;
@@ -32,7 +32,7 @@ final class PreviewProductCard extends StatelessWidget {
       ),
       child: InkWell(
         borderRadius: context.border.normalBorderRadius,
-        onTap: () => onPressed(productModel?.id),
+        onTap: () => onPressed(productModel),
         child: Padding(
           padding: context.padding.low,
           child: Column(
@@ -54,7 +54,7 @@ final class PreviewProductCard extends StatelessWidget {
         aspectRatio: _imageAspectRatio,
         child: ImageBuilder(
           imageUrl: productModel?.imagePath,
-          imageCacheWidth: _imageCacheWidth,
+          imageCache: _imageCacheWidth,
           errorIconSize: _errorIconSize,
         ),
       ),
@@ -72,7 +72,8 @@ final class PreviewProductCard extends StatelessWidget {
               productModel?.productName.sapiExt
                       .maxCharacter(_productMaxCharacter) ??
                   _nullProductName,
-              style: context.general.textTheme.titleSmall,
+              style: context.general.textTheme.titleSmall!
+                  .copyWith(fontSize: 12.sp),
               overflow: TextOverflow.ellipsis,
             ),
           ),
@@ -80,7 +81,8 @@ final class PreviewProductCard extends StatelessWidget {
             (productModel?.price?.sapiDoubleExt.priceFraction ?? _nullPrice)
                 .sapiExt
                 .priceSymbol,
-            style: context.general.textTheme.labelSmall,
+            style: context.general.textTheme.labelSmall!
+                .copyWith(fontWeight: FontWeight.w200, fontSize: 12.sp),
           ),
         ],
       ),

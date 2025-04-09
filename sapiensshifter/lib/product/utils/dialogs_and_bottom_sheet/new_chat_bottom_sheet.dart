@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/component/message_info_list_tile.dart';
 import 'package:sapiensshifter/product/models/people.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
-import 'package:sapiensshifter/product/utils/ui/separator_column.dart';
+import 'package:sapiensshifter/product/utils/ui/separator_list_widget.dart';
 
 class NewChatBottomSheet extends StatefulWidget {
   const NewChatBottomSheet({this.peopleList, super.key});
@@ -47,7 +47,7 @@ class _NewChatBottomSheetState extends State<NewChatBottomSheet> {
           ),
           child: Padding(
             padding: context.padding.low,
-            child: SeparatorColumn(
+            child: SeparatorListWidget(
               separator: context.sized.emptySizedHeightBoxLow,
               children: [
                 _buildNotch(context),

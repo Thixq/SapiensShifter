@@ -18,7 +18,7 @@ class RegisterInputForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       key: formState,
-      child: SeparatorColumn(
+      child: SeparatorListWidget(
         mainAxisSize: MainAxisSize.min,
         separator: context.sized.emptySizedHeightBoxLow,
         children: [
