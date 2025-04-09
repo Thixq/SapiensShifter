@@ -6,6 +6,7 @@ import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/menu/mixin/menu_view_mixin.dart';
 import 'package:sapiensshifter/feature/menu/view_model/menu_view_model.dart';
 import 'package:sapiensshifter/feature/menu/view_model/state/menu_view_state.dart';
+import 'package:sapiensshifter/product/models/order_model.dart';
 import 'package:sapiensshifter/product/models/product_model.dart';
 import 'package:sapiensshifter/product/models/table_model.dart';
 import 'package:sapiensshifter/product/utils/enums/localization_path_enum.dart';
@@ -48,8 +49,6 @@ class _MenuViewState extends BaseState<MenuView> with MenuViewMixin {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.sized.normalValue),
       child: BlocBuilder<MenuViewModel, MenuViewState>(
-        buildWhen: (previous, current) =>
-            current.productList != previous.productList,
         builder: (context, state) {
           if (state.isLoading) {
             return ShimmerPreviewProductCard();
@@ -58,9 +57,9 @@ class _MenuViewState extends BaseState<MenuView> with MenuViewMixin {
             productList: state.productList,
             onPressed: (product) async {
               if (product != null) {
-                final result = await AutoRouter.of(context)
-                    .push(OrderDetailRoute(product: product));
-                print(result);
+                final result = (await AutoRouter.of(context)
+                    .push(OrderDetailRoute(product: product)))! as OrderModel;
+                viewModel.addOrder(order: result);
               }
             },
           );
