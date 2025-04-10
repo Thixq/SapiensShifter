@@ -98,7 +98,6 @@ class FirebaseAuthUserOperation extends IAuthOperation
         if (_firebaseAuth.currentUser == null) {
           throw Exception('User not initialized');
         }
-
         // Update the profile picture URL in Firebase
         await _firebaseAuth.currentUser!.updatePhotoURL(newPhotoUrl);
         await _firebaseAuth.currentUser!.reload();

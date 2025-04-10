@@ -41,6 +41,7 @@ dependencies:
   #Firebase
   firebase_core: ^3.10.0
   firebase_messaging: ^15.1.4
+  cloud_firestore: ^5.6.2
 
   #State
   flutter_bloc: ^9.0.0

@@ -32,11 +32,11 @@ class HomeRoute extends _i8.PageRouteInfo<HomeRouteArgs> {
     _i9.Key? key,
     List<_i8.PageRouteInfo>? children,
   }) : super(
-          HomeRoute.name,
-          args: HomeRouteArgs(pageIndex: pageIndex, key: key),
-          rawPathParams: {'pageIndex': pageIndex},
-          initialChildren: children,
-        );
+         HomeRoute.name,
+         args: HomeRouteArgs(pageIndex: pageIndex, key: key),
+         rawPathParams: {'pageIndex': pageIndex},
+         initialChildren: children,
+       );
 
   static const String name = 'HomeRoute';
 
@@ -73,10 +73,10 @@ class MenuRoute extends _i8.PageRouteInfo<MenuRouteArgs> {
     _i9.Key? key,
     List<_i8.PageRouteInfo>? children,
   }) : super(
-          MenuRoute.name,
-          args: MenuRouteArgs(table: table, key: key),
-          initialChildren: children,
-        );
+         MenuRoute.name,
+         args: MenuRouteArgs(table: table, key: key),
+         initialChildren: children,
+       );
 
   static const String name = 'MenuRoute';
 
@@ -106,7 +106,7 @@ class MenuRouteArgs {
 /// [_i3.OnboardView]
 class OnboardRoute extends _i8.PageRouteInfo<void> {
   const OnboardRoute({List<_i8.PageRouteInfo>? children})
-      : super(OnboardRoute.name, initialChildren: children);
+    : super(OnboardRoute.name, initialChildren: children);
 
   static const String name = 'OnboardRoute';
 
@@ -126,10 +126,10 @@ class OrderDetailRoute extends _i8.PageRouteInfo<OrderDetailRouteArgs> {
     _i9.Key? key,
     List<_i8.PageRouteInfo>? children,
   }) : super(
-          OrderDetailRoute.name,
-          args: OrderDetailRouteArgs(product: product, key: key),
-          initialChildren: children,
-        );
+         OrderDetailRoute.name,
+         args: OrderDetailRouteArgs(product: product, key: key),
+         initialChildren: children,
+       );
 
   static const String name = 'OrderDetailRoute';
 
@@ -159,7 +159,7 @@ class OrderDetailRouteArgs {
 /// [_i5.RegisterView]
 class RegisterRoute extends _i8.PageRouteInfo<void> {
   const RegisterRoute({List<_i8.PageRouteInfo>? children})
-      : super(RegisterRoute.name, initialChildren: children);
+    : super(RegisterRoute.name, initialChildren: children);
 
   static const String name = 'RegisterRoute';
 
@@ -175,7 +175,7 @@ class RegisterRoute extends _i8.PageRouteInfo<void> {
 /// [_i6.SignInView]
 class SignInRoute extends _i8.PageRouteInfo<void> {
   const SignInRoute({List<_i8.PageRouteInfo>? children})
-      : super(SignInRoute.name, initialChildren: children);
+    : super(SignInRoute.name, initialChildren: children);
 
   static const String name = 'SignInRoute';
 
@@ -191,7 +191,7 @@ class SignInRoute extends _i8.PageRouteInfo<void> {
 /// [_i7.SplashView]
 class SplashRoute extends _i8.PageRouteInfo<void> {
   const SplashRoute({List<_i8.PageRouteInfo>? children})
-      : super(SplashRoute.name, initialChildren: children);
+    : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 

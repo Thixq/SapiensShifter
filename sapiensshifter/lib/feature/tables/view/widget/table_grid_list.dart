@@ -3,10 +3,12 @@ part of '../tables_view.dart';
 class TableGrid extends StatelessWidget {
   const TableGrid({
     required this.tableList,
+    required this.onPress,
     super.key,
   });
 
   final List<TableModel> tableList;
+  final void Function(TableModel? table) onPress;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class TableGrid extends StatelessWidget {
       itemBuilder: (context, index) {
         return PreviewTableCard(
           tableModel: tableList[index],
+          onPressed: onPress,
         );
       },
     );

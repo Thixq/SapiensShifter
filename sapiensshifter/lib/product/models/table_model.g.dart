@@ -13,15 +13,19 @@ TableModel _$TableModelFromJson(Map<String, dynamic> json) => $checkedCreate(
         final val = TableModel(
           id: $checkedConvert('id', (v) => v as String?),
           tableName: $checkedConvert('tableName', (v) => v as String?),
-          timeStamp: $checkedConvert('timeStamp',
-              (v) => v == null ? null : DateTime.parse(v as String)),
+          timeStamp: $checkedConvert(
+              'timeStamp',
+              (v) =>
+                  const TimestampNullableConverter().fromJson(v as Timestamp?)),
           creatorId: $checkedConvert('creatorId', (v) => v as String?),
           branchName: $checkedConvert('branchName', (v) => v as String?),
           peopleCount:
               $checkedConvert('peopleCount', (v) => (v as num?)?.toInt()),
           status: $checkedConvert('status', (v) => v as bool?),
-          closingTime: $checkedConvert('closingTime',
-              (v) => v == null ? null : DateTime.parse(v as String)),
+          closingTime: $checkedConvert(
+              'closingTime',
+              (v) =>
+                  const TimestampNullableConverter().fromJson(v as Timestamp?)),
           orderList: $checkedConvert(
               'orderList',
               (v) =>
@@ -39,11 +43,13 @@ Map<String, dynamic> _$TableModelToJson(TableModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'tableName': instance.tableName,
-      'timeStamp': instance.timeStamp?.toIso8601String(),
+      'timeStamp':
+          const TimestampNullableConverter().toJson(instance.timeStamp),
       'creatorId': instance.creatorId,
       'branchName': instance.branchName,
       'peopleCount': instance.peopleCount,
       'status': instance.status,
-      'closingTime': instance.closingTime?.toIso8601String(),
+      'closingTime':
+          const TimestampNullableConverter().toJson(instance.closingTime),
       'orderList': instance.orderList.map((e) => e.toJson()).toList(),
     };

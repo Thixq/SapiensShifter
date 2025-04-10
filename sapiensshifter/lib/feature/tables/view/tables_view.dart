@@ -3,6 +3,7 @@ import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/tables/mixin/tables_view_mixin.dart';
 import 'package:sapiensshifter/product/models/table_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/dialogs_and_bottom_sheet.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -59,6 +60,8 @@ class _TablesViewState extends BaseState<TablesView> with TablesViewMixin {
       ),
       child: TableGrid(
         tableList: snapshot.data!,
+        onPress: (table) =>
+            OrderInfoBottomSheet.show(context, tableModel: table),
       ),
     );
   }
