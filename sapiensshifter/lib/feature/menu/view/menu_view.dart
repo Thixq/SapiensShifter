@@ -61,8 +61,9 @@ class _MenuViewState extends BaseState<MenuView> with MenuViewMixin {
             productList: state.productList,
             onPressed: (product) async {
               if (product != null) {
-                final result = (await AutoRouter.of(context)
-                    .push(OrderDetailRoute(product: product)))! as OrderModel;
+                final result =
+                    await context.pushRoute(OrderDetailRoute(product: product))
+                        as OrderModel?;
                 viewModel.addOrder(order: result);
               }
             },

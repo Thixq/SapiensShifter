@@ -65,9 +65,11 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
     emit(state.copyWith(productList: result, isLoading: false));
   }
 
-  void addOrder({required OrderModel order}) {
-    final newTable =
-        state.table.copyWith(orderList: [...state.table.orderList, order]);
-    emit(state.copyWith(table: newTable));
+  void addOrder({OrderModel? order}) {
+    if (order != null) {
+      final newTable =
+          state.table.copyWith(orderList: [...state.table.orderList, order]);
+      emit(state.copyWith(table: newTable));
+    }
   }
 }

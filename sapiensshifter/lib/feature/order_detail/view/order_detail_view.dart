@@ -58,8 +58,9 @@ class _OrderDetailViewState extends BaseState<OrderDetailView>
                 final result = viewModel.sumbit;
                 context.router.maybePop(result);
               },
-              extrasList:
-                  viewModel.getExtras(optionsId: widget.product.productOptions),
+              extrasList: viewModel.getExtras(
+                optionsId: widget.product.productOptions,
+              ),
             ),
           ],
         ),
