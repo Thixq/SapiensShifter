@@ -31,7 +31,7 @@ abstract class IAuthManager {
   /// Returns:
   /// - A [Future] that resolves to `true` if the registration was successful,
   /// otherwise `false`.
-  Future<bool> registerInWithEmailAndPassword({
+  Future<UserModel?> registerInWithEmailAndPassword({
     required String email,
     required String password,
   });

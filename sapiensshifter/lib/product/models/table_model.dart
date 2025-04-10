@@ -2,12 +2,17 @@
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:sapiensshifter/product/models/order_model.dart';
+import 'package:sapiensshifter/product/utils/json_converters/timestamp_converter.dart';
 
 part 'table_model.g.dart';
 
-@JsonSerializable(checked: true, explicitToJson: true)
+@JsonSerializable(
+  checked: true,
+  explicitToJson: true,
+)
 final class TableModel extends IBaseModel<TableModel> with EquatableMixin {
   const TableModel({
     this.id,
@@ -25,11 +30,13 @@ final class TableModel extends IBaseModel<TableModel> with EquatableMixin {
 
   final String? id;
   final String? tableName;
+  @TimestampNullableConverter()
   final DateTime? timeStamp;
   final String? creatorId;
   final String? branchName;
   final int? peopleCount;
   final bool? status;
+  @TimestampNullableConverter()
   final DateTime? closingTime;
   final List<OrderModel> orderList;
 

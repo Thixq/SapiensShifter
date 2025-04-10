@@ -123,10 +123,19 @@ class OrderInfoBottomSheet extends StatelessWidget {
         itemCount: tableModel?.orderList.length ?? 0,
         itemBuilder: (context, index) => Row(
           children: [
-            ImageBuilder(
-              borderRadius: BorderRadius.circular(12),
-              imageUrl: tableModel?.orderList[index].imagePath,
+            SizedBox(
+              width: 24.sp,
+              height: 24.sp,
+              child: ImageBuilder(
+                borderRadius: BorderRadius.circular(12.sp),
+                imageUrl: tableModel?.orderList[index].imagePath,
+              ),
             ),
+            // SizedBox(
+            //   height: 24,
+            //   width: 24,
+            //   child: Image.network(tableModel!.orderList[index].imagePath!),
+            // ),
             context.sized.emptySizedWidthBoxLow3x,
             Text(tableModel?.orderList[index].orderName ?? _nullOrderName),
             Expanded(
