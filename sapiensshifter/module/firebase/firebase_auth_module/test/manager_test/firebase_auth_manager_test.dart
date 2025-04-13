@@ -27,7 +27,7 @@ void main() {
         password: anyNamed('password'),
       )).thenAnswer((_) async => MockUserCredential());
 
-      final result = await authManager.registerInWithEmailAndPassword(
+      final result = await authManager.registerWithEmailAndPassword(
         email: 'test@example.com',
         password: 'password123',
       );
