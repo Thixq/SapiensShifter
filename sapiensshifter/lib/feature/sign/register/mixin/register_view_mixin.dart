@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth_module/firebase_auth_module.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sapiensshifter/core/constant/page_path_constant.dart';
+import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/sign/register/view/register_view.dart';
 import 'package:sapiensshifter/feature/sign/register/view_model/register_view_model.dart';
@@ -44,7 +45,10 @@ mixin RegisterViewMixin on BaseState<RegisterView> {
 
   @override
   void initState() {
-    _registerViewModel = RegisterViewModel(FirebaseAuthManagar.instance);
+    _registerViewModel = RegisterViewModel(
+      FirebaseAuthManagar.instance,
+      ProductConfigureItems.firebaseFirestoreManager,
+    );
     userNameTextController = TextEditingController();
     emailTextController = TextEditingController();
     passwordTextController = TextEditingController();

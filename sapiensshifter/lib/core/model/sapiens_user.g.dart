@@ -1,28 +1,31 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'people.dart';
+part of 'sapiens_user.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-People _$PeopleFromJson(Map<String, dynamic> json) => $checkedCreate(
-      'People',
+SapiensUser _$SapiensUserFromJson(Map<String, dynamic> json) => $checkedCreate(
+      'SapiensUser',
       json,
       ($checkedConvert) {
-        final val = People(
+        final val = SapiensUser(
           id: $checkedConvert('id', (v) => v as String?),
           name: $checkedConvert('name', (v) => v as String?),
           email: $checkedConvert('email', (v) => v as String?),
           imagePath: $checkedConvert('imagePath', (v) => v as String?),
+          toDayBranch: $checkedConvert('toDayBranch', (v) => v as String?),
         );
         return val;
       },
     );
 
-Map<String, dynamic> _$PeopleToJson(People instance) => <String, dynamic>{
+Map<String, dynamic> _$SapiensUserToJson(SapiensUser instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'email': instance.email,
       'imagePath': instance.imagePath,
+      'toDayBranch': instance.toDayBranch,
     };

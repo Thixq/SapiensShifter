@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:sapiensshifter/core/model/sapiens_user.dart';
 import 'package:sapiensshifter/product/component/message_info_list_tile.dart';
-import 'package:sapiensshifter/product/models/people.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/ui/separator_list_widget.dart';
 
 class NewChatBottomSheet extends StatefulWidget {
   const NewChatBottomSheet({this.peopleList, super.key});
 
-  final List<People>? peopleList;
+  final List<SapiensUser>? peopleList;
 
-  static Future<People?> show(
+  static Future<SapiensUser?> show(
     BuildContext context, {
-    List<People>? peopleList,
+    List<SapiensUser>? peopleList,
   }) =>
-      showModalBottomSheet<People?>(
+      showModalBottomSheet<SapiensUser?>(
         backgroundColor: Colors.transparent,
         isScrollControlled: true,
         context: context,
@@ -75,8 +75,8 @@ class _NewChatBottomSheetState extends State<NewChatBottomSheet> {
           );
   }
 
-  List<People> _filteredPeopleList(String query) {
-    var filteredItems = <People>[];
+  List<SapiensUser> _filteredPeopleList(String query) {
+    var filteredItems = <SapiensUser>[];
     if (widget.peopleList.ext.isNotNullOrEmpty) {
       filteredItems = widget.peopleList!.where(
         (item) {
@@ -90,7 +90,7 @@ class _NewChatBottomSheetState extends State<NewChatBottomSheet> {
     return filteredItems;
   }
 
-  Expanded _buildPeopleListTile(List<People> filteredItems) {
+  Expanded _buildPeopleListTile(List<SapiensUser> filteredItems) {
     return Expanded(
       child: ListView.separated(
         itemCount: filteredItems.length,

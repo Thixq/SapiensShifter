@@ -31,7 +31,7 @@ abstract class IAuthManager {
   /// Returns:
   /// - A [Future] that resolves to `true` if the registration was successful,
   /// otherwise `false`.
-  Future<UserModel?> registerInWithEmailAndPassword({
+  Future<UserModel?> registerWithEmailAndPassword({
     required String email,
     required String password,
   });
@@ -45,7 +45,8 @@ abstract class IAuthManager {
   /// Returns:
   /// - A [Future] that resolves to `true` if the sign-in was successful,
   /// otherwise `false`.
-  Future<bool> signInWithCredential({required CustomCredential credential});
+  Future<UserModel?> signInWithCredential(
+      {required CustomCredential credential});
 
 // Initiates the password recovery process by sending a reset link to the user's email address.
   ///
