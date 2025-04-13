@@ -1,5 +1,6 @@
 import 'package:core/core.dart';
 import 'package:flutter/material.dart' show BuildContext;
+import 'package:sapiensshifter/core/constant/query_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/ui_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
@@ -60,7 +61,9 @@ final class SignInViewModel {
       email: user?.email,
       imagePath: user?.photoUrl,
     );
-    await _networkManager.networkOperation
-        .addItem(path: '/users/${user?.id}', item: sapiUser);
+    await _networkManager.networkOperation.addItem(
+      path: '${QueryPathConstant.usersColPath}/${user?.id}',
+      item: sapiUser,
+    );
   }
 }

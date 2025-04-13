@@ -1,4 +1,4 @@
-import 'package:firebase_firestore_module/firebase_firestore_module.dart';
+import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/menu/view/menu_view.dart';
 import 'package:sapiensshifter/feature/menu/view_model/menu_view_model.dart';
@@ -23,7 +23,7 @@ mixin MenuViewMixin on BaseState<MenuView> {
         categories: {},
         table: widget.table,
       ),
-      networkManager: FirebaseFirestoreManager.instance,
+      networkManager: ProductConfigureItems.firebaseFirestoreManager,
     );
     _menuViewModel.getCategories();
     super.initState();
