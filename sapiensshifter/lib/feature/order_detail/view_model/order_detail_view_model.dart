@@ -1,5 +1,6 @@
 import 'package:core/core.dart';
 import 'package:firebase_firestore_module/firebase_firestore_module.dart';
+import 'package:sapiensshifter/core/constant/query_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
@@ -35,7 +36,7 @@ class OrderDetailViewModel extends BaseCubit<OrderDetailState> {
         if (optionsId == null) return [];
 
         return _networkManager.networkOperation.getItemsQuery(
-          path: '/extras',
+          path: QueryPathConstant.extras,
           model: const ExtrasModel(),
           query: query,
         );

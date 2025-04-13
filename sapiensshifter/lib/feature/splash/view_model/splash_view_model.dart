@@ -31,7 +31,6 @@ final class SplashViewModel {
   bool get isUserOpen => _authManagar.authOperation.user != null;
 
   void route(BuildContext context, SplashStateEnum splashState) {
-    // TODO(kaan): add route
     final route = AutoRouter.of(context);
     switch (splashState) {
       case SplashStateEnum.NO_NETWORK:
