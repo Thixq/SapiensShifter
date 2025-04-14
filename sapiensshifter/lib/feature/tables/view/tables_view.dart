@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/tables/mixin/tables_view_mixin.dart';
@@ -11,6 +12,7 @@ part './widget/table_grid_list.dart';
 part './widget/tables_view_app_bar.dart';
 part './widget/table_grid_list_shimmer.dart';
 
+@RoutePage()
 class TablesView extends StatefulWidget {
   const TablesView({super.key});
 

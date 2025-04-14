@@ -19,7 +19,19 @@ class RoutingManager extends RootStackRouter {
         AutoRoute(path: PagePathConstant.onboard, page: OnboardRoute.page),
         AutoRoute(path: PagePathConstant.signIn, page: SignInRoute.page),
         AutoRoute(path: PagePathConstant.register, page: RegisterRoute.page),
-        AutoRoute(path: PagePathConstant.home, page: HomeRoute.page),
+        AutoRoute(
+          path: PagePathConstant.home,
+          page: HomeRoute.page,
+          children: [
+            AutoRoute(
+              initial: true,
+              path: PagePathConstant.table,
+              page: TablesRoute.page,
+            ),
+            AutoRoute(path: PagePathConstant.chat, page: ChatRoute.page),
+            AutoRoute(path: PagePathConstant.shift, page: ShiftRoute.page),
+          ],
+        ),
         AutoRoute(path: PagePathConstant.menu, page: MenuRoute.page),
         AutoRoute(
           path: PagePathConstant.orderDetail,
