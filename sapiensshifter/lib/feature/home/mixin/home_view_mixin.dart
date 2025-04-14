@@ -5,18 +5,14 @@ import 'package:sapiensshifter/core/routing/routing_manager.gr.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/home/model/page_item.dart';
 import 'package:sapiensshifter/feature/home/view/home_view.dart';
-import 'package:sapiensshifter/feature/tables/view/tables_view.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/dialogs_and_bottom_sheet.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/table_export.dart';
 
 mixin HomeViewMixin on BaseState<HomeView> {
-  final initalIndex = 1;
-  late final PageController pageController;
-
   List<PageItem> get pages => <PageItem>[
         PageItem(
-          page: const ColoredBox(color: Colors.blue),
+          page: const ChatRoute(),
           navBarItem: NavBarItem(
             icon: Icons.message,
             onPress: () async {
@@ -25,7 +21,7 @@ mixin HomeViewMixin on BaseState<HomeView> {
           ),
         ),
         PageItem(
-          page: const TablesView(),
+          page: const TablesRoute(),
           navBarItem: NavBarItem(
             icon: Icons.table_bar,
             onPress: () {
@@ -38,7 +34,7 @@ mixin HomeViewMixin on BaseState<HomeView> {
           ),
         ),
         PageItem(
-          page: const ColoredBox(color: Colors.deepPurpleAccent),
+          page: const ShiftRoute(),
           navBarItem: NavBarItem(icon: Icons.ssid_chart),
         ),
       ];
@@ -57,25 +53,5 @@ mixin HomeViewMixin on BaseState<HomeView> {
           (e) => e.navBarItem,
         )
         .toList();
-  }
-
-  void goPage(int value) {
-    pageController.animateToPage(
-      value,
-      duration: const Duration(microseconds: 1),
-      curve: Curves.easeIn,
-    );
-  }
-
-  @override
-  void initState() {
-    pageController = PageController(initialPage: initalIndex);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    pageController.dispose();
-    super.dispose();
   }
 }

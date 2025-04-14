@@ -8,7 +8,6 @@ import 'package:sapiensshifter/feature/sign/sign_in/model/social_button_model.da
 import 'package:sapiensshifter/feature/sign/sign_in/view/sign_in_view.dart';
 import 'package:sapiensshifter/feature/sign/sign_in/view_model/sign_in_view_model.dart';
 import 'package:sapiensshifter/product/constant/image_path_constant.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 mixin SignInViewMixin on BaseState<SignInView> {
   late final SignInViewModel _signInViewModel;
@@ -70,7 +69,7 @@ mixin SignInViewMixin on BaseState<SignInView> {
   Future<void> _goHome() async {
     if (mounted) {
       await context.router.replacePath(
-        PagePathConstant.home.sapiExt.withParams({'pageIndex': 1})!,
+        PagePathConstant.home,
       );
     }
   }

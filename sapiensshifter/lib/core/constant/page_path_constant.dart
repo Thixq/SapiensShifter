@@ -1,6 +1,13 @@
 class PagePathConstant {
   static const root = '/';
-  static const home = '/home/:pageIndex';
+
+  //home and sub screens
+  static const home = '/home';
+  static const chat = 'chat';
+  static const shift = 'shift';
+  static const table = 'table';
+  //------------------------
+
   static const menu = '/menu';
   static const orderDetail = '/menu/orderDetail';
   static const onboard = '/onboard';

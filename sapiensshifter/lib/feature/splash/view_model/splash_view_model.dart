@@ -5,7 +5,6 @@ import 'package:sapiensshifter/core/constant/page_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/feature/splash/view_model/enum/splash_state_enum.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 final class SplashViewModel {
   SplashViewModel({
@@ -40,7 +39,7 @@ final class SplashViewModel {
 
       case SplashStateEnum.RETURNIG_USER:
         route.replacePath(
-          PagePathConstant.home.sapiExt.withParams({'pageIndex': 1})!,
+          PagePathConstant.home,
         );
 
       case SplashStateEnum.NEW_USER:

@@ -6,7 +6,6 @@ import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/sign/register/view/register_view.dart';
 import 'package:sapiensshifter/feature/sign/register/view_model/register_view_model.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 mixin RegisterViewMixin on BaseState<RegisterView> {
   late final RegisterViewModel _registerViewModel;
@@ -38,7 +37,7 @@ mixin RegisterViewMixin on BaseState<RegisterView> {
   Future<void> _goHome() async {
     if (mounted) {
       await context.router.replacePath(
-        PagePathConstant.home.sapiExt.withParams({'pageIndex': 1})!,
+        PagePathConstant.home,
       );
     }
   }

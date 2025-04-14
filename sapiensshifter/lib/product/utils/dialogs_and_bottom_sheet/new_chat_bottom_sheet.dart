@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/core/model/sapiens_user.dart';
+
 import 'package:sapiensshifter/product/component/message_info_list_tile.dart';
+import 'package:sapiensshifter/product/models/sapiens_user.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/ui/separator_list_widget.dart';
 
