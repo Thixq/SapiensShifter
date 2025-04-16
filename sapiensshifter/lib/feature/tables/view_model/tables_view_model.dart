@@ -12,7 +12,6 @@ class TablesViewModel {
   }) : _networkManager = networkManager;
 
   final INetworkManager _networkManager;
-  // ignore: unused_field
   final Profile profile;
 
   Future<List<TableModel>> get getTableList async {
