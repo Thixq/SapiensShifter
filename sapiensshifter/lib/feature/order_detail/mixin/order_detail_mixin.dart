@@ -37,7 +37,7 @@ mixin OrderDetailMixin on BaseState<OrderDetailView> {
           imagePath: widget.product.imagePath,
         ),
       ),
-      networkManager: ProductConfigureItems.firebaseFirestoreManager,
+      networkManager: ProductConfigureItems.networkManager,
     );
     _detailViewModel.getExtras(optionsId: widget.product.productOptions);
     super.initState();

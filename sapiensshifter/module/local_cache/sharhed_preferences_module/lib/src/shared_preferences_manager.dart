@@ -1,15 +1,22 @@
 import 'package:core/core.dart';
+import 'package:sharhed_preferences_module/sharhed_preferences_module.dart';
 
 final class SharedPreferencesManager extends ILocalCacheManager {
-  SharedPreferencesManager({required super.cacheOperation, super.path});
+  SharedPreferencesManager._(
+      {required SharedPreferencesOperation sharedPreferencesOperation})
+      : super(cacheOperation: sharedPreferencesOperation);
+
+  static SharedPreferencesManager get instace => SharedPreferencesManager._(
+      sharedPreferencesOperation: SharedPreferencesOperation.instance);
 
   @override
   Future<void> init() async {
-    throw UnimplementedError();
+    // throw UnimplementedError();
   }
 
   @override
-  Future<bool> remove() {
-    throw UnimplementedError();
+  Future<bool> remove() async {
+    // throw UnimplementedError();
+    return false;
   }
 }

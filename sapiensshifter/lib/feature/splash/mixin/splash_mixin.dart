@@ -15,7 +15,7 @@ mixin SplashViewMixin on BaseState<SplashView> {
   @override
   void initState() {
     _splashViewModel = SplashViewModel(
-      authManager: FirebaseAuthManagar.instance,
+      authManager: ProductConfigureItems.authManager,
       localCahce: ProductConfigureItems.sharedPreferencesOperation,
     );
     _goRoute;
