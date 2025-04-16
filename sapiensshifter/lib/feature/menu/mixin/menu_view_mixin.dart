@@ -23,7 +23,7 @@ mixin MenuViewMixin on BaseState<MenuView> {
         categories: {},
         table: widget.table,
       ),
-      networkManager: ProductConfigureItems.firebaseFirestoreManager,
+      networkManager: ProductConfigureItems.networkManager,
     );
     _menuViewModel.getCategories();
     super.initState();

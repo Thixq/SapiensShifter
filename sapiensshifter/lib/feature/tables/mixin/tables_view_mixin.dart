@@ -11,7 +11,8 @@ mixin TablesViewMixin on BaseState<TablesView> {
   @override
   void initState() {
     _tablesViewModel = TablesViewModel(
-      networkManager: ProductConfigureItems.firebaseFirestoreManager,
+      networkManager: ProductConfigureItems.networkManager,
+      profile: ProductConfigureItems.profile,
     );
 
     super.initState();

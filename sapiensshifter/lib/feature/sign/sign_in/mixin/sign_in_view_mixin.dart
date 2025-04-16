@@ -23,8 +23,8 @@ mixin SignInViewMixin on BaseState<SignInView> {
   void initState() {
     // View Model
     _signInViewModel = SignInViewModel(
-      authManager: FirebaseAuthManagar.instance,
-      networkManager: ProductConfigureItems.firebaseFirestoreManager,
+      authManager: ProductConfigureItems.authManager,
+      networkManager: ProductConfigureItems.networkManager,
     );
 
     // TextEditing

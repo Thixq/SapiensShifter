@@ -1,25 +1,30 @@
 part of '../tables_view.dart';
 
 class TablesViewAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const TablesViewAppBar({required this.height, super.key});
+  const TablesViewAppBar({
+    required this.height,
+    this.profile,
+    super.key,
+  });
 
   final double height;
+  final Profile? profile;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: false,
-      title: const Text('Kanyon'),
+      title: Text(profile?.user?.toDayBranch ?? ''),
       actionsPadding: EdgeInsets.only(right: context.sized.normalValue),
       actions: [
         Row(
           children: [
-            const Text('kaan'),
+            Text(profile?.user?.name ?? ''),
             context.sized.emptySizedWidthBoxLow3x,
             InkWell(
               onTap: () {},
-              child: const CustomCircleAvatar(
-                imageUrl: 'https://cataas.com/cat',
+              child: CustomCircleAvatar(
+                imageUrl: profile?.user?.imagePath,
               ),
             ),
           ],

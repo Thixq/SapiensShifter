@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/tables/mixin/tables_view_mixin.dart';
 import 'package:sapiensshifter/product/models/table_model.dart';
+import 'package:sapiensshifter/product/profile/profile.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/dialogs_and_bottom_sheet.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
@@ -24,7 +25,8 @@ class _TablesViewState extends BaseState<TablesView> with TablesViewMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const TablesViewAppBar(
+      appBar: TablesViewAppBar(
+        profile: viewModel.profile,
         height: 1,
       ),
       body: _body(),
