@@ -14,16 +14,22 @@ class TablesViewAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: false,
-      title: Text(profile?.user?.toDayBranch ?? ''),
+      title: Text(
+        profile?.user?.toDayBranch ?? LocaleKeys.null_value_null_name.tr(),
+      ),
       actionsPadding: EdgeInsets.only(right: context.sized.normalValue),
       actions: [
         Row(
           children: [
-            Text(profile?.user?.name ?? ''),
+            Text(profile?.user?.name ?? LocaleKeys.null_value_null_name.tr()),
             context.sized.emptySizedWidthBoxLow3x,
             InkWell(
-              onTap: () {},
+              overlayColor: const WidgetStatePropertyAll(Colors.transparent),
+              onTap: () {
+                // TODO(kaan): go Profile view
+              },
               child: CustomCircleAvatar(
+                radius: kToolbarHeight,
                 imageUrl: profile?.user?.imagePath,
               ),
             ),

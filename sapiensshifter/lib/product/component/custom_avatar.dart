@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
+
+import 'package:sapiensshifter/product/utils/ui/image_builder.dart';
 
 final class CustomCircleAvatar extends StatelessWidget {
   const CustomCircleAvatar({
     this.imageUrl,
     this.fallbackIcon = Icons.person,
-    this.radius = 24,
+    this.radius = 48,
     super.key,
   });
   final String? imageUrl;
@@ -14,11 +15,16 @@ final class CustomCircleAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      radius: radius,
-      foregroundImage:
-          imageUrl.ext.isNotNullOrNoEmpty ? NetworkImage(imageUrl!) : null,
-      child: const Icon(Icons.image_not_supported_rounded),
+    return SizedBox(
+      height: radius,
+      width: radius,
+      child: ClipOval(
+        child: ImageBuilder(
+          errorIconSize: radius,
+          iconData: fallbackIcon,
+          imageUrl: imageUrl,
+        ),
+      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth_module/firebase_auth_module.dart';
 import 'package:flutter/material.dart';
+import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/core/routing/routing_manager.gr.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/home/model/page_item.dart';
@@ -10,6 +11,8 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/dialogs_a
 import 'package:sapiensshifter/product/utils/export_dependency_package/table_export.dart';
 
 mixin HomeViewMixin on BaseState<HomeView> {
+  final userInfo = ProductConfigureItems.profile.user;
+
   List<PageItem> get pages => <PageItem>[
         PageItem(
           page: const ChatRoute(),
@@ -43,6 +46,10 @@ mixin HomeViewMixin on BaseState<HomeView> {
     final newTableModel = TableModel(
       peopleCount: peopleCount,
       tableName: tableName,
+      branchName: userInfo?.toDayBranch,
+      creatorId: userInfo?.id,
+      timeStamp: DateTime.now(),
+      status: true,
     );
     context.router.push<TableModel>(MenuRoute(table: newTableModel));
   }

@@ -24,7 +24,7 @@ mixin SplashViewMixin on BaseState<SplashView> {
 
   Future<void> get _goRoute async {
     if (mounted) {
-      _splashViewModel.route(context, await _check());
+      await _splashViewModel.launchState(context, await _check());
     }
   }
 

@@ -13,24 +13,25 @@ class AppDependency {
 
   static Future<void> setup() async {
     _getIt
-      ..registerLazySingleton<INetworkManager>(
-        () => FirebaseFirestoreManager.instance,
+      ..registerSingletonAsync<INetworkManager>(
+        () async => FirebaseFirestoreManager.instance,
       )
-      ..registerLazySingleton<IAuthManager>(
-        () => FirebaseAuthManagar.instance,
+      ..registerSingletonAsync<IAuthManager>(
+        () async => FirebaseAuthManagar.instance,
       )
       ..registerSingleton<ILocalCacheManager>(
         SharedPreferencesManager.instace,
       )
-      ..registerLazySingleton<ProductViewModel>(
-        ProductViewModel.new,
-      )
-      ..registerSingletonAsync<Profile>(() async {
-        return Profile.instance(
+      ..registerSingletonAsync(
+        () async => Profile.instance(
           networkManager: ProductConfigureItems.networkManager,
           authManager: ProductConfigureItems.authManager,
-        );
-      });
+        ),
+        dependsOn: [INetworkManager, IAuthManager],
+      )
+      ..registerLazySingleton<ProductViewModel>(
+        ProductViewModel.new,
+      );
   }
 
   /// read your dependency item for [AppDependency]
