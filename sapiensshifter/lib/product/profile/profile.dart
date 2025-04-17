@@ -1,3 +1,5 @@
+// ignore_for_file: join_return_with_assignment
+
 import 'package:core/core.dart';
 import 'package:sapiensshifter/core/constant/query_path_constant.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
@@ -13,14 +15,14 @@ class Profile {
     _user = null;
   }
 
+  static late Profile _instance;
   static Future<Profile> instance({
     required INetworkManager networkManager,
     required IAuthManager authManager,
   }) async {
-    final instance =
+    _instance =
         Profile._(authManager: authManager, networkManager: networkManager);
-    await instance._reload();
-    return instance;
+    return _instance;
   }
 
   SapiensUser? get user => _user;
@@ -38,7 +40,7 @@ class Profile {
     return result;
   }
 
-  Future<void> _reload() async {
+  Future<void> get reload async {
     _user = await _getCurrentProfile;
   }
 
@@ -55,6 +57,7 @@ class Profile {
       action: () async {
         await _authManager.authOperation.displayNameUpdate(newName);
         await _updateProfile(field: {'name': newName});
+        await reload;
         return true;
       },
       fallbackValue: false,

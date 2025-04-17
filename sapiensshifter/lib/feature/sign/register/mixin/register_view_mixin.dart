@@ -16,7 +16,7 @@ mixin RegisterViewMixin on BaseState<RegisterView> {
   late final GlobalKey<FormState> formState;
 
   void routeSignIn() {
-    context.router.replacePath('/sign/signin/');
+    context.router.replacePath(PagePathConstant.signIn);
   }
 
   Future<void> register() async {
@@ -28,6 +28,7 @@ mixin RegisterViewMixin on BaseState<RegisterView> {
         context: context,
       );
       if (result) {
+        await ProductConfigureItems.profile.reload;
         await _goHome();
       }
     }

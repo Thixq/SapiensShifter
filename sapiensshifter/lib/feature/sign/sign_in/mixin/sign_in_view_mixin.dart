@@ -39,7 +39,10 @@ mixin SignInViewMixin on BaseState<SignInView> {
           final result = await _signInViewModel.signInWithCredential(
             signCredential: await AppleSignCredential().call(),
           );
-          if (result) await _goHome();
+          if (result) {
+            await getProfile;
+            await _goHome();
+          }
         },
       ),
       SocialButtonModel(
@@ -48,7 +51,10 @@ mixin SignInViewMixin on BaseState<SignInView> {
           final result = await _signInViewModel.signInWithCredential(
             signCredential: await GoogleSignCredential().call(),
           );
-          if (result) await _goHome();
+          if (result) {
+            await getProfile;
+            await _goHome();
+          }
         },
       ),
     ];
@@ -62,8 +68,15 @@ mixin SignInViewMixin on BaseState<SignInView> {
         password: passwordTextController.text,
         context: context,
       );
-      if (result) await _goHome();
+      if (result) {
+        await getProfile;
+        await _goHome();
+      }
     }
+  }
+
+  Future<void> get getProfile async {
+    await ProductConfigureItems.profile.reload;
   }
 
   Future<void> _goHome() async {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sapiensshifter/core/constant/page_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
+import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/feature/splash/view_model/enum/splash_state_enum.dart';
 
 final class SplashViewModel {
@@ -29,21 +30,25 @@ final class SplashViewModel {
 
   bool get isUserOpen => _authManagar.authOperation.user != null;
 
-  void route(BuildContext context, SplashStateEnum splashState) {
+  Future<void> launchState(
+    BuildContext context,
+    SplashStateEnum splashState,
+  ) async {
     final route = AutoRouter.of(context);
     switch (splashState) {
       case SplashStateEnum.NO_NETWORK:
         return;
       case SplashStateEnum.FIRST_LAUNCH:
-        route.replacePath(PagePathConstant.onboard);
+        await route.replacePath(PagePathConstant.onboard);
 
       case SplashStateEnum.RETURNIG_USER:
-        route.replacePath(
+        await ProductConfigureItems.profile.reload;
+        await route.replacePath(
           PagePathConstant.home,
         );
 
       case SplashStateEnum.NEW_USER:
-        route.replacePath(PagePathConstant.signIn);
+        await route.replacePath(PagePathConstant.signIn);
     }
   }
 }
