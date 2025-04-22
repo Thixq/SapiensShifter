@@ -17,12 +17,8 @@ mixin MenuViewMixin on BaseState<MenuView> {
   @override
   void initState() {
     _menuViewModel = MenuViewModel(
-      MenuViewState(
-        isLoading: false,
-        productList: [],
-        categories: {},
-        table: widget.table,
-      ),
+      MenuViewState.initial(table: widget.table),
+      currentUser: widget.currentUser,
       networkManager: ProductConfigureItems.networkManager,
     );
     _menuViewModel.getCategories();

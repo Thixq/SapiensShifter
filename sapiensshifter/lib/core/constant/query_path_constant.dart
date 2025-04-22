@@ -5,4 +5,5 @@ class QueryPathConstant {
   static const categoryColPath = '/categories';
   static const extras = '/extras';
   static const productsColPath = '/products';
+  static const branchColPath = '/branches';
 }

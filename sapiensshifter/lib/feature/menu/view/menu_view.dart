@@ -9,6 +9,7 @@ import 'package:sapiensshifter/feature/menu/view_model/state/menu_view_state.dar
 import 'package:sapiensshifter/product/models/order_model/order_model.dart';
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
+import 'package:sapiensshifter/product/profile/profile.dart';
 import 'package:sapiensshifter/product/utils/enums/localization_path_enum.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
@@ -21,9 +22,10 @@ part './widget/shimmer_preview_product_card.dart';
 
 @RoutePage()
 class MenuView extends StatefulWidget {
-  const MenuView({required this.table, super.key});
+  const MenuView({required this.table, required this.currentUser, super.key});
 
   final TableModel table;
+  final Profile currentUser;
 
   @override
   State<MenuView> createState() => _MenuViewState();

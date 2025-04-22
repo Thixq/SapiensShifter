@@ -12,12 +12,17 @@ import 'package:sapiensshifter/product/models/categories_model/categories_model.
 import 'package:sapiensshifter/product/models/order_model/order_model.dart';
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
+import 'package:sapiensshifter/product/profile/profile.dart';
 
 class MenuViewModel extends BaseCubit<MenuViewState> {
-  MenuViewModel(super.initialState, {required INetworkManager networkManager})
-      : _networkManager = networkManager;
+  MenuViewModel(
+    super.initialState, {
+    required this.currentUser,
+    required INetworkManager networkManager,
+  }) : _networkManager = networkManager;
 
   final INetworkManager _networkManager;
+  final Profile currentUser;
   final _menuLogger = CustomLogger('menuLogger');
 
   Future<List<T>> getProducts<T extends IBaseModel<T>>({
@@ -43,8 +48,9 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         final table = state.table;
+        final branchId = await currentUser.getToDayBranchId;
         await _networkManager.networkOperation.addItem<TableModel>(
-          path: '${QueryPathConstant.tableColPath}/${table.branchName}/open',
+          path: '${QueryPathConstant.tableColPath}/$branchId/open',
           item: table,
         );
         return true;

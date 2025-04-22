@@ -13,7 +13,6 @@ mixin TablesViewMixin on BaseState<TablesView>
 
   @override
   void onRoutePoppedNext() {
-    print('RouteAwareNotifierMixin: $runtimeType didPopNext tetiklendi.');
     _tablesViewModel.getTableList;
   }
 
