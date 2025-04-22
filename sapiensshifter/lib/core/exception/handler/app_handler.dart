@@ -10,7 +10,7 @@ import 'package:sapiensshifter/core/logging/custom_logger.dart';
 class AppErrorHandler implements IErrorHandler {
   @override
   void handleError(Object error, CustomLogger logger, StackTrace stackTrace) {
-    logger.info('$error');
+    logger.error('$error', stackTrace: stackTrace);
     showError(error);
   }
 

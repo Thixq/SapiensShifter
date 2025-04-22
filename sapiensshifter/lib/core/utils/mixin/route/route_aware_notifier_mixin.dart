@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:sapiensshifter/core/exception/exceptions/general_exception.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
+import 'package:sapiensshifter/core/logging/custom_logger.dart';
 import 'package:sapiensshifter/core/routing/model/route_aware_action_performer.dart';
 import 'package:sapiensshifter/core/routing/routing_manager.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/core/utils/modal_route_dependency/model_route_dependency.dart';
+
+final _routeAwareNotifierStateMixinLogger =
+    CustomLogger('RouteAwareNotifierStateMixinLogger');
 
 mixin RouteAwareNotifierStateMixin<T extends StatefulWidget> on BaseState<T>
     implements RouteAware {
@@ -37,7 +41,7 @@ mixin RouteAwareNotifierStateMixin<T extends StatefulWidget> on BaseState<T>
         _subscribedRoute = route; // Abone olunan rotayı sakla
         routeObserver.subscribe(this, _subscribedRoute!); // Abone ol
         _isRouteAwareSubscribed = true; // Bayrağı true yap
-        print('RouteAwareNotifierMixin: $runtimeType Abone olundu.');
+        _routeAwareNotifierStateMixinLogger.info('$runtimeType Subscribed.');
       }
     }
   }
@@ -46,7 +50,9 @@ mixin RouteAwareNotifierStateMixin<T extends StatefulWidget> on BaseState<T>
   void dispose() {
     if (_isRouteAwareSubscribed && _subscribedRoute != null) {
       routeObserver.unsubscribe(this);
-      print('RouteAwareNotifierMixin: $runtimeType Abonelikten çıkıldı.');
+      _routeAwareNotifierStateMixinLogger.info(
+        '$runtimeType Subscription cancelled.',
+      );
       _isRouteAwareSubscribed = false;
       _subscribedRoute = null;
     }
