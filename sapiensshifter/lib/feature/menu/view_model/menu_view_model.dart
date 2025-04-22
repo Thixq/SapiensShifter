@@ -50,7 +50,7 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
         final table = state.table;
         final branchId = await currentUser.getToDayBranchId;
         await _networkManager.networkOperation.addItem<TableModel>(
-          path: '${QueryPathConstant.tableColPath}/$branchId/open',
+          path: '${QueryPathConstant.tableColPath}/$branchId/open/${table.id}',
           item: table,
         );
         return true;
