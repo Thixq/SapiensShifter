@@ -1,5 +1,4 @@
 // ignore_for_file: strict_raw_type
-
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/core/exception/exceptions/general_exception.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';

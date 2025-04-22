@@ -1,6 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 class OnboardState {
   OnboardState(this.currentIndex, {required this.isLastPage});
+
+  factory OnboardState.initial() {
+    return OnboardState(0, isLastPage: false);
+  }
   final int currentIndex;
   final bool isLastPage;
 
