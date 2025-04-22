@@ -65,9 +65,10 @@ class _TablesViewState extends BaseState<TablesView>
           tableModel: table,
           onPressDelete: () async {
             await viewModel.deleteTable(table!);
-            context.router.pop();
           },
-          onPressAddNewOrder: () {},
+          onPressAddNewOrder: () {
+            newOrder(context, table);
+          },
         ),
       ),
     );

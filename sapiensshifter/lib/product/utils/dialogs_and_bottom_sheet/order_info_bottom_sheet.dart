@@ -80,7 +80,10 @@ class OrderInfoBottomSheet extends StatelessWidget {
             context,
             title: LocaleKeys.order_info_bottom_sheet_table_delete.tr(),
             // TODO(kaan): masa silme ve yeni ürün ekleme fonksiyonları ekle.
-            onPress: onPressDelete,
+            onPress: () {
+              onPressDelete();
+              Navigator.pop(context);
+            },
             borderRadius: BorderRadius.only(
               bottomLeft: context.border.normalRadius,
               topLeft: context.border.normalRadius,
@@ -92,7 +95,10 @@ class OrderInfoBottomSheet extends StatelessWidget {
           child: _buildOptionButton(
             context,
             title: LocaleKeys.order_info_bottom_sheet_new_order.tr(),
-            onPress: onPressAddNewOrder,
+            onPress: () {
+              onPressAddNewOrder();
+              Navigator.pop(context);
+            },
             borderRadius: BorderRadius.only(
               bottomRight: context.border.normalRadius,
               topRight: context.border.normalRadius,
