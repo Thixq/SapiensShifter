@@ -4,20 +4,34 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/export_pa
 import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart';
 
 class OrderInfoBottomSheet extends StatelessWidget {
-  const OrderInfoBottomSheet({this.tableModel, super.key});
+  const OrderInfoBottomSheet({
+    required this.onPressDelete,
+    required this.onPressAddNewOrder,
+    this.tableModel,
+    super.key,
+  });
 
   final TableModel? tableModel;
+  final VoidCallback onPressDelete;
+  final VoidCallback onPressAddNewOrder;
 
   String get _nullTableName => StringConstant.nullString.tr();
   String get _nullOrderName => StringConstant.nullString.tr();
   String get _nullPrice => StringConstant.nullDouble.tr();
 
-  static Future<void> show(BuildContext context, {TableModel? tableModel}) =>
+  static Future<void> show(
+    BuildContext context, {
+    required VoidCallback onPressDelete,
+    required VoidCallback onPressAddNewOrder,
+    TableModel? tableModel,
+  }) =>
       showModalBottomSheet(
         context: context,
         builder: (context) {
           return OrderInfoBottomSheet(
             tableModel: tableModel,
+            onPressDelete: onPressDelete,
+            onPressAddNewOrder: onPressAddNewOrder,
           );
         },
       );
@@ -66,7 +80,7 @@ class OrderInfoBottomSheet extends StatelessWidget {
             context,
             title: LocaleKeys.order_info_bottom_sheet_table_delete.tr(),
             // TODO(kaan): masa silme ve yeni ürün ekleme fonksiyonları ekle.
-            onPress: () {},
+            onPress: onPressDelete,
             borderRadius: BorderRadius.only(
               bottomLeft: context.border.normalRadius,
               topLeft: context.border.normalRadius,
@@ -78,7 +92,7 @@ class OrderInfoBottomSheet extends StatelessWidget {
           child: _buildOptionButton(
             context,
             title: LocaleKeys.order_info_bottom_sheet_new_order.tr(),
-            onPress: () {},
+            onPress: onPressAddNewOrder,
             borderRadius: BorderRadius.only(
               bottomRight: context.border.normalRadius,
               topRight: context.border.normalRadius,

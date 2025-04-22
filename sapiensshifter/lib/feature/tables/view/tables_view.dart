@@ -60,8 +60,15 @@ class _TablesViewState extends BaseState<TablesView>
       context,
       child: TableGrid(
         tableList: tableList,
-        onPress: (table) =>
-            OrderInfoBottomSheet.show(context, tableModel: table),
+        onPress: (table) => OrderInfoBottomSheet.show(
+          context,
+          tableModel: table,
+          onPressDelete: () async {
+            await viewModel.deleteTable(table!);
+            context.router.pop();
+          },
+          onPressAddNewOrder: () {},
+        ),
       ),
     );
   }

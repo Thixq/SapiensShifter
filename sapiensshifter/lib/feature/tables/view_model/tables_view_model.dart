@@ -43,4 +43,25 @@ class TablesViewModel extends BaseCubit<TablesViewState> {
       ),
     );
   }
+
+  Future<void> deleteTable(TableModel table) async {
+    await ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        final closedTable = table.copyWith(status: false);
+        final branchId = await profile.getToDayBranchId;
+        await _networkManager.networkOperation.update(
+          path: '${QueryPathConstant.tableColPath}/$branchId/open/${table.id}',
+          value: {'status': false},
+        );
+        state.tableList.remove(closedTable);
+        emit(
+          state.copyWith(
+            tableList: state.tableList,
+          ),
+        );
+      },
+      errorHandler: ServiceErrorHandler(),
+      fallbackValue: null,
+    );
+  }
 }
