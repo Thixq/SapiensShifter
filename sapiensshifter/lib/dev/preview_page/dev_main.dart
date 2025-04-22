@@ -4,9 +4,9 @@ import 'package:sapiensshifter/core/localization/localization.dart';
 import 'package:sapiensshifter/core/logging/zone_manager.dart';
 import 'package:sapiensshifter/core/theme/appliaction_theme.dart';
 import 'package:sapiensshifter/feature/menu/view/menu_view.dart';
+import 'package:sapiensshifter/product/models/table_model/table_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart'
     show BuildContextEasyLocalizationExtension, Sizer;
-import 'package:sapiensshifter/product/utils/export_dependency_package/table_export.dart';
 
 void main() async {
   ZoneManager.runAppInZone(

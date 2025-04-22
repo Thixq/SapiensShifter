@@ -3,7 +3,7 @@
 import 'package:core/core.dart';
 import 'package:sapiensshifter/core/constant/query_path_constant.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
-import 'package:sapiensshifter/product/models/sapiens_user.dart';
+import 'package:sapiensshifter/product/models/sapiens_user/sapiens_user.dart';
 
 // TODO(kaan): profile.dart dosyasını düzenle
 class Profile {
@@ -46,7 +46,7 @@ class Profile {
   }
 
   Future<void> _updateProfile({required Map<String, dynamic> field}) async {
-    final updateUser = _authManager.authOperation.user;
+    final updateUser = _user;
     await _networkManager.networkOperation.update(
       path: '${QueryPathConstant.usersColPath}/${updateUser?.id}',
       value: field,
@@ -64,4 +64,34 @@ class Profile {
       fallbackValue: false,
     );
   }
+
+  Future<bool> updatePassword({required String newPassword}) async {
+    return ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        await _authManager.authOperation.passwordUpdate(newPassword);
+        await reload;
+        return true;
+      },
+      fallbackValue: false,
+    );
+  }
+
+  Future<bool> updatePhoto({required String newPhoto}) async {
+    return ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        await _authManager.authOperation.photographUpdate(newPhoto);
+        await _updateProfile(field: {'imagePath': newPhoto});
+        await reload;
+        return true;
+      },
+      fallbackValue: false,
+    );
+  }
+
+  // Future<String?> get toDayBranchId()async {
+  //   final branch = _user.toDayBranch;
+  //   final result= await _networkManager.networkOperation.getItem(path: 'branches', model: SapiensUser());
+  //   return result.id;
+
+  // }
 }

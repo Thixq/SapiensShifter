@@ -24,14 +24,16 @@ import 'package:sapiensshifter/feature/sign/sign_in/view/sign_in_view.dart'
     as _i8;
 import 'package:sapiensshifter/feature/splash/view/splash_view.dart' as _i9;
 import 'package:sapiensshifter/feature/tables/view/tables_view.dart' as _i10;
-import 'package:sapiensshifter/product/models/product_model.dart' as _i14;
-import 'package:sapiensshifter/product/models/table_model.dart' as _i12;
+import 'package:sapiensshifter/product/models/product_model/product_model.dart'
+    as _i14;
+import 'package:sapiensshifter/product/models/table_model/table_model.dart'
+    as _i12;
 
 /// generated route for
 /// [_i1.ChatView]
 class ChatRoute extends _i11.PageRouteInfo<void> {
   const ChatRoute({List<_i11.PageRouteInfo>? children})
-    : super(ChatRoute.name, initialChildren: children);
+      : super(ChatRoute.name, initialChildren: children);
 
   static const String name = 'ChatRoute';
 
@@ -47,7 +49,7 @@ class ChatRoute extends _i11.PageRouteInfo<void> {
 /// [_i2.HomeView]
 class HomeRoute extends _i11.PageRouteInfo<void> {
   const HomeRoute({List<_i11.PageRouteInfo>? children})
-    : super(HomeRoute.name, initialChildren: children);
+      : super(HomeRoute.name, initialChildren: children);
 
   static const String name = 'HomeRoute';
 
@@ -67,10 +69,10 @@ class MenuRoute extends _i11.PageRouteInfo<MenuRouteArgs> {
     _i13.Key? key,
     List<_i11.PageRouteInfo>? children,
   }) : super(
-         MenuRoute.name,
-         args: MenuRouteArgs(table: table, key: key),
-         initialChildren: children,
-       );
+          MenuRoute.name,
+          args: MenuRouteArgs(table: table, key: key),
+          initialChildren: children,
+        );
 
   static const String name = 'MenuRoute';
 
@@ -100,7 +102,7 @@ class MenuRouteArgs {
 /// [_i4.OnboardView]
 class OnboardRoute extends _i11.PageRouteInfo<void> {
   const OnboardRoute({List<_i11.PageRouteInfo>? children})
-    : super(OnboardRoute.name, initialChildren: children);
+      : super(OnboardRoute.name, initialChildren: children);
 
   static const String name = 'OnboardRoute';
 
@@ -120,10 +122,10 @@ class OrderDetailRoute extends _i11.PageRouteInfo<OrderDetailRouteArgs> {
     _i13.Key? key,
     List<_i11.PageRouteInfo>? children,
   }) : super(
-         OrderDetailRoute.name,
-         args: OrderDetailRouteArgs(product: product, key: key),
-         initialChildren: children,
-       );
+          OrderDetailRoute.name,
+          args: OrderDetailRouteArgs(product: product, key: key),
+          initialChildren: children,
+        );
 
   static const String name = 'OrderDetailRoute';
 
@@ -153,7 +155,7 @@ class OrderDetailRouteArgs {
 /// [_i6.RegisterView]
 class RegisterRoute extends _i11.PageRouteInfo<void> {
   const RegisterRoute({List<_i11.PageRouteInfo>? children})
-    : super(RegisterRoute.name, initialChildren: children);
+      : super(RegisterRoute.name, initialChildren: children);
 
   static const String name = 'RegisterRoute';
 
@@ -169,7 +171,7 @@ class RegisterRoute extends _i11.PageRouteInfo<void> {
 /// [_i7.ShiftView]
 class ShiftRoute extends _i11.PageRouteInfo<void> {
   const ShiftRoute({List<_i11.PageRouteInfo>? children})
-    : super(ShiftRoute.name, initialChildren: children);
+      : super(ShiftRoute.name, initialChildren: children);
 
   static const String name = 'ShiftRoute';
 
@@ -185,7 +187,7 @@ class ShiftRoute extends _i11.PageRouteInfo<void> {
 /// [_i8.SignInView]
 class SignInRoute extends _i11.PageRouteInfo<void> {
   const SignInRoute({List<_i11.PageRouteInfo>? children})
-    : super(SignInRoute.name, initialChildren: children);
+      : super(SignInRoute.name, initialChildren: children);
 
   static const String name = 'SignInRoute';
 
@@ -201,7 +203,7 @@ class SignInRoute extends _i11.PageRouteInfo<void> {
 /// [_i9.SplashView]
 class SplashRoute extends _i11.PageRouteInfo<void> {
   const SplashRoute({List<_i11.PageRouteInfo>? children})
-    : super(SplashRoute.name, initialChildren: children);
+      : super(SplashRoute.name, initialChildren: children);
 
   static const String name = 'SplashRoute';
 
@@ -217,7 +219,7 @@ class SplashRoute extends _i11.PageRouteInfo<void> {
 /// [_i10.TablesView]
 class TablesRoute extends _i11.PageRouteInfo<void> {
   const TablesRoute({List<_i11.PageRouteInfo>? children})
-    : super(TablesRoute.name, initialChildren: children);
+      : super(TablesRoute.name, initialChildren: children);
 
   static const String name = 'TablesRoute';
 

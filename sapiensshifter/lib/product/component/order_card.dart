@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/component/custom_avatar.dart';
-import 'package:sapiensshifter/product/models/order_model.dart';
+import 'package:sapiensshifter/product/models/order_model/order_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/extensions/delivery_status_extension.dart';
 import 'package:sapiensshifter/product/utils/ui/dashed_rounded_shape_border.dart';

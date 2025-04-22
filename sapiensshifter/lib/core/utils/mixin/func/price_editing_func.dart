@@ -1,4 +1,4 @@
-import 'package:sapiensshifter/product/models/product_model.dart';
+import 'package:sapiensshifter/product/models/product_model/product_model.dart';
 import 'package:sapiensshifter/product/utils/enums/operations.dart';
 
 final class PriceEditingFunc {

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sapiensshifter/product/models/extras_model.dart';
+import 'package:sapiensshifter/product/models/extras_model/extras_model.dart';
 
 void main() {
   test(

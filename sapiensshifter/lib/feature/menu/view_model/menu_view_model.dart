@@ -8,15 +8,17 @@ import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/logging/custom_logger.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/menu/view_model/state/menu_view_state.dart';
-import 'package:sapiensshifter/product/models/categories_model.dart';
-import 'package:sapiensshifter/product/models/order_model.dart';
-import 'package:sapiensshifter/product/models/product_model.dart';
+import 'package:sapiensshifter/product/models/categories_model/categories_model.dart';
+import 'package:sapiensshifter/product/models/order_model/order_model.dart';
+import 'package:sapiensshifter/product/models/product_model/product_model.dart';
+import 'package:sapiensshifter/product/models/table_model/table_model.dart';
 
 class MenuViewModel extends BaseCubit<MenuViewState> {
   MenuViewModel(super.initialState, {required INetworkManager networkManager})
       : _networkManager = networkManager;
 
   final INetworkManager _networkManager;
+  final _menuLogger = CustomLogger('menuLogger');
 
   Future<List<T>> getProducts<T extends IBaseModel<T>>({
     required String path,
@@ -31,9 +33,25 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
           model: item,
         );
       },
-      customLogger: CustomLogger('menuLogger'),
+      customLogger: _menuLogger,
       errorHandler: ServiceErrorHandler(),
       fallbackValue: [],
+    );
+  }
+
+  Future<bool> writeDatabaseTable() async {
+    return ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        final table = state.table;
+        await _networkManager.networkOperation.addItem<TableModel>(
+          path: '${QueryPathConstant.tableColPath}/${table.branchName}/open',
+          item: table,
+        );
+        return true;
+      },
+      customLogger: _menuLogger,
+      errorHandler: ServiceErrorHandler(),
+      fallbackValue: false,
     );
   }
 

@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:sapiensshifter/product/models/product_model.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/table_export.dart';
+import 'package:sapiensshifter/product/models/product_model/product_model.dart';
+import 'package:sapiensshifter/product/models/table_model/table_model.dart';
 
 class MenuViewState {
   MenuViewState({

@@ -6,7 +6,7 @@ import 'package:sapiensshifter/core/utils/mixin/route/route_aware_notifier.dart'
 import 'package:sapiensshifter/feature/tables/mixin/tables_view_mixin.dart';
 import 'package:sapiensshifter/feature/tables/view_model/state/tables_view_state.dart';
 import 'package:sapiensshifter/feature/tables/view_model/tables_view_model.dart';
-import 'package:sapiensshifter/product/models/table_model.dart';
+import 'package:sapiensshifter/product/models/table_model/table_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/dialogs_and_bottom_sheet.dart';

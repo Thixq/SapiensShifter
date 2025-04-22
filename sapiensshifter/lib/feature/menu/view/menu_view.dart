@@ -6,9 +6,9 @@ import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/menu/mixin/menu_view_mixin.dart';
 import 'package:sapiensshifter/feature/menu/view_model/menu_view_model.dart';
 import 'package:sapiensshifter/feature/menu/view_model/state/menu_view_state.dart';
-import 'package:sapiensshifter/product/models/order_model.dart';
-import 'package:sapiensshifter/product/models/product_model.dart';
-import 'package:sapiensshifter/product/models/table_model.dart';
+import 'package:sapiensshifter/product/models/order_model/order_model.dart';
+import 'package:sapiensshifter/product/models/product_model/product_model.dart';
+import 'package:sapiensshifter/product/models/table_model/table_model.dart';
 import 'package:sapiensshifter/product/utils/enums/localization_path_enum.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
@@ -36,8 +36,8 @@ class _MenuViewState extends BaseState<MenuView> with MenuViewMixin {
       create: (context) => viewModel,
       child: Scaffold(
         floatingActionButton: AddTableButton(
-          onSumbit: () {
-            // TODO(kaan): add Database table;
+          onSumbit: () async {
+            await viewModel.writeDatabaseTable();
           },
         ),
         appBar: MenuAppBar(

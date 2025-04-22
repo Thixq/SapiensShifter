@@ -6,9 +6,10 @@ import 'package:sapiensshifter/core/routing/routing_manager.gr.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/home/model/page_item.dart';
 import 'package:sapiensshifter/feature/home/view/home_view.dart';
+import 'package:sapiensshifter/product/models/table_model/table_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/dialogs_and_bottom_sheet.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/table_export.dart';
+
 import 'package:uuid/v7.dart';
 
 mixin HomeViewMixin on BaseState<HomeView> {
@@ -32,7 +33,7 @@ mixin HomeViewMixin on BaseState<HomeView> {
               SapiCounterDialog.show(
                 context,
                 titleName: 'Masa 1',
-                done: newTable,
+                done: _newTable,
               );
             },
           ),
@@ -43,7 +44,7 @@ mixin HomeViewMixin on BaseState<HomeView> {
         ),
       ];
 
-  void newTable(String tableName, int peopleCount) {
+  void _newTable(String tableName, int peopleCount) {
     final newTableModel = TableModel(
       peopleCount: peopleCount,
       tableName: tableName,

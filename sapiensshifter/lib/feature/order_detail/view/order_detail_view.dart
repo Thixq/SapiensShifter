@@ -9,8 +9,8 @@ import 'package:sapiensshifter/feature/order_detail/view_model/state/order_detai
 import 'package:sapiensshifter/product/component/custom_radio/custom_radio_viewer.dart';
 import 'package:sapiensshifter/product/component/custom_radio/model/custom_radio_model.dart';
 import 'package:sapiensshifter/product/component/sapi_button.dart';
-import 'package:sapiensshifter/product/models/extras_model.dart';
-import 'package:sapiensshifter/product/models/product_model.dart';
+import 'package:sapiensshifter/product/models/extras_model/extras_model.dart';
+import 'package:sapiensshifter/product/models/product_model/product_model.dart';
 import 'package:sapiensshifter/product/utils/enums/delivery_status.dart';
 import 'package:sapiensshifter/product/utils/enums/localization_path_enum.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart'

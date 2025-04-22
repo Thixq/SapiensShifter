@@ -5,8 +5,8 @@ import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_err
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/order_detail/view_model/state/order_detail_state.dart';
-import 'package:sapiensshifter/product/models/extras_model.dart';
-import 'package:sapiensshifter/product/models/order_model.dart';
+import 'package:sapiensshifter/product/models/extras_model/extras_model.dart';
+import 'package:sapiensshifter/product/models/order_model/order_model.dart';
 import 'package:sapiensshifter/product/utils/enums/delivery_status.dart';
 
 class OrderDetailViewModel extends BaseCubit<OrderDetailState> {
