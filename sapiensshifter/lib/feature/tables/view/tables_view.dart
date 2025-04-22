@@ -1,7 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
+import 'package:sapiensshifter/core/utils/mixin/route/route_aware_notifier.dart';
 import 'package:sapiensshifter/feature/tables/mixin/tables_view_mixin.dart';
+import 'package:sapiensshifter/feature/tables/view_model/state/tables_view_state.dart';
+import 'package:sapiensshifter/feature/tables/view_model/tables_view_model.dart';
 import 'package:sapiensshifter/product/models/table_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
@@ -21,49 +25,41 @@ class TablesView extends StatefulWidget {
   State<TablesView> createState() => _TablesViewState();
 }
 
-class _TablesViewState extends BaseState<TablesView> with TablesViewMixin {
+class _TablesViewState extends BaseState<TablesView>
+    with TablesViewMixin, RouteAwareNotifierStateMixin {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: TablesViewAppBar(
-        profile: viewModel.profile,
-        height: 1,
+    return BlocProvider(
+      create: (context) => viewModel,
+      child: Scaffold(
+        appBar: TablesViewAppBar(
+          profile: viewModel.profile,
+          height: 1,
+        ),
+        body: _body(),
       ),
-      body: _body(),
     );
   }
 
-  FutureBuilder<List<TableModel>> _body() {
-    return FutureBuilder<List<TableModel>>(
-      future: viewModel.getTableList,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
+  Widget _body() {
+    return BlocBuilder<TablesViewModel, TablesViewState>(
+      builder: (context, state) {
+        if (state.isLoading) {
           return _waitingShimmer(context);
-        } else if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasError) {
-            return Center(
-              child: Text('${snapshot.error}'),
-            );
-          }
-          return _content(context, snapshot);
         }
-        return _waitingShimmer(context);
+        return _content(context, state.tableList);
       },
     );
   }
 
   Widget _content(
     BuildContext context,
-    AsyncSnapshot<List<TableModel>> snapshot,
+    List<TableModel> tableList,
   ) {
-    return Padding(
-      padding: EdgeInsets.only(
-        left: context.sized.normalValue,
-        right: context.sized.normalValue,
-        top: context.sized.normalValue,
-      ),
+    return _buildPadding(
+      context,
       child: TableGrid(
-        tableList: snapshot.data!,
+        tableList: tableList,
         onPress: (table) =>
             OrderInfoBottomSheet.show(context, tableModel: table),
       ),
@@ -71,13 +67,17 @@ class _TablesViewState extends BaseState<TablesView> with TablesViewMixin {
   }
 
   Widget _waitingShimmer(BuildContext context) {
+    return _buildPadding(context, child: const TableGridListShimmer());
+  }
+
+  Padding _buildPadding(BuildContext context, {required Widget child}) {
     return Padding(
       padding: EdgeInsets.only(
         left: context.sized.normalValue,
         right: context.sized.normalValue,
         top: context.sized.normalValue,
       ),
-      child: const TableGridListShimmer(),
+      child: child,
     );
   }
 }

@@ -23,7 +23,7 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
     required T item,
     INetworkQuery? query,
   }) async {
-    return ErrorUtil.runWithErrorHandling(
+    return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         return _networkManager.networkOperation.getItemsQuery<T>(
           path: path,

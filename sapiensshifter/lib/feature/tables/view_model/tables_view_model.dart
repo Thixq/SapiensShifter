@@ -2,20 +2,28 @@ import 'package:core/core.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/logging/custom_logger.dart';
+import 'package:sapiensshifter/core/state/base/base_cubit.dart';
+import 'package:sapiensshifter/feature/tables/view_model/state/tables_view_state.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/table_export.dart';
 
-class TablesViewModel {
+class TablesViewModel extends BaseCubit<TablesViewState> {
   TablesViewModel({
     required this.profile,
     required INetworkManager networkManager,
-  }) : _networkManager = networkManager;
+  })  : _networkManager = networkManager,
+        super(TablesViewState.initial());
 
   final INetworkManager _networkManager;
   final Profile profile;
 
-  Future<List<TableModel>> get getTableList async {
-    final result = await ErrorUtil.runWithErrorHandling<List<TableModel>>(
+  Future<void> get getTableList async {
+    emit(
+      state.copyWith(
+        isLoading: true,
+      ),
+    );
+    final result = await ErrorUtil.runWithErrorHandlingAsync<List<TableModel>>(
       action: () async {
         return _networkManager.networkOperation.getItemsQuery(
           path: 'table/kanyon/open',
@@ -26,6 +34,11 @@ class TablesViewModel {
       errorHandler: ServiceErrorHandler(),
       fallbackValue: const [],
     );
-    return result;
+    emit(
+      state.copyWith(
+        tableList: result,
+        isLoading: false,
+      ),
+    );
   }
 }

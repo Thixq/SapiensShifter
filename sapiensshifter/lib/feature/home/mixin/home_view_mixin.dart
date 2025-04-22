@@ -9,6 +9,7 @@ import 'package:sapiensshifter/feature/home/view/home_view.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/dialogs_and_bottom_sheet.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/table_export.dart';
+import 'package:uuid/v7.dart';
 
 mixin HomeViewMixin on BaseState<HomeView> {
   final userInfo = ProductConfigureItems.profile.user;
@@ -50,6 +51,7 @@ mixin HomeViewMixin on BaseState<HomeView> {
       creatorId: userInfo?.id,
       timeStamp: DateTime.now(),
       status: true,
+      id: const UuidV7().generate(),
     );
     context.router.push<TableModel>(MenuRoute(table: newTableModel));
   }

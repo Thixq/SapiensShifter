@@ -8,7 +8,7 @@ mixin class NetworkConnectionStatus {
   final Uri _defaultUrl = Uri.parse('https://www.google.com');
   Future<bool> isNetworkAvailable(BuildContext context) async {
     const timeoutSeconds = 5;
-    return ErrorUtil.runWithErrorHandling<bool>(
+    return ErrorUtil.runWithErrorHandlingAsync<bool>(
       action: () async {
         final response = await http
             .head(_defaultUrl)
