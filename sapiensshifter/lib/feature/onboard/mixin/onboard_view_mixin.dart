@@ -42,7 +42,7 @@ mixin OnboardViewMixin on BaseState<OnboardView> {
   void initState() {
     pageController = PageController();
     _onboardViewModel = OnboardViewModel(
-      OnboardState(0, isLastPage: false),
+      OnboardState.initial(),
       contentList: _initList,
       localCacheManager: ProductConfigureItems.sharedPreferencesOperation,
     );

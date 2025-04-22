@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:sapiensshifter/product/interface/utils_interface/i_svg_builder.dart';
+import 'package:sapiensshifter/product/interface/utils_interface/svg_builder_interface.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
-class SvgAssetBuilder extends SvgBuilder {
+class SvgAssetBuilder extends ISvgBuilder {
   const SvgAssetBuilder({
     super.key,
     super.svgPath,

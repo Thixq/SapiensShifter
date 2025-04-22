@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-abstract class SvgBuilder extends StatelessWidget {
-  const SvgBuilder({
+abstract class ISvgBuilder extends StatelessWidget {
+  const ISvgBuilder({
     required this.builderSize,
     super.key,
     this.svgPath,

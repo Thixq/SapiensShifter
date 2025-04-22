@@ -29,8 +29,7 @@ mixin OrderDetailMixin on BaseState<OrderDetailView> {
   @override
   void initState() {
     _detailViewModel = OrderDetailViewModel(
-      OrderDetailState(
-        selecetedOptions: {},
+      OrderDetailState.initial(
         order: OrderModel(
           price: widget.product.price,
           orderName: widget.product.productName,

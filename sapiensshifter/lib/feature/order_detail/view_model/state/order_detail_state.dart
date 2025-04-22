@@ -7,6 +7,13 @@ final class OrderDetailState {
     required this.order,
   });
 
+  factory OrderDetailState.initial({required OrderModel order}) {
+    return OrderDetailState(
+      selecetedOptions: {},
+      order: order,
+    );
+  }
+
   final Map<ExtrasModel, String> selecetedOptions;
   final OrderModel order;
 
