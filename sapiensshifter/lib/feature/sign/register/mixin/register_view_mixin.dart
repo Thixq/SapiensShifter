@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/widgets.dart';
-import 'package:sapiensshifter/core/constant/page_path_constant.dart';
 import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/sign/register/view/register_view.dart';
 import 'package:sapiensshifter/feature/sign/register/view_model/register_view_model.dart';
+import 'package:sapiensshifter/product/constant/page_path_constant.dart';
 
 mixin RegisterViewMixin on BaseState<RegisterView> {
   late final RegisterViewModel _registerViewModel;
