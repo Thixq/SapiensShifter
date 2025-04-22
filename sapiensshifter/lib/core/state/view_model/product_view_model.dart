@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/core/state/view_model/product_state.dart';
-import 'package:sapiensshifter/core/utils/mixin/func/network_connection_status.dart';
+import 'package:sapiensshifter/core/utils/func/network_connection_status.dart';
 
 class ProductViewModel extends BaseCubit<ProductState>
     with NetworkConnectionStatus {
