@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/product/models/table_model.dart';
+import 'package:sapiensshifter/product/models/table_model/table_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 final class PreviewTableCard extends StatelessWidget {

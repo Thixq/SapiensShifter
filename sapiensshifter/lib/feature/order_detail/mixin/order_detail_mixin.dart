@@ -4,8 +4,8 @@ import 'package:sapiensshifter/feature/order_detail/view/order_detail_view.dart'
 import 'package:sapiensshifter/feature/order_detail/view_model/order_detail_view_model.dart';
 import 'package:sapiensshifter/feature/order_detail/view_model/state/order_detail_state.dart';
 import 'package:sapiensshifter/product/component/custom_radio/model/custom_radio_model.dart';
-import 'package:sapiensshifter/product/models/extras_model.dart';
-import 'package:sapiensshifter/product/models/order_model.dart';
+import 'package:sapiensshifter/product/models/extras_model/extras_model.dart';
+import 'package:sapiensshifter/product/models/order_model/order_model.dart';
 import 'package:sapiensshifter/product/utils/enums/delivery_status.dart';
 
 mixin OrderDetailMixin on BaseState<OrderDetailView> {

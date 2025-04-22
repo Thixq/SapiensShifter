@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/component/order_card.dart';
-import 'package:sapiensshifter/product/models/order_model.dart';
+import 'package:sapiensshifter/product/models/order_model/order_model.dart';
+import 'package:sapiensshifter/product/models/table_model/table_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/table_export.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart';
 
 final class PreviewOrderCard extends StatelessWidget {

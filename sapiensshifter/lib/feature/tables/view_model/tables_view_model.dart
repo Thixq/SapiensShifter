@@ -4,8 +4,8 @@ import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/logging/custom_logger.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/tables/view_model/state/tables_view_state.dart';
+import 'package:sapiensshifter/product/models/table_model/table_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/table_export.dart';
 
 class TablesViewModel extends BaseCubit<TablesViewState> {
   TablesViewModel({

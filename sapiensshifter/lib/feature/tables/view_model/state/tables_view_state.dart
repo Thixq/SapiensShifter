@@ -1,4 +1,4 @@
-import 'package:sapiensshifter/product/models/table_model.dart';
+import 'package:sapiensshifter/product/models/table_model/table_model.dart';
 
 final class TablesViewState {
   TablesViewState({
