@@ -31,7 +31,7 @@ class OrderDetailViewModel extends BaseCubit<OrderDetailState> {
               ),
             ],
           );
-    return ErrorUtil.runWithErrorHandling<List<ExtrasModel>>(
+    return ErrorUtil.runWithErrorHandlingAsync<List<ExtrasModel>>(
       action: () async {
         if (optionsId == null) return [];
 

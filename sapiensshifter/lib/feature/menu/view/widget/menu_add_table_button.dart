@@ -18,7 +18,7 @@ class AddTableButton extends StatelessWidget {
           child: const Icon(Icons.check),
           onPressed: () {
             onSumbit();
-            context.router.maybePop();
+            context.router.pop();
           },
         ),
         Positioned(

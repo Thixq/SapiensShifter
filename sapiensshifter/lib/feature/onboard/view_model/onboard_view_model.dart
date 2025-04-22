@@ -44,7 +44,7 @@ final class OnboardViewModel extends BaseCubit<OnboardState> {
   }
 
   Future<bool> writeFirstLaunch(BuildContext context) async {
-    return ErrorUtil.runWithErrorHandling(
+    return ErrorUtil.runWithErrorHandlingAsync(
       action: () => _localCacheManager.cacheOperation
           .write<bool>(key: 'isFirstLaunch', value: true),
       errorHandler: UIErrorHandler(context),

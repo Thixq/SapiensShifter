@@ -5,6 +5,7 @@ import 'package:sapiensshifter/core/constant/query_path_constant.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/product/models/sapiens_user.dart';
 
+// TODO(kaan): profile.dart dosyasını düzenle
 class Profile {
   Profile._({
     required INetworkManager networkManager,
@@ -53,7 +54,7 @@ class Profile {
   }
 
   Future<bool> updateName({required String newName}) async {
-    return ErrorUtil.runWithErrorHandling(
+    return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         await _authManager.authOperation.displayNameUpdate(newName);
         await _updateProfile(field: {'name': newName});

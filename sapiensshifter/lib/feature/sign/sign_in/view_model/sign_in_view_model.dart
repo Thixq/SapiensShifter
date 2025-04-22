@@ -16,7 +16,7 @@ final class SignInViewModel {
   final INetworkManager _networkManager;
 
   Future<bool> recoveryPassword({required String email}) {
-    return ErrorUtil.runWithErrorHandling(
+    return ErrorUtil.runWithErrorHandlingAsync(
       action: () => _authManager.recoveryPassword(email: email),
       errorHandler: ServiceErrorHandler(),
       fallbackValue: false,
@@ -29,7 +29,7 @@ final class SignInViewModel {
     required String password,
     required BuildContext context,
   }) {
-    return ErrorUtil.runWithErrorHandling(
+    return ErrorUtil.runWithErrorHandlingAsync(
       action: () => _authManager.signInWithEmailAndPassword(
         email: email,
         password: password,
@@ -42,7 +42,7 @@ final class SignInViewModel {
   Future<bool> signInWithCredential({
     required CustomCredential signCredential,
   }) {
-    return ErrorUtil.runWithErrorHandling(
+    return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         final user =
             await _authManager.signInWithCredential(credential: signCredential);

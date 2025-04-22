@@ -1,6 +1,11 @@
+// ignore_for_file: strict_raw_type
+
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:sapiensshifter/core/constant/page_path_constant.dart';
 import 'package:sapiensshifter/core/routing/routing_manager.gr.dart';
+
+final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
 @AutoRouterConfig(replaceInRouteName: RoutingManager._replaceRouteName)
 class RoutingManager extends RootStackRouter {

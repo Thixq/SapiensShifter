@@ -23,7 +23,7 @@ class RegisterViewModel {
     required String password,
     required BuildContext context,
   }) async {
-    return ErrorUtil.runWithErrorHandling(
+    return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         await _registerWithEmailAndPassword(email, password);
         await _updateDisplayName(name);

@@ -48,7 +48,7 @@ class CodegenLoader extends AssetLoader{
   },
   "all_exception": {
     "default_exception": "Bir hata oluştu: {message}",
-    "generic_exception": {
+    "general_exception": {
       "is_not_initialized": "{instance} başlatılmadı. Önce initialize()'ı çağırın."
     },
     "network_error_exception": {
