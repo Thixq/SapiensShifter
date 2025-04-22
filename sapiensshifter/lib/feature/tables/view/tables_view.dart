@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/core/utils/mixin/route/route_aware_notifier.dart';
+import 'package:sapiensshifter/core/utils/mixin/route/route_aware_notifier_mixin.dart';
 import 'package:sapiensshifter/feature/tables/mixin/tables_view_mixin.dart';
 import 'package:sapiensshifter/feature/tables/view_model/state/tables_view_state.dart';
 import 'package:sapiensshifter/feature/tables/view_model/tables_view_model.dart';

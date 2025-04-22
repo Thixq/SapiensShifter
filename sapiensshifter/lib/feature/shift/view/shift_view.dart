@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:sapiensshifter/core/state/base/base_state.dart';
 
 @RoutePage()
 class ShiftView extends StatefulWidget {
@@ -9,7 +10,7 @@ class ShiftView extends StatefulWidget {
   State<ShiftView> createState() => _ShiftViewState();
 }
 
-class _ShiftViewState extends State<ShiftView> {
+class _ShiftViewState extends BaseState<ShiftView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
