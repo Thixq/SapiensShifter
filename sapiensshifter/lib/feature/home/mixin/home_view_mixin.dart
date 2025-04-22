@@ -13,7 +13,7 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/dialogs_a
 import 'package:uuid/v7.dart';
 
 mixin HomeViewMixin on BaseState<HomeView> {
-  final userInfo = ProductConfigureItems.profile.user;
+  final userInfo = ProductConfigureItems.profile;
 
   List<PageItem> get pages => <PageItem>[
         PageItem(
@@ -48,13 +48,15 @@ mixin HomeViewMixin on BaseState<HomeView> {
     final newTableModel = TableModel(
       peopleCount: peopleCount,
       tableName: tableName,
-      branchName: userInfo?.toDayBranch,
-      creatorId: userInfo?.id,
+      branchName: userInfo.user?.toDayBranch,
+      creatorId: userInfo.user?.id,
       timeStamp: DateTime.now(),
       status: true,
       id: const UuidV7().generate(),
     );
-    context.router.push<TableModel>(MenuRoute(table: newTableModel));
+    context.router.push<TableModel>(
+      MenuRoute(table: newTableModel, currentUser: userInfo),
+    );
   }
 
   List<NavBarItem> get navBarItems {

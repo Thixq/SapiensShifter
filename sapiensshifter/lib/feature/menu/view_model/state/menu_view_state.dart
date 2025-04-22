@@ -2,13 +2,21 @@
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
 
-class MenuViewState {
+final class MenuViewState {
   MenuViewState({
     required this.isLoading,
     required this.table,
     required this.categories,
     required this.productList,
   });
+  factory MenuViewState.initial({required TableModel table}) {
+    return MenuViewState(
+      isLoading: false,
+      productList: [],
+      categories: {},
+      table: table,
+    );
+  }
 
   final List<ProductModel> productList;
   final Map<String, String> categories;

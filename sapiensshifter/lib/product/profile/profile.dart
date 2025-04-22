@@ -1,8 +1,11 @@
 // ignore_for_file: join_return_with_assignment
 
 import 'package:core/core.dart';
+import 'package:firebase_firestore_module/firebase_firestore_module.dart';
 import 'package:sapiensshifter/core/constant/query_path_constant.dart';
+import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
+import 'package:sapiensshifter/product/models/branch_model/branch_model.dart';
 import 'package:sapiensshifter/product/models/sapiens_user/sapiens_user.dart';
 
 // TODO(kaan): profile.dart dosyasını düzenle
@@ -88,10 +91,24 @@ class Profile {
     );
   }
 
-  // Future<String?> get toDayBranchId()async {
-  //   final branch = _user.toDayBranch;
-  //   final result= await _networkManager.networkOperation.getItem(path: 'branches', model: SapiensUser());
-  //   return result.id;
+  Future<String?> get getToDayBranchId async {
+    return ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        final branch = _user?.toDayBranch;
 
-  // }
+        final query = FirebaseFirestoreCustomQuery(
+          filters: [FilterCondition(field: 'name', value: branch)],
+        );
+
+        final result = await _networkManager.networkOperation.getItemsQuery(
+          path: QueryPathConstant.branchColPath,
+          model: BranchModel(),
+          query: query,
+        );
+        return result.first.id;
+      },
+      errorHandler: ServiceErrorHandler(),
+      fallbackValue: null,
+    );
+  }
 }
