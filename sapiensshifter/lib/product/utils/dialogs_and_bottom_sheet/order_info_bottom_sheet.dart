@@ -79,7 +79,6 @@ class OrderInfoBottomSheet extends StatelessWidget {
           child: _buildOptionButton(
             context,
             title: LocaleKeys.order_info_bottom_sheet_table_delete.tr(),
-            // TODO(kaan): masa silme ve yeni ürün ekleme fonksiyonları ekle.
             onPress: () {
               onPressDelete();
               Navigator.pop(context);

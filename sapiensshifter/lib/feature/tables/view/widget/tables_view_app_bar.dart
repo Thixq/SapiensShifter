@@ -2,12 +2,10 @@ part of '../tables_view.dart';
 
 class TablesViewAppBar extends StatelessWidget implements PreferredSizeWidget {
   const TablesViewAppBar({
-    required this.height,
     this.profile,
     super.key,
   });
 
-  final double height;
   final Profile? profile;
 
   @override

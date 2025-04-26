@@ -11,7 +11,7 @@ enum ShiftStatusEnum {
   CLOSING,
   @JsonValue('closing_service')
   CLOSING_SERVICE,
-  @JsonValue('off_Day')
+  @JsonValue('off_day')
   OFF_DAY,
   @JsonValue('full_day')
   FULL_DAY,

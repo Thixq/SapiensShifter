@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import 'package:flutter/widgets.dart' show BuildContext, ModalRoute;
 
 /// Works on Flutter version 3.29.3. May not work on current versions.

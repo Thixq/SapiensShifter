@@ -2,8 +2,8 @@
 
 import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/splash/view/splash_view.dart';
 import 'package:sapiensshifter/feature/splash/enum/splash_state_enum.dart';
+import 'package:sapiensshifter/feature/splash/view/splash_view.dart';
 import 'package:sapiensshifter/feature/splash/view_model/splash_view_model.dart';
 
 mixin SplashViewMixin on BaseState<SplashView> {
