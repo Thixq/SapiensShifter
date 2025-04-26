@@ -1,8 +1,9 @@
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
 import 'package:sapiensshifter/product/utils/enums/operations.dart';
 
-final class PriceEditingFunc {
-  static ChangePriceList findAndOperate({
+mixin PriceEditingMixin {
+  ({List<ProductModel> mainChangeList, List<ProductModel> selectedChangeList})
+      findAndOperate({
     required double value,
     required Operations operations,
     required List<ProductModel> mainList,
@@ -20,19 +21,6 @@ final class PriceEditingFunc {
         mainList[itemIndex] = changeItem;
       }
     }
-    return ChangePriceList(
-      mainChangeList: mainList,
-      selectedChangeList: selecetedChangeList,
-    );
+    return (mainChangeList: mainList, selectedChangeList: selecetedChangeList);
   }
-}
-
-class ChangePriceList {
-  ChangePriceList({
-    required this.mainChangeList,
-    required this.selectedChangeList,
-  });
-
-  final List<ProductModel> mainChangeList;
-  final List<ProductModel> selectedChangeList;
 }

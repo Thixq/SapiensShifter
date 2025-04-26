@@ -56,7 +56,9 @@ final class FirebaseFirestoreOperation extends INetworkOperation
 
     // If a document ID is provided, an error is thrown because batch operations require working with collections.
     if (docId != null) {
-      throw ModuleFirestoreException('invalid_path_exception');
+      throw ModuleFirestoreException('invalid_path_exception', optionArgs: {
+        'path': path,
+      });
     }
 
     return handleAsyncOperation<bool, FirebaseException>(() async {
@@ -117,7 +119,8 @@ final class FirebaseFirestoreOperation extends INetworkOperation
 
         // If no document ID is provided, throw an exception since a valid document ID is required.
         if (docId == null) {
-          throw ModuleFirestoreException('invalid_path_exception');
+          throw ModuleFirestoreException('invalid_path_exception',
+              optionArgs: {'path': path});
         }
 
         // Prepare the document reference with a custom converter to map Firestore data to the model.
@@ -163,7 +166,8 @@ final class FirebaseFirestoreOperation extends INetworkOperation
 
         // If a document ID is provided, it throws an exception since we are querying collections.
         if (docId != null) {
-          throw ModuleFirestoreException('invalid_path_exception');
+          throw ModuleFirestoreException('invalid_path_exception',
+              optionArgs: {'path': path});
         }
 
         // Get the reference to the collection.
@@ -207,7 +211,8 @@ final class FirebaseFirestoreOperation extends INetworkOperation
 
         // If no document ID or key is provided, throw an exception as the operation is invalid.
         if (docId == null || key == null) {
-          throw ModuleFirestoreException('invalid_path_exception');
+          throw ModuleFirestoreException('invalid_path_exception',
+              optionArgs: {'path': path});
         }
 
         final docRef = _firestore.collection(collectionPath).doc(key);
@@ -237,7 +242,8 @@ final class FirebaseFirestoreOperation extends INetworkOperation
 
         // If no document ID is provided, throw an exception.
         if (docId == null) {
-          throw ModuleFirestoreException('invalid_path_exception');
+          throw ModuleFirestoreException('invalid_path_exception',
+              optionArgs: {'path': path});
         }
 
         // Perform the update operation in Firestore.

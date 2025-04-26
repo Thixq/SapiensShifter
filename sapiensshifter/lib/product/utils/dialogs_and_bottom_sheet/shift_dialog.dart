@@ -18,7 +18,7 @@ final class ShiftDialog extends StatelessWidget {
     );
   }
 
-  String get _nullBranchText => StringConstant.nullString.tr();
+  String get _nullBranchText => '---';
   String get _nullBranchDateText => '--/--';
   String get _nullShiftTimeText => '00:00-00:00';
 

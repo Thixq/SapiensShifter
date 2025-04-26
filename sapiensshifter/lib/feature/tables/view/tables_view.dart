@@ -34,7 +34,6 @@ class _TablesViewState extends BaseState<TablesView>
       child: Scaffold(
         appBar: TablesViewAppBar(
           profile: viewModel.profile,
-          height: 1,
         ),
         body: _body(),
       ),
@@ -63,12 +62,8 @@ class _TablesViewState extends BaseState<TablesView>
         onPress: (table) => OrderInfoBottomSheet.show(
           context,
           tableModel: table,
-          onPressDelete: () async {
-            await viewModel.deleteTable(table!);
-          },
-          onPressAddNewOrder: () {
-            newOrder(context, table);
-          },
+          onPressDelete: () async => viewModel.deleteTable(table!),
+          onPressAddNewOrder: () => newOrder(context, table),
         ),
       ),
     );

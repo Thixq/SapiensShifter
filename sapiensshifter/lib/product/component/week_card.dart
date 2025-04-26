@@ -13,25 +13,16 @@ final class WeekCard extends StatelessWidget {
   });
   final ShiftDay? shiftDay;
 
-  double get _width => 12.w;
-  double get _fontSize => 20.sp;
-  double get _iconSize => 6.w;
-
   BoxBorder? get isToday {
     final shiftDayGGMM = shiftDay?.time.sapiTimeExt.ggmm;
     if (shiftDayGGMM == null) return null;
     return shiftDayGGMM == DateTime.now().sapiTimeExt.ggmm
-        ? Border.all(width: 4, color: ColorConstant.primaryColor)
+        ? Border.all(
+            strokeAlign: BorderSide.strokeAlignCenter,
+            width: 4.spa,
+            color: ColorConstant.primaryColor,
+          )
         : null;
-  }
-
-  void showShiftDay(BuildContext context) {
-    context.popupManager.showLoader(
-      barrierDismissible: true,
-      widgetBuilder: (context) => ShiftDialog(
-        shiftDay: shiftDay,
-      ),
-    );
   }
 
   @override
@@ -39,8 +30,8 @@ final class WeekCard extends StatelessWidget {
     return Ink(
       decoration: _buildDecoration(context),
       child: InkWell(
-        onTap: () => showShiftDay(context),
         borderRadius: context.border.lowBorderRadius,
+        onTap: () => ShiftDialog.show(context, shiftDay: shiftDay),
         child: _buildContent(context),
       ),
     );
@@ -48,56 +39,57 @@ final class WeekCard extends StatelessWidget {
 
   BoxDecoration _buildDecoration(BuildContext context) {
     return BoxDecoration(
-      borderRadius: context.border.lowBorderRadius,
+      borderRadius: BorderRadius.circular(4.spa),
       color: Colors.white,
       border: isToday,
     );
   }
 
-  Container _buildContent(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(bottom: 1.5.h, top: .5.h),
-      width: _width,
-      child: Column(
-        children: [
-          _buildDateText(context, _fontSize, shiftDay?.time),
-          SizedBox(height: .8.h),
-          _buildShiftStatus(_iconSize, shiftDay?.shiftStatus, context),
-        ],
-      ),
+  Widget _buildContent(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(flex: 5, child: _buildDateText(context, shiftDay!.time)),
+        Expanded(
+          flex: 3,
+          child: _buildShiftStatus(context, shiftDay!.shiftStatus),
+        ),
+        Expanded(child: Container()),
+      ],
     );
   }
 
-  FractionallySizedBox _buildShiftStatus(
-    double iconSize,
-    ShiftStatusEnum? shiftStatus,
+  Widget _buildShiftStatus(
     BuildContext context,
+    ShiftStatusEnum? shiftStatus,
   ) {
-    return FractionallySizedBox(
-      widthFactor: 1,
-      child: Container(
-        height: iconSize + 2, // Dynamic height for the container
-        color: shiftStatus?.status.statusColor ??
-            context.general.colorScheme.primary,
+    return ColoredBox(
+      color: shiftStatus?.status.statusColor ??
+          context.general.colorScheme.primary,
+      child: FittedBox(
+        fit: BoxFit.fitHeight,
         child: Icon(
           shiftStatus?.status.statusIcon,
           color: Colors.white,
-          size: iconSize,
+          applyTextScaling: true,
         ),
       ),
     );
   }
 
-  Text _buildDateText(
+  Widget _buildDateText(
     BuildContext context,
-    double fontSize,
     DateTime? shiftTime,
   ) {
-    return Text(
-      shiftTime?.day.toString().padLeft(2, '0') ?? '--',
-      style: context.general.textTheme.headlineSmall!.copyWith(
-        fontSize: fontSize,
-        fontWeight: FontWeight.bold,
+    return Padding(
+      padding: const EdgeInsets.all(4),
+      child: FittedBox(
+        child: Text(
+          '${shiftTime?.day}',
+          style: context.general.textTheme.headlineSmall!
+              .copyWith(fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }

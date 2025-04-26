@@ -74,7 +74,7 @@ class CodegenLoader extends AssetLoader{
       "too_many_requests": "Çok fazla istek gönderildi. Lütfen daha sonra tekrar deneyin."
     },
     "firebase_firestore_exception": {
-      "invalid_path_exception": "Hatalı dosya yolu.",
+      "invalid_path_exception": "Hatalı dosya yolu. Hatalı dosya yolu: {path}",
       "batch_commit_exception": "Bazı belgelerde hatta oluştu. Ayrıntılar: {failedDocs}",
       "document_data_exception": "Belgeden gelen veri boş. Belge yolu: {path}",
       "document_not_found_exception": "Belge bulunamadı. Belge yolu: {path}"
@@ -118,6 +118,9 @@ class CodegenLoader extends AssetLoader{
     },
     "order_detail": {
       "service_type": "Servis"
+    },
+    "shift": {
+      "shift": "Vardiya"
     }
   },
   "category": {

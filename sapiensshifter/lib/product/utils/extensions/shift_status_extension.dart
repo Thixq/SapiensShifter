@@ -31,7 +31,10 @@ extension ShiftStatusExtension on ShiftStatusEnum {
           statusTime: '15:00-23:00',
         );
       case ShiftStatusEnum.OFF_DAY:
-        return const ShiftStatus(statusTime: 'Off Day');
+        return const ShiftStatus(
+          statusTime: 'Off Day',
+          statusColor: ColorConstant.talkingBird,
+        );
       case ShiftStatusEnum.FULL_DAY:
         return const ShiftStatus(
           statusColor: ColorConstant.sunShine,

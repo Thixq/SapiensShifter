@@ -12,10 +12,14 @@ ShiftWeek _$ShiftWeekFromJson(Map<String, dynamic> json) => $checkedCreate(
       ($checkedConvert) {
         final val = ShiftWeek(
           id: $checkedConvert('id', (v) => v as String?),
-          weekStart: $checkedConvert('weekStart',
-              (v) => v == null ? null : DateTime.parse(v as String)),
+          weekStart: $checkedConvert(
+              'weekStart',
+              (v) => _$JsonConverterFromJson<Timestamp, DateTime>(
+                  v, const TimestampConverter().fromJson)),
           weekEnd: $checkedConvert(
-              'weekEnd', (v) => v == null ? null : DateTime.parse(v as String)),
+              'weekEnd',
+              (v) => _$JsonConverterFromJson<Timestamp, DateTime>(
+                  v, const TimestampConverter().fromJson)),
           week: $checkedConvert(
               'week',
               (v) => (v as List<dynamic>?)
@@ -28,7 +32,21 @@ ShiftWeek _$ShiftWeekFromJson(Map<String, dynamic> json) => $checkedCreate(
 
 Map<String, dynamic> _$ShiftWeekToJson(ShiftWeek instance) => <String, dynamic>{
       'id': instance.id,
-      'weekStart': instance.weekStart?.toIso8601String(),
-      'weekEnd': instance.weekEnd?.toIso8601String(),
-      'week': instance.week,
+      'weekStart': _$JsonConverterToJson<Timestamp, DateTime>(
+          instance.weekStart, const TimestampConverter().toJson),
+      'weekEnd': _$JsonConverterToJson<Timestamp, DateTime>(
+          instance.weekEnd, const TimestampConverter().toJson),
+      'week': instance.week?.map((e) => e.toJson()).toList(),
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

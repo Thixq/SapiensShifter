@@ -15,7 +15,9 @@ ShiftDay _$ShiftDayFromJson(Map<String, dynamic> json) => $checkedCreate(
           shiftStatus: $checkedConvert('shiftStatus',
               (v) => $enumDecodeNullable(_$ShiftStatusEnumEnumMap, v)),
           time: $checkedConvert(
-              'time', (v) => v == null ? null : DateTime.parse(v as String)),
+              'time',
+              (v) => _$JsonConverterFromJson<Timestamp, DateTime>(
+                  v, const TimestampConverter().fromJson)),
         );
         return val;
       },
@@ -24,7 +26,8 @@ ShiftDay _$ShiftDayFromJson(Map<String, dynamic> json) => $checkedCreate(
 Map<String, dynamic> _$ShiftDayToJson(ShiftDay instance) => <String, dynamic>{
       'branch': instance.branch,
       'shiftStatus': _$ShiftStatusEnumEnumMap[instance.shiftStatus],
-      'time': instance.time?.toIso8601String(),
+      'time': _$JsonConverterToJson<Timestamp, DateTime>(
+          instance.time, const TimestampConverter().toJson),
     };
 
 const _$ShiftStatusEnumEnumMap = {
@@ -32,7 +35,19 @@ const _$ShiftStatusEnumEnumMap = {
   ShiftStatusEnum.OPENING_SERVICE: 'opening_service',
   ShiftStatusEnum.CLOSING: 'closing',
   ShiftStatusEnum.CLOSING_SERVICE: 'closing_service',
-  ShiftStatusEnum.OFF_DAY: 'off_Day',
+  ShiftStatusEnum.OFF_DAY: 'off_day',
   ShiftStatusEnum.FULL_DAY: 'full_day',
   ShiftStatusEnum.INTERMEDIARY: 'intermediary',
 };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);
+
+Json? _$JsonConverterToJson<Json, Value>(
+  Value? value,
+  Json? Function(Value value) toJson,
+) =>
+    value == null ? null : toJson(value);

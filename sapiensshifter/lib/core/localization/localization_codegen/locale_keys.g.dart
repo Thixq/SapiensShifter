@@ -85,6 +85,8 @@ abstract class  LocaleKeys {
   static const page_sign = 'page.sign';
   static const page_order_detail_service_type = 'page.order_detail.service_type';
   static const page_order_detail = 'page.order_detail';
+  static const page_shift_shift = 'page.shift.shift';
+  static const page_shift = 'page.shift';
   static const page = 'page';
   static const category_all = 'category.all';
   static const category_hot_coffees = 'category.hot_coffees';
