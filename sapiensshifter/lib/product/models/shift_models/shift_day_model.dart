@@ -1,10 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'package:sapiensshifter/product/utils/enums/shift_status_enum.dart';
 import 'package:sapiensshifter/product/utils/json_converters/timestamp_converter.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 part 'shift_day_model.g.dart';
 
@@ -22,7 +22,7 @@ final class ShiftDay extends IBaseModel<ShiftDay> with EquatableMixin {
 
   final String? branch;
   final ShiftStatusEnum? shiftStatus;
-  @TimestampConverter()
+  @TimestampNullableConverter()
   final DateTime? time;
 
   @override

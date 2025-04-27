@@ -21,9 +21,9 @@ final class ShiftWeek extends IBaseModel<ShiftWeek> with EquatableMixin {
       _$ShiftWeekFromJson(json);
 
   final String? id;
-  @TimestampConverter()
+  @TimestampNullableConverter()
   final DateTime? weekStart;
-  @TimestampConverter()
+  @TimestampNullableConverter()
   final DateTime? weekEnd;
 
   final List<ShiftDay>? week;

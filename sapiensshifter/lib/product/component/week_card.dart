@@ -14,9 +14,9 @@ final class WeekCard extends StatelessWidget {
   final ShiftDay? shiftDay;
 
   BoxBorder? get isToday {
-    final shiftDayGGMM = shiftDay?.time.sapiTimeExt.ggmm;
+    final shiftDayGGMM = shiftDay?.time.sapiTimeExt.ddmm;
     if (shiftDayGGMM == null) return null;
-    return shiftDayGGMM == DateTime.now().sapiTimeExt.ggmm
+    return shiftDayGGMM == DateTime.now().sapiTimeExt.ddmm
         ? Border.all(
             strokeAlign: BorderSide.strokeAlignCenter,
             width: 4.spa,

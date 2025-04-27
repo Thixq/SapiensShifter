@@ -11,7 +11,6 @@ class KeyboardDismissOnTap extends StatelessWidget {
       excludeFromSemantics: true,
       behavior: HitTestBehavior.translucent,
       onTap: () => context.general.unfocus(),
-      onTapDown: (details) => context.general.unfocus(),
       child: child,
     );
   }

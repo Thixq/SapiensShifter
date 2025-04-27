@@ -50,7 +50,7 @@ final class ShiftDialog extends StatelessWidget {
           style: context.general.textTheme.titleMedium,
         ),
         Text(
-          shiftDay?.time?.sapiTimeExt.ggmm ?? _nullBranchDateText,
+          shiftDay?.time?.sapiTimeExt.ddmm ?? _nullBranchDateText,
         ),
       ],
     );

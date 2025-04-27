@@ -16,8 +16,8 @@ ShiftDay _$ShiftDayFromJson(Map<String, dynamic> json) => $checkedCreate(
               (v) => $enumDecodeNullable(_$ShiftStatusEnumEnumMap, v)),
           time: $checkedConvert(
               'time',
-              (v) => _$JsonConverterFromJson<Timestamp, DateTime>(
-                  v, const TimestampConverter().fromJson)),
+              (v) =>
+                  const TimestampNullableConverter().fromJson(v as Timestamp?)),
         );
         return val;
       },
@@ -26,8 +26,7 @@ ShiftDay _$ShiftDayFromJson(Map<String, dynamic> json) => $checkedCreate(
 Map<String, dynamic> _$ShiftDayToJson(ShiftDay instance) => <String, dynamic>{
       'branch': instance.branch,
       'shiftStatus': _$ShiftStatusEnumEnumMap[instance.shiftStatus],
-      'time': _$JsonConverterToJson<Timestamp, DateTime>(
-          instance.time, const TimestampConverter().toJson),
+      'time': const TimestampNullableConverter().toJson(instance.time),
     };
 
 const _$ShiftStatusEnumEnumMap = {
@@ -39,15 +38,3 @@ const _$ShiftStatusEnumEnumMap = {
   ShiftStatusEnum.FULL_DAY: 'full_day',
   ShiftStatusEnum.INTERMEDIARY: 'intermediary',
 };
-
-Value? _$JsonConverterFromJson<Json, Value>(
-  Object? json,
-  Value? Function(Json json) fromJson,
-) =>
-    json == null ? null : fromJson(json as Json);
-
-Json? _$JsonConverterToJson<Json, Value>(
-  Value? value,
-  Json? Function(Value value) toJson,
-) =>
-    value == null ? null : toJson(value);

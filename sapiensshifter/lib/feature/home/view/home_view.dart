@@ -19,6 +19,7 @@ class _HomeViewState extends BaseState<HomeView> with HomeViewMixin {
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
+      resizeToAvoidBottomInset: false,
       routes: pages
           .map(
             (e) => e.page,
