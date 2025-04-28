@@ -1,4 +1,4 @@
-part of '../chat_view.dart';
+part of '../chat_preview_view.dart';
 
 class ChatViewAppBar extends StatelessWidget {
   const ChatViewAppBar({

@@ -17,7 +17,7 @@ mixin HomeViewMixin on BaseState<HomeView> {
 
   List<PageItem> get pages => <PageItem>[
         PageItem(
-          page: const ChatRoute(),
+          page: const ChatPreviewRoute(),
           navBarItem: NavBarItem(
             icon: Icons.message,
             onPress: () async {

@@ -8,6 +8,7 @@ part 'sapiens_user.g.dart';
 // ignore: public_member_api_docs
 final class SapiensUser extends IBaseModel<SapiensUser> with EquatableMixin {
   const SapiensUser({
+    this.chatPreviewIdList,
     this.id,
     this.name,
     this.email,
@@ -23,6 +24,7 @@ final class SapiensUser extends IBaseModel<SapiensUser> with EquatableMixin {
   final String? email;
   final String? imagePath;
   final String? toDayBranch;
+  final List<String>? chatPreviewIdList;
 
   @override
   List<Object?> get props => [id, name, email];
