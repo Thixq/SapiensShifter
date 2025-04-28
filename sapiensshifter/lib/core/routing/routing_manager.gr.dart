@@ -11,7 +11,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i11;
 import 'package:flutter/material.dart' as _i14;
-import 'package:sapiensshifter/feature/chat/view/chat_view.dart' as _i1;
+import 'package:sapiensshifter/feature/chat_preview/view/chat_preview_view.dart'
+    as _i1;
 import 'package:sapiensshifter/feature/home/view/home_view.dart' as _i2;
 import 'package:sapiensshifter/feature/menu/view/menu_view.dart' as _i3;
 import 'package:sapiensshifter/feature/onboard/view/onboard_view.dart' as _i4;
@@ -31,17 +32,17 @@ import 'package:sapiensshifter/product/models/table_model/table_model.dart'
 import 'package:sapiensshifter/product/profile/profile.dart' as _i13;
 
 /// generated route for
-/// [_i1.ChatView]
-class ChatRoute extends _i11.PageRouteInfo<void> {
-  const ChatRoute({List<_i11.PageRouteInfo>? children})
-    : super(ChatRoute.name, initialChildren: children);
+/// [_i1.ChatPreviewView]
+class ChatPreviewRoute extends _i11.PageRouteInfo<void> {
+  const ChatPreviewRoute({List<_i11.PageRouteInfo>? children})
+    : super(ChatPreviewRoute.name, initialChildren: children);
 
-  static const String name = 'ChatRoute';
+  static const String name = 'ChatPreviewRoute';
 
   static _i11.PageInfo page = _i11.PageInfo(
     name,
     builder: (data) {
-      return const _i1.ChatView();
+      return const _i1.ChatPreviewView();
     },
   );
 }

@@ -10,14 +10,14 @@ part 'widget/chat_view_app_bar.dart';
 part 'widget/chat_view_chat_list.dart';
 
 @RoutePage()
-class ChatView extends StatefulWidget {
-  const ChatView({super.key});
+class ChatPreviewView extends StatefulWidget {
+  const ChatPreviewView({super.key});
 
   @override
-  State<ChatView> createState() => _ChatViewState();
+  State<ChatPreviewView> createState() => _ChatPreviewViewState();
 }
 
-class _ChatViewState extends State<ChatView> {
+class _ChatPreviewViewState extends State<ChatPreviewView> {
   final TextEditingController _searchController = TextEditingController();
 
   @override
@@ -34,31 +34,9 @@ class _ChatViewState extends State<ChatView> {
             searchOnSubmitted: (value) {},
           ),
           ChatViewChatList(
-            onDismissed: (id) {
-              print('Chat Preview Id: $id');
-            },
-            onTap: (chatRoomId) {
-              print('Chat Room Id: $chatRoomId');
-            },
-            chatList: [
-              ChatPreviewModel(
-                id: 'ChatPreviewId1',
-                chatRoomId: 'ChatRoomId1',
-                personName: 'Aliço',
-                groupName: 'Grup İndirimi',
-                imageUrl: ''.ext.randomImage,
-                lastMessage: 'Merhaba',
-                lastMessageTime: DateTime(2025, 4, 20, 12, 54, 43),
-              ),
-              ChatPreviewModel(
-                id: 'ChatPreviewId2',
-                chatRoomId: 'chatRoomId2',
-                personName: 'Aliço',
-                imageUrl: ''.ext.randomImage,
-                lastMessage: 'Merhaba',
-                lastMessageTime: DateTime.now(),
-              ),
-            ],
+            onDismissed: (id) {},
+            onTap: (chatRoomId) {},
+            chatList: const [],
           ),
         ],
       ),

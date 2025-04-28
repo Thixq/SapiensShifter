@@ -23,6 +23,14 @@ class CodegenLoader extends AssetLoader{
   "next": "Devam",
   "previous": "Geri",
   "done": "Tamam",
+  "date": {
+    "today": "Bugün",
+    "yesterday": "Dün",
+    "tomorrow": "Yarın",
+    "day_after_tomorrow": "Öbür Gün",
+    "last_week": "Geçen Hafta",
+    "next_week": "Gelecek Hafta"
+  },
   "drop_down": {
     "drop_down_default": "Seçiniz",
     "drop_down_extra": "Ekstra Seçiniz"
@@ -49,7 +57,8 @@ class CodegenLoader extends AssetLoader{
   "all_exception": {
     "default_exception": "Bir hata oluştu: {message}",
     "general_exception": {
-      "is_not_initialized": "{instance} başlatılmadı. Önce initialize()'ı çağırın."
+      "is_not_initialized": "{instance} başlatılmadı. Önce initialize()'ı çağırın.",
+      "list_is_empty": "Liste boş."
     },
     "network_error_exception": {
       "no_network_connection": "İnternet bağlantısı yok. İnternet bağlantınızı kontrol edin."

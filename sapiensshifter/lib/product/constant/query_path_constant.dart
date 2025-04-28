@@ -7,4 +7,7 @@ class QueryPathConstant {
   static const extras = '/extras';
   static const productsColPath = '/products';
   static const branchColPath = '/branches';
+  // CHAT
+  static const chatRoomColPath = '/chats';
+  static const chatPreviewColPath = '/chatPreviews';
 }

@@ -11,6 +11,13 @@ abstract class  LocaleKeys {
   static const next = 'next';
   static const previous = 'previous';
   static const done = 'done';
+  static const date_today = 'date.today';
+  static const date_yesterday = 'date.yesterday';
+  static const date_tomorrow = 'date.tomorrow';
+  static const date_day_after_tomorrow = 'date.day_after_tomorrow';
+  static const date_last_week = 'date.last_week';
+  static const date_next_week = 'date.next_week';
+  static const date = 'date';
   static const drop_down_drop_down_default = 'drop_down.drop_down_default';
   static const drop_down_drop_down_extra = 'drop_down.drop_down_extra';
   static const drop_down = 'drop_down';
@@ -30,6 +37,7 @@ abstract class  LocaleKeys {
   static const validate = 'validate';
   static const all_exception_default_exception = 'all_exception.default_exception';
   static const all_exception_general_exception_is_not_initialized = 'all_exception.general_exception.is_not_initialized';
+  static const all_exception_general_exception_list_is_empty = 'all_exception.general_exception.list_is_empty';
   static const all_exception_general_exception = 'all_exception.general_exception';
   static const all_exception_network_error_exception_no_network_connection = 'all_exception.network_error_exception.no_network_connection';
   static const all_exception_network_error_exception = 'all_exception.network_error_exception';
