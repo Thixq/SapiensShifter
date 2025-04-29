@@ -46,7 +46,7 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
         );
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: emit(state.copyWith(isLoading: false, chatPreviews: [])),
+      fallbackValue: null,
     );
   }
 }

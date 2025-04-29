@@ -49,7 +49,7 @@ final class FirebaseAuthManagar extends IAuthManager
   /// [password]: User's password.
   /// Returns true if registration is successful; otherwise, throws an error.
   @override
-  Future<UserModel?> registerWithEmailAndPassword({
+  Future<AuthModel?> registerWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
@@ -70,7 +70,7 @@ final class FirebaseAuthManagar extends IAuthManager
   /// [credential]: The credential from a social provider.
   /// Returns true if sign-in is successful; otherwise, throws an error.
   @override
-  Future<UserModel?> signInWithCredential({
+  Future<AuthModel?> signInWithCredential({
     required CustomCredential credential,
   }) async {
     return handleAsyncOperation(

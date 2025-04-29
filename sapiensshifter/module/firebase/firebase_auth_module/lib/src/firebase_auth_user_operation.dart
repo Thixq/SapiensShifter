@@ -28,9 +28,9 @@ class FirebaseAuthUserOperation extends IAuthOperation
   ///
   /// If no user is authenticated, fields will be `null`.
   @override
-  UserModel? get user {
+  AuthModel? get user {
     if (_firebaseAuth.currentUser == null) return null;
-    return UserModel(
+    return AuthModel(
       id: _firebaseAuth.currentUser!.uid,
       photoUrl: _firebaseAuth.currentUser?.photoURL,
       displayName: _firebaseAuth.currentUser?.displayName,

@@ -60,7 +60,6 @@ final class FirebaseFirestoreOperation extends INetworkOperation
         'path': path,
       });
     }
-
     return handleAsyncOperation<bool, FirebaseException>(() async {
       // Process items in batches, each batch can contain up to 500 operations.
       await _processBatchedOperations<T, Map<String, dynamic>>(
@@ -240,6 +239,8 @@ final class FirebaseFirestoreOperation extends INetworkOperation
       () async {
         final (collectionPath, docId) = _getCollectionAndDocId(path);
 
+        final transValue = _translateToFirestore(value);
+
         // If no document ID is provided, throw an exception.
         if (docId == null) {
           throw ModuleFirestoreException('invalid_path_exception',
@@ -247,7 +248,10 @@ final class FirebaseFirestoreOperation extends INetworkOperation
         }
 
         // Perform the update operation in Firestore.
-        await _firestore.collection(collectionPath).doc(docId).update(value);
+        await _firestore
+            .collection(collectionPath)
+            .doc(docId)
+            .update(transValue);
         return true; // Return true indicating the update was successful.
       },
     );

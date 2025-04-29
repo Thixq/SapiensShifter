@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:core/core.dart';
 
-final class UserModel extends IBaseModel<UserModel> {
-  UserModel({
+final class AuthModel extends IBaseModel<AuthModel> {
+  AuthModel({
     required this.id,
     required this.photoUrl,
     required this.displayName,
@@ -15,8 +15,8 @@ final class UserModel extends IBaseModel<UserModel> {
   final String? email;
 
   @override
-  UserModel fromJson(Map<String, dynamic> json) {
-    return UserModel(
+  AuthModel fromJson(Map<String, dynamic> json) {
+    return AuthModel(
         id: json['id'],
         photoUrl: json['photoUrl'],
         displayName: json['displayName'],
@@ -33,13 +33,13 @@ final class UserModel extends IBaseModel<UserModel> {
     };
   }
 
-  UserModel copyWith({
+  AuthModel copyWith({
     String? id,
     String? photoUrl,
     String? displayName,
     String? email,
   }) {
-    return UserModel(
+    return AuthModel(
       id: id ?? this.id,
       photoUrl: photoUrl ?? this.photoUrl,
       displayName: displayName ?? this.displayName,

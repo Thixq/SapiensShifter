@@ -34,7 +34,7 @@ class RegisterViewModel {
     );
   }
 
-  Future<void> _saveUserToDatabase(UserModel? user) async {
+  Future<void> _saveUserToDatabase(AuthModel? user) async {
     final sapiUser = SapiensUser(
       id: user?.id,
       name: user?.displayName,
@@ -47,7 +47,7 @@ class RegisterViewModel {
     );
   }
 
-  Future<UserModel?> _registerWithEmailAndPassword(
+  Future<AuthModel?> _registerWithEmailAndPassword(
     String email,
     String password,
   ) async {

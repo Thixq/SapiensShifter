@@ -41,7 +41,7 @@ class CodegenLoader extends AssetLoader{
     "total": "Toplam: {price}₺"
   },
   "null_value": {
-    "null_name": "Eksik Ve Hatalı",
+    "null_name": "Eksik Veri",
     "null_double": "00.00"
   },
   "validate": {

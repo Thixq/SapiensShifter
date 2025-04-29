@@ -11,7 +11,7 @@ class ChatViewChatList extends StatelessWidget {
   final List<ChatPreviewModel> chatList;
   final void Function(String chatRoomId) onTap;
   final void Function(String id) onDismissed;
-  String get _nullText => LocaleKeys.null_value.tr();
+  String get _nullText => LocaleKeys.null_value_null_name.tr();
 
   @override
   Widget build(BuildContext context) {
