@@ -35,5 +35,5 @@ abstract class IAuthOperation {
   ///
   /// Returns:
   /// A [UserModel] representing the current user.
-  UserModel? get user;
+  AuthModel? get user;
 }

@@ -82,4 +82,33 @@ mixin class FirestoreHelperMixin {
       return (pathSegments.join('/'), null);
     }
   }
+
+  Map<String, dynamic> _translateToFirestore(Map<String, dynamic> data) {
+    final Map<String, dynamic> translatedData = {};
+
+    data.forEach((key, value) {
+      if (value is ValueFieldInterface) {
+        // Soyut operasyonları FieldValue'ya çevir
+        if (value is IncrementOperation) {
+          translatedData[key] = FieldValue.increment(value.value);
+        } else if (value is ArrayUnionOperation) {
+          translatedData[key] = FieldValue.arrayUnion(value.elements);
+        } else if (value is ArrayRemoveOperation) {
+          translatedData[key] = FieldValue.arrayRemove(value.elements);
+        } else if (value is DeleteFieldOperation) {
+          translatedData[key] = FieldValue.delete();
+        } else if (value is ServerTimestampOperation) {
+          translatedData[key] = FieldValue.serverTimestamp();
+        }
+      } else {
+        if (value is Map<String, dynamic>) {
+          translatedData[key] = _translateToFirestore(value);
+        } else {
+          translatedData[key] = value;
+        }
+      }
+    });
+
+    return translatedData;
+  }
 }

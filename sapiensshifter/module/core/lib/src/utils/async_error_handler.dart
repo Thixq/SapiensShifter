@@ -38,7 +38,7 @@ typedef ErrorTransformer<E extends Object?> = IBaseException Function(
 /// ### Throws
 /// - A transformed exception, if [errorTransformer] is provided and the caught error is of type [E].
 /// - The original exception, if [errorTransformer] is not provided or the error does not match [E].
-Future<T> handleAsyncOperation<T, E extends Exception>(
+Future<T> handleAsyncOperation<T, E extends Object>(
   Future<T> Function() operation, {
   ErrorTransformer<E>? errorTransformer,
 }) async {

@@ -54,7 +54,7 @@ final class SignInViewModel {
     );
   }
 
-  Future<void> _saveUserToDatabase(UserModel? user) async {
+  Future<void> _saveUserToDatabase(AuthModel? user) async {
     final sapiUser = SapiensUser(
       id: user?.id,
       name: user?.displayName,

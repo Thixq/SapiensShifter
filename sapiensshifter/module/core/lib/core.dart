@@ -18,3 +18,4 @@ library;
 export 'src/interfaces/interface.dart';
 export 'src/models/models.dart';
 export 'src/utils/utils.dart';
+export 'src/operation/operation.dart';
