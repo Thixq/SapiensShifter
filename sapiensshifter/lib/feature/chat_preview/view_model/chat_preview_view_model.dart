@@ -8,6 +8,7 @@ import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/chat_preview/view_model/state/chat_preview_state.dart';
 import 'package:sapiensshifter/product/constant/query_path_constant.dart';
 import 'package:sapiensshifter/product/models/chats_model/chat_preview_model.dart';
+import 'package:sapiensshifter/product/models/sapiens_user/sapiens_user.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
 
 class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
@@ -21,77 +22,29 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
   final INetworkManager _networkManager;
   final Profile _profile;
 
-  late final StreamSubscription<List<ChatPreviewModel>> _streamSubscription;
+  late final StreamSubscription<SapiensUser> _streamSubscription;
 
   void getStreamPrewViewList() {
     ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
-        final streamList = _getStream(
-          path: QueryPathConstant.chatPreviewColPath,
-          model: ChatPreviewModel(),
+        final userId = _profile.user?.id;
+        final streamChatPreviewList = _getStream(
+          path: '${QueryPathConstant.usersColPath}/$userId',
+          model: const SapiensUser(),
         );
-
-        _streamSubscription = streamList.listen(
-          (event) => emit(
-            state.copyWith(chatPreviews: [...event]),
-          ),
-        );
-      },
-      fallbackValue: () {},
-    );
-  }
-
-  Stream<List<T>> _getStream<T extends IBaseModel<T>>({
-    required String path,
-    required T model,
-  }) async* {
-    final chatPreviewList = _profile.user?.chatPreviewIdList;
-    final query = FirebaseFirestoreCustomQuery(
-      filters: [
-        FilterCondition(
-          field: 'id',
-          value: chatPreviewList,
-          operator: FilterOperator.whereIn,
-        ),
-      ],
-    );
-    yield* _networkManager.networkOperation.getStreamQuery<T>(
-      path: path,
-      model: model,
-      query: query,
-    );
-  }
-
-  void getPreviewList() {
-    emit(state.copyWith(isLoading: true));
-    ErrorUtil.runWithErrorHandlingAsync(
-      action: () async {
-        final chatPreviewList = _profile.user?.chatPreviewIdList;
-        final query = FirebaseFirestoreCustomQuery(
-          filters: [
-            FilterCondition(
-              field: 'id',
-              value: chatPreviewList,
-              operator: FilterOperator.whereIn,
-            ),
-          ],
-        );
-        final result = await _networkManager.networkOperation.getItemsQuery(
-          query: query,
-          path: QueryPathConstant.chatPreviewColPath,
-          model: ChatPreviewModel(),
-        );
-        result.sort((a, b) {
-          return b.lastMessageTime!.compareTo(a.lastMessageTime!);
-        });
-        emit(
-          state.copyWith(
-            isLoading: false,
-            chatPreviews: result,
-          ),
+        _streamSubscription = streamChatPreviewList.listen(
+          (event) async {
+            final result =
+                await _getPreviewList(previewList: event.chatPreviewIdList);
+            emit(
+              state.copyWith(
+                isLoading: false,
+                chatPreviews: result,
+              ),
+            );
+          },
         );
       },
-      errorHandler: ServiceErrorHandler(),
       fallbackValue: () {
         emit(
           state.copyWith(
@@ -102,6 +55,39 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
         return null;
       },
     );
+  }
+
+  Stream<T> _getStream<T extends IBaseModel<T>>({
+    required String path,
+    required T model,
+  }) async* {
+    yield* _networkManager.networkOperation.getStream<T>(
+      path: path,
+      model: model,
+    );
+  }
+
+  Future<List<ChatPreviewModel>> _getPreviewList({
+    required List<String>? previewList,
+  }) async {
+    final query = FirebaseFirestoreCustomQuery(
+      filters: [
+        FilterCondition(
+          field: 'id',
+          value: previewList,
+          operator: FilterOperator.whereIn,
+        ),
+      ],
+    );
+    final result = await _networkManager.networkOperation.getItemsQuery(
+      query: query,
+      path: QueryPathConstant.chatPreviewColPath,
+      model: ChatPreviewModel(),
+    );
+    result.sort((a, b) {
+      return b.lastMessageTime!.compareTo(a.lastMessageTime!);
+    });
+    return result;
   }
 
   void deleteChat(String chatPrewviewId) {
