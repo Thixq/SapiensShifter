@@ -52,7 +52,7 @@ class ErrorUtil {
   /// Returns: A `Future<T>` that completes with the result of `action` or the `fallbackValue`.
   static Future<T> runWithErrorHandlingAsync<T>({
     required Future<T> Function() action,
-    required T fallbackValue,
+    required T Function() fallbackValue,
     IErrorHandler? errorHandler,
     CustomLogger? customLogger,
     ErrorMapper? errorMapper,
@@ -71,7 +71,7 @@ class ErrorUtil {
       // Or should logging only happen *within* the handler?
       // Current implementation: Handler is responsible for logging.
       // If no handler, the error is caught but not logged (unless mapper throws).
-      return fallbackValue;
+      return fallbackValue();
     }
   }
 
@@ -111,7 +111,7 @@ class ErrorUtil {
   /// Returns: The result of `action` or the `fallbackValue` if an error occurred.
   static T runWithErrorHandling<T>({
     required T Function() action,
-    required T fallbackValue,
+    required T Function() fallbackValue,
     IErrorHandler? errorHandler,
     CustomLogger? customLogger,
     ErrorMapper? errorMapper,
@@ -127,7 +127,7 @@ class ErrorUtil {
         stackTrace,
       );
       // Similar consideration as the async version regarding logging responsibility.
-      return fallbackValue;
+      return fallbackValue();
     }
   }
 }

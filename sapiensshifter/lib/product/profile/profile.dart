@@ -63,7 +63,7 @@ class Profile {
         await reload;
         return true;
       },
-      fallbackValue: false,
+      fallbackValue: () => false,
     );
   }
 
@@ -74,7 +74,7 @@ class Profile {
         await reload;
         return true;
       },
-      fallbackValue: false,
+      fallbackValue: () => false,
     );
   }
 
@@ -86,7 +86,7 @@ class Profile {
         await reload;
         return true;
       },
-      fallbackValue: false,
+      fallbackValue: () => false,
     );
   }
 
@@ -107,7 +107,7 @@ class Profile {
         return result.first.id;
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: null,
+      fallbackValue: () => null,
     );
   }
 }

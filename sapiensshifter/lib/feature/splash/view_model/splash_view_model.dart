@@ -24,7 +24,7 @@ final class SplashViewModel {
         return result.value;
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: false,
+      fallbackValue: () => false,
     );
   }
 

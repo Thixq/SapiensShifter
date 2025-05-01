@@ -39,7 +39,7 @@ class ShiftViewModel {
         return shiftList;
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: [],
+      fallbackValue: () => <ShiftDay>[],
     );
   }
 }

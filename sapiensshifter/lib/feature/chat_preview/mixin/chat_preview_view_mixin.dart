@@ -13,7 +13,7 @@ mixin ChatPreviewViewMixin on BaseState<ChatPreviewView> {
   void initState() {
     _previewViewModel = ChatPreviewViewModel(
       ChatPreviewState.initial(),
-      iNetworkManager: ProductConfigureItems.networkManager,
+      networkManager: ProductConfigureItems.networkManager,
       profile: ProductConfigureItems.profile,
     );
     _previewViewModel.getPreviewList();
