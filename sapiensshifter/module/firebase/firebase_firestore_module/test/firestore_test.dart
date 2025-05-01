@@ -377,8 +377,8 @@ void main() {
           .thenAnswer((_) => Stream.value(mockDocSnapshot));
       when(mockDocSnapshot.data()).thenReturn(testData);
 
-      final stream = firestoreOperation.streamDocument<TestModel>(
-          docPath: path, model: TestModel.empty());
+      final stream = firestoreOperation.getStream<TestModel>(
+          path: path, model: TestModel.empty());
       final result = await stream.first;
 
       expect(result, isA<TestModel>());
@@ -403,8 +403,8 @@ void main() {
       when(mockQueryDoc1.data()).thenReturn(testData1);
       when(mockQueryDoc2.data()).thenReturn(testData2);
 
-      final stream = firestoreOperation.streamCollection<TestModel>(
-          collectionPath: path, model: TestModel.empty());
+      final stream = firestoreOperation.getStreamQuery<TestModel>(
+          path: path, model: TestModel.empty());
       final result = await stream.first;
 
       expect(result, isA<List<TestModel>>());

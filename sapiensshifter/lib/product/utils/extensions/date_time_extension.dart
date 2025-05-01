@@ -32,7 +32,7 @@ final class _SapiDatetTimeExtension {
 
   String? get ddmm {
     if (_value == null) return null;
-    return DateFormat('dM').format(_value);
+    return DateFormat('dd/MM').format(_value);
   }
 
   String? get hhmm {

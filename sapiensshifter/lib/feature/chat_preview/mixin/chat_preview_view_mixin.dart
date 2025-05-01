@@ -16,7 +16,13 @@ mixin ChatPreviewViewMixin on BaseState<ChatPreviewView> {
       networkManager: ProductConfigureItems.networkManager,
       profile: ProductConfigureItems.profile,
     );
-    _previewViewModel.getPreviewList();
+    _previewViewModel.getStreamPrewViewList();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _previewViewModel.dispose();
+    super.dispose();
   }
 }

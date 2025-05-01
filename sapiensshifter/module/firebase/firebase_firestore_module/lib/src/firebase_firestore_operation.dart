@@ -257,34 +257,6 @@ final class FirebaseFirestoreOperation extends INetworkOperation
     );
   }
 
-  Stream<T> streamDocument<T extends IBaseModel>(
-      {required String docPath, required T model}) {
-    return _firestore.doc(docPath).snapshots().map((docSnapshot) {
-      final data = docSnapshot.data();
-      if (data != null) {
-        return model.fromJson(data);
-      } else {
-        throw Exception("Belirtilen doküman bulunamadı: $docPath");
-      }
-    });
-  }
-
-  Stream<List<T>> streamCollection<T extends IBaseModel>(
-      {required String collectionPath, required T model}) {
-    return _firestore
-        .collection(collectionPath)
-        .snapshots()
-        .map((querySnapshot) {
-      return querySnapshot.docs
-          .map((docSnapshot) {
-            final data = docSnapshot.data();
-            return model.fromJson(data);
-          })
-          .cast<T>()
-          .toList();
-    });
-  }
-
   // Helper method to delete all documents in a Firestore collection.
   Future<void> _deleteCollection(CollectionReference collection) async {
     const batchLimit = 500; // Limit the number of operations per batch to 500.
@@ -305,5 +277,44 @@ final class FirebaseFirestoreOperation extends INetworkOperation
       errorMapper: (doc) =>
           doc.id, // Map error to document ID for better tracking.
     );
+  }
+
+  @override
+  Stream<T> getStream<T extends IBaseModel<T>>(
+      {required String path, required T model, String? key}) {
+    return _firestore.doc(path).snapshots().map((docSnapshot) {
+      final data = docSnapshot.data();
+      if (data != null) {
+        return model.fromJson(data);
+      } else {
+        throw ModuleFirestoreException('invalid_path_exception',
+            optionArgs: {'path': path});
+      }
+    });
+  }
+
+  @override
+  Stream<List<T>> getStreamQuery<T extends IBaseModel<T>>(
+      {required String path,
+      required T model,
+      String? key,
+      INetworkQuery? query}) {
+    var collectionRef = _firestore.collection(path);
+    Query<Map<String, dynamic>> queryCollectionRef = collectionRef;
+
+    // If a query is provided, apply it to the Firestore collection reference.
+    if (query != null) {
+      queryCollectionRef =
+          query.applyToQuery<Query<Map<String, dynamic>>>(collectionRef.path);
+    }
+    return queryCollectionRef.snapshots().map((querySnapshot) {
+      return querySnapshot.docs
+          .map((docSnapshot) {
+            final data = docSnapshot.data();
+            return model.fromJson(data);
+          })
+          .cast<T>()
+          .toList();
+    }).cast<List<T>>();
   }
 }
