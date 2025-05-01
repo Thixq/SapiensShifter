@@ -94,4 +94,17 @@ abstract class INetworkOperation {
   /// Returns:
   /// A [Future] that resolves to `true` if the deletion was successful, otherwise `false`.
   Future<bool> deleteItem({required String path, String? key});
+
+  Stream<T> getStream<T extends IBaseModel<T>>({
+    required String path,
+    required T model,
+    String? key,
+  });
+
+  Stream<List<T>> getStreamQuery<T extends IBaseModel<T>>({
+    required String path,
+    required T model,
+    String? key,
+    INetworkQuery? query,
+  });
 }
