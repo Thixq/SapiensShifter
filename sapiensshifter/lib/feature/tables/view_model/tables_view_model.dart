@@ -34,7 +34,7 @@ class TablesViewModel extends BaseCubit<TablesViewState> {
       },
       customLogger: CustomLogger('TablesViewModel'),
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: const [],
+      fallbackValue: () => <TableModel>[],
     );
     emit(
       state.copyWith(
@@ -61,7 +61,15 @@ class TablesViewModel extends BaseCubit<TablesViewState> {
         );
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: null,
+      fallbackValue: () {
+        emit(
+          state.copyWith(
+            isLoading: false,
+            tableList: state.tableList,
+          ),
+        );
+        return null;
+      },
     );
   }
 }

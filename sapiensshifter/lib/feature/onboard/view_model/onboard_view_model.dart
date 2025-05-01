@@ -2,6 +2,7 @@ import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/ui_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
+import 'package:sapiensshifter/core/logging/custom_logger.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/onboard/view/widget/model/onboard_content_model.dart';
 import 'package:sapiensshifter/feature/onboard/view_model/state/onboard_state.dart';
@@ -48,7 +49,8 @@ final class OnboardViewModel extends BaseCubit<OnboardState> {
       action: () => _localCacheManager.cacheOperation
           .write<bool>(key: 'isFirstLaunch', value: true),
       errorHandler: UIErrorHandler(context),
-      fallbackValue: false,
+      fallbackValue: () => false,
+      customLogger: CustomLogger('OnboardViewModel'),
     );
   }
 }

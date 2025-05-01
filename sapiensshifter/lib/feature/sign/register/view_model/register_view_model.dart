@@ -30,7 +30,7 @@ class RegisterViewModel {
         return true;
       },
       errorHandler: UIErrorHandler(context),
-      fallbackValue: false,
+      fallbackValue: () => false,
     );
   }
 

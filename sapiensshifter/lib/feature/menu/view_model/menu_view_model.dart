@@ -40,7 +40,7 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
       },
       customLogger: _menuLogger,
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: [],
+      fallbackValue: () => [],
     );
   }
 
@@ -57,7 +57,7 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
       },
       customLogger: _menuLogger,
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: false,
+      fallbackValue: () => false,
     );
   }
 

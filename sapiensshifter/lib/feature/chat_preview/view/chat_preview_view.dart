@@ -43,7 +43,9 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
             ),
             BlocBuilder<ChatPreviewViewModel, ChatPreviewState>(
               builder: (context, state) => ChatViewChatList(
-                onDismissed: (id) {},
+                onDismissed: (id) {
+                  viewModel.deleteChat(id);
+                },
                 onTap: (chatRoomId) {},
                 chatList: state.chatPreviews,
               ),

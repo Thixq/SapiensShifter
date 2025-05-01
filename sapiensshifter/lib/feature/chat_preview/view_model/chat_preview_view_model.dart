@@ -11,12 +11,12 @@ import 'package:sapiensshifter/product/profile/profile.dart';
 class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
   ChatPreviewViewModel(
     super.initialState, {
-    required INetworkManager iNetworkManager,
+    required INetworkManager networkManager,
     required Profile profile,
-  })  : _iNetworkManager = iNetworkManager,
+  })  : _networkManager = networkManager,
         _profile = profile;
 
-  final INetworkManager _iNetworkManager;
+  final INetworkManager _networkManager;
   final Profile _profile;
 
   void getPreviewList() {
@@ -33,11 +33,14 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
             ),
           ],
         );
-        final result = await _iNetworkManager.networkOperation.getItemsQuery(
+        final result = await _networkManager.networkOperation.getItemsQuery(
           query: query,
           path: QueryPathConstant.chatPreviewColPath,
           model: ChatPreviewModel(),
         );
+        result.sort((a, b) {
+          return b.lastMessageTime!.compareTo(a.lastMessageTime!);
+        });
         emit(
           state.copyWith(
             isLoading: false,
@@ -46,7 +49,44 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
         );
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: null,
+      fallbackValue: () {
+        emit(
+          state.copyWith(
+            isLoading: false,
+            chatPreviews: [],
+          ),
+        );
+        return null;
+      },
+    );
+  }
+
+  void deleteChat(String chatPrewviewId) {
+    ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        final result = await _networkManager.networkOperation.update(
+          path: '${QueryPathConstant.usersColPath}/${_profile.user?.id}',
+          value: {
+            'chatPreviewIdList': ArrayRemoveOperation([chatPrewviewId]),
+          },
+        );
+        if (result) {
+          emit(
+            state.copyWith(
+              chatPreviews: state.chatPreviews
+                  .where((element) => element.id != chatPrewviewId)
+                  .toList(),
+            ),
+          );
+        }
+      },
+      errorHandler: ServiceErrorHandler(),
+      fallbackValue: () {
+        emit(
+          state.copyWith(chatPreviews: [...state.chatPreviews]),
+        );
+        return null;
+      },
     );
   }
 }

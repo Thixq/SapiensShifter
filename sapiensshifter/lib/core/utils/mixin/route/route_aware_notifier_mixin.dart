@@ -31,7 +31,7 @@ mixin RouteAwareNotifierStateMixin<T extends StatefulWidget> on BaseState<T>
           );
         },
         errorHandler: ServiceErrorHandler(),
-        fallbackValue: null,
+        fallbackValue: () => null,
       );
     }
     if (!_isRouteAwareSubscribed && this is RouteAwareActionPerformer) {
