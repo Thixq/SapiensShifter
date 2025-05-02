@@ -1,5 +1,6 @@
 class QueryPathConstant {
   static const usersColPath = '/users';
+  static const usersPreviewColPath = '/usersPreview';
   static const tableColPath = '/tables';
   static String tableOpenTableColPath(String branch) => 'tables/$branch/open';
   static String shiftsColPath(String userId) => 'users/$userId/shifts';

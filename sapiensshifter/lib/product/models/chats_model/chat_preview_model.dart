@@ -12,8 +12,8 @@ final class ChatPreviewModel extends IBaseModel<ChatPreviewModel>
   ChatPreviewModel({
     this.id,
     this.chatRoomId,
-    this.personName,
-    this.groupName,
+    this.chatName,
+    this.isGroup,
     this.imageUrl,
     this.lastMessage,
     this.lastMessageTime,
@@ -24,8 +24,8 @@ final class ChatPreviewModel extends IBaseModel<ChatPreviewModel>
 
   final String? id;
   final String? chatRoomId;
-  final String? personName;
-  final String? groupName;
+  final String? chatName;
+  final bool? isGroup;
   final String? imageUrl;
   final String? lastMessage;
   @TimestampNullableConverter()

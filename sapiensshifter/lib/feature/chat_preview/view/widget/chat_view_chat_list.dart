@@ -52,7 +52,7 @@ class ChatViewChatList extends StatelessWidget {
         horizontal: context.sized.normalValue,
       ),
       title: Text(
-        preview.groupName ?? preview.personName ?? _nullText,
+        preview.chatName ?? _nullText,
       ),
       subtitle: Text(
         preview.lastMessage ?? _nullText,
