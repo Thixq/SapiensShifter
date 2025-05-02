@@ -9,6 +9,7 @@ import 'package:sapiensshifter/feature/chat_preview/view_model/state/chat_previe
 
 import 'package:sapiensshifter/product/component/custom_avatar.dart';
 import 'package:sapiensshifter/product/models/chats_model/chat_preview_model.dart';
+import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/new_chat_bottom_sheet.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 part 'widget/chat_view_app_bar.dart';
@@ -37,7 +38,17 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
             ChatViewAppBar(
               searchController: _searchController,
               menuOnPressed: () {},
-              newChatOnPressed: () {},
+              newChatOnPressed: () async {
+                // TODO(kaan): Chat view oluştur.
+                if (mounted) {
+                  final users = await viewModel.getUsers();
+                  final selecetUser = await NewChatBottomSheet.show(
+                    context,
+                    peopleList: users,
+                  );
+                  print(selecetUser?.name);
+                }
+              },
               searchOnChanged: (value) {},
               searchOnSubmitted: (value) {},
             ),

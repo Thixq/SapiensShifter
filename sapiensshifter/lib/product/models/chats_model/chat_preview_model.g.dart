@@ -14,8 +14,8 @@ ChatPreviewModel _$ChatPreviewModelFromJson(Map<String, dynamic> json) =>
         final val = ChatPreviewModel(
           id: $checkedConvert('id', (v) => v as String?),
           chatRoomId: $checkedConvert('chatRoomId', (v) => v as String?),
-          personName: $checkedConvert('personName', (v) => v as String?),
-          groupName: $checkedConvert('groupName', (v) => v as String?),
+          chatName: $checkedConvert('chatName', (v) => v as String?),
+          isGroup: $checkedConvert('isGroup', (v) => v as bool?),
           imageUrl: $checkedConvert('imageUrl', (v) => v as String?),
           lastMessage: $checkedConvert('lastMessage', (v) => v as String?),
           lastMessageTime: $checkedConvert(
@@ -31,8 +31,8 @@ Map<String, dynamic> _$ChatPreviewModelToJson(ChatPreviewModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'chatRoomId': instance.chatRoomId,
-      'personName': instance.personName,
-      'groupName': instance.groupName,
+      'chatName': instance.chatName,
+      'isGroup': instance.isGroup,
       'imageUrl': instance.imageUrl,
       'lastMessage': instance.lastMessage,
       'lastMessageTime':

@@ -8,7 +8,8 @@ import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/chat_preview/view_model/state/chat_preview_state.dart';
 import 'package:sapiensshifter/product/constant/query_path_constant.dart';
 import 'package:sapiensshifter/product/models/chats_model/chat_preview_model.dart';
-import 'package:sapiensshifter/product/models/sapiens_user/sapiens_user.dart';
+import 'package:sapiensshifter/product/models/user/sapiens_user/sapiens_user.dart';
+import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
 
 class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
@@ -115,6 +116,20 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
           state.copyWith(chatPreviews: [...state.chatPreviews]),
         );
         return null;
+      },
+    );
+  }
+
+  Future<List<UserPreviewModel>> getUsers() {
+    return ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        return _networkManager.networkOperation.getItemsQuery(
+          path: QueryPathConstant.usersPreviewColPath,
+          model: UserPreviewModel(),
+        );
+      },
+      fallbackValue: () {
+        return <UserPreviewModel>[];
       },
     );
   }

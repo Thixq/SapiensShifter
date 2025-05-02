@@ -16,7 +16,8 @@ ChatRoomModel _$ChatRoomModelFromJson(Map<String, dynamic> json) =>
           $checkedConvert(
               'members',
               (v) => (v as List<dynamic>?)
-                  ?.map((e) => MemberModel.fromJson(e as Map<String, dynamic>))
+                  ?.map((e) =>
+                      UserPreviewModel.fromJson(e as Map<String, dynamic>))
                   .toList()),
           $checkedConvert('name', (v) => v as String?),
           $checkedConvert('imageUrl', (v) => v as String?),
