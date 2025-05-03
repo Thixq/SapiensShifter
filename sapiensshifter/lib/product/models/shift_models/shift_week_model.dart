@@ -1,10 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 import 'package:sapiensshifter/product/utils/json_converters/timestamp_converter.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 part 'shift_week_model.g.dart';
 
