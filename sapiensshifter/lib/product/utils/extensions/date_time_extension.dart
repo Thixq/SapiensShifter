@@ -1,5 +1,4 @@
 // ignore_for_file: lines_longer_than_80_chars, library_private_types_in_public_api
-import 'package:intl/intl.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 extension SapiDefaultDateTimeExtension on DateTime {

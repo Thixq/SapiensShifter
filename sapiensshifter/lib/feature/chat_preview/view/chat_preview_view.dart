@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,17 +38,17 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           slivers: <Widget>[
             ChatViewAppBar(
+              menuGlobalKey: menuGlobalKey,
               searchController: _searchController,
-              menuOnPressed: () {},
+              menuOnPressed: menuOnPressed,
               newChatOnPressed: () async {
                 // TODO(kaan): Chat view oluştur.
                 if (mounted) {
                   final users = await viewModel.getUsers();
-                  final selecetUser = await NewChatBottomSheet.show(
+                  await NewChatBottomSheet.show(
                     context,
                     peopleList: users,
                   );
-                  print(selecetUser?.name);
                 }
               },
               searchOnChanged: (value) {},

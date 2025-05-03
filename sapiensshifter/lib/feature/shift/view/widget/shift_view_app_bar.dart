@@ -18,7 +18,6 @@ class ShiftViewAppBar extends StatelessWidget implements PreferredSizeWidget {
           overlayColor: const WidgetStatePropertyAll(Colors.transparent),
           onTap: () {
             // TODO(kaan): go Profile view
-            print('object');
           },
           child: CustomCircleAvatar(
             radius: kToolbarHeight,

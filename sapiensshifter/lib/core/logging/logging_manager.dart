@@ -20,15 +20,14 @@ class LoggingManager {
     Logger.root.onRecord.listen((record) {
       // Format the log message with level, time, logger name, message, and stack trace (if available).
       _logMessage =
-          '${record.level.name} -- ${record.time} -- ${record.loggerName}: ${record.message} \n ${record.stackTrace ?? 'Stack Trace is Null'}';
+          '${record.level.name} -- ${record.time} -- ${record.loggerName}: ${record.message} \n ${record.stackTrace ?? ''}';
       // Print the formatted log message to the console.
       debugPrint(_logMessage);
     });
 
     // Override Flutter's default error handling to print Flutter errors to the console.
     FlutterError.onError = (FlutterErrorDetails details) {
-      // TODO(kaan): [_logMessage] sanki burda dolmuyo dolması lazım mı? Bir bak.
-      debugPrint(_logMessage);
+      debugPrint(details.exception.toString());
     };
   }
 }

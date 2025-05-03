@@ -22,7 +22,6 @@ class MessageModel extends IBaseModel<MessageModel> with EquatableMixin {
       _$MessageModelFromJson(json);
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
         senderId,
         message,

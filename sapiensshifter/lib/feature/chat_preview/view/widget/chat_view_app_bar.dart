@@ -7,6 +7,7 @@ class ChatViewAppBar extends StatelessWidget {
     required this.newChatOnPressed,
     required this.searchOnChanged,
     required this.searchOnSubmitted,
+    required this.menuGlobalKey,
     super.key,
   }) : _searchController = searchController;
 
@@ -15,6 +16,7 @@ class ChatViewAppBar extends StatelessWidget {
   final VoidCallback newChatOnPressed;
   final ValueChanged<String> searchOnChanged;
   final ValueChanged<String> searchOnSubmitted;
+  final GlobalKey menuGlobalKey;
 
   double get _kSearchBarHeight =>
       kMinInteractiveDimensionCupertino; // Genellikle 44.0
@@ -35,6 +37,7 @@ class ChatViewAppBar extends StatelessWidget {
 
   CupertinoButton _buildLeading() {
     return CupertinoButton(
+      key: menuGlobalKey,
       padding: EdgeInsets.zero,
       onPressed: menuOnPressed,
       child: const Icon(CupertinoIcons.ellipsis, size: 28),
