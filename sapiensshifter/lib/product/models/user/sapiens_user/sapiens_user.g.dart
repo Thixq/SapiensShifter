@@ -11,13 +11,14 @@ SapiensUser _$SapiensUserFromJson(Map<String, dynamic> json) => $checkedCreate(
       json,
       ($checkedConvert) {
         final val = SapiensUser(
-          chatPreviewIdList: $checkedConvert('chatPreviewIdList',
-              (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()),
           id: $checkedConvert('id', (v) => v as String?),
           name: $checkedConvert('name', (v) => v as String?),
           email: $checkedConvert('email', (v) => v as String?),
           imagePath: $checkedConvert('imagePath', (v) => v as String?),
           toDayBranch: $checkedConvert('toDayBranch', (v) => v as String?),
+          userPreviewId: $checkedConvert('userPreviewId', (v) => v as String?),
+          chatPreviewIdList: $checkedConvert('chatPreviewIdList',
+              (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()),
         );
         return val;
       },
@@ -30,5 +31,6 @@ Map<String, dynamic> _$SapiensUserToJson(SapiensUser instance) =>
       'email': instance.email,
       'imagePath': instance.imagePath,
       'toDayBranch': instance.toDayBranch,
+      'userPreviewId': instance.userPreviewId,
       'chatPreviewIdList': instance.chatPreviewIdList,
     };

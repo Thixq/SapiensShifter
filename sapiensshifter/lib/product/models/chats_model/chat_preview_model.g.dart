@@ -12,12 +12,15 @@ ChatPreviewModel _$ChatPreviewModelFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = ChatPreviewModel(
-          id: $checkedConvert('id', (v) => v as String?),
+          chatPreviewId: $checkedConvert('chatPreviewId', (v) => v as String?),
           chatRoomId: $checkedConvert('chatRoomId', (v) => v as String?),
-          chatName: $checkedConvert('chatName', (v) => v as String?),
-          isGroup: $checkedConvert('isGroup', (v) => v as bool?),
-          imageUrl: $checkedConvert('imageUrl', (v) => v as String?),
-          lastMessage: $checkedConvert('lastMessage', (v) => v as String?),
+          members: $checkedConvert('members',
+              (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()),
+          groupName: $checkedConvert('groupName', (v) => v as String?),
+          isGroup: $checkedConvert('isGroup', (v) => v as bool? ?? false),
+          groupImageUrl: $checkedConvert('groupImageUrl', (v) => v as String?),
+          lastMessageText:
+              $checkedConvert('lastMessageText', (v) => v as String?),
           lastMessageTime: $checkedConvert(
               'lastMessageTime',
               (v) =>
@@ -29,12 +32,13 @@ ChatPreviewModel _$ChatPreviewModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ChatPreviewModelToJson(ChatPreviewModel instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'chatPreviewId': instance.chatPreviewId,
       'chatRoomId': instance.chatRoomId,
-      'chatName': instance.chatName,
+      'members': instance.members,
       'isGroup': instance.isGroup,
-      'imageUrl': instance.imageUrl,
-      'lastMessage': instance.lastMessage,
+      'groupName': instance.groupName,
+      'groupImageUrl': instance.groupImageUrl,
+      'lastMessageText': instance.lastMessageText,
       'lastMessageTime':
           const TimestampNullableConverter().toJson(instance.lastMessageTime),
     };

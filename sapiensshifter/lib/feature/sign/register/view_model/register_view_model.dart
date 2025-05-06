@@ -4,6 +4,8 @@ import 'package:sapiensshifter/core/exception/handler/custom_handler/ui_error_ha
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/product/constant/query_path_constant.dart';
 import 'package:sapiensshifter/product/models/user/sapiens_user/sapiens_user.dart';
+import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
+import 'package:uuid/v4.dart';
 
 class RegisterViewModel {
   RegisterViewModel(this._authManager, this._networkManager);
@@ -35,15 +37,28 @@ class RegisterViewModel {
   }
 
   Future<void> _saveUserToDatabase(AuthModel? user) async {
+    final userPreviewId = const UuidV4().generate();
+    final userPreviewModel = UserPreviewModel(
+      userPreviewId: userPreviewId,
+      userId: user?.id,
+      imageUrl: user?.photoUrl,
+      name: user?.displayName,
+    );
     final sapiUser = SapiensUser(
       id: user?.id,
+      userPreviewId: userPreviewId,
       name: user?.displayName,
       email: user?.email,
       imagePath: user?.photoUrl,
     );
+
     await _networkManager.networkOperation.addItem(
       path: '${QueryPathConstant.usersColPath}/${user?.id}',
       item: sapiUser,
+    );
+    await _networkManager.networkOperation.addItem(
+      path: '${QueryPathConstant.usersPreviewColPath}/$userPreviewId',
+      item: userPreviewModel,
     );
   }
 

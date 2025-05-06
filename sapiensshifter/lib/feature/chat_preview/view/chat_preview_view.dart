@@ -11,6 +11,7 @@ import 'package:sapiensshifter/feature/chat_preview/view_model/state/chat_previe
 
 import 'package:sapiensshifter/product/component/custom_avatar.dart';
 import 'package:sapiensshifter/product/models/chats_model/chat_preview_model.dart';
+import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
 import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/new_chat_bottom_sheet.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
@@ -37,34 +38,45 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
         child: CustomScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           slivers: <Widget>[
-            ChatViewAppBar(
-              menuGlobalKey: menuGlobalKey,
-              searchController: _searchController,
-              menuOnPressed: menuOnPressed,
-              newChatOnPressed: () async {
-                // TODO(kaan): Chat view oluştur.
-                if (mounted) {
-                  final users = await viewModel.getUsers();
-                  await NewChatBottomSheet.show(
-                    context,
-                    peopleList: users,
-                  );
-                }
-              },
-              searchOnChanged: (value) {},
-              searchOnSubmitted: (value) {},
-            ),
-            BlocBuilder<ChatPreviewViewModel, ChatPreviewState>(
-              builder: (context, state) => ChatViewChatList(
-                onDismissed: (id) {
-                  viewModel.deleteChat(id);
-                },
-                onTap: (chatRoomId) {},
-                chatList: state.chatPreviews,
-              ),
-            ),
+            _bulildAppBar(),
+            _buildChatList(),
           ],
         ),
+      ),
+    );
+  }
+
+  BlocBuilder<ChatPreviewViewModel, ChatPreviewState> _buildChatList() {
+    return BlocBuilder<ChatPreviewViewModel, ChatPreviewState>(
+      builder: (context, state) => ChatViewChatList(
+        onDismissed: (id) {
+          viewModel.deleteChat(id);
+        },
+        onTap: (chatRoomId) {},
+        chatList: state.chatPreviews,
+        otherUsers: state.userPreviewList,
+        currentUserId: getProfileId,
+      ),
+    );
+  }
+
+  BlocBuilder<ChatPreviewViewModel, ChatPreviewState> _bulildAppBar() {
+    return BlocBuilder<ChatPreviewViewModel, ChatPreviewState>(
+      builder: (context, state) => ChatViewAppBar(
+        menuGlobalKey: menuGlobalKey,
+        searchController: _searchController,
+        menuOnPressed: menuOnPressed,
+        newChatOnPressed: () async {
+          // TODO(kaan): Chat view oluştur.
+          if (mounted) {
+            await NewChatBottomSheet.show(
+              context,
+              peopleList: state.userPreviewList,
+            );
+          }
+        },
+        searchOnChanged: (value) {},
+        searchOnSubmitted: (value) {},
       ),
     );
   }
