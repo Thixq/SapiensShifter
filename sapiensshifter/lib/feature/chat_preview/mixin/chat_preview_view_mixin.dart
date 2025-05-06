@@ -9,6 +9,9 @@ import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/context_me
 mixin ChatPreviewViewMixin on BaseState<ChatPreviewView> {
   late final ChatPreviewViewModel _previewViewModel;
 
+  final _profile = ProductConfigureItems.profile;
+  String? get getProfileId => _profile.user?.userPreviewId;
+
   ChatPreviewViewModel get viewModel => _previewViewModel;
   late GlobalKey menuGlobalKey;
 
@@ -17,9 +20,9 @@ mixin ChatPreviewViewMixin on BaseState<ChatPreviewView> {
     _previewViewModel = ChatPreviewViewModel(
       ChatPreviewState.initial(),
       networkManager: ProductConfigureItems.networkManager,
-      profile: ProductConfigureItems.profile,
+      profile: _profile,
     );
-    _previewViewModel.getStreamPrewViewList();
+    _previewViewModel.initial();
     menuGlobalKey = GlobalKey();
     super.initState();
   }

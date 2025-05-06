@@ -11,6 +11,7 @@ import 'package:sapiensshifter/product/models/chats_model/chat_preview_model.dar
 import 'package:sapiensshifter/product/models/user/sapiens_user/sapiens_user.dart';
 import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
   ChatPreviewViewModel(
@@ -25,6 +26,11 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
 
   late final StreamSubscription<SapiensUser> _streamSubscription;
 
+  void initial() {
+    getUserPreviewList();
+    getStreamPrewViewList();
+  }
+
   void getStreamPrewViewList() {
     ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
@@ -35,8 +41,13 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
         );
         _streamSubscription = streamChatPreviewList.listen(
           (event) async {
-            final result =
-                await _getPreviewList(previewList: event.chatPreviewIdList);
+            final result = <ChatPreviewModel>[];
+            if (event.chatPreviewIdList.ext.isNotNullOrEmpty) {
+              result.addAll(
+                await _getPreviewList(previewList: event.chatPreviewIdList),
+              );
+            }
+
             emit(
               state.copyWith(
                 isLoading: false,
@@ -74,7 +85,7 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
     final query = FirebaseFirestoreCustomQuery(
       filters: [
         FilterCondition(
-          field: 'id',
+          field: 'chatPreviewId',
           value: previewList,
           operator: FilterOperator.whereIn,
         ),
@@ -104,7 +115,7 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
           emit(
             state.copyWith(
               chatPreviews: state.chatPreviews
-                  .where((element) => element.id != chatPrewviewId)
+                  .where((element) => element.chatPreviewId != chatPrewviewId)
                   .toList(),
             ),
           );
@@ -120,16 +131,23 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
     );
   }
 
-  Future<List<UserPreviewModel>> getUsers() {
-    return ErrorUtil.runWithErrorHandlingAsync(
+  void getUserPreviewList() {
+    ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
-        return _networkManager.networkOperation.getItemsQuery(
+        final result = await _networkManager.networkOperation.getItemsQuery(
           path: QueryPathConstant.usersPreviewColPath,
           model: UserPreviewModel(),
         );
+        final currentUserOut = result
+            .where(
+              (element) =>
+                  element.userPreviewId != _profile.user?.userPreviewId,
+            )
+            .toList();
+        emit(state.copyWith(userPreviewList: currentUserOut));
       },
       fallbackValue: () {
-        return <UserPreviewModel>[];
+        emit(state.copyWith(userPreviewList: []));
       },
     );
   }

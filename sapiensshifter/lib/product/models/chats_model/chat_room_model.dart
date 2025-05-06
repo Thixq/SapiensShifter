@@ -1,9 +1,6 @@
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import 'package:sapiensshifter/product/models/chats_model/message_model.dart';
-
 import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
 
 part 'chat_room_model.g.dart';
@@ -11,16 +8,20 @@ part 'chat_room_model.g.dart';
 @JsonSerializable(checked: true, explicitToJson: true)
 final class ChatRoomModel extends IBaseModel<ChatRoomModel>
     with EquatableMixin {
-  ChatRoomModel(this.id, this.members, this.name, this.imageUrl, this.messages);
+  ChatRoomModel(
+    this.chatRoomId,
+    this.members,
+    this.groupName,
+    this.groupImageUrl,
+  );
 
   factory ChatRoomModel.fromJson(Map<String, dynamic> json) =>
       _$ChatRoomModelFromJson(json);
 
-  final String? id;
+  final String? chatRoomId;
   final List<UserPreviewModel>? members;
-  final String? name;
-  final String? imageUrl;
-  final List<MessageModel>? messages;
+  final String? groupName;
+  final String? groupImageUrl;
 
   @override
   ChatRoomModel fromJson(Map<String, dynamic> json) =>
@@ -28,9 +29,7 @@ final class ChatRoomModel extends IBaseModel<ChatRoomModel>
 
   @override
   List<Object?> get props => [
-        id,
-        members,
-        name,
+        chatRoomId,
       ];
 
   @override

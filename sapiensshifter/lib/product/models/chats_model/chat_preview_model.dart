@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/json_converters/timestamp_converter.dart';
 
 part 'chat_preview_model.g.dart';
@@ -10,33 +11,44 @@ part 'chat_preview_model.g.dart';
 final class ChatPreviewModel extends IBaseModel<ChatPreviewModel>
     with EquatableMixin {
   ChatPreviewModel({
-    this.id,
+    this.chatPreviewId,
     this.chatRoomId,
-    this.chatName,
-    this.isGroup,
-    this.imageUrl,
-    this.lastMessage,
+    this.members,
+    this.groupName,
+    this.isGroup = false,
+    this.groupImageUrl,
+    this.lastMessageText,
     this.lastMessageTime,
   });
 
   factory ChatPreviewModel.fromJson(Map<String, dynamic> json) =>
       _$ChatPreviewModelFromJson(json);
 
-  final String? id;
+  final String? chatPreviewId;
   final String? chatRoomId;
-  final String? chatName;
-  final bool? isGroup;
-  final String? imageUrl;
-  final String? lastMessage;
+  final List<String>? members;
+  final bool isGroup;
+  final String? groupName;
+  final String? groupImageUrl;
+  final String? lastMessageText;
   @TimestampNullableConverter()
   final DateTime? lastMessageTime;
+
+  String? getOhterUserId({String? currentUserId}) {
+    if (members.ext.isNotNullOrEmpty) {
+      return members!.firstWhere(
+        (element) => element != currentUserId,
+      );
+    }
+    return null;
+  }
 
   @override
   ChatPreviewModel fromJson(Map<String, dynamic> json) =>
       _$ChatPreviewModelFromJson(json);
 
   @override
-  List<Object?> get props => [id, chatRoomId];
+  List<Object?> get props => [chatPreviewId, chatRoomId];
 
   @override
   Map<String, dynamic> toJson() => _$ChatPreviewModelToJson(this);

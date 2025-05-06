@@ -1,4 +1,4 @@
-import 'package:core/src/models/user_model.dart';
+import 'package:core/src/models/auth_model.dart';
 
 /// An abstract interface for performing various authentication operations on a user's profile.
 /// This interface includes methods for updating the user's password, display name,
