@@ -36,18 +36,13 @@ final class _SapiStringExtension {
     return LocaleKeys.null_value_null_name.tr();
   }
 
-  /// Replaces the dynamic segments in the string with values from the provided [params] map.
-  ///
-  /// This method looks for placeholders in the format ":key" and replaces them
-  /// with the corresponding value from the [params] map.
-  ///
-  /// For example, if the original string is "/home/:pageIndex" and the map is
-  /// {'pageIndex': 2}, the output will be "/home/2".
-  String? withParams(Map<String, dynamic> params) {
-    var path = _value;
-    params.forEach((key, value) {
-      path = path?.replaceAll(':$key', value.toString());
-    });
-    return path;
+  String? textCut({required int chunkSize}) {
+    if (_value == null || _value.isEmpty) {
+      return _value;
+    }
+    return _value.replaceAllMapped(
+      RegExp('.{$chunkSize}'),
+      (match) => '${match.group(0)}\n',
+    );
   }
 }

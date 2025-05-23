@@ -1,3 +1,5 @@
+import 'package:core/src/interfaces/network_query_interface/network_query_utils/cursor_condition.dart';
+
 import 'network_query_utils/filter_condition.dart';
 import 'network_query_utils/order_by_condition.dart';
 
@@ -15,6 +17,7 @@ abstract class INetworkQuery {
   INetworkQuery({
     this.limit,
     this.limitToLast,
+    this.cursors,
     this.orderBy,
     this.filters,
   });
@@ -24,6 +27,8 @@ abstract class INetworkQuery {
 
   /// The maximum number of items to retrieve from the end of the collection.
   final int? limitToLast;
+
+  final List<CursorCondition>? cursors;
 
   /// A list of [OrderByCondition] objects that determine the ordering of the query results.
   final List<OrderByCondition>? orderBy;

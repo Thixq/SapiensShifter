@@ -10,7 +10,7 @@ class ChatViewChatList extends StatelessWidget {
     this.currentUserId,
   });
 
-  final List<ChatPreviewModel> chatList;
+  final List<ChatModel> chatList;
   final List<UserPreviewModel> otherUsers;
   final String? currentUserId;
   final void Function(String chatRoomId) onTap;
@@ -28,13 +28,13 @@ class ChatViewChatList extends StatelessWidget {
             extentRatio: .2,
             dismissible: DismissiblePane(
               onDismissed: () => onDismissed(
-                chatList[index].chatPreviewId ?? _nullText,
+                chatList[index].chatId ?? _nullText,
               ),
             ),
             children: [
               SlidableAction(
                 onPressed: (context) => onDismissed(
-                  chatList[index].chatPreviewId ?? _nullText,
+                  chatList[index].chatId ?? _nullText,
                 ),
                 backgroundColor: CupertinoColors.systemRed,
                 foregroundColor: CupertinoColors.white,
@@ -49,7 +49,7 @@ class ChatViewChatList extends StatelessWidget {
     );
   }
 
-  Widget _listTile(BuildContext context, ChatPreviewModel preview, int index) {
+  Widget _listTile(BuildContext context, ChatModel preview, int index) {
     return CupertinoListTile(
       padding: EdgeInsets.symmetric(
         vertical: context.sized.lowValue,
@@ -75,13 +75,13 @@ class ChatViewChatList extends StatelessWidget {
         style: const TextStyle(color: CupertinoColors.systemGrey),
       ),
       onTap: () {
-        onTap.call(preview.chatRoomId ?? _nullText);
+        onTap.call(preview.chatId ?? _nullText);
       },
     );
   }
 
   UserPreviewModel? _getOhterUser(
-    ChatPreviewModel preview, {
+    ChatModel preview, {
     String? currentUserId,
   }) {
     return otherUsers.firstWhere(

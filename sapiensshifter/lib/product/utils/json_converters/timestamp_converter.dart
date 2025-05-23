@@ -7,7 +7,7 @@ class TimestampConverter implements JsonConverter<DateTime, Timestamp> {
 
   @override
   DateTime fromJson(Timestamp timestamp) {
-    return timestamp.toDate();
+    return timestamp.toDate().toLocal();
   }
 
   @override
@@ -26,7 +26,7 @@ class TimestampNullableConverter
 
   @override
   DateTime? fromJson(Timestamp? timestamp) {
-    return timestamp?.toDate();
+    return timestamp?.toDate().toLocal();
   }
 
   @override

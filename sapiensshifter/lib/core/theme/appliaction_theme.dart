@@ -24,5 +24,9 @@ final class SapiensTheme {
     onError: Colors.white,
     surface: ColorConstant.backgroundColor,
     onSurface: Colors.black,
+    tertiary: ColorConstant.talkingBird,
+    onTertiary: Colors.black,
+    tertiaryContainer: ColorConstant.softSoul,
+    onTertiaryContainer: Colors.black,
   );
 }

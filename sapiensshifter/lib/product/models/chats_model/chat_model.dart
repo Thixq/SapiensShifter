@@ -5,14 +5,12 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/json_converters/timestamp_converter.dart';
 
-part 'chat_preview_model.g.dart';
+part 'chat_model.g.dart';
 
 @JsonSerializable(checked: true)
-final class ChatPreviewModel extends IBaseModel<ChatPreviewModel>
-    with EquatableMixin {
-  ChatPreviewModel({
-    this.chatPreviewId,
-    this.chatRoomId,
+final class ChatModel extends IBaseModel<ChatModel> with EquatableMixin {
+  ChatModel({
+    this.chatId,
     this.members,
     this.groupName,
     this.isGroup = false,
@@ -20,12 +18,26 @@ final class ChatPreviewModel extends IBaseModel<ChatPreviewModel>
     this.lastMessageText,
     this.lastMessageTime,
   });
+  factory ChatModel.fromJson(Map<String, dynamic> json) =>
+      _$ChatModelFromJson(json);
 
-  factory ChatPreviewModel.fromJson(Map<String, dynamic> json) =>
-      _$ChatPreviewModelFromJson(json);
+  factory ChatModel.newChat({
+    required List<String> members,
+    String? groupName,
+    String? groupImageUrl,
+    bool isGroup = false,
+  }) {
+    final generatedChatId = _idGenerator(members);
+    return ChatModel(
+      chatId: generatedChatId,
+      members: members,
+      isGroup: isGroup,
+      groupName: groupName,
+      groupImageUrl: groupImageUrl,
+    );
+  }
 
-  final String? chatPreviewId;
-  final String? chatRoomId;
+  final String? chatId;
   final List<String>? members;
   final bool isGroup;
   final String? groupName;
@@ -44,12 +56,17 @@ final class ChatPreviewModel extends IBaseModel<ChatPreviewModel>
   }
 
   @override
-  ChatPreviewModel fromJson(Map<String, dynamic> json) =>
-      _$ChatPreviewModelFromJson(json);
+  ChatModel fromJson(Map<String, dynamic> json) => _$ChatModelFromJson(json);
 
   @override
-  List<Object?> get props => [chatPreviewId, chatRoomId];
+  List<Object?> get props => [chatId];
 
   @override
-  Map<String, dynamic> toJson() => _$ChatPreviewModelToJson(this);
+  Map<String, dynamic> toJson() => _$ChatModelToJson(this);
+
+  static String _idGenerator(List<String> members) {
+    members.sort();
+    final generatedChatId = StringBuffer()..writeAll(members);
+    return generatedChatId.toString();
+  }
 }
