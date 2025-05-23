@@ -57,7 +57,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
         .asMap()
         .entries
         .map(
-          (entry) => buildNavBarButton(
+          (entry) => _buildNavBarButton(
             icon: entry.value.icon,
             index: entry.key,
             onPress: entry.value.onPress,
@@ -66,7 +66,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
         .toList();
   }
 
-  IconButton buildNavBarButton({
+  IconButton _buildNavBarButton({
     required IconData icon,
     required int index,
     void Function()? onPress,

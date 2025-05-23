@@ -33,9 +33,16 @@ class RoutingManager extends RootStackRouter {
               path: PagePathConstant.table,
               page: TablesRoute.page,
             ),
-            AutoRoute(path: PagePathConstant.chat, page: ChatPreviewRoute.page),
+            AutoRoute(
+              path: PagePathConstant.chat,
+              page: ChatPreviewRoute.page,
+            ),
             AutoRoute(path: PagePathConstant.shift, page: ShiftRoute.page),
           ],
+        ),
+        AutoRoute(
+          path: PagePathConstant.chatRoom,
+          page: ChatRoomRoute.page,
         ),
         AutoRoute(path: PagePathConstant.menu, page: MenuRoute.page),
         AutoRoute(

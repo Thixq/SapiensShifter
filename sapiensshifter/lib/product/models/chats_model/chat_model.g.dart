@@ -1,19 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'chat_preview_model.dart';
+part of 'chat_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ChatPreviewModel _$ChatPreviewModelFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      'ChatPreviewModel',
+ChatModel _$ChatModelFromJson(Map<String, dynamic> json) => $checkedCreate(
+      'ChatModel',
       json,
       ($checkedConvert) {
-        final val = ChatPreviewModel(
-          chatPreviewId: $checkedConvert('chatPreviewId', (v) => v as String?),
-          chatRoomId: $checkedConvert('chatRoomId', (v) => v as String?),
+        final val = ChatModel(
+          chatId: $checkedConvert('chatId', (v) => v as String?),
           members: $checkedConvert('members',
               (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()),
           groupName: $checkedConvert('groupName', (v) => v as String?),
@@ -30,10 +28,8 @@ ChatPreviewModel _$ChatPreviewModelFromJson(Map<String, dynamic> json) =>
       },
     );
 
-Map<String, dynamic> _$ChatPreviewModelToJson(ChatPreviewModel instance) =>
-    <String, dynamic>{
-      'chatPreviewId': instance.chatPreviewId,
-      'chatRoomId': instance.chatRoomId,
+Map<String, dynamic> _$ChatModelToJson(ChatModel instance) => <String, dynamic>{
+      'chatId': instance.chatId,
       'members': instance.members,
       'isGroup': instance.isGroup,
       'groupName': instance.groupName,

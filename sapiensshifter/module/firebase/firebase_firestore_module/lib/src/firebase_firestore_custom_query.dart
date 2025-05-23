@@ -6,6 +6,7 @@ final class FirebaseFirestoreCustomQuery extends INetworkQuery {
   FirebaseFirestoreCustomQuery({
     super.limit,
     super.limitToLast,
+    super.cursors,
     super.orderBy,
     super.filters,
   });
@@ -53,6 +54,22 @@ final class FirebaseFirestoreCustomQuery extends INetworkQuery {
       // Apply the corresponding filter operation.
       operationMap[operator]?.call();
     });
+
+    cursors?.forEach(
+      (cursor) {
+        final cursorType = cursor.type;
+        switch (cursorType) {
+          case CursorType.startAt:
+            query = query.startAt(cursor.fieldValues);
+          case CursorType.startAfter:
+            query = query.startAfter(cursor.fieldValues);
+          case CursorType.endAt:
+            query = query.endAt(cursor.fieldValues);
+          case CursorType.endBefore:
+            query = query.endBefore(cursor.fieldValues);
+        }
+      },
+    );
 
     // Apply ordering to the query if specified.
     orderBy?.forEach((order) {

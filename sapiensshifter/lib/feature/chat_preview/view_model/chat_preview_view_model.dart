@@ -7,7 +7,7 @@ import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/chat_preview/view_model/state/chat_preview_state.dart';
 import 'package:sapiensshifter/product/constant/query_path_constant.dart';
-import 'package:sapiensshifter/product/models/chats_model/chat_preview_model.dart';
+import 'package:sapiensshifter/product/models/chats_model/chat_model.dart';
 import 'package:sapiensshifter/product/models/user/sapiens_user/sapiens_user.dart';
 import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
@@ -41,7 +41,7 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
         );
         _streamSubscription = streamChatPreviewList.listen(
           (event) async {
-            final result = <ChatPreviewModel>[];
+            final result = <ChatModel>[];
             if (event.chatPreviewIdList.ext.isNotNullOrEmpty) {
               result.addAll(
                 await _getPreviewList(previewList: event.chatPreviewIdList),
@@ -72,20 +72,20 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
   Stream<T> _getStream<T extends IBaseModel<T>>({
     required String path,
     required T model,
-  }) async* {
-    yield* _networkManager.networkOperation.getStream<T>(
+  }) {
+    return _networkManager.networkOperation.getStream<T>(
       path: path,
       model: model,
     );
   }
 
-  Future<List<ChatPreviewModel>> _getPreviewList({
+  Future<List<ChatModel>> _getPreviewList({
     required List<String>? previewList,
   }) async {
     final query = FirebaseFirestoreCustomQuery(
       filters: [
         FilterCondition(
-          field: 'chatPreviewId',
+          field: 'chatId',
           value: previewList,
           operator: FilterOperator.whereIn,
         ),
@@ -94,7 +94,7 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
     final result = await _networkManager.networkOperation.getItemsQuery(
       query: query,
       path: QueryPathConstant.chatPreviewColPath,
-      model: ChatPreviewModel(),
+      model: ChatModel(),
     );
     result.sort((a, b) {
       return b.lastMessageTime!.compareTo(a.lastMessageTime!);
@@ -102,20 +102,20 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
     return result;
   }
 
-  void deleteChat(String chatPrewviewId) {
+  void deleteChat(String chatId) {
     ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         final result = await _networkManager.networkOperation.update(
           path: '${QueryPathConstant.usersColPath}/${_profile.user?.id}',
           value: {
-            'chatPreviewIdList': ArrayRemoveOperation([chatPrewviewId]),
+            'chatPreviewIdList': ArrayRemoveOperation([chatId]),
           },
         );
         if (result) {
           emit(
             state.copyWith(
               chatPreviews: state.chatPreviews
-                  .where((element) => element.chatPreviewId != chatPrewviewId)
+                  .where((element) => element.chatId != chatId)
                   .toList(),
             ),
           );

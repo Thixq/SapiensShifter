@@ -3,7 +3,9 @@ class PagePathConstant {
 
   //home and sub screens
   static const home = '/home';
+  // chat and chat sub
   static const chat = 'chat';
+  static const chatRoom = '/chatRoom';
   static const shift = 'shift';
   static const table = 'table';
   //------------------------
