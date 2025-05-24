@@ -7,6 +7,8 @@ import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/product/constant/query_path_constant.dart';
 import 'package:sapiensshifter/product/models/branch_model/branch_model.dart';
 import 'package:sapiensshifter/product/models/user/sapiens_user/sapiens_user.dart';
+import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
+import 'package:uuid/v4.dart';
 
 class Profile {
   Profile._({
@@ -47,11 +49,49 @@ class Profile {
     _user = await _getCurrentProfile;
   }
 
-  Future<void> _updateProfile({required Map<String, dynamic> field}) async {
-    final updateUser = _user;
-    await _networkManager.networkOperation.update(
-      path: '${QueryPathConstant.usersColPath}/${updateUser?.id}',
+  Future<bool> _updateUser({required Map<String, dynamic> field}) async {
+    return _networkManager.networkOperation.update(
+      path: '${QueryPathConstant.usersColPath}/${_user?.id}',
       value: field,
+    );
+  }
+
+  Future<bool> _updateUserPreview({required Map<String, dynamic> field}) async {
+    return _networkManager.networkOperation.update(
+      path: '${QueryPathConstant.usersPreviewColPath}/${_user?.userPreviewId}',
+      value: field,
+    );
+  }
+
+  Future<bool> createProfile(AuthModel? auth) {
+    return ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        final userPreviewId = const UuidV4().generate();
+        final userPreviewModel = UserPreviewModel(
+          userPreviewId: userPreviewId,
+          userId: auth?.id,
+          imageUrl: auth?.photoUrl,
+          name: auth?.displayName,
+        );
+        final sapiUser = SapiensUser(
+          id: auth?.id,
+          userPreviewId: userPreviewId,
+          name: auth?.displayName,
+          email: auth?.email,
+          imagePath: auth?.photoUrl,
+        );
+
+        await _networkManager.networkOperation.addItem(
+          path: '${QueryPathConstant.usersColPath}/${user?.id}',
+          item: sapiUser,
+        );
+        await _networkManager.networkOperation.addItem(
+          path: '${QueryPathConstant.usersPreviewColPath}/$userPreviewId',
+          item: userPreviewModel,
+        );
+        return true;
+      },
+      fallbackValue: () => false,
     );
   }
 
@@ -59,7 +99,8 @@ class Profile {
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         await _authManager.authOperation.displayNameUpdate(newName);
-        await _updateProfile(field: {'name': newName});
+        await _updateUser(field: {'name': newName});
+        await _updateUserPreview(field: {'name': newName});
         await reload;
         return true;
       },
@@ -82,7 +123,8 @@ class Profile {
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         await _authManager.authOperation.photographUpdate(newPhoto);
-        await _updateProfile(field: {'imagePath': newPhoto});
+        await _updateUser(field: {'imagePath': newPhoto});
+        await _updateUserPreview(field: {'imagePath': newPhoto});
         await reload;
         return true;
       },

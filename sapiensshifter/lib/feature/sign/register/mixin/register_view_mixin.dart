@@ -46,7 +46,7 @@ mixin RegisterViewMixin on BaseState<RegisterView> {
   void initState() {
     _registerViewModel = RegisterViewModel(
       ProductConfigureItems.authManager,
-      ProductConfigureItems.networkManager,
+      ProductConfigureItems.profile,
     );
     userNameTextController = TextEditingController();
     emailTextController = TextEditingController();
