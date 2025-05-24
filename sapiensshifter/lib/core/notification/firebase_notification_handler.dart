@@ -21,13 +21,6 @@ class FirebaseNotificationHandler {
 
     FirebaseMessaging.onMessage.listen(_handleForegroundMessage);
     FirebaseMessaging.onBackgroundMessage(_firebaseBackgroundHandler);
-
-    await _setupFCMOptions();
-  }
-
-  Future<void> _setupFCMOptions() async {
-    await FirebaseMessaging.instance.requestPermission();
-
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(
       alert: true,
