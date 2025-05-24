@@ -1,10 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:sapiensshifter/core/notification/notification_channels.dart';
 
 class NotificationService {
-  factory NotificationService() => _instance;
   NotificationService._internal();
   static final NotificationService _instance = NotificationService._internal();
+
+  static NotificationService get instance => _instance;
 
   late FlutterLocalNotificationsPlugin _notificationsPlugin;
 
@@ -13,7 +16,11 @@ class NotificationService {
 
     const androidSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher');
-    const iOSSettings = DarwinInitializationSettings();
+    const iOSSettings = DarwinInitializationSettings(
+      requestAlertPermission: false,
+      requestBadgePermission: false,
+      requestSoundPermission: false,
+    );
 
     await _notificationsPlugin.initialize(
       const InitializationSettings(
@@ -23,7 +30,6 @@ class NotificationService {
     );
 
     await _createAndroidChannels();
-    await _requestIOSPermissions();
   }
 
   Future<void> _createAndroidChannels() async {
@@ -45,16 +51,24 @@ class NotificationService {
     }
   }
 
-  Future<void> _requestIOSPermissions() async {
-    await _notificationsPlugin
-        .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(
-          alert: true,
-          badge: true,
-          sound: true,
-          critical: true,
-        );
+  Future<bool?> requestPermissions() async {
+    if (Platform.isIOS) {
+      return await _notificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              IOSFlutterLocalNotificationsPlugin>()
+          ?.requestPermissions(
+            alert: true,
+            badge: true,
+            sound: true,
+            critical: true,
+          );
+    } else if (Platform.isAndroid) {
+      return await _notificationsPlugin
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()
+          ?.requestNotificationsPermission();
+    }
+    return false;
   }
 
   Future<void> showNotification({
@@ -67,7 +81,7 @@ class NotificationService {
     const androidDetails = AndroidNotificationDetails(
       'general_channel',
       'General Notifications',
-      importance: Importance.max,
+      importance: Importance.high,
       priority: Priority.high,
     );
 

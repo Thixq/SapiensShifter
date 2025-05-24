@@ -24,7 +24,7 @@ final class ProductConfigure {
     await AppDependency.setup();
 
     // Notificaton setup
-    final notificationService = NotificationService();
+    final notificationService = NotificationService.instance;
     await notificationService.initialize();
     final firebaseHandler = FirebaseNotificationHandler(notificationService);
     await firebaseHandler.initialize();
