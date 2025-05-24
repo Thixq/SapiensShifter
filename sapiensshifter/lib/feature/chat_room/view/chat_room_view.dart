@@ -70,7 +70,7 @@ class _ChatRoomViewState extends BaseState<ChatRoomView>
             await viewModel.saveChat();
           }
           await viewModel.writeMessage(
-            text: controller.text,
+            text: controller.text.trimRight(),
           );
           controller.clear();
         },
