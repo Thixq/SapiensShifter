@@ -9,6 +9,7 @@ import 'package:sapiensshifter/feature/home/view/home_view.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/dialogs_and_bottom_sheet.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 import 'package:uuid/v7.dart';
 
@@ -32,7 +33,7 @@ mixin HomeViewMixin on BaseState<HomeView> {
             onPress: () {
               SapiCounterDialog.show(
                 context,
-                titleName: 'Masa 1',
+                titleName: LocaleKeys.page_home_new_table.tr(),
                 done: _newTable,
               );
             },
@@ -50,7 +51,7 @@ mixin HomeViewMixin on BaseState<HomeView> {
       tableName: tableName,
       branchName: userInfo.user?.toDayBranch,
       creatorId: userInfo.user?.id,
-      timeStamp: DateTime.now(),
+      timeStamp: DateTime.now().toLocal(),
       status: true,
       id: const UuidV7().generate(),
     );

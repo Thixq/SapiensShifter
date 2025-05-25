@@ -49,15 +49,13 @@ final class TableModel extends IBaseModel<TableModel> with EquatableMixin {
   @override
   Map<String, dynamic> toJson() => _$TableModelToJson(this);
 
-  // ignore: use_if_null_to_convert_nulls_to_bools
-  double? get totalPrice => orderList.isNotEmpty == true
+  double? get totalPrice => orderList.isNotEmpty
       ? orderList
           .where(
             (e) => e.price != null,
           )
           .map((e) => e.price!)
-          // ignore: prefer_int_literals
-          .fold(0.0, (total, price) => total! + price)
+          .fold(0, (total, price) => total! + price)
       : null;
 
   @override

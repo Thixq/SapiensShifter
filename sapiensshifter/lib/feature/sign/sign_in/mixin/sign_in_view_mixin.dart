@@ -24,7 +24,7 @@ mixin SignInViewMixin on BaseState<SignInView> {
     // View Model
     _signInViewModel = SignInViewModel(
       authManager: ProductConfigureItems.authManager,
-      networkManager: ProductConfigureItems.networkManager,
+      profile: ProductConfigureItems.profile,
     );
 
     // TextEditing

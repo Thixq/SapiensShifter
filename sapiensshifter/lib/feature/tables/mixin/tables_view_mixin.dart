@@ -33,6 +33,7 @@ mixin TablesViewMixin on BaseState<TablesView>
       profile: ProductConfigureItems.profile,
     );
     _tablesViewModel.getTableList;
+
     super.initState();
   }
 }
