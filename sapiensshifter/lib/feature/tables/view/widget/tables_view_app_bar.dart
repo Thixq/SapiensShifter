@@ -2,11 +2,13 @@ part of '../tables_view.dart';
 
 class TablesViewAppBar extends StatelessWidget implements PreferredSizeWidget {
   const TablesViewAppBar({
+    required this.onTap,
     this.profile,
     super.key,
   });
 
   final Profile? profile;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +25,7 @@ class TablesViewAppBar extends StatelessWidget implements PreferredSizeWidget {
             context.sized.emptySizedWidthBoxLow3x,
             InkWell(
               overlayColor: const WidgetStatePropertyAll(Colors.transparent),
-              onTap: () {
-                // TODO(kaan): go Profile view
-              },
+              onTap: onTap,
               child: CustomCircleAvatar(
                 radius: kToolbarHeight,
                 imageUrl: profile?.user?.imagePath,

@@ -1,18 +1,21 @@
 class PagePathConstant {
   static const root = '/';
 
-  //home and sub screens
+  static const onboard = '/onboard';
+
+  static const signIn = '/sign/signin';
+  static const register = '/sign/register';
+
   static const home = '/home';
-  // chat and chat sub
+
   static const chat = 'chat';
   static const chatRoom = '/chatRoom';
+
   static const shift = 'shift';
   static const table = 'table';
-  //------------------------
 
   static const menu = '/menu';
   static const orderDetail = '/menu/orderDetail';
-  static const onboard = '/onboard';
-  static const signIn = '/sign/signin';
-  static const register = '/sign/register';
+
+  static const settings = '/settings';
 }

@@ -18,6 +18,7 @@ final class SapiensTheme {
     primary: ColorConstant.primaryColor,
     onPrimary: Colors.black,
     primaryContainer: ColorConstant.primaryColor,
+    onPrimaryContainer: Colors.white,
     secondary: ColorConstant.primaryColor,
     onSecondary: Colors.black,
     error: Color(0xffba1a1a),

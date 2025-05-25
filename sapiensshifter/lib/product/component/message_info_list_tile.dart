@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/component/custom_avatar.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
+// TODO(kaan): ChatPreview'daki listtile'ı buraya yaz.
 final class MessageInfoListTile extends StatelessWidget {
   const MessageInfoListTile({
     required this.onPressed,

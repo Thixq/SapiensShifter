@@ -27,7 +27,7 @@ class CodegenLoader extends AssetLoader{
     "today": "Bugün",
     "yesterday": "Dün",
     "tomorrow": "Yarın",
-    "day_after_tomorrow": "Öbür Gün",
+    "day_after_tomorrow": "Yarından Sonra",
     "last_week": "Geçen Hafta",
     "next_week": "Gelecek Hafta"
   },
@@ -125,11 +125,23 @@ class CodegenLoader extends AssetLoader{
         "sign_in": "Giriş yapın!"
       }
     },
+    "home": {
+      "new_table": "Masa 1"
+    },
     "order_detail": {
       "service_type": "Servis"
     },
     "shift": {
       "shift": "Vardiya"
+    },
+    "settings": {
+      "actions_text": {
+        "history_order": "Siparişler",
+        "new_product": "Yeni Ürün Ekle",
+        "price_edit": "Fiyat Güncelle",
+        "shift_add": "Vardiya Ekle"
+      },
+      "sign_out": "Çıkış Yap"
     }
   },
   "category": {

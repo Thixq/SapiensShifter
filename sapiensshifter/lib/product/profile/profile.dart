@@ -132,6 +132,10 @@ class Profile {
     );
   }
 
+  Future<bool> signOut() async {
+    return _authManager.signOut();
+  }
+
   Future<String?> get getToDayBranchId async {
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {

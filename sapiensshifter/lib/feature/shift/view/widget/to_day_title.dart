@@ -16,9 +16,9 @@ final class ToDayTitle extends StatelessWidget {
       child: RichText(
         text: TextSpan(
           text: '$day ',
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 32,
-            color: Colors.black,
+            color: context.general.colorScheme.onPrimary,
             fontWeight: FontWeight.bold,
           ),
           children: [
