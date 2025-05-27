@@ -33,7 +33,9 @@ class _SettingsViewState extends BaseState<SettingsView>
           child: Column(
             children: [
               ProfileWidget(
+                key: imagePickerKey,
                 user: viewModel.getUser,
+                onImagePicked: onImagePicked,
               ),
               context.sized.emptySizedHeightBoxNormal,
               Expanded(

@@ -2,6 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Options for using the camera to take photos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Permission is required to access the gallery.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>The app can access the gallery to save photos.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>

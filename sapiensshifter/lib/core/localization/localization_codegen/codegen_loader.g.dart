@@ -59,7 +59,7 @@ class CodegenLoader extends AssetLoader{
     "general_exception": {
       "is_not_initialized": "{instance} başlatılmadı. Önce initialize()'ı çağırın.",
       "list_is_empty": "Liste boş.",
-      "empty_key": "Anahtar verilmemiş."
+      "empty_key": "Verilen anahtarın bağlamı boş veya bağlanmamış."
     },
     "network_error_exception": {
       "no_network_connection": "İnternet bağlantısı yok. İnternet bağlantınızı kontrol edin."
@@ -141,6 +141,10 @@ class CodegenLoader extends AssetLoader{
         "new_product": "Yeni Ürün Ekle",
         "price_edit": "Fiyat Güncelle",
         "shift_add": "Vardiya Ekle"
+      },
+      "image_picker": {
+        "camera": "Fotoğraf Çek",
+        "gallery": "Galeriden Seç"
       },
       "sign_out": "Çıkış Yap"
     }

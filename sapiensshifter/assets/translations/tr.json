@@ -126,6 +126,10 @@
                 "price_edit":"Fiyat Güncelle",
                 "shift_add":"Vardiya Ekle"
             },
+                "image_picker":{
+                "camera":"Fotoğraf Çek",
+                "gallery":"Galeriden Seç"
+            },
             "sign_out":"Çıkış Yap"
         }
     },
