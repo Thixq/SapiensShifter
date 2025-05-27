@@ -103,6 +103,9 @@ abstract class  LocaleKeys {
   static const page_settings_actions_text_price_edit = 'page.settings.actions_text.price_edit';
   static const page_settings_actions_text_shift_add = 'page.settings.actions_text.shift_add';
   static const page_settings_actions_text = 'page.settings.actions_text';
+  static const page_settings_image_picker_camera = 'page.settings.image_picker.camera';
+  static const page_settings_image_picker_gallery = 'page.settings.image_picker.gallery';
+  static const page_settings_image_picker = 'page.settings.image_picker';
   static const page_settings_sign_out = 'page.settings.sign_out';
   static const page_settings = 'page.settings';
   static const page = 'page';

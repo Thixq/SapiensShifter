@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/core/exception/exceptions/general_exception.dart';
 import 'package:sizer/sizer.dart';
 
 class ContextMenu {
@@ -12,39 +11,54 @@ class ContextMenu {
       menuPadding: EdgeInsets.zero,
       shape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.spa)),
-      position: _getPosition(key),
+      position: _getDynamicPosition(key, items.length),
       context: key.currentContext!,
       items: items,
     );
   }
 
-  static RelativeRect? _getPosition(GlobalKey key) {
-    if (key.currentContext != null) {
-      if (key.currentContext!.mounted) {
-        final renderObject = _getOffset(key);
-        return RelativeRect.fromRect(
-          Rect.fromPoints(
-            renderObject.offset.translate(16.spa, 24.spa), // Sol üst köşe
-            renderObject.offset.translate(
-              (renderObject.size?.width ?? 0) + 16.spa,
-              (renderObject.size?.height ?? 0) + 16.spa,
-            ), // Sağ alt köşe
-          ),
-          Offset.zero &
-              MediaQuery.of(key.currentContext!).size, // Ekranın tamamı
-        );
-      }
-    } else {
-      throw GeneralException('empty_key');
-    }
-    return null;
-  }
-
-  static ({Size? size, Offset offset}) _getOffset(GlobalKey key) {
+  static RelativeRect _getDynamicPosition(GlobalKey key, int itemCount) {
     final context = key.currentContext!;
-    final size = context.size;
-    final objectRenderBox = context.findRenderObject()! as RenderBox;
-    final offset = objectRenderBox.localToGlobal(Offset.zero);
-    return (size: size, offset: offset);
+    final renderBox = context.findRenderObject()! as RenderBox;
+    final offset = renderBox.localToGlobal(Offset.zero);
+    final size = renderBox.size;
+    final screenSize = MediaQuery.of(context).size;
+
+    const itemHeight = 48;
+    const itemWidth = 200;
+    final menuHeight = itemHeight * itemCount;
+    const menuWidth = itemWidth;
+
+    final spaceAbove = offset.dy;
+    final spaceBelow = screenSize.height - (offset.dy + size.height);
+    final spaceLeft = offset.dx;
+    final spaceRight = screenSize.width - (offset.dx + size.width);
+
+    var left = offset.dx;
+    var top = offset.dy + size.height;
+
+    // Uygun konumu belirleme
+    if (spaceBelow >= menuHeight) {
+      top = offset.dy + size.height;
+    } else if (spaceAbove >= menuHeight) {
+      top = offset.dy - menuHeight;
+    } else {
+      top = offset.dy + size.height;
+    }
+
+    if (spaceRight >= menuWidth) {
+      left = offset.dx;
+    } else if (spaceLeft >= menuWidth) {
+      left = offset.dx - menuWidth + size.width;
+    } else {
+      left = offset.dx;
+    }
+
+    return RelativeRect.fromLTRB(
+      left,
+      top,
+      screenSize.width - left - menuWidth,
+      screenSize.height - top - menuHeight,
+    );
   }
 }

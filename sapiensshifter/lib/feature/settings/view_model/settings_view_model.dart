@@ -12,6 +12,10 @@ class SettingsViewModel {
 
   SapiensUser? get getUser => _profile.user;
 
+  Future<void> updatePhoto(String imageUrl) async {
+    await _profile.updatePhoto(newPhoto: imageUrl);
+  }
+
   Future<void> signOut(BuildContext context) async {
     final result = await _profile.signOut();
     if (result) {
