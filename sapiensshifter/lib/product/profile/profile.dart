@@ -8,6 +8,7 @@ import 'package:sapiensshifter/product/constant/query_path_constant.dart';
 import 'package:sapiensshifter/product/models/branch_model/branch_model.dart';
 import 'package:sapiensshifter/product/models/user/sapiens_user/sapiens_user.dart';
 import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
+import 'package:sapiensshifter/product/utils/enums/user_role.dart';
 import 'package:uuid/v4.dart';
 
 class Profile {
@@ -79,6 +80,7 @@ class Profile {
           name: auth?.displayName,
           email: auth?.email,
           imagePath: auth?.photoUrl,
+          role: UserRole.user,
         );
 
         await _networkManager.networkOperation.addItem(

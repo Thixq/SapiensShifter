@@ -35,7 +35,7 @@ class ContextMenu {
         );
       }
     } else {
-      throw GeneralException('code');
+      throw GeneralException('empty_key');
     }
     return null;
   }

@@ -58,7 +58,8 @@ class CodegenLoader extends AssetLoader{
     "default_exception": "Bir hata oluştu: {message}",
     "general_exception": {
       "is_not_initialized": "{instance} başlatılmadı. Önce initialize()'ı çağırın.",
-      "list_is_empty": "Liste boş."
+      "list_is_empty": "Liste boş.",
+      "empty_key": "Anahtar verilmemiş."
     },
     "network_error_exception": {
       "no_network_connection": "İnternet bağlantısı yok. İnternet bağlantınızı kontrol edin."

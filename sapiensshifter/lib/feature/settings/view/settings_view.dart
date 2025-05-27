@@ -38,21 +38,25 @@ class _SettingsViewState extends BaseState<SettingsView>
               context.sized.emptySizedHeightBoxNormal,
               Expanded(
                 child: BasicListTileBuilder(
-                  listTiles: actionsList,
+                  listTiles: filteredList,
                 ),
               ),
-              BasicListTile(
-                model: BasicListTileModel(
-                  icon: Icons.logout,
-                  title: LocaleKeys.page_settings_sign_out.tr(),
-                  onTap: () async {
-                    await viewModel.signOut(context);
-                  },
-                ),
-              ),
+              _buildSignOut(context),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  BasicListTile _buildSignOut(BuildContext context) {
+    return BasicListTile(
+      model: BasicListTileModel(
+        icon: Icons.logout,
+        title: LocaleKeys.page_settings_sign_out.tr(),
+        onTap: () async {
+          await viewModel.signOut(context);
+        },
       ),
     );
   }

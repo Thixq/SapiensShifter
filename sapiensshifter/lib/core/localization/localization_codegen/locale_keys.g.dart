@@ -38,6 +38,7 @@ abstract class  LocaleKeys {
   static const all_exception_default_exception = 'all_exception.default_exception';
   static const all_exception_general_exception_is_not_initialized = 'all_exception.general_exception.is_not_initialized';
   static const all_exception_general_exception_list_is_empty = 'all_exception.general_exception.list_is_empty';
+  static const all_exception_general_exception_empty_key = 'all_exception.general_exception.empty_key';
   static const all_exception_general_exception = 'all_exception.general_exception';
   static const all_exception_network_error_exception_no_network_connection = 'all_exception.network_error_exception.no_network_connection';
   static const all_exception_network_error_exception = 'all_exception.network_error_exception';
