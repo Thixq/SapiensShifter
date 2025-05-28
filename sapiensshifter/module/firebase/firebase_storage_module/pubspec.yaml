@@ -1,0 +1,28 @@
+name: firebase_storage_module
+description: A starting point for Dart libraries or applications.
+version: 1.0.0
+publish_to: none
+# repository: https://github.com/my_org/my_repo
+
+environment:
+  sdk: ^3.8.0
+
+# Add regular dependencies here.
+dependencies:
+  flutter:
+    sdk: flutter
+  # path: ^1.8.0
+
+    #Core Package
+  core:
+    path: ../../core
+
+  #Firebase
+  firebase_core: ^3.10.0
+  firebase_storage: ^12.4.6
+
+dev_dependencies:
+  lints: ^5.0.0
+  test: ^1.24.0
+  mockito: ^5.4.6
+  build_runner: ^2.4.15
