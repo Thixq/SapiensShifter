@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:core/core.dart';
@@ -17,16 +18,20 @@ class FirebaseStorageOperation implements IStorageOperation {
   }
 
   @override
-  Future<String> upload({
-    required Uint8List file,
+  Future<String?> upload({
+    Uint8List? byteFile,
+    File? file,
     required String path,
     String? mimeType,
   }) async {
     return handleAsyncOperation(() async {
       final ref = _storage.ref().child(path);
       final metadata = SettableMetadata(contentType: mimeType);
-      ref.putData(file, metadata);
-
+      if (byteFile != null) {
+        await ref.putData(byteFile, metadata);
+      } else if (file != null) {
+        await ref.putFile(file, metadata);
+      }
       return await ref.getDownloadURL();
     });
   }
@@ -86,7 +91,11 @@ class FirebaseStorageOperation implements IStorageOperation {
       final oldRef = _storage.ref().child(oldPath);
       final data = await oldRef.getData();
       final metadata = await oldRef.getMetadata();
-      await upload(path: newPath, file: data!, mimeType: metadata.contentType);
+      await upload(
+        path: newPath,
+        byteFile: data,
+        mimeType: metadata.contentType,
+      );
       await oldRef.delete();
     });
   }
@@ -102,7 +111,7 @@ class FirebaseStorageOperation implements IStorageOperation {
       final metadata = await sourceRef.getMetadata();
       await upload(
         path: destinationPath,
-        file: data!,
+        byteFile: data!,
         mimeType: metadata.contentType,
       );
     });

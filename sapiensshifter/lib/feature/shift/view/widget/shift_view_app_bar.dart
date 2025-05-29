@@ -17,11 +17,11 @@ class ShiftViewAppBar extends StatelessWidget implements PreferredSizeWidget {
         InkWell(
           overlayColor: const WidgetStatePropertyAll(Colors.transparent),
           onTap: () {
-            // TODO(kaan): go Profile view
+            context.router.pushPath(PagePathConstant.settings);
           },
           child: CustomCircleAvatar(
             radius: kToolbarHeight,
-            imageUrl: '${profile.user?.imagePath}',
+            imageUrl: '${profile.user?.photoUrl}',
           ),
         ),
       ],

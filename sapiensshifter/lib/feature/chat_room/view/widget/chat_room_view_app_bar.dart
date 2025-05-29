@@ -35,7 +35,7 @@ final class ChatRoomViewAppBar extends StatelessWidget {
                 children: [
                   CustomCircleAvatar(
                     radius: 24.sp,
-                    imageUrl: ohterUser?.imageUrl,
+                    imageUrl: ohterUser?.photoUrl,
                   ),
                   context.sized.emptySizedWidthBoxLow3x,
                   Text(

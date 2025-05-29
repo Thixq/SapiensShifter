@@ -16,7 +16,7 @@ SapiensUser _$SapiensUserFromJson(Map<String, dynamic> json) => $checkedCreate(
           email: $checkedConvert('email', (v) => v as String?),
           role: $checkedConvert(
               'role', (v) => $enumDecodeNullable(_$UserRoleEnumMap, v)),
-          imagePath: $checkedConvert('imagePath', (v) => v as String?),
+          photoUrl: $checkedConvert('photoUrl', (v) => v as String?),
           toDayBranch: $checkedConvert('toDayBranch', (v) => v as String?),
           userPreviewId: $checkedConvert('userPreviewId', (v) => v as String?),
           chatPreviewIdList: $checkedConvert('chatPreviewIdList',
@@ -31,7 +31,7 @@ Map<String, dynamic> _$SapiensUserToJson(SapiensUser instance) =>
       'id': instance.id,
       'name': instance.name,
       'email': instance.email,
-      'imagePath': instance.imagePath,
+      'photoUrl': instance.photoUrl,
       'toDayBranch': instance.toDayBranch,
       'userPreviewId': instance.userPreviewId,
       'chatPreviewIdList': instance.chatPreviewIdList,

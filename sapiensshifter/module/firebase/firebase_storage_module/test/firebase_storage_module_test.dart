@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:firebase_storage/firebase_storage.dart';
@@ -37,14 +38,34 @@ void main() {
   });
 
   group('upload', () {
-    test('upload file', () async {
-      final file = Uint8List.fromList([1, 2, 3]);
+    test('upload byte file', () async {
+      final byteData = Uint8List.fromList([1, 2, 3]);
       final path = 'folder/file.txt';
       final mimeType = 'text/plain';
 
       when(mockStorage.ref()).thenReturn(mockRef);
       when(mockRef.child(path)).thenReturn(mockRef);
       when(mockRef.putData(any, any)).thenAnswer((_) => mockUploadTask);
+      when(
+        mockRef.getDownloadURL(),
+      ).thenAnswer((_) async => 'http://download.url');
+
+      final downloadUrl = await mockInstance.upload(
+        byteFile: byteData,
+        path: path,
+        mimeType: mimeType,
+      );
+      expect(downloadUrl, 'http://download.url');
+    });
+
+    test('upload file', () async {
+      final path = 'folder/file.txt';
+      final mimeType = 'text/plain';
+      final file = File(path);
+
+      when(mockStorage.ref()).thenReturn(mockRef);
+      when(mockRef.child(path)).thenReturn(mockRef);
+      when(mockRef.putFile(any, any)).thenAnswer((_) => mockUploadTask);
       when(
         mockRef.getDownloadURL(),
       ).thenAnswer((_) async => 'http://download.url');

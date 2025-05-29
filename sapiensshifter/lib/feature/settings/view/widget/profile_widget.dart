@@ -20,7 +20,7 @@ class ProfileWidget extends StatelessWidget {
           children: [
             CustomCircleAvatar(
               radius: profileRadius,
-              imageUrl: user?.imagePath,
+              imageUrl: user?.photoUrl,
             ),
             Positioned(
               bottom: profileRadius * -0.01,

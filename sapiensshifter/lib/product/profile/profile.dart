@@ -1,5 +1,4 @@
 // ignore_for_file: join_return_with_assignment
-
 import 'package:core/core.dart';
 import 'package:firebase_firestore_module/firebase_firestore_module.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
@@ -18,6 +17,7 @@ class Profile {
   }) {
     _networkManager = networkManager;
     _authManager = authManager;
+
     _user = null;
   }
 
@@ -26,8 +26,10 @@ class Profile {
     required INetworkManager networkManager,
     required IAuthManager authManager,
   }) async {
-    _instance =
-        Profile._(authManager: authManager, networkManager: networkManager);
+    _instance = Profile._(
+      authManager: authManager,
+      networkManager: networkManager,
+    );
     return _instance;
   }
 
@@ -35,6 +37,7 @@ class Profile {
 
   late final INetworkManager _networkManager;
   late final IAuthManager _authManager;
+
   SapiensUser? _user;
 
   Future<SapiensUser> get _getCurrentProfile async {
@@ -71,7 +74,7 @@ class Profile {
         final userPreviewModel = UserPreviewModel(
           userPreviewId: userPreviewId,
           userId: auth?.id,
-          imageUrl: auth?.photoUrl,
+          photoUrl: auth?.photoUrl,
           name: auth?.displayName,
         );
         final sapiUser = SapiensUser(
@@ -79,7 +82,7 @@ class Profile {
           userPreviewId: userPreviewId,
           name: auth?.displayName,
           email: auth?.email,
-          imagePath: auth?.photoUrl,
+          photoUrl: auth?.photoUrl,
           role: UserRole.user,
         );
 
@@ -93,6 +96,7 @@ class Profile {
         );
         return true;
       },
+      errorHandler: ServiceErrorHandler(),
       fallbackValue: () => false,
     );
   }
@@ -106,6 +110,7 @@ class Profile {
         await reload;
         return true;
       },
+      errorHandler: ServiceErrorHandler(),
       fallbackValue: () => false,
     );
   }
@@ -117,19 +122,23 @@ class Profile {
         await reload;
         return true;
       },
+      errorHandler: ServiceErrorHandler(),
       fallbackValue: () => false,
     );
   }
 
-  Future<bool> updatePhoto({required String newPhoto}) async {
+  Future<bool> updatePhoto({
+    required String imageUrl,
+  }) async {
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
-        await _authManager.authOperation.photographUpdate(newPhoto);
-        await _updateUser(field: {'imagePath': newPhoto});
-        await _updateUserPreview(field: {'imagePath': newPhoto});
+        await _authManager.authOperation.photographUpdate(imageUrl);
+        await _updateUser(field: {'photoUrl': imageUrl});
+        await _updateUserPreview(field: {'photoUrl': imageUrl});
         await reload;
         return true;
       },
+      errorHandler: ServiceErrorHandler(),
       fallbackValue: () => false,
     );
   }
