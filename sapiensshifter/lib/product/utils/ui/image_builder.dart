@@ -22,7 +22,6 @@ class ImageBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      memCacheHeight: imageCache,
       memCacheWidth: imageCache,
       imageUrl: imageUrl ?? '',
       imageBuilder: (context, imageProvider) {
