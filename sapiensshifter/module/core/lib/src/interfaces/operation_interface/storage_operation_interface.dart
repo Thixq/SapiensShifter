@@ -1,10 +1,12 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:core/src/models/file_metadata.dart';
 
 abstract class IStorageOperation {
-  Future<String> upload({
-    required Uint8List file,
+  Future<String?> upload({
+    Uint8List? byteFile,
+    File? file,
     required String path,
     String? mimeType,
   });

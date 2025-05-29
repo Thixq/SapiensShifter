@@ -29,6 +29,18 @@ class TablesView extends StatefulWidget {
 class _TablesViewState extends BaseState<TablesView>
     with TablesViewMixin, RouteAwareNotifierStateMixin {
   @override
+  void activate() {
+    print('TABLES Activate');
+    super.activate();
+  }
+
+  @override
+  void deactivate() {
+    print('TABLES DEAVTİVATE');
+    super.deactivate();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => viewModel,

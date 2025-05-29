@@ -28,7 +28,7 @@ class TablesViewAppBar extends StatelessWidget implements PreferredSizeWidget {
               onTap: onTap,
               child: CustomCircleAvatar(
                 radius: kToolbarHeight,
-                imageUrl: profile?.user?.imagePath,
+                imageUrl: profile?.user?.photoUrl,
               ),
             ),
           ],

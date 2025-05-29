@@ -13,7 +13,7 @@ final class SapiensUser extends IBaseModel<SapiensUser> with EquatableMixin {
     this.name,
     this.email,
     this.role,
-    this.imagePath,
+    this.photoUrl,
     this.toDayBranch,
     this.userPreviewId,
     this.chatPreviewIdList,
@@ -25,7 +25,7 @@ final class SapiensUser extends IBaseModel<SapiensUser> with EquatableMixin {
   final String? id;
   final String? name;
   final String? email;
-  final String? imagePath;
+  final String? photoUrl;
   final String? toDayBranch;
   final String? userPreviewId;
   final List<String>? chatPreviewIdList;

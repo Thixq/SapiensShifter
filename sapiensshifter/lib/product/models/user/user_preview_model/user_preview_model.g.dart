@@ -15,7 +15,7 @@ UserPreviewModel _$UserPreviewModelFromJson(Map<String, dynamic> json) =>
           userId: $checkedConvert('userId', (v) => v as String?),
           userPreviewId: $checkedConvert('userPreviewId', (v) => v as String?),
           name: $checkedConvert('name', (v) => v as String?),
-          imageUrl: $checkedConvert('imageUrl', (v) => v as String?),
+          photoUrl: $checkedConvert('photoUrl', (v) => v as String?),
         );
         return val;
       },
@@ -26,5 +26,5 @@ Map<String, dynamic> _$UserPreviewModelToJson(UserPreviewModel instance) =>
       'userPreviewId': instance.userPreviewId,
       'userId': instance.userId,
       'name': instance.name,
-      'imageUrl': instance.imageUrl,
+      'photoUrl': instance.photoUrl,
     };

@@ -68,7 +68,7 @@ class ChatViewChatList extends StatelessWidget {
       leading: CustomCircleAvatar(
         imageUrl: preview.isGroup
             ? preview.groupImageUrl
-            : _getOhterUser(preview, currentUserId: currentUserId)?.imageUrl,
+            : _getOhterUser(preview, currentUserId: currentUserId)?.photoUrl,
       ),
       trailing: Text(
         preview.lastMessageTime?.sapiTimeExt.lastMessageTime ?? _nullText,

@@ -93,7 +93,7 @@ class _NewChatBottomSheetState extends State<NewChatBottomSheet> {
           onPressed: () {
             context.route.pop(filteredItems[index]);
           },
-          imageUrl: filteredItems[index].imageUrl,
+          imageUrl: filteredItems[index].photoUrl,
           title: filteredItems[index].name,
         ),
         separatorBuilder: (context, index) =>
