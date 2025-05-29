@@ -13,6 +13,7 @@ import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/context_me
 import 'package:sapiensshifter/product/utils/enums/picker_source.dart';
 import 'package:sapiensshifter/product/utils/enums/user_role.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
+import 'package:sapiensshifter/product/utils/static_func/image_normalized.dart';
 
 mixin SettingsViewMixin on BaseState<SettingsView> {
   late final SettingsViewModel _settingsViewModel;
@@ -44,7 +45,6 @@ mixin SettingsViewMixin on BaseState<SettingsView> {
             if (image != null) {
               await _updatePhoto(image);
               if (mounted) {
-                print('object');
                 setState(() {});
               }
             }
@@ -56,9 +56,11 @@ mixin SettingsViewMixin on BaseState<SettingsView> {
 
   Future<void> _updatePhoto(XFile image) async {
     final photoBytes = await image.readAsBytes();
+    final normalizedByte = imageCleanEXIFData(photoBytes: photoBytes);
     final mimeType = lookupMimeType(image.path);
+
     await _settingsViewModel.updatePhoto(
-      photoBytes: photoBytes,
+      photoBytes: normalizedByte,
       mimeType: mimeType,
     );
   }

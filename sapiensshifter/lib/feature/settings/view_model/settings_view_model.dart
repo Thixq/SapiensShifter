@@ -32,7 +32,6 @@ class SettingsViewModel {
     final mimeTypeSplit = mimeType!.split('/').last;
     final path =
         'users/${_profile.user?.id}/${const UuidV7().generate()}.$mimeTypeSplit';
-    settingsLogger.info('ImageUrl: $path');
     return _storageManager.storageOperation
         .upload(path: path, byteFile: photoBytes, mimeType: mimeType);
   }
@@ -47,8 +46,10 @@ class SettingsViewModel {
           mimeType: mimeType,
           photoBytes: photoBytes,
         );
+        settingsLogger.info('photo uploaded storage');
         if (imageUrl != null && imageUrl.isNotEmpty) {
           await _profile.updatePhoto(imageUrl: imageUrl);
+          settingsLogger.info('photo update');
           return true;
         }
         return false;
