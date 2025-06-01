@@ -3,9 +3,11 @@ import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/menu/view/menu_view.dart';
 import 'package:sapiensshifter/feature/menu/view_model/menu_view_model.dart';
 import 'package:sapiensshifter/feature/menu/view_model/state/menu_view_state.dart';
+import 'package:sapiensshifter/product/profile/profile.dart';
 
 mixin MenuViewMixin on BaseState<MenuView> {
   late final MenuViewModel _menuViewModel;
+  final Profile _profile = ProductConfigureItems.profile;
 
   MenuViewModel get viewModel => _menuViewModel;
 
@@ -18,7 +20,7 @@ mixin MenuViewMixin on BaseState<MenuView> {
   void initState() {
     _menuViewModel = MenuViewModel(
       MenuViewState.initial(table: widget.table),
-      currentUser: widget.currentUser,
+      currentUser: _profile,
       networkManager: ProductConfigureItems.networkManager,
     );
     _menuViewModel.getCategories();

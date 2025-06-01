@@ -22,7 +22,9 @@ mixin TablesViewMixin on BaseState<TablesView>
 
   void newOrder(BuildContext context, TableModel? table) {
     context.router.push<TableModel>(
-      MenuRoute(table: table!, currentUser: viewModel.profile),
+      MenuRoute(
+        table: table!,
+      ),
     );
   }
 

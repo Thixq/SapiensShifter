@@ -23,6 +23,7 @@ class CodegenLoader extends AssetLoader{
   "next": "Devam",
   "previous": "Geri",
   "done": "Tamam",
+  "payment": "Ödeme",
   "date": {
     "today": "Bugün",
     "yesterday": "Dün",

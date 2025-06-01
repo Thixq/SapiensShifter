@@ -50,5 +50,9 @@ class RoutingManager extends RootStackRouter {
           page: OrderDetailRoute.page,
         ),
         AutoRoute(path: PagePathConstant.settings, page: SettingsRoute.page),
+        AutoRoute(
+          path: PagePathConstant.orderHistory,
+          page: OrderHistoryRoute.page,
+        ),
       ];
 }
