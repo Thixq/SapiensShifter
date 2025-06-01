@@ -35,7 +35,7 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
 
   Future<void> withChatModel({required ChatModel chatModel}) async {
     emit(state.copyWith(chatModel: chatModel));
-    await _isExist(chatId: chatModel.chatId!);
+
     final ohterUserId = state.chatModel
         .getOhterUserId(currentUserId: _profile.user?.userPreviewId);
     await _getOhterUserPreview(ohterUserPreviewId: ohterUserId);

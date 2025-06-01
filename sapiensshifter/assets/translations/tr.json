@@ -119,7 +119,8 @@
         },
         "shift":{
             "shift":"Vardiya"
-        },"settings":{
+        },
+        "settings":{
             "actions_text":{
                 "history_order":"Siparişler",
                 "new_product":"Yeni Ürün Ekle",
@@ -131,6 +132,9 @@
                 "gallery":"Galeriden Seç"
             },
             "sign_out":"Çıkış Yap"
+        },
+        "chat_preview":{
+            "chat":"Sohbet"
         }
     },
     "category":{

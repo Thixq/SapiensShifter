@@ -148,6 +148,9 @@ class CodegenLoader extends AssetLoader{
         "gallery": "Galeriden Seç"
       },
       "sign_out": "Çıkış Yap"
+    },
+    "chat_preview": {
+      "chat": "Sohbet"
     }
   },
   "category": {

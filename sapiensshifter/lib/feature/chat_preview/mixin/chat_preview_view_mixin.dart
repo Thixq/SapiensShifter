@@ -4,6 +4,8 @@ import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/chat_preview/view/chat_preview_view.dart';
 import 'package:sapiensshifter/feature/chat_preview/view_model/chat_preview_view_model.dart';
 import 'package:sapiensshifter/feature/chat_preview/view_model/state/chat_preview_state.dart';
+import 'package:sapiensshifter/product/models/chats_model/chat_model.dart';
+import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
 import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/context_menu.dart';
 
 mixin ChatPreviewViewMixin on BaseState<ChatPreviewView> {
@@ -31,6 +33,20 @@ mixin ChatPreviewViewMixin on BaseState<ChatPreviewView> {
   void dispose() {
     _previewViewModel.dispose();
     super.dispose();
+  }
+
+  ChatModel? newChat({required UserPreviewModel user}) {
+    if (user.userPreviewId != null && getProfileId != null) {
+      final usersPreviewIds = <String>[
+        user.userPreviewId!,
+        getProfileId!,
+      ]..sort();
+      final stringBuffer = StringBuffer()..writeAll(usersPreviewIds);
+      final chat =
+          ChatModel(chatId: stringBuffer.toString(), members: usersPreviewIds);
+      return chat;
+    }
+    return null;
   }
 
   void menuOnPressed() {
