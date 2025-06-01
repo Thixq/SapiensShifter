@@ -2,12 +2,14 @@ part of '../chat_room_view.dart';
 
 final class ChatRoomViewAppBar extends StatelessWidget {
   const ChatRoomViewAppBar({
-    this.ohterUser,
+    this.imageUrl,
+    this.title,
     super.key,
   });
 
-  final UserPreviewModel? ohterUser;
-  String get nullName => LocaleKeys.null_value_null_name.tr();
+  final String? imageUrl;
+  final String? title;
+  String get _nullName => LocaleKeys.null_value_null_name.tr();
   double get _blurFactor => 50;
   Color get _backgroundColor => const Color.fromARGB(
         100,
@@ -35,11 +37,11 @@ final class ChatRoomViewAppBar extends StatelessWidget {
                 children: [
                   CustomCircleAvatar(
                     radius: 24.sp,
-                    imageUrl: ohterUser?.photoUrl,
+                    imageUrl: imageUrl,
                   ),
                   context.sized.emptySizedWidthBoxLow3x,
                   Text(
-                    ohterUser?.name ?? nullName,
+                    title ?? _nullName,
                     style: context.general.textTheme.titleMedium,
                   ),
                 ],

@@ -109,6 +109,8 @@ abstract class  LocaleKeys {
   static const page_settings_image_picker = 'page.settings.image_picker';
   static const page_settings_sign_out = 'page.settings.sign_out';
   static const page_settings = 'page.settings';
+  static const page_chat_preview_chat = 'page.chat_preview.chat';
+  static const page_chat_preview = 'page.chat_preview';
   static const page = 'page';
   static const category_all = 'category.all';
   static const category_hot_coffees = 'category.hot_coffees';

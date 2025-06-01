@@ -5,12 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/chat_room/mixin/chat_room_view_mixin.dart';
-
 import 'package:sapiensshifter/feature/chat_room/view_model/chat_room_view_model.dart';
 import 'package:sapiensshifter/feature/chat_room/view_model/state/chat_room_state.dart';
 import 'package:sapiensshifter/product/models/chats_model/chat_model.dart';
 import 'package:sapiensshifter/product/models/chats_model/message_model.dart';
-import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
@@ -84,9 +82,16 @@ class _ChatRoomViewState extends BaseState<ChatRoomView>
       child: BlocBuilder<ChatRoomViewModel, ChatRoomState>(
         buildWhen: (previous, current) =>
             current.otherUserPreview != previous.otherUserPreview,
-        builder: (context, state) => ChatRoomViewAppBar(
-          ohterUser: state.otherUserPreview,
-        ),
+        builder: (context, state) {
+          return ChatRoomViewAppBar(
+            imageUrl: state.chatModel.isGroup
+                ? state.chatModel.groupImageUrl
+                : state.otherUserPreview?.photoUrl,
+            title: state.chatModel.isGroup
+                ? state.chatModel.groupName
+                : state.otherUserPreview?.name,
+          );
+        },
       ),
     );
   }

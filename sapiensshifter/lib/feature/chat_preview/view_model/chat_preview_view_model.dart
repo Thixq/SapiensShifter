@@ -102,6 +102,39 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
     return result;
   }
 
+  void chatSearch(String query) {
+    final result = _searchFilter(query);
+    emit(state.copyWith(filteredChats: result));
+  }
+
+  List<ChatModel> _searchFilter(String query) {
+    if (query.trim().isEmpty) return [];
+
+    final queryLowerCase = query.toLowerCase();
+    final currentUserId = _profile.user?.userPreviewId;
+    final userPreviewMap = {
+      for (final user in state.userPreviewList)
+        user.userPreviewId: user.name?.toLowerCase() ?? '',
+    };
+
+    return state.chatPreviews.where((chat) {
+      if (chat.isGroup) {
+        final groupName = chat.groupName?.toLowerCase();
+        return groupName != null && groupName.contains(queryLowerCase);
+      } else {
+        final members = chat.members ?? <String>[];
+        for (final member in members) {
+          if (member == currentUserId) continue;
+          final memberName = userPreviewMap[member];
+          if (memberName != null && memberName.contains(queryLowerCase)) {
+            return true;
+          }
+        }
+        return false;
+      }
+    }).toList();
+  }
+
   void deleteChat(String chatId) {
     ErrorUtil.runWithErrorHandlingAsync(
       action: () async {

@@ -27,7 +27,7 @@ class ChatViewAppBar extends StatelessWidget {
       backgroundColor: CupertinoTheme.of(context)
           .scaffoldBackgroundColor
           .withValues(alpha: .7),
-      largeTitle: const Text('Sohbet'),
+      largeTitle: Text(LocaleKeys.page_chat_preview_chat.tr()),
       leading: _buildLeading(),
       trailing: _buildTrailing(),
       bottom: _buildSearchBar(context),

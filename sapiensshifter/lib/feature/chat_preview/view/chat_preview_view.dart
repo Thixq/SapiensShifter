@@ -56,7 +56,9 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
         onTap: (chatRoomId) {
           context.router.push(ChatRoomRoute(chatId: chatRoomId));
         },
-        chatList: state.chatPreviews,
+        chatList: state.filteredChats.isEmpty
+            ? state.chatPreviews
+            : state.filteredChats,
         otherUsers: state.userPreviewList,
         currentUserId: getProfileId,
       ),
@@ -70,15 +72,20 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
         searchController: _searchController,
         menuOnPressed: menuOnPressed,
         newChatOnPressed: () async {
-          // TODO(kaan): Chat view oluştur.
           if (mounted) {
-            await NewChatBottomSheet.show(
+            final user = await NewChatBottomSheet.show(
               context,
               peopleList: state.userPreviewList,
             );
+            if (user != null) {
+              final chat = newChat(user: user);
+              await context.router.push(ChatRoomRoute(chatModel: chat));
+            }
           }
         },
-        searchOnChanged: (value) {},
+        searchOnChanged: (value) {
+          viewModel.chatSearch(value);
+        },
         searchOnSubmitted: (value) {},
       ),
     );
