@@ -56,7 +56,9 @@ mixin HomeViewMixin on BaseState<HomeView> {
       id: const UuidV7().generate(),
     );
     context.router.push<TableModel>(
-      MenuRoute(table: newTableModel, currentUser: userInfo),
+      MenuRoute(
+        table: newTableModel,
+      ),
     );
   }
 

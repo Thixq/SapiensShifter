@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/component/custom_avatar.dart';
 import 'package:sapiensshifter/product/models/order_model/order_model.dart';
+import 'package:sapiensshifter/product/utils/enums/localization_path_enum.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/extensions/delivery_status_extension.dart';
+import 'package:sapiensshifter/product/utils/extensions/list_extension.dart';
 import 'package:sapiensshifter/product/utils/ui/dashed_rounded_shape_border.dart';
 import 'package:sapiensshifter/product/utils/ui/svg_asset_builder.dart';
 
@@ -89,7 +91,10 @@ final class OrderCard extends StatelessWidget {
     return Expanded(
       child: Text(
         // ignore: unnecessary_raw_strings
-        orderModel?.extras?.join(', ') ?? _nullExtrasText,
+        orderModel?.extras?.sapListExt
+                .listItemTranslate(basePath: LocalizationPathEnum.options)
+                .join(', ') ??
+            _nullExtrasText,
         style: context.general.textTheme.labelSmall,
         overflow: TextOverflow.ellipsis,
       ),

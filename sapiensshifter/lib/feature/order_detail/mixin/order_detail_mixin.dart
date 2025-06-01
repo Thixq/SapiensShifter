@@ -7,6 +7,7 @@ import 'package:sapiensshifter/product/component/custom_radio/model/custom_radio
 import 'package:sapiensshifter/product/models/extras_model/extras_model.dart';
 import 'package:sapiensshifter/product/models/order_model/order_model.dart';
 import 'package:sapiensshifter/product/utils/enums/delivery_status.dart';
+import 'package:uuid/v7.dart';
 
 mixin OrderDetailMixin on BaseState<OrderDetailView> {
   late final OrderDetailViewModel _detailViewModel;
@@ -31,6 +32,7 @@ mixin OrderDetailMixin on BaseState<OrderDetailView> {
     _detailViewModel = OrderDetailViewModel(
       OrderDetailState.initial(
         order: OrderModel(
+          id: const UuidV7().generate(),
           price: widget.product.price,
           orderName: widget.product.productName,
           imagePath: widget.product.imagePath,

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:firebase_storage_module/firebase_storage_module.dart';
 import 'package:flutter/material.dart' show Icons, PopupMenuItem;
 import 'package:flutter/widgets.dart';
@@ -9,6 +10,7 @@ import 'package:sapiensshifter/feature/settings/view/settings_view.dart';
 import 'package:sapiensshifter/feature/settings/view_model/settings_view_model.dart';
 import 'package:sapiensshifter/product/component/basic_list_tile/model/extend/basic_role_tile_model.dart';
 import 'package:sapiensshifter/product/component/image_picker.dart';
+import 'package:sapiensshifter/product/constant/page_path_constant.dart';
 import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/context_menu.dart';
 import 'package:sapiensshifter/product/utils/enums/picker_source.dart';
 import 'package:sapiensshifter/product/utils/enums/user_role.dart';
@@ -69,7 +71,9 @@ mixin SettingsViewMixin on BaseState<SettingsView> {
         BasicRoleTileModel(
           icon: Icons.list_alt,
           title: LocaleKeys.page_settings_actions_text_history_order.tr(),
-          onTap: () {},
+          onTap: () {
+            context.router.pushPath(PagePathConstant.orderHistory);
+          },
           roles: [UserRole.user, UserRole.admin, UserRole.manager],
         ),
         BasicRoleTileModel(
