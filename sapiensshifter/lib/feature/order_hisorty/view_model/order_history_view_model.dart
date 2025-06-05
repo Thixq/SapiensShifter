@@ -5,7 +5,7 @@ import 'package:firebase_firestore_module/firebase_firestore_module.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
-import 'package:sapiensshifter/feature/order_hisorty_view/view_model/state/order_history_state.dart';
+import 'package:sapiensshifter/feature/order_hisorty/view_model/state/order_history_state.dart';
 import 'package:sapiensshifter/product/constant/query_path_constant.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
