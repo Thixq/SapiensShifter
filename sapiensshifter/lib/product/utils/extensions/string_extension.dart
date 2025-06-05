@@ -45,4 +45,17 @@ final class _SapiStringExtension {
       (match) => '${match.group(0)}\n',
     );
   }
+
+  /// Only returns .jpg, .jpeg, .heic
+  String? get imageMimeType {
+    if (_value == null || _value.isEmpty) {
+      return null;
+    }
+    final imageMime = RegExp(r'\.(jpe?g|heic|png)$');
+    final match = imageMime.firstMatch(_value);
+    if (match != null) {
+      return 'image/${match.group(1)}';
+    }
+    return null;
+  }
 }
