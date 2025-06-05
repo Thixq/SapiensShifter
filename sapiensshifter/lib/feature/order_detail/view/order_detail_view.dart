@@ -12,7 +12,7 @@ import 'package:sapiensshifter/product/component/sapi_button.dart';
 import 'package:sapiensshifter/product/models/extras_model/extras_model.dart';
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
 import 'package:sapiensshifter/product/utils/enums/delivery_status.dart';
-import 'package:sapiensshifter/product/utils/enums/localization_path_enum.dart';
+import 'package:sapiensshifter/product/utils/enums/localization/localization_path_enum.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart'
     show ChoiceChipList;
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';

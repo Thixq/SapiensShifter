@@ -74,7 +74,7 @@ class _NewPriceEditingDialogState extends State<NewPriceEditingDialog> {
           width: 80,
           child: TextField(
             inputFormatters: [
-              DecimalInputFormatter(100),
+              DecimalInputFormatter(),
               LengthLimitingTextInputFormatter(7),
             ],
             style: context.general.textTheme.titleLarge,

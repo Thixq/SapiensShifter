@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/product/constant/image_path_constant.dart';
+import 'package:sapiensshifter/product/constant/assets_path_constant.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/ui/svg_asset_builder.dart';
 
@@ -9,7 +9,7 @@ class LogoSvg extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SvgAssetBuilder(
-      svgPath: ImagePathConstant.sapiensLogo,
+      svgPath: AssetsPathConstant.sapiensLogo,
       builderSize: Size(50.w, 50.h),
     );
   }

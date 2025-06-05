@@ -53,6 +53,12 @@ class CodegenLoader extends AssetLoader{
     "password": {
       "empty_passwrod": "Lütfen şifre giriniz.",
       "min_length": "En az 8 haneli şifre giriniz."
+    },
+    "product_form": {
+      "empty_product": "Lütfen ürün adı girin.",
+      "empty_product_desc": "Lütfen açıklama girin.",
+      "empty_product_price": "Lütfen fiyat girin.",
+      "empty_product_category": "Lütfen kategori seçin."
     }
   },
   "all_exception": {
@@ -151,6 +157,18 @@ class CodegenLoader extends AssetLoader{
     },
     "chat_preview": {
       "chat": "Sohbet"
+    },
+    "new_product_add": {
+      "add_product": "Ürün Ekle",
+      "form": {
+        "product_name": "Ürün Adı",
+        "product_description": "Ürün Açıklaması",
+        "prdouct_price": "Ürün Fiyat",
+        "category": "Kategori",
+        "extra": "Ekstrlar"
+      },
+      "suscess_product": "Ürün başarıyla eklendi.",
+      "failed_product": "Ürün eklenirken bir hata oluştu. Lütfen tekrar deneyin."
     }
   },
   "category": {

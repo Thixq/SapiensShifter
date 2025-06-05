@@ -6,6 +6,7 @@ import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_err
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/logging/custom_logger.dart';
 import 'package:sapiensshifter/core/routing/routing_manager.gr.dart';
+import 'package:sapiensshifter/product/constant/stoage_path_constant.dart';
 
 import 'package:sapiensshifter/product/models/user/sapiens_user/sapiens_user.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
@@ -31,7 +32,7 @@ class SettingsViewModel {
   }) async {
     final mimeTypeSplit = mimeType!.split('/').last;
     final path =
-        'users/${_profile.user?.id}/${const UuidV7().generate()}.$mimeTypeSplit';
+        '${StoagePathConstant.usersPhotoBasePath}/${_profile.user?.id}/${const UuidV7().generate()}.$mimeTypeSplit';
     return _storageManager.storageOperation
         .upload(path: path, byteFile: photoBytes, mimeType: mimeType);
   }

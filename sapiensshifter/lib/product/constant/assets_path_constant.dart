@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-class ImagePathConstant {
+class AssetsPathConstant {
   // base path
   static const _baseLogoPath = 'assets/logo';
   static const _baseImagePath = 'assets/images';
@@ -8,6 +8,8 @@ class ImagePathConstant {
 
   // logo
   static const sapiensLogo = '$_baseLogoPath/coffee_sapiens_logo.svg';
+
+  static const productPlaceHolder = 'assets/icon/product_placeholder.svg';
 
   //image
   static const onboard_orderImage =

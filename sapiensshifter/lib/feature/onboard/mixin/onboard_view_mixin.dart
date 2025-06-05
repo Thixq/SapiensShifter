@@ -5,7 +5,7 @@ import 'package:sapiensshifter/feature/onboard/view/onboard_view.dart';
 import 'package:sapiensshifter/feature/onboard/view/widget/model/onboard_content_model.dart';
 import 'package:sapiensshifter/feature/onboard/view_model/onboard_view_model.dart';
 import 'package:sapiensshifter/feature/onboard/view_model/state/onboard_state.dart';
-import 'package:sapiensshifter/product/constant/image_path_constant.dart';
+import 'package:sapiensshifter/product/constant/assets_path_constant.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 mixin OnboardViewMixin on BaseState<OnboardView> {
@@ -16,19 +16,19 @@ mixin OnboardViewMixin on BaseState<OnboardView> {
   List<OnboardContentModel> get _initList {
     return [
       OnboardContentModel(
-        imagePath: ImagePathConstant.onboard_orderImage,
+        imagePath: AssetsPathConstant.onboard_orderImage,
         title: LocaleKeys.page_onboard_onboard_content_content_title_order.tr(),
         desc: LocaleKeys.page_onboard_onboard_content_content_desc_order_desc
             .tr(),
       ),
       OnboardContentModel(
-        imagePath: ImagePathConstant.onboard_shiftImage,
+        imagePath: AssetsPathConstant.onboard_shiftImage,
         title: LocaleKeys.page_onboard_onboard_content_content_title_shift.tr(),
         desc: LocaleKeys.page_onboard_onboard_content_content_desc_shift_desc
             .tr(),
       ),
       OnboardContentModel(
-        imagePath: ImagePathConstant.onboard_warehouseImage,
+        imagePath: AssetsPathConstant.onboard_warehouseImage,
         title: LocaleKeys.page_onboard_onboard_content_content_title_warehouse
             .tr(),
         desc: LocaleKeys

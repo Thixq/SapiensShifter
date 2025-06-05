@@ -22,7 +22,7 @@ class InputField extends StatelessWidget {
         children: [
           SapiTextField(
             hintText: LocaleKeys.page_sign_email.tr(),
-            validator: FormValidator.emailValidator,
+            validator: SignValidator.emailValidator,
             textInputAction: TextInputAction.next,
             keyboardType: TextInputType.emailAddress,
             controller: email,

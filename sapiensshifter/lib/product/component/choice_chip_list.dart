@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/component/custom_choice_chip.dart';
-import 'package:sapiensshifter/product/utils/enums/localization_path_enum.dart';
+import 'package:sapiensshifter/product/utils/enums/localization/localization_path_enum.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 final class ChoiceChipList<T> extends StatelessWidget {

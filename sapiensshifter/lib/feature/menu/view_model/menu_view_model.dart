@@ -65,7 +65,7 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
     final categories = SplayTreeMap<String, String>();
     final result = await getProducts<CategoriesModel>(
       path: QueryPathConstant.categoryColPath,
-      item: CategoriesModel(),
+      item: const CategoriesModel(),
     );
 
     categories.addEntries(

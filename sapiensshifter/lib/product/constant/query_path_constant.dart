@@ -9,7 +9,6 @@ class QueryPathConstant {
   static const extras = '/extras';
   static const productsColPath = '/products';
   static const branchColPath = '/branches';
-  // CHAT
   static const chatPreviewColPath = '/chats';
   static String messagesColPath(String chatId) =>
       '$chatPreviewColPath/$chatId/messages';
