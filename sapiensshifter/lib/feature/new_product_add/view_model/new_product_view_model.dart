@@ -10,6 +10,7 @@ import 'package:sapiensshifter/product/constant/stoage_path_constant.dart';
 import 'package:sapiensshifter/product/models/categories_model/categories_model.dart';
 import 'package:sapiensshifter/product/models/extras_model/extras_model.dart';
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/static_func/image_normalized.dart';
 import 'package:uuid/v7.dart';
 
@@ -28,16 +29,16 @@ class NewProductViewModel extends BaseCubit<NewProductState> {
     await ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         if (state.product.imagePath != null) {
-          final dotIndex = state.product.imagePath!.lastIndexOf('.');
-          final mimeType = state.product.imagePath!.substring(dotIndex + 1);
+          final mimeType = state.product.imagePath?.sapiExt.imageMimeType;
+          final mimeSuffix = mimeType?.split('/').last ?? 'jpg';
           final path =
-              '${StoagePathConstant.productImageBasePath}/${state.product.id}/${const UuidV7().generate()}.$mimeType';
+              '${StoagePathConstant.productImageBasePath}/${state.product.id}/${const UuidV7().generate()}.$mimeSuffix';
           final imageFile = File(state.product.imagePath!);
           final imageByte = await imageFile.readAsBytes();
           final cleanByte =
               ImageNormalized.imageCleanEXIFData(photoBytes: imageByte);
           final url = await _storageManager.storageOperation
-              .upload(path: path, byteFile: cleanByte);
+              .upload(path: path, byteFile: cleanByte, mimeType: mimeType);
           emit(state.copyWith(product: state.product.copyWith(imagePath: url)));
         }
       },
