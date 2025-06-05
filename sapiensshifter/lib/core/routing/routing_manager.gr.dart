@@ -22,7 +22,7 @@ import 'package:sapiensshifter/feature/new_product_add/view/new_product_add_view
 import 'package:sapiensshifter/feature/onboard/view/onboard_view.dart' as _i6;
 import 'package:sapiensshifter/feature/order_detail/view/order_detail_view.dart'
     as _i7;
-import 'package:sapiensshifter/feature/order_hisorty_view/view/order_history_view.dart'
+import 'package:sapiensshifter/feature/order_hisorty/view/order_history_view.dart'
     as _i8;
 import 'package:sapiensshifter/feature/settings/view/settings_view.dart'
     as _i10;
