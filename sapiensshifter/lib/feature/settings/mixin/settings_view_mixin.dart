@@ -58,7 +58,8 @@ mixin SettingsViewMixin on BaseState<SettingsView> {
 
   Future<void> _updatePhoto(XFile image) async {
     final photoBytes = await image.readAsBytes();
-    final normalizedByte = imageCleanEXIFData(photoBytes: photoBytes);
+    final normalizedByte =
+        ImageNormalized.imageCleanEXIFData(photoBytes: photoBytes);
     final mimeType = lookupMimeType(image.path);
 
     await _settingsViewModel.updatePhoto(
@@ -79,7 +80,9 @@ mixin SettingsViewMixin on BaseState<SettingsView> {
         BasicRoleTileModel(
           icon: Icons.coffee,
           title: LocaleKeys.page_settings_actions_text_new_product.tr(),
-          onTap: () {},
+          onTap: () {
+            context.router.pushPath(PagePathConstant.newProductAdd);
+          },
           roles: [UserRole.admin, UserRole.manager],
         ),
         BasicRoleTileModel(

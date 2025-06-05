@@ -9,7 +9,7 @@ import 'package:sapiensshifter/feature/menu/view_model/state/menu_view_state.dar
 import 'package:sapiensshifter/product/models/order_model/order_model.dart';
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
-import 'package:sapiensshifter/product/utils/enums/localization_path_enum.dart';
+import 'package:sapiensshifter/product/utils/enums/localization/localization_path_enum.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:shimmer/shimmer.dart';

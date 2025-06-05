@@ -7,7 +7,7 @@ import 'package:sapiensshifter/feature/sign/sign_in/model/social_button_model.da
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart';
-import 'package:sapiensshifter/product/utils/validator/form_validator.dart';
+import 'package:sapiensshifter/product/utils/validator/sign_validator.dart';
 
 part './widget/input_field.dart';
 part './widget/register_route_button.dart';

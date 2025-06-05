@@ -8,7 +8,7 @@ part 'categories_model.g.dart';
 @JsonSerializable(checked: true)
 final class CategoriesModel extends IBaseModel<CategoriesModel>
     with EquatableMixin {
-  CategoriesModel({this.id, this.name});
+  const CategoriesModel({this.id, this.name});
 
   factory CategoriesModel.fromJson(Map<String, dynamic> json) =>
       _$CategoriesModelFromJson(json);

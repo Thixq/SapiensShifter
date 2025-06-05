@@ -1,10 +1,13 @@
 import 'package:flutter/services.dart';
-import 'package:sapiensshifter/product/utils/extensions/double_extension.dart';
 
-final class DecimalInputFormatter extends TextInputFormatter {
-  DecimalInputFormatter(this.divisor);
+class DecimalInputFormatter extends TextInputFormatter {
+  DecimalInputFormatter({this.decimalRange = 2})
+      : assert(
+          decimalRange >= 0,
+          'The number of decimal places cannot be negative.',
+        );
 
-  final int divisor;
+  final int decimalRange;
 
   @override
   TextEditingValue formatEditUpdate(
@@ -12,16 +15,31 @@ final class DecimalInputFormatter extends TextInputFormatter {
     TextEditingValue newValue,
   ) {
     if (newValue.text.isEmpty) {
-      return newValue.copyWith(text: '');
+      return const TextEditingValue(
+        selection: TextSelection.collapsed(offset: 0),
+      );
     }
-    final intValue = int.tryParse(newValue.text.replaceAll('.', ''));
 
-    final formattedValue = (intValue ?? 0) / divisor;
+    final onlyDigits = newValue.text.replaceAll(RegExp('[^0-9]'), '');
+    if (onlyDigits.isEmpty) {
+      return oldValue;
+    }
 
-    final newText = formattedValue.sapiDoubleExt.priceFraction;
-    return newValue.copyWith(
-      text: newText,
-      selection: TextSelection.collapsed(offset: newText!.length),
+    String formatted;
+    if (onlyDigits.length <= decimalRange) {
+      final padded = onlyDigits.padLeft(decimalRange, '0');
+      formatted = '0.$padded';
+    } else {
+      final split = onlyDigits.length - decimalRange;
+      var integerPart =
+          onlyDigits.substring(0, split).replaceFirst(RegExp('^0+'), '');
+      if (integerPart.isEmpty) integerPart = '0';
+      final decimalPart = onlyDigits.substring(split);
+      formatted = '$integerPart.$decimalPart';
+    }
+    return TextEditingValue(
+      text: formatted,
+      selection: TextSelection.collapsed(offset: formatted.length),
     );
   }
 }

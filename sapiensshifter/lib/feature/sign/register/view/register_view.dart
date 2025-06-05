@@ -6,7 +6,7 @@ import 'package:sapiensshifter/feature/sign/register/mixin/register_view_mixin.d
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart';
-import 'package:sapiensshifter/product/utils/validator/form_validator.dart';
+import 'package:sapiensshifter/product/utils/validator/sign_validator.dart';
 
 part './widget/register_button.dart';
 part './widget/register_input_form.dart';

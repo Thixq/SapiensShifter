@@ -2,6 +2,6 @@
 
 import 'package:sapiensshifter/product/utils/enums/picker_source.dart';
 
-abstract class Picker<R> {
+abstract class IPicker<R> {
   Future<R?> pick(PickerSource source);
 }

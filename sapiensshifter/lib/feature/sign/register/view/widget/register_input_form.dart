@@ -28,7 +28,7 @@ class RegisterInputForm extends StatelessWidget {
             controller: userName,
           ),
           SapiTextField(
-            validator: FormValidator.emailValidator,
+            validator: SignValidator.emailValidator,
             hintText: LocaleKeys.page_sign_email.tr(),
             controller: email,
             textInputAction: TextInputAction.next,
@@ -36,7 +36,7 @@ class RegisterInputForm extends StatelessWidget {
             keyboardType: TextInputType.emailAddress,
           ),
           SapiTextField(
-            validator: FormValidator.passwordValidator,
+            validator: SignValidator.passwordValidator,
             hintText: LocaleKeys.page_sign_password.tr(),
             controller: password,
             isPassword: true,

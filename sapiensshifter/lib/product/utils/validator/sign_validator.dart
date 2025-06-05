@@ -1,7 +1,7 @@
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart'
     show LocaleKeys, StringExtension, StringTranslateExtension;
 
-final class FormValidator {
+final class SignValidator {
   static String? emailValidator(String? text) {
     if (text == null || text.isEmpty) {
       return LocaleKeys.validate_email_empty_email.tr();

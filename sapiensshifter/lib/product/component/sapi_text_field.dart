@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 final class SapiTextField extends StatefulWidget {
@@ -10,6 +11,11 @@ final class SapiTextField extends StatefulWidget {
     this.hintText,
     this.isPassword = false,
     this.textInputAction = TextInputAction.done,
+    this.inputFormatters,
+    this.minLines,
+    this.maxLines = 1,
+    this.onFieldSubmitted,
+    this.onChanged,
     super.key,
   });
   final String? Function(String?)? validator;
@@ -19,6 +25,11 @@ final class SapiTextField extends StatefulWidget {
   final String? hintText;
   final bool isPassword;
   final TextInputAction textInputAction;
+  final List<TextInputFormatter>? inputFormatters;
+  final void Function(String)? onFieldSubmitted;
+  final void Function(String)? onChanged;
+  final int? minLines;
+  final int? maxLines;
   @override
   State<SapiTextField> createState() => _SapiTextFieldState();
 }
@@ -37,6 +48,11 @@ class _SapiTextFieldState extends State<SapiTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onFieldSubmitted: widget.onFieldSubmitted,
+      onChanged: widget.onChanged,
+      inputFormatters: widget.inputFormatters,
+      minLines: widget.minLines,
+      maxLines: widget.maxLines,
       textInputAction: widget.textInputAction,
       obscureText: _obscureTextVal,
       validator: widget.validator,

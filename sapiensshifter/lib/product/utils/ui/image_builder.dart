@@ -16,7 +16,7 @@ class ImageBuilder extends StatelessWidget {
   final int imageCache;
   final double errorIconSize;
   final IconData iconData;
-  final BorderRadiusGeometry borderRadius;
+  final BorderRadius borderRadius;
   final BoxFit? fit;
 
   @override

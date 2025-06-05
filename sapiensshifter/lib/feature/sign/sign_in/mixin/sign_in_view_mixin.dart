@@ -6,7 +6,7 @@ import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/sign/sign_in/model/social_button_model.dart';
 import 'package:sapiensshifter/feature/sign/sign_in/view/sign_in_view.dart';
 import 'package:sapiensshifter/feature/sign/sign_in/view_model/sign_in_view_model.dart';
-import 'package:sapiensshifter/product/constant/image_path_constant.dart';
+import 'package:sapiensshifter/product/constant/assets_path_constant.dart';
 import 'package:sapiensshifter/product/constant/page_path_constant.dart';
 
 mixin SignInViewMixin on BaseState<SignInView> {
@@ -34,7 +34,7 @@ mixin SignInViewMixin on BaseState<SignInView> {
     // List
     socialButtonList = [
       SocialButtonModel(
-        path: ImagePathConstant.social_apple,
+        path: AssetsPathConstant.social_apple,
         onPress: () async {
           final result = await _signInViewModel.signInWithCredential(
             signCredential: await AppleSignCredential().call(),
@@ -46,7 +46,7 @@ mixin SignInViewMixin on BaseState<SignInView> {
         },
       ),
       SocialButtonModel(
-        path: ImagePathConstant.social_google,
+        path: AssetsPathConstant.social_google,
         onPress: () async {
           final result = await _signInViewModel.signInWithCredential(
             signCredential: await GoogleSignCredential().call(),

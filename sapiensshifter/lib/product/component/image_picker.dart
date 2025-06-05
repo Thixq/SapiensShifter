@@ -1,9 +1,9 @@
 import 'package:image_picker/image_picker.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
-import 'package:sapiensshifter/product/interface/utils_interface/image_picker.dart';
+import 'package:sapiensshifter/product/interface/utils_interface/image_picker_interface.dart';
 import 'package:sapiensshifter/product/utils/enums/picker_source.dart';
 
-class ImagePickerService implements Picker<XFile> {
+class ImagePickerService implements IPicker<XFile> {
   ImagePickerService([ImagePicker? picker]) : _picker = picker ?? ImagePicker();
   final ImagePicker _picker;
 
@@ -18,6 +18,7 @@ class ImagePickerService implements Picker<XFile> {
           maxWidth: 1024,
           maxHeight: 1024,
           imageQuality: 85,
+          requestFullMetadata: false,
         );
       },
       fallbackValue: () => null,

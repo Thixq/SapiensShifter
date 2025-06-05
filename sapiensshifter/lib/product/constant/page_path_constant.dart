@@ -19,4 +19,5 @@ class PagePathConstant {
 
   static const settings = '/settings';
   static const orderHistory = '/settings/orderHistory';
+  static const newProductAdd = '/settings/newProductAdd';
 }

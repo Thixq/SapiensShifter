@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/component/custom_avatar.dart';
 import 'package:sapiensshifter/product/models/order_model/order_model.dart';
-import 'package:sapiensshifter/product/utils/enums/localization_path_enum.dart';
+import 'package:sapiensshifter/product/utils/enums/localization/localization_path_enum.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/extensions/delivery_status_extension.dart';
 import 'package:sapiensshifter/product/utils/extensions/list_extension.dart';
@@ -113,8 +113,8 @@ final class OrderCard extends StatelessWidget {
   ShapeDecoration _buildDecoration(BuildContext context) {
     return ShapeDecoration(
       shape: DashedRoundedShapeBorder(
-        borderSide: BorderSide(color: context.general.appTheme.hintColor),
-        cornerRadius: context.border.normalRadius.x,
+        side: BorderSide(color: context.general.appTheme.hintColor),
+        borderRadius: BorderRadius.circular(context.sized.normalValue),
       ),
     );
   }
