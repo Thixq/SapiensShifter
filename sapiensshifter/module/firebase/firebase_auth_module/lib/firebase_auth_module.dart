@@ -1,6 +1,3 @@
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
 // ignore: unnecessary_library_name
 library core;
 

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
 
 final class FirebaseFirestoreCustomQuery extends INetworkQuery {
-  /// Creates a custom Firestore query with optional filters, ordering, and limits.
   FirebaseFirestoreCustomQuery({
     super.limit,
     super.limitToLast,
@@ -11,10 +10,6 @@ final class FirebaseFirestoreCustomQuery extends INetworkQuery {
     super.filters,
   });
 
-  /// Applies the configured query parameters to a Firestore collection.
-  ///
-  /// - [path]: The Firestore collection path to query.
-  /// - Returns a Firestore [Query] object with applied filters, ordering, and limits.
   @override
   T applyToQuery<T>(String path) {
     Query<Map<String, dynamic>> query =

@@ -11,12 +11,13 @@ final class SharedPreferencesManager extends ILocalCacheManager {
 
   @override
   Future<void> init() async {
-    // throw UnimplementedError();
+    throw UnimplementedError(
+        'SharedPreferencesManager does not require initialization.');
   }
 
   @override
   Future<bool> remove() async {
-    // throw UnimplementedError();
-    return false;
+    throw UnimplementedError(
+        'SharedPreferencesManager does not support remove operation.');
   }
 }

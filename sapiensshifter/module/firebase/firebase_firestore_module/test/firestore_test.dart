@@ -378,12 +378,12 @@ void main() {
           .thenReturn(mockCollection);
       when(mockCollection.doc('1')).thenReturn(mockDocRef1);
       when(mockCollection.doc('2')).thenReturn(mockDocRef2);
-      when(mockDocRef1.set(testModels[0].toJson()))
+      when(mockDocRef1.update(testModels[0].toJson()))
           .thenAnswer((_) async => Future.value());
-      when(mockDocRef2.set(testModels[1].toJson()))
+      when(mockDocRef2.update(testModels[1].toJson()))
           .thenAnswer((_) async => Future.value());
       when(mockFirestore.batch()).thenReturn(mockBatch);
-      when(mockBatch.set(any, any)).thenReturn(null);
+      when(mockBatch.update(any, any)).thenReturn(null);
       when(mockBatch.commit()).thenAnswer((_) async => Future.value());
 
       final result =
