@@ -9,7 +9,7 @@ part 'sapiens_user.g.dart';
 // ignore: public_member_api_docs
 final class SapiensUser extends IBaseModel<SapiensUser> with EquatableMixin {
   const SapiensUser({
-    this.id,
+    super.id,
     this.name,
     this.email,
     this.role,
@@ -22,7 +22,6 @@ final class SapiensUser extends IBaseModel<SapiensUser> with EquatableMixin {
   factory SapiensUser.fromJson(Map<String, dynamic> json) =>
       _$SapiensUserFromJson(json);
 
-  final String? id;
   final String? name;
   final String? email;
   final String? photoUrl;

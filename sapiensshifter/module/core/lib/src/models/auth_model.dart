@@ -3,13 +3,12 @@ import 'package:core/core.dart';
 
 final class AuthModel extends IBaseModel<AuthModel> {
   AuthModel({
-    required this.id,
+    required super.id,
     required this.photoUrl,
     required this.displayName,
     required this.email,
   });
 
-  final String? id;
   final String? photoUrl;
   final String? displayName;
   final String? email;

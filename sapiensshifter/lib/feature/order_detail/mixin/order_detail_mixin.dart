@@ -40,7 +40,6 @@ mixin OrderDetailMixin on BaseState<OrderDetailView> {
       ),
       networkManager: ProductConfigureItems.networkManager,
     );
-    _detailViewModel.getExtras(optionsId: widget.product.productOptions);
     super.initState();
   }
 }

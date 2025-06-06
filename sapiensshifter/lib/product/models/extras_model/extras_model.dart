@@ -8,7 +8,7 @@ part 'extras_model.g.dart';
 @JsonSerializable(checked: true)
 final class ExtrasModel extends IBaseModel<ExtrasModel> with EquatableMixin {
   const ExtrasModel({
-    this.id,
+    super.id,
     this.name,
     this.optionsList,
   });
@@ -16,7 +16,6 @@ final class ExtrasModel extends IBaseModel<ExtrasModel> with EquatableMixin {
   factory ExtrasModel.fromJson(Map<String, dynamic> json) =>
       _$ExtrasModelFromJson(json);
 
-  final String? id;
   final String? name;
   @DoubleKeyMapConverter()
   final Map<double, List<String>>? optionsList;

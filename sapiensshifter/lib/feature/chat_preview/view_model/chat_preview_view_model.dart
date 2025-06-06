@@ -85,7 +85,7 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
     final query = FirebaseFirestoreCustomQuery(
       filters: [
         FilterCondition(
-          field: 'chatId',
+          field: 'id',
           value: previewList,
           operator: FilterOperator.whereIn,
         ),
@@ -114,7 +114,7 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
     final currentUserId = _profile.user?.userPreviewId;
     final userPreviewMap = {
       for (final user in state.userPreviewList)
-        user.userPreviewId: user.name?.toLowerCase() ?? '',
+        user.id: user.name?.toLowerCase() ?? '',
     };
 
     return state.chatPreviews.where((chat) {
@@ -148,7 +148,7 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
           emit(
             state.copyWith(
               chatPreviews: state.chatPreviews
-                  .where((element) => element.chatId != chatId)
+                  .where((element) => element.id != chatId)
                   .toList(),
             ),
           );
@@ -173,8 +173,7 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
         );
         final currentUserOut = result
             .where(
-              (element) =>
-                  element.userPreviewId != _profile.user?.userPreviewId,
+              (element) => element.id != _profile.user?.userPreviewId,
             )
             .toList();
         emit(state.copyWith(userPreviewList: currentUserOut));

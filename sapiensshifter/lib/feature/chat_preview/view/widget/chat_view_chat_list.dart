@@ -28,13 +28,13 @@ class ChatViewChatList extends StatelessWidget {
             extentRatio: .2,
             dismissible: DismissiblePane(
               onDismissed: () => onDismissed(
-                chatList[index].chatId ?? _nullText,
+                chatList[index].id ?? _nullText,
               ),
             ),
             children: [
               SlidableAction(
                 onPressed: (context) => onDismissed(
-                  chatList[index].chatId ?? _nullText,
+                  chatList[index].id ?? _nullText,
                 ),
                 backgroundColor: CupertinoColors.systemRed,
                 foregroundColor: CupertinoColors.white,
@@ -75,7 +75,7 @@ class ChatViewChatList extends StatelessWidget {
         style: const TextStyle(color: CupertinoColors.systemGrey),
       ),
       onTap: () {
-        onTap.call(preview.chatId ?? _nullText);
+        onTap.call(preview.id ?? _nullText);
       },
     );
   }
@@ -86,8 +86,7 @@ class ChatViewChatList extends StatelessWidget {
   }) {
     return otherUsers.firstWhere(
       (element) =>
-          element.userPreviewId ==
-          preview.getOhterUserId(currentUserId: currentUserId),
+          element.id == preview.getOhterUserId(currentUserId: currentUserId),
     );
   }
 }

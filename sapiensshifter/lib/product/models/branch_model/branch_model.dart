@@ -5,12 +5,11 @@ part 'branch_model.g.dart';
 
 @JsonSerializable(checked: true)
 final class BranchModel extends IBaseModel<BranchModel> {
-  BranchModel({this.id, this.name, this.address});
+  BranchModel({super.id, this.name, this.address});
 
   factory BranchModel.fromJson(Map<String, dynamic> json) =>
       _$BranchModelFromJson(json);
 
-  final String? id;
   final String? name;
   final String? address;
 

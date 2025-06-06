@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:firebase_storage_module/firebase_storage_module.dart';
 import 'package:flutter/material.dart' show Icons, PopupMenuItem;
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
@@ -58,10 +57,9 @@ mixin SettingsViewMixin on BaseState<SettingsView> {
 
   Future<void> _updatePhoto(XFile image) async {
     final photoBytes = await image.readAsBytes();
+    final mimeType = lookupMimeType(image.name, headerBytes: photoBytes);
     final normalizedByte =
         ImageNormalized.imageCleanEXIFData(photoBytes: photoBytes);
-    final mimeType = lookupMimeType(image.path);
-
     await _settingsViewModel.updatePhoto(
       photoBytes: normalizedByte,
       mimeType: mimeType,
@@ -104,12 +102,8 @@ mixin SettingsViewMixin on BaseState<SettingsView> {
 
   @override
   void initState() {
-    _settingsViewModel = SettingsViewModel(
-      profile: ProductConfigureItems.profile,
-      storageManager: FirebaseStorageManager(
-        storageOperation: FirebaseStorageOperation.instance,
-      ),
-    );
+    _settingsViewModel =
+        SettingsViewModel(profile: ProductConfigureItems.profile);
     imagePickerKey = GlobalKey();
     imagePickerService = ImagePickerService();
     final userRole = viewModel.getUser?.role;
