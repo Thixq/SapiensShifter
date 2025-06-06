@@ -7,7 +7,7 @@ part 'product_model.g.dart';
 @JsonSerializable(checked: true)
 final class ProductModel extends IBaseModel<ProductModel> with EquatableMixin {
   const ProductModel({
-    this.id,
+    super.id,
     this.productName,
     this.description,
     this.imagePath,
@@ -19,7 +19,6 @@ final class ProductModel extends IBaseModel<ProductModel> with EquatableMixin {
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
       _$ProductModelFromJson(json);
 
-  final String? id;
   final String? productName;
   final String? description;
   final String? imagePath;

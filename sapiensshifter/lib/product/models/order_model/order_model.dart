@@ -10,7 +10,7 @@ part 'order_model.g.dart';
 @JsonSerializable(checked: true)
 final class OrderModel extends IBaseModel<OrderModel> with EquatableMixin {
   const OrderModel({
-    this.id,
+    super.id,
     this.orderName,
     this.imagePath,
     this.price,
@@ -22,7 +22,6 @@ final class OrderModel extends IBaseModel<OrderModel> with EquatableMixin {
   factory OrderModel.fromJson(Map<String, dynamic> json) =>
       _$OrderModelFromJson(json);
 
-  final String? id;
   final String? orderName;
   final String? imagePath;
   final double? price;

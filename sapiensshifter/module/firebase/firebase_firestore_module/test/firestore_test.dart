@@ -26,11 +26,10 @@ import 'package:firebase_firestore_module/src/exception/module_firestore_excepti
 import 'firestore_test.mocks.dart';
 
 // Simple model for tests
-class TestModel implements IBaseModel<TestModel> {
-  final String id;
+class TestModel extends IBaseModel<TestModel> {
   final String name;
 
-  TestModel({required this.id, required this.name});
+  const TestModel({required super.id, required this.name});
 
   factory TestModel.empty() => TestModel(id: '', name: '');
 
@@ -360,6 +359,46 @@ void main() {
       expect(
           () async =>
               await firestoreOperation.update(path: path, value: updateData),
+          throwsA(isA<ModuleFirestoreException>()));
+    });
+
+    test('updateAll', () async {
+      const path = 'testCollection';
+      final testModels = [
+        TestModel(id: '1', name: 'Updated1'),
+        TestModel(id: '2', name: 'Updated2')
+      ];
+
+      final mockCollection = MockCollectionReference();
+      final mockDocRef1 = MockDocumentReference();
+      final mockDocRef2 = MockDocumentReference();
+      final mockBatch = MockWriteBatch();
+
+      when(mockFirestore.collection('testCollection'))
+          .thenReturn(mockCollection);
+      when(mockCollection.doc('1')).thenReturn(mockDocRef1);
+      when(mockCollection.doc('2')).thenReturn(mockDocRef2);
+      when(mockDocRef1.set(testModels[0].toJson()))
+          .thenAnswer((_) async => Future.value());
+      when(mockDocRef2.set(testModels[1].toJson()))
+          .thenAnswer((_) async => Future.value());
+      when(mockFirestore.batch()).thenReturn(mockBatch);
+      when(mockBatch.set(any, any)).thenReturn(null);
+      when(mockBatch.commit()).thenAnswer((_) async => Future.value());
+
+      final result =
+          await firestoreOperation.updateAll(items: testModels, path: path);
+      expect(result, true);
+    });
+    test('updateAll wrong path', () async {
+      const path = 'testCollection/bla';
+      final testModels = [
+        TestModel(id: '1', name: 'Updated1'),
+        TestModel(id: '2', name: 'Updated2')
+      ];
+      expect(
+          () async =>
+              await firestoreOperation.updateAll(items: testModels, path: path),
           throwsA(isA<ModuleFirestoreException>()));
     });
   });

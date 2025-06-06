@@ -7,19 +7,18 @@ part 'user_preview_model.g.dart';
 @JsonSerializable(checked: true)
 final class UserPreviewModel extends IBaseModel<UserPreviewModel>
     with EquatableMixin {
-  UserPreviewModel({this.userId, this.userPreviewId, this.name, this.photoUrl});
+  UserPreviewModel({this.userId, super.id, this.name, this.photoUrl});
 
   factory UserPreviewModel.fromJson(Map<String, dynamic> json) =>
       _$UserPreviewModelFromJson(json);
 
-  final String? userPreviewId;
   final String? userId;
   final String? name;
   final String? photoUrl;
 
   @override
   List<Object?> get props => [
-        userPreviewId,
+        id,
         userId,
         name,
         photoUrl,

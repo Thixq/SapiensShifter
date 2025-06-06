@@ -10,7 +10,7 @@ part 'shift_week_model.g.dart';
 @JsonSerializable(checked: true, explicitToJson: true)
 final class ShiftWeek extends IBaseModel<ShiftWeek> with EquatableMixin {
   const ShiftWeek({
-    this.id,
+    super.id,
     this.weekStart,
     this.weekEnd,
     this.week,
@@ -19,7 +19,6 @@ final class ShiftWeek extends IBaseModel<ShiftWeek> with EquatableMixin {
   factory ShiftWeek.fromJson(Map<String, dynamic> json) =>
       _$ShiftWeekFromJson(json);
 
-  final String? id;
   @TimestampNullableConverter()
   final DateTime? weekStart;
   @TimestampNullableConverter()

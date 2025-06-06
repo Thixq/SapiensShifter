@@ -1,42 +1,49 @@
 // ignore_for_file: join_return_with_assignment
+import 'dart:typed_data';
+
 import 'package:core/core.dart';
 import 'package:firebase_firestore_module/firebase_firestore_module.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/product/constant/query_path_constant.dart';
+import 'package:sapiensshifter/product/constant/stoage_path_constant.dart';
 import 'package:sapiensshifter/product/models/branch_model/branch_model.dart';
 import 'package:sapiensshifter/product/models/user/sapiens_user/sapiens_user.dart';
 import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
 import 'package:sapiensshifter/product/utils/enums/user_role.dart';
 import 'package:uuid/v4.dart';
+import 'package:uuid/v7.dart';
 
 class Profile {
   Profile._({
     required INetworkManager networkManager,
     required IAuthManager authManager,
+    required IStorageManager storageManager,
   }) {
     _networkManager = networkManager;
     _authManager = authManager;
+    _storageManager = storageManager;
 
     _user = null;
   }
 
-  static late Profile _instance;
   static Future<Profile> instance({
     required INetworkManager networkManager,
     required IAuthManager authManager,
+    required IStorageManager storageManager,
   }) async {
-    _instance = Profile._(
+    return Profile._(
       authManager: authManager,
       networkManager: networkManager,
+      storageManager: storageManager,
     );
-    return _instance;
   }
 
   SapiensUser? get user => _user;
 
   late final INetworkManager _networkManager;
   late final IAuthManager _authManager;
+  late final IStorageManager _storageManager;
 
   SapiensUser? _user;
 
@@ -72,7 +79,7 @@ class Profile {
       action: () async {
         final userPreviewId = const UuidV4().generate();
         final userPreviewModel = UserPreviewModel(
-          userPreviewId: userPreviewId,
+          id: userPreviewId,
           userId: auth?.id,
           photoUrl: auth?.photoUrl,
           name: auth?.displayName,
@@ -128,19 +135,43 @@ class Profile {
   }
 
   Future<bool> updatePhoto({
-    required String imageUrl,
+    required Uint8List photoBytes,
+    String? mimeType,
   }) async {
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
-        await _authManager.authOperation.photographUpdate(imageUrl);
-        await _updateUser(field: {'photoUrl': imageUrl});
-        await _updateUserPreview(field: {'photoUrl': imageUrl});
-        await reload;
+        final imageUrl = await _photoUploadStorage(
+          photoBytes: photoBytes,
+          mimeType: mimeType,
+        );
+        if (imageUrl == null) {
+          return false;
+        }
+        await _photoDatebaseUpdate(imageUrl);
         return true;
       },
       errorHandler: ServiceErrorHandler(),
       fallbackValue: () => false,
     );
+  }
+
+  Future<String?> _photoUploadStorage({
+    required Uint8List photoBytes,
+    String? mimeType,
+  }) async {
+    final mimeSuffix = mimeType?.split('/').last ?? 'jpg';
+
+    final path =
+        '${StoagePathConstant.usersPhotoBasePath}/${_user?.id}/${const UuidV7().generate()}.$mimeSuffix';
+    return _storageManager.storageOperation
+        .upload(path: path, mimeType: mimeType, byteFile: photoBytes);
+  }
+
+  Future<void> _photoDatebaseUpdate(String imageUrl) async {
+    await _authManager.authOperation.photographUpdate(imageUrl);
+    await _updateUser(field: {'photoUrl': imageUrl});
+    await _updateUserPreview(field: {'photoUrl': imageUrl});
+    await reload;
   }
 
   Future<bool> signOut() async {

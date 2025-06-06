@@ -229,32 +229,58 @@ final class FirebaseFirestoreOperation extends INetworkOperation
     );
   }
 
-  // `update` updates an existing document with the specified values in Firestore.
   @override
   Future<bool> update({
-    required String path, // Path to the Firestore document.
-    required Map<String, dynamic> value, // Map containing the fields to update.
+    required String path,
+    required Map<String, dynamic> value,
   }) async {
     return handleAsyncOperation<bool, FirebaseException>(
       () async {
         final (collectionPath, docId) = _getCollectionAndDocId(path);
 
-        final transValue = _translateToFirestore(value);
-
-        // If no document ID is provided, throw an exception.
         if (docId == null) {
           throw ModuleFirestoreException('invalid_path_exception',
               optionArgs: {'path': path});
         }
-
-        // Perform the update operation in Firestore.
+        final transValue = _translateToFirestore(value);
         await _firestore
             .collection(collectionPath)
             .doc(docId)
             .update(transValue);
-        return true; // Return true indicating the update was successful.
+
+        return true;
       },
     );
+  }
+
+  @override
+  Future<bool> updateAll<T extends IBaseModel<T>>({
+    required String path,
+    required List<T> items,
+  }) async {
+    final (collectionPath, docId) = _getCollectionAndDocId(path);
+
+    if (docId != null) {
+      throw ModuleFirestoreException('invalid_path_exception', optionArgs: {
+        'path': path,
+      });
+    }
+    return handleAsyncOperation<bool, FirebaseException>(() async {
+      await _processBatchedOperations(
+        items: items,
+        batchLimit: 500,
+        createBatch: () => _firestore.batch(),
+        batchOperation: (batch, item) {
+          batch.set(
+            _firestore.collection(collectionPath).doc(item.id),
+            item.toJson(),
+            SetOptions(merge: true),
+          );
+        },
+        errorMapper: (item) => item.id,
+      );
+      return true;
+    });
   }
 
   // Helper method to delete all documents in a Firestore collection.

@@ -10,7 +10,7 @@ part 'chat_model.g.dart';
 @JsonSerializable(checked: true)
 final class ChatModel extends IBaseModel<ChatModel> with EquatableMixin {
   ChatModel({
-    this.chatId,
+    super.id,
     this.members,
     this.groupName,
     this.isGroup = false,
@@ -29,7 +29,7 @@ final class ChatModel extends IBaseModel<ChatModel> with EquatableMixin {
   }) {
     final generatedChatId = _idGenerator(members);
     return ChatModel(
-      chatId: generatedChatId,
+      id: generatedChatId,
       members: members,
       isGroup: isGroup,
       groupName: groupName,
@@ -37,7 +37,6 @@ final class ChatModel extends IBaseModel<ChatModel> with EquatableMixin {
     );
   }
 
-  final String? chatId;
   final List<String>? members;
   final bool isGroup;
   final String? groupName;
@@ -59,7 +58,7 @@ final class ChatModel extends IBaseModel<ChatModel> with EquatableMixin {
   ChatModel fromJson(Map<String, dynamic> json) => _$ChatModelFromJson(json);
 
   @override
-  List<Object?> get props => [chatId];
+  List<Object?> get props => [id];
 
   @override
   Map<String, dynamic> toJson() => _$ChatModelToJson(this);

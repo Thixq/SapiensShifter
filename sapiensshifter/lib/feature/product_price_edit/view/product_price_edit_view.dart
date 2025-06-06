@@ -55,24 +55,29 @@ class _ProductPriceEditViewState extends BaseState<ProductPriceEditView>
       appBar: ProductPriceEditAppBar(
         onSave: _onSave,
       ),
-      body: ListView.separated(
-        separatorBuilder: (context, index) => const Divider(),
-        itemCount: mainList.length,
-        itemBuilder: (context, index) {
-          final productModel = mainList[index];
-          return PriceEditingCard(
-            productModel: productModel,
-            isSelected: selectedList.contains(productModel),
-            onPress: (productModel) {
-              setState(() {
-                selectedList.contains(productModel)
-                    ? selectedList.remove(productModel)
-                    : selectedList.add(productModel);
-              });
-            },
-          );
-        },
-      ),
+      body: _buildList(),
+    );
+  }
+
+  ListView _buildList() {
+    return ListView.separated(
+      separatorBuilder: (context, index) =>
+          context.sized.emptySizedHeightBoxLow,
+      itemCount: mainList.length,
+      itemBuilder: (context, index) {
+        final productModel = mainList[index];
+        return PriceEditingCard(
+          productModel: productModel,
+          isSelected: selectedList.contains(productModel),
+          onPress: (productModel) {
+            setState(() {
+              selectedList.contains(productModel)
+                  ? selectedList.remove(productModel)
+                  : selectedList.add(productModel);
+            });
+          },
+        );
+      },
     );
   }
 }

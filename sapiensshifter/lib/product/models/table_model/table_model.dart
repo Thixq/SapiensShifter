@@ -15,7 +15,7 @@ part 'table_model.g.dart';
 )
 final class TableModel extends IBaseModel<TableModel> with EquatableMixin {
   const TableModel({
-    this.id,
+    super.id,
     this.tableName,
     this.timeStamp,
     this.creatorId,
@@ -28,7 +28,6 @@ final class TableModel extends IBaseModel<TableModel> with EquatableMixin {
   factory TableModel.fromJson(Map<String, dynamic> json) =>
       _$TableModelFromJson(json);
 
-  final String? id;
   final String? tableName;
   @TimestampNullableConverter()
   final DateTime? timeStamp;

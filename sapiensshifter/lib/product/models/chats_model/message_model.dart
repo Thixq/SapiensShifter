@@ -8,12 +8,11 @@ part 'message_model.g.dart';
 
 @JsonSerializable(checked: true)
 class MessageModel extends IBaseModel<MessageModel> with EquatableMixin {
-  MessageModel({this.textId, this.senderId, this.text, this.timeStamp});
+  MessageModel({super.id, this.senderId, this.text, this.timeStamp});
 
   factory MessageModel.fromJson(Map<String, dynamic> json) =>
       _$MessageModelFromJson(json);
 
-  final String? textId;
   final String? senderId;
   final String? text;
   @TimestampNullableConverter()
@@ -25,7 +24,7 @@ class MessageModel extends IBaseModel<MessageModel> with EquatableMixin {
 
   @override
   List<Object?> get props => [
-        textId,
+        id,
       ];
 
   @override
@@ -33,6 +32,6 @@ class MessageModel extends IBaseModel<MessageModel> with EquatableMixin {
 
   @override
   String toString() {
-    return 'Message: {textId: $textId, senderId: $senderId, message: $text, timeStamp: $timeStamp}';
+    return 'Message: {textId: $id, senderId: $senderId, message: $text, timeStamp: $timeStamp}';
   }
 }

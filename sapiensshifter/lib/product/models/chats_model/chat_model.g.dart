@@ -11,7 +11,7 @@ ChatModel _$ChatModelFromJson(Map<String, dynamic> json) => $checkedCreate(
       json,
       ($checkedConvert) {
         final val = ChatModel(
-          chatId: $checkedConvert('chatId', (v) => v as String?),
+          id: $checkedConvert('id', (v) => v as String?),
           members: $checkedConvert('members',
               (v) => (v as List<dynamic>?)?.map((e) => e as String).toList()),
           groupName: $checkedConvert('groupName', (v) => v as String?),
@@ -29,7 +29,7 @@ ChatModel _$ChatModelFromJson(Map<String, dynamic> json) => $checkedCreate(
     );
 
 Map<String, dynamic> _$ChatModelToJson(ChatModel instance) => <String, dynamic>{
-      'chatId': instance.chatId,
+      'id': instance.id,
       'members': instance.members,
       'isGroup': instance.isGroup,
       'groupName': instance.groupName,

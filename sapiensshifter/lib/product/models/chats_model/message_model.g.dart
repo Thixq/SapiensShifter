@@ -12,7 +12,7 @@ MessageModel _$MessageModelFromJson(Map<String, dynamic> json) =>
       json,
       ($checkedConvert) {
         final val = MessageModel(
-          textId: $checkedConvert('textId', (v) => v as String?),
+          id: $checkedConvert('id', (v) => v as String?),
           senderId: $checkedConvert('senderId', (v) => v as String?),
           text: $checkedConvert('text', (v) => v as String?),
           timeStamp: $checkedConvert(
@@ -26,7 +26,7 @@ MessageModel _$MessageModelFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$MessageModelToJson(MessageModel instance) =>
     <String, dynamic>{
-      'textId': instance.textId,
+      'id': instance.id,
       'senderId': instance.senderId,
       'text': instance.text,
       'timeStamp':

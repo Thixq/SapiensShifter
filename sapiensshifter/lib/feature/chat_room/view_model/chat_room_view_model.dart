@@ -39,7 +39,7 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
     final ohterUserId = state.chatModel
         .getOhterUserId(currentUserId: _profile.user?.userPreviewId);
     await _getOhterUserPreview(ohterUserPreviewId: ohterUserId);
-    await _getMessages(chatId: chatModel.chatId!);
+    await _getMessages(chatId: chatModel.id!);
   }
 
   Future<void> _isExist({required String chatId}) async {
@@ -49,7 +49,7 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
           path: '${QueryPathConstant.chatPreviewColPath}/$chatId',
           model: ChatModel(),
         );
-        if (result.chatId != null) {
+        if (result.id != null) {
           emit(state.copyWith(isExist: true));
         } else {
           emit(state.copyWith(isExist: false));
@@ -166,7 +166,7 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         await _networkManager.networkOperation.addItem(
-          path: QueryPathConstant.messagesColPath(state.chatModel.chatId!),
+          path: QueryPathConstant.messagesColPath(state.chatModel.id!),
           item: message,
         );
       },
@@ -189,7 +189,7 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
 
   Future<void> _newChatPreviewCreate() async {
     await _networkManager.networkOperation.addItem(
-      path: '${QueryPathConstant.chatPreviewColPath}/${state.chatModel.chatId}',
+      path: '${QueryPathConstant.chatPreviewColPath}/${state.chatModel.id}',
       item: state.chatModel,
     );
   }
@@ -198,7 +198,7 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
     await _networkManager.networkOperation.update(
       path: '${QueryPathConstant.usersColPath}/${_profile.user?.id}',
       value: {
-        'chatPreviewIdList': ArrayUnionOperation([state.chatModel.chatId]),
+        'chatPreviewIdList': ArrayUnionOperation([state.chatModel.id]),
       },
     );
   }

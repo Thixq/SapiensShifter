@@ -36,14 +36,14 @@ mixin ChatPreviewViewMixin on BaseState<ChatPreviewView> {
   }
 
   ChatModel? newChat({required UserPreviewModel user}) {
-    if (user.userPreviewId != null && getProfileId != null) {
+    if (user.id != null && getProfileId != null) {
       final usersPreviewIds = <String>[
-        user.userPreviewId!,
+        user.id!,
         getProfileId!,
       ]..sort();
       final stringBuffer = StringBuffer()..writeAll(usersPreviewIds);
       final chat =
-          ChatModel(chatId: stringBuffer.toString(), members: usersPreviewIds);
+          ChatModel(id: stringBuffer.toString(), members: usersPreviewIds);
       return chat;
     }
     return null;
