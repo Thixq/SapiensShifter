@@ -88,7 +88,9 @@ mixin SettingsViewMixin on BaseState<SettingsView> {
         BasicRoleTileModel(
           icon: Icons.currency_lira,
           title: LocaleKeys.page_settings_actions_text_price_edit.tr(),
-          onTap: () {},
+          onTap: () {
+            context.router.pushPath(PagePathConstant.productPriceEdit);
+          },
           roles: [UserRole.admin, UserRole.manager],
         ),
         BasicRoleTileModel(

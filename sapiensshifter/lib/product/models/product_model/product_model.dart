@@ -51,7 +51,7 @@ final class ProductModel extends IBaseModel<ProductModel> with EquatableMixin {
   bool? get stringify => true;
 
   @override
-  List<Object?> get props => [id, productName];
+  List<Object?> get props => [id, productName, price, category];
 
   @override
   ProductModel fromJson(Map<String, dynamic> json) =>
