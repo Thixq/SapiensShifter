@@ -27,9 +27,7 @@ class AppDependency {
         () async => Profile.instance(
           networkManager: ProductConfigureItems.networkManager,
           authManager: ProductConfigureItems.authManager,
-          storageManager: FirebaseStorageManager(
-            storageOperation: FirebaseStorageOperation.instance,
-          ),
+          storageManager: FirebaseStorageManager.instance,
         ),
         dependsOn: [INetworkManager, IAuthManager],
       )

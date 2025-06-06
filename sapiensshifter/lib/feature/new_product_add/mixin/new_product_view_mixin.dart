@@ -30,9 +30,7 @@ mixin NewProductViewMixin on BaseState<NewProductAddView> {
     _newProductViewModel = NewProductViewModel(
       NewProductState.initial(id: const UuidV7().generate()),
       networkManager: ProductConfigureItems.networkManager,
-      storageManager: FirebaseStorageManager(
-        storageOperation: FirebaseStorageOperation.instance,
-      ),
+      storageManager: FirebaseStorageManager.instance,
     );
 
     _newProductViewModel.getOptions();
