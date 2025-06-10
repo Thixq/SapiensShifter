@@ -1,23 +1,13 @@
-part of '../product_price_edit_view.dart';
+part of '../product_price_edit_view.dart'; // Bu satırı yorumlayıp tek dosyada çalıştırabilirsiniz.
 
 class ProductPriceEditAppBar extends StatelessWidget
     implements PreferredSizeWidget {
-  const ProductPriceEditAppBar({required this.onSave, super.key});
-
-  final VoidCallback onSave;
+  const ProductPriceEditAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text(
-        'Product Price Edit',
-      ),
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.save),
-          onPressed: onSave,
-        ),
-      ],
+      title: const Text('Product Price Edit'),
     );
   }
 

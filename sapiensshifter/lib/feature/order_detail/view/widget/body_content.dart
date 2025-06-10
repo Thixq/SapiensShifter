@@ -4,14 +4,12 @@ class Body extends StatelessWidget {
   const Body({
     required this.deliveryOptions,
     required this.optionChange,
-    required this.extrasList,
     required this.deliveryChange,
     required this.onSumbit,
     super.key,
   });
 
   final List<CustomRadioModel<DeliveryStatus>> deliveryOptions;
-  final Future<List<ExtrasModel>> extrasList;
   final void Function(
     double previousPrice,
     double currentPrice,
@@ -62,29 +60,26 @@ class Body extends StatelessWidget {
   }
 
   Widget _buildOptionsList(BuildContext context) {
-    return FutureBuilder<List<ExtrasModel>>(
-      future: extrasList,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Expanded(child: ShimmerOptionsList());
-        } else if (snapshot.connectionState == ConnectionState.done) {
-          return Flexible(
-            child: SingleChildScrollView(
-              child: SeparatorListWidget(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: snapshot.data!
-                    .map(
-                      (e) => OptionWidget(
-                        extra: e,
-                        optionChange: optionChange,
-                      ),
-                    )
-                    .toList(),
-              ),
+    return BlocBuilder<OrderDetailViewModel, OrderDetailState>(
+      buildWhen: (previous, current) =>
+          current.extrasList.isNotEmpty &&
+          previous.extrasList != current.extrasList,
+      builder: (context, state) {
+        return Flexible(
+          child: SingleChildScrollView(
+            child: SeparatorListWidget(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: state.extrasList
+                  .map(
+                    (e) => OptionWidget(
+                      extra: e,
+                      optionChange: optionChange,
+                    ),
+                  )
+                  .toList(),
             ),
-          );
-        }
-        return const Expanded(child: ShimmerOptionsList());
+          ),
+        );
       },
     );
   }

@@ -1,13 +1,17 @@
+import 'package:flutter/material.dart';
+
 class CustomRadioModel<T> {
-  CustomRadioModel({required this.svgPath, required this.value});
+  CustomRadioModel({required this.widget, required this.value});
 
-  final String svgPath;
+  final Widget widget;
   final T value;
-
-  CustomRadioModel<T> copyWith({required T value, String? svgPath}) {
-    return CustomRadioModel(
-      svgPath: svgPath ?? this.svgPath,
-      value: value,
+  CustomRadioModel<T> copyWith({
+    Widget? widget,
+    T? value,
+  }) {
+    return CustomRadioModel<T>(
+      widget: widget ?? this.widget,
+      value: value ?? this.value,
     );
   }
 }

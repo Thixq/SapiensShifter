@@ -1,15 +1,18 @@
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
 import 'package:sapiensshifter/product/utils/enums/operations.dart';
 
-mixin class PriceEditingMixin {
-  // FIXME: in-place
-  ({List<ProductModel> mainChangeList, Set<ProductModel> selectedChangeList})
-      findAndOperate({
+class PriceEditing {
+  static ({
+    List<ProductModel> mainChangeList,
+    Set<ProductModel> selectedChangeList
+  }) findAndOperate({
     required double value,
     required PriceOperations operations,
     required List<ProductModel> mainList,
     required Set<ProductModel> selectedList,
   }) {
+    final changeMainList = List<ProductModel>.from(mainList);
+    final changeSelectedList = <ProductModel>{};
     for (final item in mainList) {
       if (selectedList.contains(item)) {
         final itemIndex = mainList.indexOf(item);
@@ -18,12 +21,13 @@ mixin class PriceEditingMixin {
           PriceOperations.PERCENTAGE =>
             item.copyWith(price: item.price! + (item.price! * value))
         };
-        selectedList
-          ..remove(item)
-          ..add(changeItem);
-        mainList[itemIndex] = changeItem;
+        changeSelectedList.add(changeItem);
+        changeMainList[itemIndex] = changeItem;
       }
     }
-    return (mainChangeList: mainList, selectedChangeList: selectedList);
+    return (
+      mainChangeList: changeMainList,
+      selectedChangeList: changeSelectedList
+    );
   }
 }

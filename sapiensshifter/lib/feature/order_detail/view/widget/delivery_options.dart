@@ -22,10 +22,14 @@ class DeliveryOptions extends StatelessWidget {
         ),
         context.sized.emptySizedHeightBoxLow,
         CustomRadioViewer(
-          itemSize: 24.sp,
           spacing: 12.sp,
           itemList: deliveryOptions,
           onChange: deliveryChange,
+          radioDecoration: CustomRadioDecoration(
+            padding: EdgeInsets.all(context.sized.lowValue),
+            borderRadius: BorderRadius.circular(context.sized.highValue),
+            selectedColor: context.general.colorScheme.primary,
+          ),
         ),
       ],
     );

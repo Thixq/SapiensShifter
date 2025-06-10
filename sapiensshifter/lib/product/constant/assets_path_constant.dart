@@ -5,11 +5,16 @@ class AssetsPathConstant {
   static const _baseLogoPath = 'assets/logo';
   static const _baseImagePath = 'assets/images';
   static const _baseSocialPath = 'assets/icon/social_sign_ic';
+  static const _baseDeliveryIconPath = 'assets/icon/order_status_ic';
 
   // logo
   static const sapiensLogo = '$_baseLogoPath/coffee_sapiens_logo.svg';
-
   static const productPlaceHolder = 'assets/icon/product_placeholder.svg';
+
+  //delivery status icon
+  static const hereIn = '$_baseDeliveryIconPath/ic_here_in.svg';
+  static const takeAway = '$_baseDeliveryIconPath/ic_take_away.svg';
+  static const orderStatus = '$_baseDeliveryIconPath/ic_no_coffee.svg';
 
   //image
   static const onboard_orderImage =

@@ -1,14 +1,17 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/product_price_edit/mixin/product_price_edit_mixin.dart';
+import 'package:sapiensshifter/feature/product_price_edit/view_model/product_price_edit_view_model.dart';
+import 'package:sapiensshifter/feature/product_price_edit/view_model/state/product_price_edit_state.dart';
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
-import 'package:sapiensshifter/product/utils/enums/operations.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
-import 'package:sapiensshifter/product/utils/mixin/func/price_editing.dart';
-
 part 'widget/product_price_edit_app_bar.dart';
+part 'widget/product_price_edit_product_list.dart';
+
+enum AllSelected { all, none }
 
 @RoutePage()
 class ProductPriceEditView extends StatefulWidget {
@@ -19,65 +22,35 @@ class ProductPriceEditView extends StatefulWidget {
 }
 
 class _ProductPriceEditViewState extends BaseState<ProductPriceEditView>
-    with ProductPriceEditMixin, PriceEditingMixin {
-  late final List<ProductModel> mainList;
-  late Set<ProductModel> selectedList;
-
-  @override
-  void initState() {
-    selectedList = <ProductModel>{};
-    mainList = List.generate(
-      12,
-      (index) => ProductModel(
-        id: 'id$index',
-        price: index.toDouble(),
-        imagePath: 'https://picsum.photos/200/300?random=$index',
-      ),
-    );
-    super.initState();
-  }
-
-  void _onSave() {
-    setState(() {
-      findAndOperate(
-        mainList: mainList,
-        selectedList: selectedList,
-        operations: PriceOperations.PERCENTAGE,
-        value: .10,
-      );
-      selectedList.clear();
-    });
-  }
-
+    with ProductPriceEditMixin {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: ProductPriceEditAppBar(
-        onSave: _onSave,
+    return BlocProvider(
+      create: (context) => viewModel,
+      child: Scaffold(
+        appBar: const ProductPriceEditAppBar(),
+        body: Column(
+          children: [
+            Container(
+              height: 200,
+              color: Colors.greenAccent,
+            ),
+            Expanded(
+              child:
+                  BlocBuilder<ProductPriceEditViewModel, ProductPriceEditState>(
+                builder: (context, state) {
+                  return ProductPriceEditProductList(
+                    mainList: state.mainList,
+                    isSelected: (product) =>
+                        state.selectedList.contains(product),
+                    onProductTap: (product) => viewModel.selectProduct(product),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
-      body: _buildList(),
-    );
-  }
-
-  ListView _buildList() {
-    return ListView.separated(
-      separatorBuilder: (context, index) =>
-          context.sized.emptySizedHeightBoxLow,
-      itemCount: mainList.length,
-      itemBuilder: (context, index) {
-        final productModel = mainList[index];
-        return PriceEditingCard(
-          productModel: productModel,
-          isSelected: selectedList.contains(productModel),
-          onPress: (productModel) {
-            setState(() {
-              selectedList.contains(productModel)
-                  ? selectedList.remove(productModel)
-                  : selectedList.add(productModel);
-            });
-          },
-        );
-      },
     );
   }
 }
