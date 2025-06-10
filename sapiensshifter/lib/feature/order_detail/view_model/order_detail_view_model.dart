@@ -18,7 +18,7 @@ class OrderDetailViewModel extends BaseCubit<OrderDetailState> {
 
   final INetworkManager _networkManager;
 
-  Future<List<ExtrasModel>> getExtras({
+  Future<void> getExtras({
     required List<String>? optionsId,
   }) async {
     final query = optionsId == null
@@ -32,18 +32,19 @@ class OrderDetailViewModel extends BaseCubit<OrderDetailState> {
               ),
             ],
           );
-    return ErrorUtil.runWithErrorHandlingAsync<List<ExtrasModel>>(
+    await ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         if (optionsId == null) return [];
 
-        return _networkManager.networkOperation.getItemsQuery(
+        final result = await _networkManager.networkOperation.getItemsQuery(
           path: QueryPathConstant.extras,
           model: const ExtrasModel(),
           query: query,
         );
+        emit(state.copyWith(extrasList: result));
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => [],
+      fallbackValue: () {},
       customLogger: CustomLogger('OrderDetailViewModel'),
     );
   }

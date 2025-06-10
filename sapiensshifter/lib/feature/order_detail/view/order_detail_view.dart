@@ -3,18 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/order_detail/mixin/order_detail_mixin.dart';
-import 'package:sapiensshifter/feature/order_detail/view/widget/shimmer_options_list.dart';
+
 import 'package:sapiensshifter/feature/order_detail/view_model/order_detail_view_model.dart';
 import 'package:sapiensshifter/feature/order_detail/view_model/state/order_detail_state.dart';
 import 'package:sapiensshifter/product/component/custom_radio/custom_radio_viewer.dart';
+import 'package:sapiensshifter/product/component/custom_radio/decoration/custom_radio_decoration.dart';
 import 'package:sapiensshifter/product/component/custom_radio/model/custom_radio_model.dart';
 import 'package:sapiensshifter/product/component/sapi_button.dart';
 import 'package:sapiensshifter/product/models/extras_model/extras_model.dart';
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
 import 'package:sapiensshifter/product/utils/enums/delivery_status.dart';
 import 'package:sapiensshifter/product/utils/enums/localization/localization_path_enum.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart'
-    show ChoiceChipList;
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart'
     show ImageBuilder;
@@ -58,9 +57,6 @@ class _OrderDetailViewState extends BaseState<OrderDetailView>
                 final result = viewModel.sumbit;
                 context.router.maybePop(result);
               },
-              extrasList: viewModel.getExtras(
-                optionsId: widget.product.productOptions,
-              ),
             ),
           ],
         ),

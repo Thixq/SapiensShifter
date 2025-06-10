@@ -12,6 +12,22 @@ final class OptionWidget extends StatelessWidget {
   double _previousPrice = 0;
   double _currentPrice = 0;
 
+  List<CustomRadioModel<String>> get widgetFromOption {
+    final options = extra.allOptionsMapEntry;
+    return options?.entries
+            .map(
+              (e) => CustomRadioModel(
+                widget: Text(
+                  e.key.sapiExt.textLocale(LocalizationPathEnum.options),
+                ),
+                value: e.key,
+              ),
+            )
+            .toList()
+            .cast<CustomRadioModel<String>>() ??
+        [];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,18 +52,29 @@ final class OptionWidget extends StatelessWidget {
             );
           },
         ),
-        ChoiceChipList<double>(
-          options: extra.allOptionsMapEntry,
-          isWrap: true,
-          onSelected: (value) {
-            if (_currentPrice != value.value) {
+        CustomRadioViewer<String>(
+          radioDecoration: CustomRadioDecoration(
+            selectedColor: context.general.colorScheme.primary,
+            padding: EdgeInsets.symmetric(
+              horizontal: context.sized.normalValue,
+              vertical: context.sized.lowValue,
+            ),
+            borderRadius: BorderRadius.circular(context.sized.normalValue),
+          ),
+          itemList: widgetFromOption,
+          onChange: (value) {
+            final price = extra.allOptionsMapEntry?.entries
+                .firstWhere(
+                  (element) => element.key == value,
+                )
+                .value;
+            if (_currentPrice != price) {
               _previousPrice = _currentPrice;
-              _currentPrice = value.value;
+              _currentPrice = price ?? 0;
             }
-            optionChange(_previousPrice, _currentPrice, extra, value.key);
+            optionChange(_previousPrice, _currentPrice, extra, value);
             _previousPrice = _currentPrice;
           },
-          localizationPathEnum: LocalizationPathEnum.options,
         ),
       ],
     );

@@ -3,11 +3,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
 import 'package:sapiensshifter/product/utils/enums/operations.dart';
-import 'package:sapiensshifter/product/utils/mixin/func/price_editing.dart';
+import 'package:sapiensshifter/product/utils/static_func/price_editing.dart';
 
 void main() {
-  final func = PriceEditingMixin();
-
   test(
     'find list item and apply math',
     () {
@@ -26,7 +24,7 @@ void main() {
         mockList[4],
         mockList[6],
       };
-      final result = func.findAndOperate(
+      final result = PriceEditing.findAndOperate(
         mainList: mockList,
         selectedList: selectItems,
         operations: PriceOperations.PERCENTAGE,
