@@ -12,7 +12,7 @@ final class OptionWidget extends StatelessWidget {
   double _previousPrice = 0;
   double _currentPrice = 0;
 
-  List<CustomRadioModel<String>> get widgetFromOption {
+  List<CustomRadioModel<String>> get _optionsFromWidget {
     final options = extra.allOptionsMapEntry;
     return options?.entries
             .map(
@@ -53,15 +53,8 @@ final class OptionWidget extends StatelessWidget {
           },
         ),
         CustomRadioViewer<String>(
-          radioDecoration: CustomRadioDecoration(
-            selectedColor: context.general.colorScheme.primary,
-            padding: EdgeInsets.symmetric(
-              horizontal: context.sized.normalValue,
-              vertical: context.sized.lowValue,
-            ),
-            borderRadius: BorderRadius.circular(context.sized.normalValue),
-          ),
-          itemList: widgetFromOption,
+          radioDecoration: _buildDecoration(context),
+          itemList: _optionsFromWidget,
           onChange: (value) {
             final price = extra.allOptionsMapEntry?.entries
                 .firstWhere(
@@ -77,6 +70,17 @@ final class OptionWidget extends StatelessWidget {
           },
         ),
       ],
+    );
+  }
+
+  CustomRadioDecoration _buildDecoration(BuildContext context) {
+    return CustomRadioDecoration(
+      selectedColor: context.general.colorScheme.primary,
+      padding: EdgeInsets.symmetric(
+        horizontal: context.sized.normalValue,
+        vertical: context.sized.lowValue,
+      ),
+      borderRadius: BorderRadius.circular(context.sized.normalValue),
     );
   }
 }

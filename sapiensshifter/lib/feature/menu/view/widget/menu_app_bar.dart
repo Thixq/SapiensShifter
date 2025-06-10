@@ -8,28 +8,35 @@ class MenuAppBar extends StatelessWidget implements PreferredSizeWidget {
   });
 
   final String? title;
-  final void Function(MapEntry<String, String> category) onSelected;
+  final void Function(String? categoryId) onSelected;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MenuViewModel, MenuViewState>(
-      buildWhen: (previous, current) =>
-          current.categories != previous.categories,
       builder: (context, state) => AppBar(
+        surfaceTintColor: Colors.transparent,
         clipBehavior: Clip.none,
         title: Text(title ?? StringConstant.nullString.tr()),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(28.sp),
-          child: ChoiceChipList<String>(
-            onSelected: onSelected,
-            options: state.categories,
-            localizationPathEnum: LocalizationPathEnum.category,
+          preferredSize: Size.fromHeight(24.sp),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: context.sized.lowValue),
+            child: state.isLoadingCategories
+                ? const ShimmerCategoryChip()
+                : _buildCategorys(state),
           ),
         ),
       ),
     );
   }
 
+  CategoryChoiceChip _buildCategorys(MenuViewState state) {
+    return CategoryChoiceChip(
+      categories: state.categories,
+      onChange: onSelected,
+    );
+  }
+
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight + 28.sp);
+  Size get preferredSize => Size.fromHeight(kToolbarHeight + 24.sp);
 }
