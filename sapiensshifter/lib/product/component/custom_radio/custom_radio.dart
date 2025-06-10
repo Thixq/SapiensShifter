@@ -20,19 +20,19 @@ class CustomRadio<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: radioDecoration.padding,
-      decoration: BoxDecoration(
-        borderRadius: radioDecoration.borderRadius,
-        color: isSelected
-            ? radioDecoration.selectedColor
-            : radioDecoration.backgroundColor,
-      ),
-      child: InkWell(
-        onTap: () => onPress(value),
-        borderRadius: radioDecoration.borderRadius,
-        splashColor: context.general.appTheme.splashColor,
-        highlightColor: context.general.appTheme.highlightColor,
+    return InkWell(
+      onTap: () => onPress(value),
+      borderRadius: radioDecoration.borderRadius,
+      splashColor: context.general.appTheme.splashColor,
+      highlightColor: context.general.appTheme.highlightColor,
+      child: Container(
+        padding: radioDecoration.padding,
+        decoration: BoxDecoration(
+          borderRadius: radioDecoration.borderRadius,
+          color: isSelected
+              ? radioDecoration.selectedColor
+              : radioDecoration.backgroundColor,
+        ),
         child: widget,
       ),
     );
