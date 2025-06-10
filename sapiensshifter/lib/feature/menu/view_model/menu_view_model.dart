@@ -1,5 +1,3 @@
-import 'dart:collection' show SplayTreeMap;
-
 import 'package:core/core.dart';
 import 'package:firebase_firestore_module/firebase_firestore_module.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
@@ -13,6 +11,8 @@ import 'package:sapiensshifter/product/models/order_model/order_model.dart';
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
+
+const allCategoryId = '0';
 
 class MenuViewModel extends BaseCubit<MenuViewState> {
   MenuViewModel(
@@ -62,19 +62,18 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
   }
 
   Future<void> getCategories() async {
-    final categories = SplayTreeMap<String, String>();
+    final query = FirebaseFirestoreCustomQuery(
+      orderBy: [OrderByCondition(field: 'id')],
+    );
+
+    emit(state.copyWith(isLoadingCategories: true));
     final result = await getProducts<CategoriesModel>(
       path: QueryPathConstant.categoryColPath,
       item: const CategoriesModel(),
+      query: query,
     );
 
-    categories.addEntries(
-      result.map(
-        (e) => MapEntry<String, String>(e.name!, e.id!),
-      ),
-    );
-
-    emit(state.copyWith(categories: categories));
+    emit(state.copyWith(categories: result, isLoadingCategories: false));
   }
 
   Future<void> changeCategory(String newQuery) async {
@@ -85,7 +84,7 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
     final result = await getProducts<ProductModel>(
       path: QueryPathConstant.productsColPath,
       item: const ProductModel(),
-      query: newQuery != '0' ? query : null,
+      query: newQuery != allCategoryId ? query : null,
     );
     emit(state.copyWith(productList: result, isLoading: false));
   }

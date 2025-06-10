@@ -18,6 +18,7 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/export_pa
 import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart'
     show ImageBuilder;
 import 'package:sapiensshifter/product/utils/ui/separator_list_widget.dart';
+import 'package:shimmer/shimmer.dart';
 
 part 'widget/order_detail_view_app_bar.dart';
 part 'widget/title_content.dart';
@@ -25,6 +26,7 @@ part 'widget/body_content.dart';
 part 'widget/delivery_options.dart';
 part 'widget/option_widget.dart';
 part 'widget/sumbit_button.dart';
+part 'widget/shimmer_options_list.dart';
 
 @RoutePage()
 class OrderDetailView extends StatefulWidget {

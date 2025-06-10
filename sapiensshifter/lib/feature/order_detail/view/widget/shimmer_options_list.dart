@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:sapiensshifter/product/component/choice_chip_list.dart';
-
-import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart';
-import 'package:shimmer/shimmer.dart';
+part of '../order_detail_view.dart';
 
 class ShimmerOptionsList extends StatelessWidget {
   const ShimmerOptionsList({super.key});
@@ -33,15 +28,21 @@ class ShimmerOptionsList extends StatelessWidget {
             ),
           ),
           context.sized.emptySizedHeightBoxLow,
-          ChoiceChipList(
-            isWrap: true,
-            options: const {
-              'coffee': 'blabla',
-              'coffeecoffeecoffee': 'blabla',
-              'cortada': 'blabla',
-              'su': 'blabla',
-              'coffeecoffeecoffeecoffee': 'blabla',
-            },
+          CustomRadioViewer(
+            itemList: List.generate(
+              5,
+              (index) =>
+                  CustomRadioModel(widget: Text('index: $index'), value: index),
+            ),
+            onChange: (value) {},
+            radioDecoration: CustomRadioDecoration(
+              selectedColor: context.general.colorScheme.primary,
+              padding: EdgeInsets.symmetric(
+                horizontal: context.sized.normalValue,
+                vertical: context.sized.lowValue,
+              ),
+              borderRadius: BorderRadius.circular(context.sized.normalValue),
+            ),
           ),
         ],
       ),
