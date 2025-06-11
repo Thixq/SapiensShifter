@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:kartal/kartal.dart';
-import 'package:sapiensshifter/product/component/custom_radio/custom_radio_viewer.dart';
-import 'package:sapiensshifter/product/component/custom_radio/model/custom_radio_model.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 void main() {
   runApp(
-    const MaterialApp(
-      home: DevHome(),
+    MaterialApp(
+      home: Sizer(
+        builder: (p0, p1, p2) => const DevHome(),
+      ),
     ),
   );
 }
@@ -26,28 +26,17 @@ class _DevHomeState extends State<DevHome> {
         title: const Text('Dev Home'),
       ),
       body: Center(
-        child: CustomRadioViewer(
-          itemList: [
-            CustomRadioModel(
-              value: 1,
-              widget: CircleAvatar(
-                backgroundImage: NetworkImage(''.ext.randomImage),
-              ),
-            ),
-            CustomRadioModel(value: 2, widget: const Text('Option 2')),
-            CustomRadioModel(value: 3, widget: const Text('Option 3')),
-            CustomRadioModel(
-              value: 4,
-              widget: CircleAvatar(
-                backgroundImage: NetworkImage(''.ext.randomImage),
-              ),
-            ),
-            CustomRadioModel(value: 5, widget: const Text('Option 5')),
-          ],
-          onChange: (value) {
-            // Handle value change
-            print('Selected value: $value');
-          },
+        child: Container(
+          alignment: Alignment.center,
+          width: .3.dp,
+          height: 2.dp,
+          decoration: const BoxDecoration(
+            color: Colors.blueAccent,
+          ),
+          child: Text(
+            'data',
+            style: TextStyle(fontSize: 0.8.sp),
+          ),
         ),
       ),
     );

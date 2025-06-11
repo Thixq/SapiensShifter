@@ -10,17 +10,14 @@ class CategoryChoiceChip extends StatelessWidget {
   final List<CategoriesModel> categories;
   final ValueChanged<String?> onChange;
 
-  List<CustomRadioModel<String?>> get _categoriesFromWidget {
-    return categories
-        .map(
-          (e) => CustomRadioModel<String?>(
-            widget:
-                Text(e.name.sapiExt.textLocale(LocalizationPathEnum.category)),
-            value: e.id,
-          ),
-        )
-        .toList()
-        .cast<CustomRadioModel<String?>>();
+  Map<String, String> get _categoriesFromWidget {
+    final categoriesMap = <String, String>{};
+    for (final element in categories) {
+      if (element.id == null || element.name == null) continue;
+      categoriesMap[element.name!.sapiExt
+          .textLocale(LocalizationPathEnum.category)] = element.id!;
+    }
+    return categoriesMap;
   }
 
   CustomRadioDecoration _buildDecoration(BuildContext context) {
@@ -36,10 +33,9 @@ class CategoryChoiceChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomRadioViewer<String?>(
-      itemList: _categoriesFromWidget,
+    return CustomRadioViewer<String?>.textChip(
+      itemMaps: _categoriesFromWidget,
       onChange: onChange,
-      isWrap: false,
       radioDecoration: _buildDecoration(context),
     );
   }

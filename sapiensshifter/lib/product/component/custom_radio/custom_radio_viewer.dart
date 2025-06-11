@@ -15,12 +15,39 @@ class CustomRadioViewer<T> extends StatefulWidget {
     this.radioDecoration = const CustomRadioDecoration(),
   });
 
+  factory CustomRadioViewer.textChip({
+    required Map<String, T> itemMaps,
+    required ValueChanged<T> onChange,
+    Axis axis = Axis.horizontal,
+    bool isWrap = false,
+    CustomRadioDecoration radioDecoration = const CustomRadioDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(16)),
+      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+    ),
+    double spacing = 8,
+  }) {
+    final items = itemMaps.entries
+        .map(
+          (e) => CustomRadioModel(widget: Text(e.key), value: e.value),
+        )
+        .toList()
+        .cast<CustomRadioModel<T>>();
+
+    return CustomRadioViewer(
+      isWrap: isWrap,
+      radioDecoration: radioDecoration,
+      spacing: spacing,
+      axis: axis,
+      itemList: items,
+      onChange: onChange,
+    );
+  }
+
   final Axis axis;
   final bool isWrap;
   final List<CustomRadioModel<T>> itemList;
   final ValueChanged<T> onChange;
   final CustomRadioDecoration radioDecoration;
-
   final double spacing;
 
   @override
