@@ -21,6 +21,7 @@ mixin ProductPriceEditMixin on BaseState<ProductPriceEditView> {
             imagePath: 'https://picsum.photos/200/300?random=$index',
           ),
         ),
+        priceRations: {},
       ),
     );
     super.initState();
