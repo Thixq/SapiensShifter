@@ -4,7 +4,9 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/export_pa
 enum LocalizationPathEnum {
   category(LocaleKeys.category),
 
-  options(LocaleKeys.options);
+  options(LocaleKeys.options),
+
+  priceRation(LocaleKeys.price_operations);
 
   const LocalizationPathEnum(this.basePath);
 

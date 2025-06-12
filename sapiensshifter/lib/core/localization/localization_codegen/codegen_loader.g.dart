@@ -198,6 +198,18 @@ class CodegenLoader extends AssetLoader{
       "double_shot": "İki Shot",
       "triple_shot": "Üç Shot"
     }
+  },
+  "price_operations": {
+    "current": "Güncel fiyat",
+    "percent_five": "%5",
+    "percent_ten": "%10",
+    "percent_fifteen": "%15",
+    "percent_twenty": "%20",
+    "units_one": "1₺",
+    "units_five": "5₺",
+    "units_ten": "10₺",
+    "units_twenty": "20₺",
+    "units_thirty": "30₺"
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"tr": _tr};
