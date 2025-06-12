@@ -24,6 +24,8 @@ class CodegenLoader extends AssetLoader{
   "previous": "Geri",
   "done": "Tamam",
   "payment": "Ödeme",
+  "select_all": "Tümünü seç",
+  "remove_all": "Tümünü kaldır",
   "date": {
     "today": "Bugün",
     "yesterday": "Dün",
