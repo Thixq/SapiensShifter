@@ -6,7 +6,7 @@ import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/new_product_add/view_model/state/new_product_state.dart';
 import 'package:sapiensshifter/product/constant/query_path_constant.dart';
-import 'package:sapiensshifter/product/constant/stoage_path_constant.dart';
+import 'package:sapiensshifter/product/constant/storage_path_constant.dart';
 import 'package:sapiensshifter/product/models/categories_model/categories_model.dart';
 import 'package:sapiensshifter/product/models/extras_model/extras_model.dart';
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
@@ -32,7 +32,7 @@ class NewProductViewModel extends BaseCubit<NewProductState> {
           final mimeType = state.product.imagePath?.sapiExt.imageMimeType;
           final mimeSuffix = mimeType?.split('/').last ?? 'jpg';
           final path =
-              '${StoagePathConstant.productImageBasePath}/${state.product.id}/${const UuidV7().generate()}.$mimeSuffix';
+              '${StoragePathConstant.productImageBasePath}/${state.product.id}/${const UuidV7().generate()}.$mimeSuffix';
           final imageFile = File(state.product.imagePath!);
           final imageByte = await imageFile.readAsBytes();
           final cleanByte =

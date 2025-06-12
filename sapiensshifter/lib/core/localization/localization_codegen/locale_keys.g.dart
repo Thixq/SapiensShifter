@@ -151,5 +151,16 @@ abstract class  LocaleKeys {
   static const options_shot_triple_shot = 'options.shot.triple_shot';
   static const options_shot = 'options.shot';
   static const options = 'options';
+  static const price_operations_current = 'price_operations.current';
+  static const price_operations_percent_five = 'price_operations.percent_five';
+  static const price_operations_percent_ten = 'price_operations.percent_ten';
+  static const price_operations_percent_fifteen = 'price_operations.percent_fifteen';
+  static const price_operations_percent_twenty = 'price_operations.percent_twenty';
+  static const price_operations_units_one = 'price_operations.units_one';
+  static const price_operations_units_five = 'price_operations.units_five';
+  static const price_operations_units_ten = 'price_operations.units_ten';
+  static const price_operations_units_twenty = 'price_operations.units_twenty';
+  static const price_operations_units_thirty = 'price_operations.units_thirty';
+  static const price_operations = 'price_operations';
 
 }
