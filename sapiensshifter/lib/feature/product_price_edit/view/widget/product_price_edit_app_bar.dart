@@ -7,6 +7,7 @@ class ProductPriceEditAppBar extends StatelessWidget
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      surfaceTintColor: Colors.transparent,
       title: const Text('Product Price Edit'),
     );
   }

@@ -4,4 +4,6 @@ final class StringConstant {
   static const translationsPath = 'assets/translations';
   static const nullDouble = LocaleKeys.null_value_null_double;
   static const nullString = LocaleKeys.null_value_null_name;
+  static const allCategoryId = '-1';
+  static const allPirceOperationValue = -1;
 }

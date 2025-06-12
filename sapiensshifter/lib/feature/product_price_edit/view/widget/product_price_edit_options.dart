@@ -5,14 +5,18 @@ class ProductPriceEditOptions extends StatelessWidget {
     required this.categories,
     required this.onCategoriesChange,
     required this.priceRations,
-    required this.onpPiceRationsChange,
+    required this.onPiceRationsChange,
+    required this.allSelecet,
+    required this.allSelecetChange,
     super.key,
   });
 
   final Map<String, String> categories;
   final ValueChanged<String> onCategoriesChange;
   final Map<String, String> priceRations;
-  final ValueChanged<String> onpPiceRationsChange;
+  final ValueChanged<String> onPiceRationsChange;
+  final bool allSelecet;
+  final ValueChanged<bool?> allSelecetChange;
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +30,14 @@ class ProductPriceEditOptions extends StatelessWidget {
         const Divider(),
         ProductPriceOptionView(
           options: priceRations,
-          onChange: onpPiceRationsChange,
+          onChange: onPiceRationsChange,
         ),
         CheckboxListTile.adaptive(
-          value: false,
-          onChanged: (value) {},
-          title: const Text('data'),
+          value: allSelecet,
+          onChanged: allSelecetChange,
+          title: Text(
+            (allSelecet ? LocaleKeys.remove_all : LocaleKeys.select_all).tr(),
+          ),
         ),
       ],
     );

@@ -48,8 +48,8 @@ class _MenuViewState extends BaseState<MenuView> with MenuViewMixin {
         ),
         appBar: MenuAppBar(
           title: widget.table.tableName,
-          onSelected: (category) =>
-              viewModel.changeCategory(category ?? allCategoryId),
+          onSelected: (category) => viewModel
+              .changeCategory(category ?? StringConstant.allCategoryId),
         ),
         body: _content(context),
       ),

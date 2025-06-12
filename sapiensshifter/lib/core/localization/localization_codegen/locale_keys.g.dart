@@ -12,6 +12,8 @@ abstract class  LocaleKeys {
   static const previous = 'previous';
   static const done = 'done';
   static const payment = 'payment';
+  static const select_all = 'select_all';
+  static const remove_all = 'remove_all';
   static const date_today = 'date.today';
   static const date_yesterday = 'date.yesterday';
   static const date_tomorrow = 'date.tomorrow';

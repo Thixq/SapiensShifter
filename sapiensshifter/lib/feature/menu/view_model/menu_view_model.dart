@@ -6,13 +6,12 @@ import 'package:sapiensshifter/core/logging/custom_logger.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/menu/view_model/state/menu_view_state.dart';
 import 'package:sapiensshifter/product/constant/query_path_constant.dart';
+import 'package:sapiensshifter/product/constant/string_constant.dart';
 import 'package:sapiensshifter/product/models/categories_model/categories_model.dart';
 import 'package:sapiensshifter/product/models/order_model/order_model.dart';
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
-
-const allCategoryId = '0';
 
 class MenuViewModel extends BaseCubit<MenuViewState> {
   MenuViewModel(
@@ -84,7 +83,7 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
     final result = await getProducts<ProductModel>(
       path: QueryPathConstant.productsColPath,
       item: const ProductModel(),
-      query: newQuery != allCategoryId ? query : null,
+      query: newQuery != StringConstant.allCategoryId ? query : null,
     );
     emit(state.copyWith(productList: result, isLoading: false));
   }

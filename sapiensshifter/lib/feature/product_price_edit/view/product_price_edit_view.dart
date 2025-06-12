@@ -35,8 +35,11 @@ class _ProductPriceEditViewState extends BaseState<ProductPriceEditView>
         appBar: const ProductPriceEditAppBar(),
         body: Column(
           children: [
-            Container(
-              child: ProductPriceEditOptions(
+            BlocBuilder<ProductPriceEditViewModel, ProductPriceEditState>(
+              builder: (context, state) => ProductPriceEditOptions(
+                allSelecet: state.allSelected,
+                allSelecetChange: (value) =>
+                    viewModel.selectAllProducts(value ?? false),
                 categories: const {
                   'blabla': 'blabla',
                   'sdfdsf': 'asdsaasd',
@@ -50,7 +53,7 @@ class _ProductPriceEditViewState extends BaseState<ProductPriceEditView>
                   'sadas': 'adasd',
                   'asdasdsdsadasdssadas': 'asd',
                 },
-                onpPiceRationsChange: (value) {},
+                onPiceRationsChange: (value) {},
               ),
             ),
             Expanded(
