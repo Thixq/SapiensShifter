@@ -57,7 +57,6 @@ class _ProductPriceEditViewState extends BaseState<ProductPriceEditView>
                         priceRations: state.priceRations,
                         onPiceRationsChange: (value) {
                           viewModel.changePriceProduct(
-                            selectedList: state.selectedList,
                             value: value.value!,
                             operations:
                                 value.priceOperation ?? PriceOperations.PLUS,

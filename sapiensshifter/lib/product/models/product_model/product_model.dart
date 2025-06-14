@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -12,9 +13,10 @@ final class ProductModel extends IBaseModel<ProductModel> with EquatableMixin {
     this.description,
     this.imagePath,
     this.price,
+    double? orjin,
     this.category,
     this.productOptions,
-  }) : originalPrice = price;
+  }) : originalPrice = orjin ?? price;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
       _$ProductModelFromJson(json);
@@ -33,6 +35,7 @@ final class ProductModel extends IBaseModel<ProductModel> with EquatableMixin {
     String? description,
     String? imagePath,
     double? price,
+    double? originalPrice,
     String? category,
     List<String>? productOptions,
   }) {
@@ -42,6 +45,7 @@ final class ProductModel extends IBaseModel<ProductModel> with EquatableMixin {
       description: description ?? this.description,
       imagePath: imagePath ?? this.imagePath,
       price: price ?? this.price,
+      orjin: this.originalPrice,
       category: category ?? this.category,
       productOptions: productOptions ?? this.productOptions,
     );

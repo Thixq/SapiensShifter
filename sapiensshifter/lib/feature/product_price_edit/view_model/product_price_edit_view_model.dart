@@ -5,7 +5,7 @@ import 'package:firebase_firestore_module/firebase_firestore_module.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
-import 'package:sapiensshifter/feature/product_price_edit/private_mixin/iterable_operation_mixin.dart';
+import 'package:sapiensshifter/feature/product_price_edit/view_model_mixin/iterable_operation_mixin.dart';
 import 'package:sapiensshifter/feature/product_price_edit/view_model/state/product_price_edit_state.dart';
 import 'package:sapiensshifter/product/constant/query_path_constant.dart';
 import 'package:sapiensshifter/product/models/categories_model/categories_model.dart';
@@ -89,6 +89,7 @@ class ProductPriceEditViewModel extends BaseCubit<ProductPriceEditState>
       path: QueryPathConstant.productsColPath,
       itemModel: const ProductModel(),
     );
+
     emit(
       state.copyWith(
         mainList: result,
@@ -114,7 +115,6 @@ class ProductPriceEditViewModel extends BaseCubit<ProductPriceEditState>
   }
 
   void changePriceProduct({
-    required Set<ProductModel> selectedList,
     required double value,
     required PriceOperations operations,
   }) {
@@ -122,6 +122,7 @@ class ProductPriceEditViewModel extends BaseCubit<ProductPriceEditState>
       emit(
         state.copyWith(
           mainList: state.originalList,
+          filteredList: state.originalList,
           selectedList: {},
           selectedChangeList: {},
           allSelected: false,
@@ -133,7 +134,7 @@ class ProductPriceEditViewModel extends BaseCubit<ProductPriceEditState>
       value: value,
       operations: operations,
       mainList: state.mainList,
-      selectedList: selectedList,
+      selectedList: state.selectedList,
     );
     syncListFromSet(
       changeResult.selectedChangeList,
@@ -143,6 +144,7 @@ class ProductPriceEditViewModel extends BaseCubit<ProductPriceEditState>
     emit(
       state.copyWith(
         mainList: changeResult.mainChangeList,
+        filteredList: changeResult.mainChangeList,
         selectedList: {},
         allSelected: false,
       ),
@@ -152,7 +154,7 @@ class ProductPriceEditViewModel extends BaseCubit<ProductPriceEditState>
   void selectAllProducts(bool isSelected) {
     emit(
       state.copyWith(
-        selectedList: isSelected ? state.mainList.toSet() : {},
+        selectedList: isSelected ? state.filteredList.toSet() : {},
         allSelected: isSelected,
       ),
     );
