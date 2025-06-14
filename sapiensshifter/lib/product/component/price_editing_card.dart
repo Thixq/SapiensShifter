@@ -23,13 +23,10 @@ final class PriceEditingCard extends StatefulWidget {
 
 class _PriceEditingCardState extends State<PriceEditingCard> {
   bool hasPriceChanged = false;
-  double? _previousPrice = 0;
-  bool isFirstBuild = true;
 
   @override
   void initState() {
     super.initState();
-    _previousPrice = widget.productModel.price;
   }
 
   String get _nullProductName => StringConstant.nullString.tr();
@@ -37,18 +34,10 @@ class _PriceEditingCardState extends State<PriceEditingCard> {
 
   @override
   void didUpdateWidget(covariant PriceEditingCard oldWidget) {
-    if (widget.isSelected != oldWidget.isSelected) {
+    if (widget.productModel.originalPrice != widget.productModel.price) {
       setState(() {
-        widget.isSelected = !oldWidget.isSelected;
-      });
-    }
-    if (widget.productModel.price != oldWidget.productModel.price) {
-      setState(() {
-        if (isFirstBuild) {
-          _previousPrice = oldWidget.productModel.price;
-          isFirstBuild = false;
-        }
         hasPriceChanged = true;
+        print('object');
       });
     }
     super.didUpdateWidget(oldWidget);
@@ -112,7 +101,8 @@ class _PriceEditingCardState extends State<PriceEditingCard> {
     return Row(
       children: [
         Text(
-          (_previousPrice?.sapiDoubleExt.priceFraction ?? _nullPrice)
+          (widget.productModel.originalPrice?.sapiDoubleExt.priceFraction ??
+                  _nullPrice)
               .sapiExt
               .priceSymbol,
           style: context.general.textTheme.labelSmall!

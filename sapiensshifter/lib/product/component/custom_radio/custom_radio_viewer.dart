@@ -65,6 +65,7 @@ class _CustomRadioViewerState<T> extends State<CustomRadioViewer<T>> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.itemList.isEmpty) return const SizedBox.shrink();
     return widget.isWrap ? _buildWrapList(context) : _buildRadioList(context);
   }
 

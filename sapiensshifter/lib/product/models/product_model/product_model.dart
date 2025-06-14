@@ -14,7 +14,7 @@ final class ProductModel extends IBaseModel<ProductModel> with EquatableMixin {
     this.price,
     this.category,
     this.productOptions,
-  });
+  }) : originalPrice = price;
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
       _$ProductModelFromJson(json);
@@ -23,6 +23,7 @@ final class ProductModel extends IBaseModel<ProductModel> with EquatableMixin {
   final String? description;
   final String? imagePath;
   final double? price;
+  final double? originalPrice;
   final String? category;
   final List<String>? productOptions;
 
@@ -50,7 +51,7 @@ final class ProductModel extends IBaseModel<ProductModel> with EquatableMixin {
   bool? get stringify => true;
 
   @override
-  List<Object?> get props => [id, productName, price, category];
+  List<Object?> get props => [id, productName, category];
 
   @override
   ProductModel fromJson(Map<String, dynamic> json) =>
