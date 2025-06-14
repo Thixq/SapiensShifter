@@ -144,6 +144,9 @@
         "chat_preview":{
             "chat":"Sohbet"
         },
+        "order_history":{
+            "order_list":"Siparişler"
+        },
         "new_product_add":{
            "add_product":"Ürün Ekle",
            "form":{
@@ -155,6 +158,12 @@
            },
            "suscess_product":"Ürün başarıyla eklendi.",
            "failed_product":"Ürün eklenirken bir hata oluştu. Lütfen tekrar deneyin."
+        },
+        "product_price_edit":{
+            "product_price_edit":"Fiyat düzenleme"
+        },
+        "sihft_add_view":{
+            "shift_add":"Yeni vardiya"
         }
     },
     "category":{

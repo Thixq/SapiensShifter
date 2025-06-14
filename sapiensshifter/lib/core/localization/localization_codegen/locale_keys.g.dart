@@ -118,6 +118,8 @@ abstract class  LocaleKeys {
   static const page_settings = 'page.settings';
   static const page_chat_preview_chat = 'page.chat_preview.chat';
   static const page_chat_preview = 'page.chat_preview';
+  static const page_order_history_order_list = 'page.order_history.order_list';
+  static const page_order_history = 'page.order_history';
   static const page_new_product_add_add_product = 'page.new_product_add.add_product';
   static const page_new_product_add_form_product_name = 'page.new_product_add.form.product_name';
   static const page_new_product_add_form_product_description = 'page.new_product_add.form.product_description';
@@ -128,6 +130,10 @@ abstract class  LocaleKeys {
   static const page_new_product_add_suscess_product = 'page.new_product_add.suscess_product';
   static const page_new_product_add_failed_product = 'page.new_product_add.failed_product';
   static const page_new_product_add = 'page.new_product_add';
+  static const page_product_price_edit_product_price_edit = 'page.product_price_edit.product_price_edit';
+  static const page_product_price_edit = 'page.product_price_edit';
+  static const page_sihft_add_view_shift_add = 'page.sihft_add_view.shift_add';
+  static const page_sihft_add_view = 'page.sihft_add_view';
   static const page = 'page';
   static const category_all = 'category.all';
   static const category_hot_coffees = 'category.hot_coffees';

@@ -94,7 +94,9 @@ mixin SettingsViewMixin on BaseState<SettingsView> {
         BasicRoleTileModel(
           icon: Icons.add,
           title: LocaleKeys.page_settings_actions_text_shift_add.tr(),
-          onTap: () {},
+          onTap: () {
+            context.router.pushPath(PagePathConstant.shiftAdd);
+          },
           roles: [UserRole.admin, UserRole.manager],
         ),
       ];

@@ -10,7 +10,7 @@ class ProductPriceEditAppBar extends StatelessWidget
   Widget build(BuildContext context) {
     return AppBar(
       surfaceTintColor: Colors.transparent,
-      title: const Text('Product Price Edit'),
+      title: Text(LocaleKeys.page_product_price_edit_product_price_edit.tr()),
       actions: [
         IconButton(
           onPressed: onSave,
