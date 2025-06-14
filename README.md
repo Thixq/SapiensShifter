@@ -26,7 +26,7 @@
 
 <p>
   <img src="/project-image/chat-preview.png" alt="message page" width="150"/>
-  <img src="/project-image/chat-room.png" alt="chat page" width="150"/>
+  <img src="/project-image/Chat-room.png" alt="chat page" width="150"/>
   <img src="/project-image/new-chat-begin.png" alt="chat new sheet" width="150"/>
 </p>
 
