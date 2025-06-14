@@ -144,7 +144,6 @@ class ProductPriceEditViewModel extends BaseCubit<ProductPriceEditState>
     emit(
       state.copyWith(
         mainList: changeResult.mainChangeList,
-        filteredList: changeResult.mainChangeList,
         selectedList: {},
         allSelected: false,
       ),
