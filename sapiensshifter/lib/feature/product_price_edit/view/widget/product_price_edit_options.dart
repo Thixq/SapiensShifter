@@ -13,8 +13,8 @@ class ProductPriceEditOptions extends StatelessWidget {
 
   final Map<String, String> categories;
   final ValueChanged<String> onCategoriesChange;
-  final Map<String, String> priceRations;
-  final ValueChanged<String> onPiceRationsChange;
+  final Map<String, PriceRationModel> priceRations;
+  final ValueChanged<PriceRationModel> onPiceRationsChange;
   final bool allSelecet;
   final ValueChanged<bool?> allSelecetChange;
 

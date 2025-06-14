@@ -15,7 +15,6 @@ class ProductPriceOptionView<T> extends StatelessWidget {
     return CustomRadioViewer<T>.textChip(
       itemMaps: options,
       onChange: onChange,
-      isWrap: true,
       radioDecoration: _buildDecoration(context),
     );
   }

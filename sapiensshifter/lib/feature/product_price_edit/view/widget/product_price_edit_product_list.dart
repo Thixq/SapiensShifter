@@ -14,6 +14,7 @@ class ProductPriceEditProductList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      addAutomaticKeepAlives: false,
       separatorBuilder: (context, index) =>
           context.sized.emptySizedHeightBoxLow,
       itemCount: mainList.length,

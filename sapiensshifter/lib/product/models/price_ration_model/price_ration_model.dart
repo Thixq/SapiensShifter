@@ -9,9 +9,9 @@ part 'price_ration_model.g.dart';
 final class PriceRationModel extends IBaseModel<PriceRationModel>
     with EquatableMixin {
   PriceRationModel({
-    required this.name,
-    required this.value,
-    required this.priceOperation,
+    this.name,
+    this.value,
+    this.priceOperation,
     super.id,
   });
 
