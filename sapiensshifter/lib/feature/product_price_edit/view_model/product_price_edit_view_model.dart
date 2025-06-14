@@ -5,8 +5,8 @@ import 'package:firebase_firestore_module/firebase_firestore_module.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
-import 'package:sapiensshifter/feature/product_price_edit/view_model_mixin/iterable_operation_mixin.dart';
 import 'package:sapiensshifter/feature/product_price_edit/view_model/state/product_price_edit_state.dart';
+import 'package:sapiensshifter/feature/product_price_edit/view_model_mixin/iterable_operation_mixin.dart';
 import 'package:sapiensshifter/product/constant/query_path_constant.dart';
 import 'package:sapiensshifter/product/models/categories_model/categories_model.dart';
 import 'package:sapiensshifter/product/models/price_ration_model/price_ration_model.dart';
@@ -46,6 +46,22 @@ class ProductPriceEditViewModel extends BaseCubit<ProductPriceEditState>
     await getPriceRations();
     emit(state.copyWith(isLoading: false));
     await getProducts();
+  }
+
+  Future<bool> saveNewPrice() async {
+    return ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        if (state.selectedChangeList.isNotEmpty) {
+          return _networkManager.networkOperation.updateAll<ProductModel>(
+            path: QueryPathConstant.productsColPath,
+            items: state.selectedChangeList.toList(),
+          );
+        }
+        return false;
+      },
+      errorHandler: ServiceErrorHandler(),
+      fallbackValue: () => false,
+    );
   }
 
   Future<void> getCategories() async {
@@ -119,10 +135,15 @@ class ProductPriceEditViewModel extends BaseCubit<ProductPriceEditState>
     required PriceOperations operations,
   }) {
     if (value == StringConstant.allPirceOperationValue) {
+      final resetList = state.mainList
+          .map(
+            (e) => e.copyWith(price: e.originalPrice),
+          )
+          .toList();
       emit(
         state.copyWith(
-          mainList: state.originalList,
-          filteredList: state.originalList,
+          mainList: resetList,
+          filteredList: resetList,
           selectedList: {},
           selectedChangeList: {},
           allSelected: false,
@@ -140,7 +161,9 @@ class ProductPriceEditViewModel extends BaseCubit<ProductPriceEditState>
       changeResult.selectedChangeList,
       state.selectedChangeList,
     );
+
     syncListFromList(changeResult.mainChangeList, state.filteredList);
+
     emit(
       state.copyWith(
         mainList: changeResult.mainChangeList,

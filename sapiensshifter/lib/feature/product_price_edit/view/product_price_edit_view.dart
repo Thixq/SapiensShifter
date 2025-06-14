@@ -37,7 +37,11 @@ class _ProductPriceEditViewState extends BaseState<ProductPriceEditView>
     return BlocProvider(
       create: (context) => viewModel,
       child: Scaffold(
-        appBar: const ProductPriceEditAppBar(),
+        appBar: ProductPriceEditAppBar(
+          onSave: () {
+            viewModel.saveNewPrice();
+          },
+        ),
         body: Padding(
           padding: EdgeInsetsGeometry.symmetric(
             horizontal: context.sized.lowValue,
