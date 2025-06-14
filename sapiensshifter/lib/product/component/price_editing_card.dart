@@ -26,6 +26,15 @@ class _PriceEditingCardState extends State<PriceEditingCard> {
 
   @override
   void initState() {
+    if (widget.productModel.originalPrice != widget.productModel.price) {
+      setState(() {
+        hasPriceChanged = true;
+      });
+    } else {
+      setState(() {
+        hasPriceChanged = false;
+      });
+    }
     super.initState();
   }
 
@@ -37,7 +46,10 @@ class _PriceEditingCardState extends State<PriceEditingCard> {
     if (widget.productModel.originalPrice != widget.productModel.price) {
       setState(() {
         hasPriceChanged = true;
-        print('object');
+      });
+    } else {
+      setState(() {
+        hasPriceChanged = false;
       });
     }
     super.didUpdateWidget(oldWidget);
