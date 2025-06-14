@@ -62,5 +62,9 @@ class RoutingManager extends RootStackRouter {
           path: PagePathConstant.productPriceEdit,
           page: ProductPriceEditRoute.page,
         ),
+        AutoRoute(
+          path: PagePathConstant.shiftAdd,
+          page: ShiftAddRoute.page,
+        ),
       ];
 }

@@ -12,6 +12,7 @@ import 'package:sapiensshifter/product/models/table_model/table_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 part 'widget/table_preview.dart';
+part 'widget/order_history_app_bar.dart';
 
 @RoutePage()
 class OrderHistoryView extends StatefulWidget {
@@ -28,9 +29,7 @@ class _OrderHistoryViewState extends BaseState<OrderHistoryView>
     return BlocProvider(
       create: (context) => viewModel,
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Sipariş Listesi'),
-        ),
+        appBar: const OrderHistoryAppBar(),
         body: _buildListTables(context),
       ),
     );
