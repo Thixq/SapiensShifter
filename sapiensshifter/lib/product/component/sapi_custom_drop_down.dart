@@ -2,37 +2,40 @@ import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
-final class SapiCustomDropDown<T, R, V> extends StatelessWidget {
+final class SapiCustomDropDown<T> extends StatelessWidget {
   const SapiCustomDropDown({
     required this.items,
     required this.onSelected,
     this.validator,
-    this.isMulti = false,
     super.key,
     this.hintText,
-    this.controller,
-    this.multiSelectController,
-  });
+  })  : _isMulti = false,
+        listValidator = null,
+        onListChanged = null;
 
-  final bool isMulti;
+  const SapiCustomDropDown.multiSelect({
+    required this.items,
+    required this.onListChanged,
+    super.key,
+    this.hintText,
+    this.listValidator,
+  })  : _isMulti = true,
+        validator = null,
+        onSelected = null;
+
+  final bool _isMulti;
   final Map<String, T> items;
   final String? hintText;
-  final void Function(R select) onSelected;
-  final String? Function(V? value)? validator;
-  final SingleSelectController<T?>? controller;
-  final MultiSelectController<T>? multiSelectController;
+  final void Function(T? select)? onSelected;
+  final dynamic Function(List<T>)? onListChanged;
+  final String? Function(String? value)? validator;
+  final String? Function(List<String>)? listValidator;
 
   @override
   Widget build(BuildContext context) {
-    return isMulti
-        ? CustomDropdown.multiSelect(
-            multiSelectController: multiSelectController,
-            listValidator: (p0) {
-              if (validator != null) {
-                return validator!(p0 as V);
-              }
-              return null;
-            },
+    return _isMulti
+        ? CustomDropdown<String>.multiSelect(
+            listValidator: listValidator,
             hintText: hintText ?? LocaleKeys.drop_down_drop_down_extra.tr(),
             items: items.keys.toList(),
             decoration: _buildDecoration(context),
@@ -42,20 +45,14 @@ final class SapiCustomDropDown<T, R, V> extends StatelessWidget {
                   .map((e) => items[e])
                   .toList()
                   .cast<T>();
-              onSelected(valueList as R);
+              onListChanged?.call(valueList);
             },
           )
         : CustomDropdown(
-            controller: controller,
-            validator: (p0) {
-              if (validator != null) {
-                return validator!(p0 as V);
-              }
-              return null;
-            },
+            validator: validator,
             hintText: hintText ?? LocaleKeys.drop_down_drop_down_default.tr(),
             items: items.keys.toList(),
-            onChanged: (select) => onSelected(items[select] as R),
+            onChanged: (select) => onSelected?.call(items[select]),
             decoration: _buildDecoration(context),
           );
   }

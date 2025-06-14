@@ -57,19 +57,18 @@ final class ProductForm extends StatelessWidget {
     );
   }
 
-  SapiCustomDropDown<String, List<String?>, List<String>> _buildExtras() {
-    return SapiCustomDropDown<String, List<String>, List<String>>(
+  Widget _buildExtras() {
+    return SapiCustomDropDown<String>.multiSelect(
       hintText: LocaleKeys.page_new_product_add_form_extra.tr(),
       items:
           extras.sapiMapExt.mapKeyTranslate(path: LocalizationPathEnum.options),
-      isMulti: true,
-      onSelected: (select) =>
+      onListChanged: (select) =>
           product = product.copyWith(productOptions: select),
     );
   }
 
-  SapiCustomDropDown<String, String?, String?> _buildProductCategory() {
-    return SapiCustomDropDown<String, String?, String?>(
+  Widget _buildProductCategory() {
+    return SapiCustomDropDown<String>(
       hintText: LocaleKeys.page_new_product_add_form_category.tr(),
       items: categorys.sapiMapExt
           .mapKeyTranslate(path: LocalizationPathEnum.category),
