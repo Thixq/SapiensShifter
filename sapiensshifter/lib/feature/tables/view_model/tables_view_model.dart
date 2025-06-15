@@ -6,21 +6,35 @@ import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/tables/view_model/state/tables_view_state.dart';
 import 'package:sapiensshifter/product/constant/query_path_constant.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
-import 'package:sapiensshifter/product/models/user/sapiens_user/sapiens_user.dart';
+
 import 'package:sapiensshifter/product/profile/profile.dart';
+import 'package:sapiensshifter/product/utils/enums/localization/localization_path_enum.dart';
+import 'package:sapiensshifter/product/utils/extensions/string_extension.dart';
 
 class TablesViewModel extends BaseCubit<TablesViewState> {
-  TablesViewModel({
+  TablesViewModel(
+    super.initialState, {
     required Profile profile,
     required INetworkManager networkManager,
   })  : _networkManager = networkManager,
-        _profile = profile,
-        super(TablesViewState.initial());
+        _profile = profile;
 
   final INetworkManager _networkManager;
   final Profile _profile;
 
-  SapiensUser? get sapiensUser => _profile.user;
+  Future<void> initial() async {
+    await getBranchName;
+    await getTableList;
+  }
+
+  Future<void> get getBranchName async {
+    final result = await _profile.getToDayBranch;
+    emit(
+      state.copyWith(
+        branchName: result.sapiExt.textLocale(LocalizationPathEnum.branch),
+      ),
+    );
+  }
 
   Future<void> get getTableList async {
     emit(
@@ -30,7 +44,7 @@ class TablesViewModel extends BaseCubit<TablesViewState> {
     );
     final result = await ErrorUtil.runWithErrorHandlingAsync<List<TableModel>>(
       action: () async {
-        final branchId = await _profile.getToDayBranchId;
+        final branchId = _profile.user?.toDayBranch;
         return _networkManager.networkOperation.getItemsQuery(
           path: QueryPathConstant.tableOpenTableColPath(branchId ?? ''),
           model: const TableModel(),
@@ -52,7 +66,7 @@ class TablesViewModel extends BaseCubit<TablesViewState> {
     await ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         final closedTable = table.copyWith(status: false);
-        final branchId = await _profile.getToDayBranchId;
+        final branchId = _profile.user?.toDayBranch;
         await _networkManager.networkOperation.update(
           path: QueryPathConstant.tableOpenTableColPath(branchId ?? ''),
           value: {'status': false},

@@ -178,21 +178,16 @@ class Profile {
     return _authManager.signOut();
   }
 
-  Future<String?> get getToDayBranchId async {
+  Future<String?> get getToDayBranch async {
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         final branch = _user?.toDayBranch;
 
-        final query = FirebaseFirestoreCustomQuery(
-          filters: [FilterCondition(field: 'name', value: branch)],
-        );
-
-        final result = await _networkManager.networkOperation.getItemsQuery(
-          path: QueryPathConstant.branchColPath,
+        final result = await _networkManager.networkOperation.getItem(
+          path: '${QueryPathConstant.branchColPath}/$branch',
           model: BranchModel(),
-          query: query,
         );
-        return result.first.id;
+        return result.name;
       },
       errorHandler: ServiceErrorHandler(),
       fallbackValue: () => null,

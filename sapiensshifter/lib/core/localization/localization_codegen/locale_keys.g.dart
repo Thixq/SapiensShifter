@@ -135,6 +135,9 @@ abstract class  LocaleKeys {
   static const page_sihft_add_view_shift_add = 'page.sihft_add_view.shift_add';
   static const page_sihft_add_view = 'page.sihft_add_view';
   static const page = 'page';
+  static const branchs_karakoy = 'branchs.karakoy';
+  static const branchs_kanyon = 'branchs.kanyon';
+  static const branchs = 'branchs';
   static const category_all = 'category.all';
   static const category_hot_coffees = 'category.hot_coffees';
   static const category_sandwiches = 'category.sandwiches';

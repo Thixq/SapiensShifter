@@ -6,14 +6,17 @@ import 'package:sapiensshifter/core/routing/routing_manager.gr.dart';
 
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/tables/view/tables_view.dart';
+import 'package:sapiensshifter/feature/tables/view_model/state/tables_view_state.dart';
 import 'package:sapiensshifter/feature/tables/view_model/tables_view_model.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
+import 'package:sapiensshifter/product/profile/profile.dart';
 
 mixin TablesViewMixin on BaseState<TablesView>
     implements RouteAwareActionPerformer {
   late final TablesViewModel _tablesViewModel;
 
   TablesViewModel get viewModel => _tablesViewModel;
+  late final Profile profile;
 
   @override
   void onRoutePoppedNext() {
@@ -30,11 +33,13 @@ mixin TablesViewMixin on BaseState<TablesView>
 
   @override
   void initState() {
+    profile = ProductConfigureItems.profile;
     _tablesViewModel = TablesViewModel(
+      TablesViewState.initial(branchName: 'Earth'),
       networkManager: ProductConfigureItems.networkManager,
-      profile: ProductConfigureItems.profile,
+      profile: profile,
     );
-    _tablesViewModel.getTableList;
+    _tablesViewModel.initial();
 
     super.initState();
   }

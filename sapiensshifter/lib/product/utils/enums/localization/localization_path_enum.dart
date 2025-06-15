@@ -6,7 +6,9 @@ enum LocalizationPathEnum {
 
   options(LocaleKeys.options),
 
-  priceRation(LocaleKeys.price_operations);
+  priceRation(LocaleKeys.price_operations),
+
+  branch(LocaleKeys.branchs);
 
   const LocalizationPathEnum(this.basePath);
 

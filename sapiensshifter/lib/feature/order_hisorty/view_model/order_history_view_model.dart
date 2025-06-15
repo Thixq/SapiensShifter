@@ -35,7 +35,7 @@ class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
       ],
     );
 
-    final branchId = await _profile.getToDayBranchId;
+    final branchId = _profile.user?.toDayBranch;
     final path = QueryPathConstant.tableOpenTableColPath(branchId ?? '');
     final historyTables = await _networkManager.networkOperation
         .getItemsQuery(path: path, model: const TableModel(), query: query);
@@ -64,7 +64,7 @@ class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
       ],
     );
 
-    final branchId = await _profile.getToDayBranchId;
+    final branchId = _profile.user?.toDayBranch;
     final tableStream = _networkManager.networkOperation.getStreamQuery(
       path: QueryPathConstant.tableOpenTableColPath(branchId ?? ''),
       model: const TableModel(),
@@ -77,7 +77,7 @@ class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
     required String tableId,
     required String orderId,
   }) async {
-    final branchId = await _profile.getToDayBranchId;
+    final branchId = _profile.user?.toDayBranch;
     final path =
         '${QueryPathConstant.tableOpenTableColPath(branchId ?? '')}/$tableId';
     return ErrorUtil.runWithErrorHandlingAsync(
@@ -111,7 +111,7 @@ class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
   }
 
   Future<bool> tableClose({required String tableId}) async {
-    final branchId = await _profile.getToDayBranchId;
+    final branchId = _profile.user?.toDayBranch;
     final path =
         '${QueryPathConstant.tableOpenTableColPath(branchId ?? '')}/$tableId';
 

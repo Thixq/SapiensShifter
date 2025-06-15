@@ -47,7 +47,7 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         final table = state.table;
-        final branchId = await currentUser.getToDayBranchId;
+        final branchId = currentUser.user?.toDayBranch;
         await _networkManager.networkOperation.addItem<TableModel>(
           path: '${QueryPathConstant.tableColPath}/$branchId/open/${table.id}',
           item: table,
