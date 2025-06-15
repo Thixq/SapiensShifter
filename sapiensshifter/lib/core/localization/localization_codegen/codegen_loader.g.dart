@@ -182,6 +182,10 @@ class CodegenLoader extends AssetLoader{
       "shift_add": "Yeni vardiya"
     }
   },
+  "branchs": {
+    "karakoy": "Karaköy",
+    "kanyon": "Kanyon"
+  },
   "category": {
     "all": "Hepsi",
     "hot_coffees": "Sıcak Kahveler",

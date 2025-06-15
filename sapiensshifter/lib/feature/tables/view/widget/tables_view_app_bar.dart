@@ -7,28 +7,30 @@ class TablesViewAppBar extends StatelessWidget implements PreferredSizeWidget {
     super.key,
   });
 
-  final SapiensUser? profile;
+  final Profile? profile;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: false,
-      title: Text(
-        profile?.toDayBranch ?? LocaleKeys.null_value_null_name.tr(),
+      title: BlocBuilder<TablesViewModel, TablesViewState>(
+        builder: (context, state) => Text(
+          state.branchName ?? LocaleKeys.null_value_null_name.tr(),
+        ),
       ),
       actionsPadding: EdgeInsets.only(right: context.sized.normalValue),
       actions: [
         Row(
           children: [
-            Text(profile?.name ?? LocaleKeys.null_value_null_name.tr()),
+            Text(profile?.user?.name ?? LocaleKeys.null_value_null_name.tr()),
             context.sized.emptySizedWidthBoxLow3x,
             InkWell(
               overlayColor: const WidgetStatePropertyAll(Colors.transparent),
               onTap: onTap,
               child: CustomCircleAvatar(
                 radius: kToolbarHeight,
-                imageUrl: profile?.photoUrl,
+                imageUrl: profile?.user?.photoUrl,
               ),
             ),
           ],

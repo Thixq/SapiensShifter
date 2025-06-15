@@ -8,7 +8,8 @@ import 'package:sapiensshifter/feature/tables/view_model/state/tables_view_state
 import 'package:sapiensshifter/feature/tables/view_model/tables_view_model.dart';
 import 'package:sapiensshifter/product/constant/page_path_constant.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
-import 'package:sapiensshifter/product/models/user/sapiens_user/sapiens_user.dart';
+
+import 'package:sapiensshifter/product/profile/profile.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/dialogs_and_bottom_sheet.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
@@ -34,7 +35,7 @@ class _TablesViewState extends BaseState<TablesView>
       create: (context) => viewModel,
       child: Scaffold(
         appBar: TablesViewAppBar(
-          profile: viewModel.sapiensUser,
+          profile: profile,
           onTap: () => context.router.pushPath(PagePathConstant.settings),
         ),
         body: _body(),
