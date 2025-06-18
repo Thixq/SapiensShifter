@@ -52,8 +52,7 @@ mixin NewProductViewMixin on BaseState<NewProductAddView> {
         ? LocaleKeys.page_new_product_add_suscess_product.tr()
         : LocaleKeys.page_new_product_add_failed_product.tr();
     if (mounted) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(resultText)));
+      showSnakeToastMessage(context, message: resultText);
     }
   }
 }

@@ -198,7 +198,8 @@ class CodegenLoader extends AssetLoader{
       "branch_and_shift": {
         "branch": "Şube",
         "shift": "Vardiya"
-      }
+      },
+      "show_toast_message": "Vardiya eklendi."
     }
   },
   "branchs": {

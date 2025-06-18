@@ -149,6 +149,7 @@ abstract class  LocaleKeys {
   static const page_sihft_add_view_branch_and_shift_branch = 'page.sihft_add_view.branch_and_shift.branch';
   static const page_sihft_add_view_branch_and_shift_shift = 'page.sihft_add_view.branch_and_shift.shift';
   static const page_sihft_add_view_branch_and_shift = 'page.sihft_add_view.branch_and_shift';
+  static const page_sihft_add_view_show_toast_message = 'page.sihft_add_view.show_toast_message';
   static const page_sihft_add_view = 'page.sihft_add_view';
   static const page = 'page';
   static const branchs_karakoy = 'branchs.karakoy';

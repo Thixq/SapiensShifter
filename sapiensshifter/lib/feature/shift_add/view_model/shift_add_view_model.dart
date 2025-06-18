@@ -34,8 +34,40 @@ class ShiftAddViewModel extends BaseCubit<ShiftAddState> {
       state.copyWith(
         week: state.week
             .copyWith(weekStart: weekPeriod.start, weekEnd: weekPeriod.end),
+        shiftMap: state.shiftMap.map(
+          (key, value) {
+            return MapEntry(
+              key,
+              value.copyWith(time: weekPeriod.start.add(Duration(days: key))),
+            );
+          },
+        ),
       ),
     );
+  }
+
+  Future<bool> shiftAdd({required String peopleId}) async {
+    _weekIdGenerator();
+    final path =
+        '${QueryPathConstant.shiftsColPath(peopleId)}/${state.week.id}';
+    return ErrorUtil.runWithErrorHandlingAsync<bool>(
+      action: () async {
+        final shiftWeek =
+            state.week.copyWith(week: state.shiftMap.values.toList());
+        final result = await _networkManager.networkOperation
+            .addItem(path: path, item: shiftWeek);
+        return result;
+      },
+      errorHandler: ServiceErrorHandler(),
+      fallbackValue: () => false,
+    );
+  }
+
+  void _weekIdGenerator() {
+    final buffer = StringBuffer()
+      ..write(state.week.weekStart)
+      ..write(state.week.weekEnd);
+    emit(state.copyWith(week: state.week.copyWith(id: buffer.toString())));
   }
 
   Future<void> getPeoples() async {
@@ -78,21 +110,6 @@ class ShiftAddViewModel extends BaseCubit<ShiftAddState> {
       ),
     );
     emit(state.copyWith(shifts: mappedShifts));
-  }
-
-  Future<bool> shiftAdd({required String peopleId}) async {
-    final path = QueryPathConstant.shiftsColPath(peopleId);
-    return ErrorUtil.runWithErrorHandlingAsync<bool>(
-      action: () async {
-        final shiftWeek =
-            state.week.copyWith(week: state.shiftMap.values.toList());
-        final result = await _networkManager.networkOperation
-            .addItem(path: path, item: shiftWeek);
-        return result;
-      },
-      errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => false,
-    );
   }
 
   Future<List<T>> _getItems<T extends IBaseModel<T>>({

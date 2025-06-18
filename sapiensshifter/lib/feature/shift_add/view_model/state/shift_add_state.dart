@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 
-import 'package:uuid/v7.dart';
-
 final class ShiftAddState {
   ShiftAddState({
     required this.branchs,
@@ -15,7 +13,7 @@ final class ShiftAddState {
   factory ShiftAddState.initial() {
     return ShiftAddState(
       shiftMap: {},
-      week: ShiftWeek(id: const UuidV7().generate()),
+      week: const ShiftWeek(),
       branchs: {},
       peoples: {},
       shifts: {},

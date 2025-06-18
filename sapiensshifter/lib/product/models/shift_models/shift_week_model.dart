@@ -38,12 +38,13 @@ final class ShiftWeek extends IBaseModel<ShiftWeek> with EquatableMixin {
   Map<String, dynamic> toJson() => _$ShiftWeekToJson(this);
 
   ShiftWeek copyWith({
+    String? id,
     DateTime? weekStart,
     DateTime? weekEnd,
     List<ShiftDay>? week,
   }) {
     return ShiftWeek(
-      id: super.id,
+      id: id ?? super.id,
       weekStart: weekStart ?? this.weekStart,
       weekEnd: weekEnd ?? this.weekEnd,
       week: week ?? this.week,

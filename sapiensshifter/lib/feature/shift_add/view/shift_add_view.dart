@@ -53,7 +53,14 @@ class _ShiftAddViewState extends BaseState<ShiftAddView> with ShiftAddMixin {
                 viewModel.addDay(day: shiftDay, index: index);
               },
               onConfrim: () {
-                print(state.shiftMap);
+                if (formKey.currentState?.validate() ?? false) {
+                  viewModel.shiftAdd(peopleId: _peopleId ?? '-1');
+                }
+                showSnakeToastMessage(
+                  context,
+                  message:
+                      LocaleKeys.page_sihft_add_view_show_toast_message.tr(),
+                );
               },
             ),
           ),
