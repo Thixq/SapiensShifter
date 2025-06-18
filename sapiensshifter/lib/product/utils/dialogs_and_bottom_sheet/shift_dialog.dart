@@ -46,7 +46,7 @@ final class ShiftDialog extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          shiftDay?.branch ?? _nullBranchText,
+          shiftDay?.branchName ?? _nullBranchText,
           style: context.general.textTheme.titleMedium,
         ),
         Text(
@@ -57,5 +57,5 @@ final class ShiftDialog extends StatelessWidget {
   }
 
   Text _buildShiftTime() =>
-      Text(shiftDay?.shiftStatus?.status.statusTime ?? _nullShiftTimeText);
+      Text(shiftDay?.shiftStatus?.range ?? _nullShiftTimeText);
 }

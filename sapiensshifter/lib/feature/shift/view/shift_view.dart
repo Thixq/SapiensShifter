@@ -1,9 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/shift/mixin/shift_view_mixin.dart';
+import 'package:sapiensshifter/feature/shift/view_model/shift_view_model.dart';
+import 'package:sapiensshifter/feature/shift/view_model/state/shift_view_state.dart';
 import 'package:sapiensshifter/product/component/custom_avatar.dart';
-import 'package:sapiensshifter/product/component/week_card.dart';
+import 'package:sapiensshifter/product/component/day_card.dart';
 import 'package:sapiensshifter/product/constant/page_path_constant.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
@@ -26,13 +29,16 @@ class ShiftView extends StatefulWidget {
 class _ShiftViewState extends BaseState<ShiftView> with ShiftViewMixin {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: ShiftViewAppBar(
-        profile: profile,
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(context.sized.normalValue),
-        child: _buildContent(context),
+    return BlocProvider(
+      create: (context) => viewModel,
+      child: Scaffold(
+        appBar: ShiftViewAppBar(
+          profile: profile,
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(context.sized.normalValue),
+          child: _buildContent(context),
+        ),
       ),
     );
   }
@@ -42,11 +48,10 @@ class _ShiftViewState extends BaseState<ShiftView> with ShiftViewMixin {
       children: [
         const ToDayTitle(),
         SizedBox(height: context.sized.normalValue),
-        FutureBuilder(
-          future: viewModel.getShift(),
-          builder: (context, snapshot) {
-            return ShiftViewSihftCalendar(
-              shiftList: snapshot.data ?? [],
+        BlocBuilder<ShiftViewModel, ShiftViewState>(
+          builder: (context, state) {
+            return ShiftViewShiftCalendar(
+              shiftList: state.shifts,
             );
           },
         ),

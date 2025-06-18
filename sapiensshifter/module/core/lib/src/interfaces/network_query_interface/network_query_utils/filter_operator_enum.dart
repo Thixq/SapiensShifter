@@ -1,4 +1,3 @@
-
 enum FilterOperator {
   isEqualTo,
   isNotEqualTo,
@@ -10,5 +9,7 @@ enum FilterOperator {
   arrayContainsAny,
   whereIn,
   whereNotIn,
+  isEqualToDateTime,
+  isGreaterThanOrEqualToDateTime,
   isNull
 }

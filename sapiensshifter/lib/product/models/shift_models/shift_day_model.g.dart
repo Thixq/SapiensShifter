@@ -11,9 +11,14 @@ ShiftDay _$ShiftDayFromJson(Map<String, dynamic> json) => $checkedCreate(
       json,
       ($checkedConvert) {
         final val = ShiftDay(
-          branch: $checkedConvert('branch', (v) => v as String?),
-          shiftStatus: $checkedConvert('shiftStatus',
-              (v) => $enumDecodeNullable(_$ShiftStatusEnumEnumMap, v)),
+          branchId: $checkedConvert('branchId', (v) => v as String?),
+          shiftStatusId: $checkedConvert('shiftStatusId', (v) => v as String?),
+          shiftStatus: $checkedConvert(
+              'shiftStatus',
+              (v) => v == null
+                  ? null
+                  : ShiftStatusModel.fromJson(v as Map<String, dynamic>)),
+          branchName: $checkedConvert('branchName', (v) => v as String?),
           time: $checkedConvert(
               'time',
               (v) =>
@@ -24,17 +29,9 @@ ShiftDay _$ShiftDayFromJson(Map<String, dynamic> json) => $checkedCreate(
     );
 
 Map<String, dynamic> _$ShiftDayToJson(ShiftDay instance) => <String, dynamic>{
-      'branch': instance.branch,
-      'shiftStatus': _$ShiftStatusEnumEnumMap[instance.shiftStatus],
+      'branchId': instance.branchId,
+      'branchName': instance.branchName,
+      'shiftStatusId': instance.shiftStatusId,
+      'shiftStatus': instance.shiftStatus?.toJson(),
       'time': const TimestampNullableConverter().toJson(instance.time),
     };
-
-const _$ShiftStatusEnumEnumMap = {
-  ShiftStatusEnum.OPENING: 'opening',
-  ShiftStatusEnum.OPENING_SERVICE: 'opening_service',
-  ShiftStatusEnum.CLOSING: 'closing',
-  ShiftStatusEnum.CLOSING_SERVICE: 'closing_service',
-  ShiftStatusEnum.OFF_DAY: 'off_day',
-  ShiftStatusEnum.FULL_DAY: 'full_day',
-  ShiftStatusEnum.INTERMEDIARY: 'intermediary',
-};

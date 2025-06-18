@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sapiensshifter/product/component/weekly_period.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 void main() {
@@ -25,19 +26,11 @@ class _DevHomeState extends State<DevHome> {
       appBar: AppBar(
         title: const Text('Dev Home'),
       ),
-      body: Center(
-        child: Container(
-          alignment: Alignment.center,
-          width: .3.dp,
-          height: 2.dp,
-          decoration: const BoxDecoration(
-            color: Colors.blueAccent,
-          ),
-          child: Text(
-            'data',
-            style: TextStyle(fontSize: 0.8.sp),
-          ),
-        ),
+      body: WeeklyPeriod(
+        year: 2025,
+        onChange: (value) {
+          print(value.weekNumber);
+        },
       ),
     );
   }

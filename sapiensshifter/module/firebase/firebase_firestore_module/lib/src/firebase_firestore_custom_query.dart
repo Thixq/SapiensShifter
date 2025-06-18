@@ -43,6 +43,18 @@ final class FirebaseFirestoreCustomQuery extends INetworkQuery {
             query = query.where(field, whereIn: value as Iterable<Object?>?),
         FilterOperator.whereNotIn: () =>
             query = query.where(field, whereNotIn: value as Iterable<Object?>?),
+        FilterOperator.isEqualToDateTime: () {
+          if (value is DateTime) {
+            final timeStamp = Timestamp.fromDate(value);
+            query = query.where(field, isEqualTo: timeStamp);
+          }
+        },
+        FilterOperator.isGreaterThanOrEqualToDateTime: () {
+          if (value is DateTime) {
+            final timeStamp = Timestamp.fromDate(value);
+            query = query.where(field, isGreaterThanOrEqualTo: timeStamp);
+          }
+        },
         FilterOperator.isNull: () => query = query.where(field, isNull: true),
       };
 
