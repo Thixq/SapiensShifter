@@ -14,12 +14,22 @@ abstract class  LocaleKeys {
   static const payment = 'payment';
   static const select_all = 'select_all';
   static const remove_all = 'remove_all';
+  static const date_week_days_monday = 'date.week_days.monday';
+  static const date_week_days_tuesday = 'date.week_days.tuesday';
+  static const date_week_days_wednesday = 'date.week_days.wednesday';
+  static const date_week_days_thursday = 'date.week_days.thursday';
+  static const date_week_days_friday = 'date.week_days.friday';
+  static const date_week_days_saturday = 'date.week_days.saturday';
+  static const date_week_days_sunday = 'date.week_days.sunday';
+  static const date_week_days = 'date.week_days';
   static const date_today = 'date.today';
   static const date_yesterday = 'date.yesterday';
   static const date_tomorrow = 'date.tomorrow';
   static const date_day_after_tomorrow = 'date.day_after_tomorrow';
   static const date_last_week = 'date.last_week';
   static const date_next_week = 'date.next_week';
+  static const date_week = 'date.week';
+  static const date_indexed_week = 'date.indexed_week';
   static const date = 'date';
   static const drop_down_drop_down_default = 'drop_down.drop_down_default';
   static const drop_down_drop_down_extra = 'drop_down.drop_down_extra';
@@ -31,6 +41,8 @@ abstract class  LocaleKeys {
   static const null_value_null_name = 'null_value.null_name';
   static const null_value_null_double = 'null_value.null_double';
   static const null_value = 'null_value';
+  static const validate_generic_null_or_empty = 'validate.generic.null_or_empty';
+  static const validate_generic = 'validate.generic';
   static const validate_email_wrong_email_syntax = 'validate.email.wrong_email_syntax';
   static const validate_email_empty_email = 'validate.email.empty_email';
   static const validate_email = 'validate.email';
@@ -133,6 +145,10 @@ abstract class  LocaleKeys {
   static const page_product_price_edit_product_price_edit = 'page.product_price_edit.product_price_edit';
   static const page_product_price_edit = 'page.product_price_edit';
   static const page_sihft_add_view_shift_add = 'page.sihft_add_view.shift_add';
+  static const page_sihft_add_view_choice_people = 'page.sihft_add_view.choice_people';
+  static const page_sihft_add_view_branch_and_shift_branch = 'page.sihft_add_view.branch_and_shift.branch';
+  static const page_sihft_add_view_branch_and_shift_shift = 'page.sihft_add_view.branch_and_shift.shift';
+  static const page_sihft_add_view_branch_and_shift = 'page.sihft_add_view.branch_and_shift';
   static const page_sihft_add_view = 'page.sihft_add_view';
   static const page = 'page';
   static const branchs_karakoy = 'branchs.karakoy';
@@ -173,5 +189,13 @@ abstract class  LocaleKeys {
   static const price_operations_units_twenty = 'price_operations.units_twenty';
   static const price_operations_units_thirty = 'price_operations.units_thirty';
   static const price_operations = 'price_operations';
+  static const shift_status_opening = 'shift_status.opening';
+  static const shift_status_opening_service = 'shift_status.opening_service';
+  static const shift_status_closing = 'shift_status.closing';
+  static const shift_status_closing_service = 'shift_status.closing_service';
+  static const shift_status_off_day = 'shift_status.off_day';
+  static const shift_status_full_day = 'shift_status.full_day';
+  static const shift_status_intermediary = 'shift_status.intermediary';
+  static const shift_status = 'shift_status';
 
 }

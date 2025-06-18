@@ -28,9 +28,7 @@ class _DevHomeState extends State<DevHome> {
       ),
       body: WeeklyPeriod(
         year: 2025,
-        onChange: (value) {
-          print(value.weekNumber);
-        },
+        onChange: (value) {},
       ),
     );
   }
