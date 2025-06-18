@@ -1,12 +1,14 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+
 import 'package:sapiensshifter/product/models/week_period/week_period.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/mixin/func/month_full_weeks.dart';
 
 class WeeklyPeriod extends StatefulWidget {
-  const WeeklyPeriod({required this.year, required this.onChange, super.key});
-  final int year;
+  const WeeklyPeriod({required this.onChange, this.year, super.key});
+  final int? year;
   final ValueChanged<WeekPeriod> onChange;
 
   @override
@@ -28,6 +30,7 @@ class _WeeklyPeriodState extends State<WeeklyPeriod> {
     if (_currentIndex < 0) {
       _currentIndex = 0;
     }
+    widget.onChange(_weeks[_currentIndex]);
   }
 
   void _prevWeek() {
@@ -62,7 +65,10 @@ class _WeeklyPeriodState extends State<WeeklyPeriod> {
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Week ${currentWeek.weekNumber}'),
+            Text(
+              LocaleKeys.date_indexed_week
+                  .tr(namedArgs: {'index': '$_currentIndex'}),
+            ),
             Text(
               '${currentWeek.formatDate(currentWeek.start)} - ${currentWeek.formatDate(currentWeek.end)}',
             ),

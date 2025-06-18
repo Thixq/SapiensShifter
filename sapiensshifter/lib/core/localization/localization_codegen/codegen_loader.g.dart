@@ -27,12 +27,23 @@ class CodegenLoader extends AssetLoader{
   "select_all": "Tümünü seç",
   "remove_all": "Tümünü kaldır",
   "date": {
+    "week_days": {
+      "monday": "Pazartesi",
+      "tuesday": "Salı",
+      "wednesday": "Çarsamba",
+      "thursday": "Perşembe",
+      "friday": "Cuma",
+      "saturday": "Cumartesi",
+      "sunday": "Pazar"
+    },
     "today": "Bugün",
     "yesterday": "Dün",
     "tomorrow": "Yarın",
     "day_after_tomorrow": "Yarından Sonra",
     "last_week": "Geçen Hafta",
-    "next_week": "Gelecek Hafta"
+    "next_week": "Gelecek Hafta",
+    "week": "Hafta",
+    "indexed_week": "{index}. Hafta"
   },
   "drop_down": {
     "drop_down_default": "Seçiniz",
@@ -48,6 +59,9 @@ class CodegenLoader extends AssetLoader{
     "null_double": "00.00"
   },
   "validate": {
+    "generic": {
+      "null_or_empty": "Bu alan boş bırakılamaz."
+    },
     "email": {
       "wrong_email_syntax": "Lütfen geçerli e-posta adresi girin.",
       "empty_email": "E-posta girin."
@@ -179,7 +193,12 @@ class CodegenLoader extends AssetLoader{
       "product_price_edit": "Fiyat düzenleme"
     },
     "sihft_add_view": {
-      "shift_add": "Yeni vardiya"
+      "shift_add": "Yeni vardiya",
+      "choice_people": "Kişi Seçin",
+      "branch_and_shift": {
+        "branch": "Şube",
+        "shift": "Vardiya"
+      }
     }
   },
   "branchs": {
@@ -225,6 +244,15 @@ class CodegenLoader extends AssetLoader{
     "units_ten": "10₺",
     "units_twenty": "20₺",
     "units_thirty": "30₺"
+  },
+  "shift_status": {
+    "opening": "Açılış",
+    "opening_service": "Açılış servis",
+    "closing": "Kapanış",
+    "closing_service": "Kapanış Servis",
+    "off_day": "İzinli",
+    "full_day": "Tam Gün",
+    "intermediary": "Aracı"
   }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"tr": _tr};

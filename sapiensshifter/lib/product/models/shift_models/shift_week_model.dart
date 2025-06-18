@@ -1,7 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 import 'package:sapiensshifter/product/utils/json_converters/timestamp_converter.dart';
 
@@ -34,4 +36,17 @@ final class ShiftWeek extends IBaseModel<ShiftWeek> with EquatableMixin {
 
   @override
   Map<String, dynamic> toJson() => _$ShiftWeekToJson(this);
+
+  ShiftWeek copyWith({
+    DateTime? weekStart,
+    DateTime? weekEnd,
+    List<ShiftDay>? week,
+  }) {
+    return ShiftWeek(
+      id: super.id,
+      weekStart: weekStart ?? this.weekStart,
+      weekEnd: weekEnd ?? this.weekEnd,
+      week: week ?? this.week,
+    );
+  }
 }
