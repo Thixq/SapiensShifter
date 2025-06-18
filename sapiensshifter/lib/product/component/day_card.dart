@@ -6,17 +6,17 @@ import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/shift_dial
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 
-final class WeekCard extends StatelessWidget {
-  const WeekCard({
+final class DayCard extends StatelessWidget {
+  const DayCard({
     this.shiftDay,
     super.key,
   });
   final ShiftDay? shiftDay;
 
   BoxBorder? get isToday {
-    final shiftDayGGMM = shiftDay?.time.sapiTimeExt.ddmm;
+    final shiftDayGGMM = shiftDay?.time;
     if (shiftDayGGMM == null) return null;
-    return shiftDayGGMM == DateTime.now().sapiTimeExt.ddmm
+    return DateUtils.isSameDay(shiftDayGGMM, DateTime.now())
         ? Border.all(
             strokeAlign: BorderSide.strokeAlignCenter,
             width: 4.spa,
@@ -53,7 +53,7 @@ final class WeekCard extends StatelessWidget {
         Expanded(flex: 5, child: _buildDateText(context, shiftDay!.time)),
         Expanded(
           flex: 3,
-          child: _buildShiftStatus(context, shiftDay!.shiftStatus),
+          child: _buildShiftStatus(context, shiftDay),
         ),
         Expanded(child: Container()),
       ],
@@ -62,15 +62,15 @@ final class WeekCard extends StatelessWidget {
 
   Widget _buildShiftStatus(
     BuildContext context,
-    ShiftStatusEnum? shiftStatus,
+    ShiftDay? shiftStatus,
   ) {
     return ColoredBox(
-      color: shiftStatus?.status.statusColor ??
+      color: shiftStatus?.shiftStatus?.statusColor ??
           context.general.colorScheme.primary,
       child: FittedBox(
         fit: BoxFit.fitHeight,
         child: Icon(
-          shiftStatus?.status.statusIcon,
+          shiftStatus?.shiftStatus?.statusIcon,
           color: Colors.white,
           applyTextScaling: true,
         ),

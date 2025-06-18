@@ -1,42 +1,31 @@
 part of '../shift_view.dart';
 
-class ShiftViewSihftCalendar extends StatelessWidget with MonthFullWeeksMixin {
-  const ShiftViewSihftCalendar({
+class ShiftViewShiftCalendar extends StatelessWidget with MonthFullWeeksMixin {
+  const ShiftViewShiftCalendar({
     required this.shiftList,
     super.key,
   });
 
   final List<ShiftDay> shiftList;
 
-  List<WeekCard> _generateShift({int listCount = 35}) {
-    final weekList = <WeekCard>[];
-    final time = getCurrentMonthFullWeeksRange().start;
-    for (var i = 0; i < listCount; i++) {
-      final toDay = time.add(Duration(days: i));
-      ShiftDay? matchingShiftDay;
-      for (final element in shiftList) {
-        if (DateUtils.isSameDay(element.time, toDay)) {
-          matchingShiftDay = element;
-          break;
-        }
-      }
-      if (matchingShiftDay != null) {
-        weekList.add(
-          WeekCard(
-            shiftDay: matchingShiftDay,
-          ),
-        );
-      } else {
-        weekList.add(
-          WeekCard(
-            shiftDay: ShiftDay(
-              time: toDay,
-            ),
-          ),
-        );
-      }
-    }
-    return weekList;
+  List<DayCard> _generateShift({int weekCount = 6}) {
+    final shiftMap = Map.fromEntries(
+      shiftList.map(
+        (shift) => MapEntry(
+          DateUtils.dateOnly(shift.time ?? DateTime(2002, 06, 30)),
+          shift,
+        ),
+      ),
+    );
+
+    final startTime = getCurrentMonthFullWeeksRange().start;
+
+    return List.generate(weekCount * 7, (i) {
+      final toDay = startTime.add(Duration(days: i));
+      final dayKey = DateUtils.dateOnly(toDay);
+      final shiftDay = shiftMap[dayKey] ?? ShiftDay(time: toDay);
+      return DayCard(shiftDay: shiftDay);
+    });
   }
 
   @override

@@ -16,9 +16,7 @@ class BranchAndShift extends StatelessWidget {
               child: SapiCustomDropDown(
                 hintText: 'Shift',
                 items: const {'Açılış': 12, 'Kapanış': 24},
-                onSelected: (select) {
-                  print('value $select');
-                },
+                onSelected: (select) {},
               ),
             ),
             context.sized.emptySizedWidthBoxLow3x,
@@ -26,9 +24,7 @@ class BranchAndShift extends StatelessWidget {
               child: SapiCustomDropDown(
                 hintText: 'Şube',
                 items: const {'Kanyon': 12, 'Karaköy': 24},
-                onSelected: (select) {
-                  print('value $select');
-                },
+                onSelected: (select) {},
               ),
             ),
           ],

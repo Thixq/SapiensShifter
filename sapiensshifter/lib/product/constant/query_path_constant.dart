@@ -7,6 +7,7 @@ class QueryPathConstant {
   static String shiftsColPath(String userId) => '$usersColPath/$userId/shifts';
   static const categoryColPath = '/categories';
   static const extras = '/extras';
+  static const shiftStatusColPath = '/shiftStatus';
   static const productsColPath = '/products';
   static const branchColPath = '/branches';
   static const chatPreviewColPath = '/chats';

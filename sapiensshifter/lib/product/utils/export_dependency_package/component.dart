@@ -11,4 +11,4 @@ export '../../component/price_editing_card.dart';
 export '../../component/sapi_button.dart';
 export '../../component/sapi_custom_drop_down.dart';
 export '../../component/sapi_text_field.dart';
-export '../../component/week_card.dart';
+export '../../component/day_card.dart';
