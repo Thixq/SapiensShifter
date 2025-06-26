@@ -1,12 +1,11 @@
 import 'package:core/core.dart';
+import 'package:sapiensshifter/core/constant/query_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/logging/custom_logger.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/tables/view_model/state/tables_view_state.dart';
-import 'package:sapiensshifter/product/constant/query_path_constant.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
-
 import 'package:sapiensshifter/product/profile/profile.dart';
 import 'package:sapiensshifter/product/utils/enums/localization/localization_path_enum.dart';
 import 'package:sapiensshifter/product/utils/extensions/string_extension.dart';
@@ -52,7 +51,7 @@ class TablesViewModel extends BaseCubit<TablesViewState> {
       },
       customLogger: CustomLogger('TablesViewModel'),
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => <TableModel>[],
+      fallbackValue: () async => <TableModel>[],
     );
     emit(
       state.copyWith(
@@ -79,15 +78,7 @@ class TablesViewModel extends BaseCubit<TablesViewState> {
         );
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () {
-        emit(
-          state.copyWith(
-            isLoading: false,
-            tableList: state.tableList,
-          ),
-        );
-        return null;
-      },
+      fallbackValue: () async {},
     );
   }
 }

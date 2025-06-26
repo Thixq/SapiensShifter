@@ -14,4 +14,5 @@ class QueryPathConstant {
   static String messagesColPath(String chatId) =>
       '$chatPreviewColPath/$chatId/messages';
   static const priceRationColPath = '/priceRations';
+  static const devicesColPath = '/devices';
 }

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:firebase_auth_module/firebase_auth_module.dart';
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
+import 'package:sapiensshifter/core/notification/notification_service.dart';
 import 'package:sapiensshifter/core/routing/routing_manager.gr.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/home/model/page_item.dart';
@@ -21,9 +21,6 @@ mixin HomeViewMixin on BaseState<HomeView> {
           page: const ChatPreviewRoute(),
           navBarItem: NavBarItem(
             icon: Icons.message,
-            onPress: () async {
-              await FirebaseAuthManagar.instance.signOut();
-            },
           ),
         ),
         PageItem(
@@ -68,5 +65,11 @@ mixin HomeViewMixin on BaseState<HomeView> {
           (e) => e.navBarItem,
         )
         .toList();
+  }
+
+  @override
+  void initState() {
+    NotificationService.instance.requestPermissions();
+    super.initState();
   }
 }

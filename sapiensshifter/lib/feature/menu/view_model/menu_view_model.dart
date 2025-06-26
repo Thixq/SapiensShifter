@@ -1,12 +1,12 @@
 import 'package:core/core.dart';
 import 'package:firebase_firestore_module/firebase_firestore_module.dart';
+import 'package:sapiensshifter/core/constant/query_path_constant.dart';
+import 'package:sapiensshifter/core/constant/string_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/logging/custom_logger.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/menu/view_model/state/menu_view_state.dart';
-import 'package:sapiensshifter/product/constant/query_path_constant.dart';
-import 'package:sapiensshifter/product/constant/string_constant.dart';
 import 'package:sapiensshifter/product/models/categories_model/categories_model.dart';
 import 'package:sapiensshifter/product/models/order_model/order_model.dart';
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
@@ -39,7 +39,7 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
       },
       customLogger: _menuLogger,
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => [],
+      fallbackValue: () async => [],
     );
   }
 
@@ -56,7 +56,7 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
       },
       customLogger: _menuLogger,
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => false,
+      fallbackValue: () async => false,
     );
   }
 

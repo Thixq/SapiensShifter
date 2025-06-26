@@ -1,12 +1,12 @@
 import 'dart:io';
 
 import 'package:core/core.dart';
+import 'package:sapiensshifter/core/constant/query_path_constant.dart';
+import 'package:sapiensshifter/core/constant/storage_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/new_product_add/view_model/state/new_product_state.dart';
-import 'package:sapiensshifter/product/constant/query_path_constant.dart';
-import 'package:sapiensshifter/product/constant/storage_path_constant.dart';
 import 'package:sapiensshifter/product/models/categories_model/categories_model.dart';
 import 'package:sapiensshifter/product/models/extras_model/extras_model.dart';
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
@@ -43,7 +43,7 @@ class NewProductViewModel extends BaseCubit<NewProductState> {
         }
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () {},
+      fallbackValue: () async {},
     );
   }
 
@@ -107,7 +107,7 @@ class NewProductViewModel extends BaseCubit<NewProductState> {
         return result;
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => [],
+      fallbackValue: () async => [],
     );
   }
 
@@ -121,7 +121,7 @@ class NewProductViewModel extends BaseCubit<NewProductState> {
             .addItem(path: path, item: state.product);
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => false,
+      fallbackValue: () async => false,
     );
   }
 }

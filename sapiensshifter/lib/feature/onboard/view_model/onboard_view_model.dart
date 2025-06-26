@@ -49,7 +49,7 @@ final class OnboardViewModel extends BaseCubit<OnboardState> {
       action: () => _localCacheManager.cacheOperation
           .write<bool>(key: 'isFirstLaunch', value: true),
       errorHandler: UIErrorHandler(context),
-      fallbackValue: () => false,
+      fallbackValue: () async => false,
       customLogger: CustomLogger('OnboardViewModel'),
     );
   }

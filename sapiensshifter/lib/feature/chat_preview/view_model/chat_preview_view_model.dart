@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:core/core.dart';
 import 'package:firebase_firestore_module/firebase_firestore_module.dart';
+import 'package:sapiensshifter/core/constant/query_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/chat_preview/view_model/state/chat_preview_state.dart';
-import 'package:sapiensshifter/product/constant/query_path_constant.dart';
 import 'package:sapiensshifter/product/models/chats_model/chat_model.dart';
 import 'package:sapiensshifter/product/models/user/sapiens_user/sapiens_user.dart';
 import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
@@ -57,7 +57,7 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
           },
         );
       },
-      fallbackValue: () {
+      fallbackValue: () async {
         emit(
           state.copyWith(
             isLoading: false,
@@ -155,7 +155,7 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
         }
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () {
+      fallbackValue: () async {
         emit(
           state.copyWith(chatPreviews: [...state.chatPreviews]),
         );
@@ -178,7 +178,7 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
             .toList();
         emit(state.copyWith(userPreviewList: currentUserOut));
       },
-      fallbackValue: () {
+      fallbackValue: () async {
         emit(state.copyWith(userPreviewList: []));
       },
     );

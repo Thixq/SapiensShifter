@@ -1,13 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:firebase_auth_module/firebase_auth_module.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:sapiensshifter/core/constant/assets_path_constant.dart';
+import 'package:sapiensshifter/core/constant/page_path_constant.dart';
 import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/sign/sign_in/model/social_button_model.dart';
 import 'package:sapiensshifter/feature/sign/sign_in/view/sign_in_view.dart';
 import 'package:sapiensshifter/feature/sign/sign_in/view_model/sign_in_view_model.dart';
-import 'package:sapiensshifter/product/constant/assets_path_constant.dart';
-import 'package:sapiensshifter/product/constant/page_path_constant.dart';
 
 mixin SignInViewMixin on BaseState<SignInView> {
   late final SignInViewModel _signInViewModel;
