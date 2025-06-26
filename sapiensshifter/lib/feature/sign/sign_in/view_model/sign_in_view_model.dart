@@ -18,7 +18,7 @@ final class SignInViewModel {
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () => _authManager.recoveryPassword(email: email),
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => false,
+      fallbackValue: () async => false,
     );
   }
 
@@ -34,7 +34,7 @@ final class SignInViewModel {
         password: password,
       ),
       errorHandler: UIErrorHandler(context),
-      fallbackValue: () => false,
+      fallbackValue: () async => false,
     );
   }
 
@@ -49,7 +49,7 @@ final class SignInViewModel {
         return true;
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => false,
+      fallbackValue: () async => false,
     );
   }
 

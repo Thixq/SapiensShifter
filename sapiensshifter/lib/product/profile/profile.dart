@@ -2,10 +2,10 @@
 import 'dart:typed_data';
 
 import 'package:core/core.dart';
+import 'package:sapiensshifter/core/constant/query_path_constant.dart';
+import 'package:sapiensshifter/core/constant/storage_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
-import 'package:sapiensshifter/product/constant/query_path_constant.dart';
-import 'package:sapiensshifter/product/constant/storage_path_constant.dart';
 import 'package:sapiensshifter/product/models/branch_model/branch_model.dart';
 import 'package:sapiensshifter/product/models/user/sapiens_user/sapiens_user.dart';
 import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
@@ -103,7 +103,7 @@ class Profile {
         return true;
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => false,
+      fallbackValue: () async => false,
     );
   }
 
@@ -117,7 +117,7 @@ class Profile {
         return true;
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => false,
+      fallbackValue: () async => false,
     );
   }
 
@@ -129,7 +129,7 @@ class Profile {
         return true;
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => false,
+      fallbackValue: () async => false,
     );
   }
 
@@ -150,7 +150,7 @@ class Profile {
         return true;
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => false,
+      fallbackValue: () async => false,
     );
   }
 
@@ -189,7 +189,7 @@ class Profile {
         return result.name;
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => null,
+      fallbackValue: () async => null,
     );
   }
 }

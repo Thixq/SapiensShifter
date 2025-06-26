@@ -35,7 +35,7 @@ class SettingsViewModel {
       },
       customLogger: settingsLogger,
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => false,
+      fallbackValue: () async => false,
     );
   }
 

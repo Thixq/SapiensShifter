@@ -2,12 +2,12 @@
 
 import 'package:core/core.dart';
 import 'package:firebase_firestore_module/firebase_firestore_module.dart';
+import 'package:sapiensshifter/core/constant/query_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/product_price_edit/view_model/state/product_price_edit_state.dart';
 import 'package:sapiensshifter/feature/product_price_edit/view_model_mixin/iterable_operation_mixin.dart';
-import 'package:sapiensshifter/product/constant/query_path_constant.dart';
 import 'package:sapiensshifter/product/models/categories_model/categories_model.dart';
 import 'package:sapiensshifter/product/models/price_ration_model/price_ration_model.dart';
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
@@ -36,7 +36,7 @@ class ProductPriceEditViewModel extends BaseCubit<ProductPriceEditState>
             .getItemsQuery(query: query, path: path, model: itemModel);
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => [],
+      fallbackValue: () async => [],
     );
   }
 
@@ -60,7 +60,7 @@ class ProductPriceEditViewModel extends BaseCubit<ProductPriceEditState>
         return false;
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => false,
+      fallbackValue: () async => false,
     );
   }
 

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sapiensshifter/core/constant/page_path_constant.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/core/utils/mixin/route/route_aware_notifier_mixin.dart';
 import 'package:sapiensshifter/feature/shift/mixin/shift_view_mixin.dart';
@@ -8,10 +9,8 @@ import 'package:sapiensshifter/feature/shift/view_model/shift_view_model.dart';
 import 'package:sapiensshifter/feature/shift/view_model/state/shift_view_state.dart';
 import 'package:sapiensshifter/product/component/custom_avatar.dart';
 import 'package:sapiensshifter/product/component/day_card.dart';
-import 'package:sapiensshifter/product/constant/page_path_constant.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
-
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 import 'package:sapiensshifter/product/utils/mixin/func/month_full_weeks.dart';
 

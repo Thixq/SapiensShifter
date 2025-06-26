@@ -1,10 +1,10 @@
 import 'package:core/core.dart';
 import 'package:firebase_firestore_module/firebase_firestore_module.dart';
+import 'package:sapiensshifter/core/constant/query_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/shift/view_model/state/shift_view_state.dart';
-import 'package:sapiensshifter/product/constant/query_path_constant.dart';
 import 'package:sapiensshifter/product/models/branch_model/branch_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
@@ -73,7 +73,7 @@ class ShiftViewModel extends BaseCubit<ShiftViewState> {
         emit(state.copyWith(shifts: shiftList));
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () {},
+      fallbackValue: () async {},
     );
   }
 
@@ -110,7 +110,7 @@ class ShiftViewModel extends BaseCubit<ShiftViewState> {
             .getItemsQuery(path: path, model: model, query: query);
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => [],
+      fallbackValue: () async => [],
     );
   }
 }

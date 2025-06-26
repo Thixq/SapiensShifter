@@ -21,7 +21,7 @@ class ImagePickerService implements IPicker<XFile> {
           requestFullMetadata: false,
         );
       },
-      fallbackValue: () => null,
+      fallbackValue: () async => null,
     );
   }
 }

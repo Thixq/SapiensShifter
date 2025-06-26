@@ -18,7 +18,7 @@ mixin class NetworkConnectionStatus {
       errorMapper: (error, [stackTrace]) =>
           NetworkExcepiton('no_network_connection', stackTrace: stackTrace),
       errorHandler: UIErrorHandler(context),
-      fallbackValue: () => false,
+      fallbackValue: () async => false,
     );
   }
 }

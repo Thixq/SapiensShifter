@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/product/constant/assets_path_constant.dart';
+import 'package:sapiensshifter/core/constant/assets_path_constant.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/ui/svg_asset_builder.dart';
 

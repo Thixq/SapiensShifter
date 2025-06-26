@@ -1,14 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sapiensshifter/core/constant/page_path_constant.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/core/utils/mixin/route/route_aware_notifier_mixin.dart';
 import 'package:sapiensshifter/feature/tables/mixin/tables_view_mixin.dart';
 import 'package:sapiensshifter/feature/tables/view_model/state/tables_view_state.dart';
 import 'package:sapiensshifter/feature/tables/view_model/tables_view_model.dart';
-import 'package:sapiensshifter/product/constant/page_path_constant.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
-
 import 'package:sapiensshifter/product/profile/profile.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/dialogs_and_bottom_sheet.dart';
@@ -16,8 +15,8 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/export_pa
 import 'package:shimmer/shimmer.dart';
 
 part './widget/table_grid_list.dart';
-part './widget/tables_view_app_bar.dart';
 part './widget/table_grid_list_shimmer.dart';
+part './widget/tables_view_app_bar.dart';
 
 @RoutePage()
 class TablesView extends StatefulWidget {

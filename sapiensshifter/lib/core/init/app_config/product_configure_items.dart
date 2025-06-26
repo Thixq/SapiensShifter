@@ -1,5 +1,6 @@
 import 'package:core/core.dart';
 import 'package:sapiensshifter/core/init/app_dependency.dart';
+import 'package:sapiensshifter/core/notification/notification_token_manager/notification_token_manager.dart';
 import 'package:sapiensshifter/core/state/view_model/product_view_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
 
@@ -13,4 +14,6 @@ class ProductConfigureItems {
   static ProductViewModel get productViewModel =>
       AppDependency.read<ProductViewModel>();
   static Profile get profile => AppDependency.read<Profile>();
+  static NotificationTokenManager get notificationTokenManager =>
+      AppDependency.read<NotificationTokenManager>();
 }

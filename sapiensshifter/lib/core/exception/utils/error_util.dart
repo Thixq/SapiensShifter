@@ -52,7 +52,7 @@ class ErrorUtil {
   /// Returns: A `Future<T>` that completes with the result of `action` or the `fallbackValue`.
   static Future<T> runWithErrorHandlingAsync<T>({
     required Future<T> Function() action,
-    required T Function() fallbackValue,
+    required Future<T> Function() fallbackValue,
     IErrorHandler? errorHandler,
     CustomLogger? customLogger,
     ErrorMapper? errorMapper,

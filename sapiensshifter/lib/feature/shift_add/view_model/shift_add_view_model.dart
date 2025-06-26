@@ -1,10 +1,10 @@
 import 'package:core/core.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:sapiensshifter/core/constant/query_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/shift_add/view_model/state/shift_add_state.dart';
-import 'package:sapiensshifter/product/constant/query_path_constant.dart';
 import 'package:sapiensshifter/product/models/branch_model/branch_model.dart';
 import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
 import 'package:sapiensshifter/product/models/week_period/week_period.dart';
@@ -59,7 +59,7 @@ class ShiftAddViewModel extends BaseCubit<ShiftAddState> {
         return result;
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => false,
+      fallbackValue: () async => false,
     );
   }
 
@@ -123,7 +123,7 @@ class ShiftAddViewModel extends BaseCubit<ShiftAddState> {
             .getItemsQuery(query: query, path: path, model: itemModel);
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => [],
+      fallbackValue: () async => [],
     );
   }
 }

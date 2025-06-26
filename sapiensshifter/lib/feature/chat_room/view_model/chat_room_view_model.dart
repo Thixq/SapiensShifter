@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:core/core.dart';
 import 'package:firebase_firestore_module/firebase_firestore_module.dart';
+import 'package:sapiensshifter/core/constant/query_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/chat_room/view_model/state/chat_room_state.dart';
-import 'package:sapiensshifter/product/constant/query_path_constant.dart';
 import 'package:sapiensshifter/product/models/chats_model/chat_model.dart';
 import 'package:sapiensshifter/product/models/chats_model/message_model.dart';
 import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
@@ -56,7 +56,7 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
         }
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () => emit(state.copyWith(isExist: false)),
+      fallbackValue: () async => emit(state.copyWith(isExist: false)),
     );
   }
 
@@ -70,7 +70,7 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
         emit(state.copyWith(chatModel: chatModel));
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () {},
+      fallbackValue: () async {},
     );
   }
 
@@ -84,7 +84,7 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
         emit(state.copyWith(otherUserPreview: ohterUser));
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () {},
+      fallbackValue: () async {},
     );
   }
 
@@ -113,7 +113,7 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
         emit(state.copyWith(messages: messages));
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () {},
+      fallbackValue: () async {},
     );
   }
 
@@ -171,7 +171,7 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
         );
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () {},
+      fallbackValue: () async {},
     );
   }
 
@@ -183,7 +183,7 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
         emit(state.copyWith(isExist: true));
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () {},
+      fallbackValue: () async {},
     );
   }
 
