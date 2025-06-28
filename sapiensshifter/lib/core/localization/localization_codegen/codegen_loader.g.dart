@@ -96,6 +96,7 @@ class CodegenLoader extends AssetLoader{
       "invalid_email": "Geçersiz bir e-posta adresi girdiniz.",
       "user_disabled": "Bu kullanıcı devre dışı bırakılmış.",
       "user_not_found": "Bu e-posta adresiyle ilişkili bir kullanıcı bulunamadı.",
+      "invalid_credential": "Geçersiz Kimlik",
       "wrong_password": "Hatalı şifre girdiniz.",
       "email_already_in_use": "Bu e-posta adresi zaten bir hesapla ilişkilendirilmiş.",
       "weak_password": "Şifre çok zayıf. Lütfen daha güçlü bir şifre seçin.",
@@ -148,6 +149,9 @@ class CodegenLoader extends AssetLoader{
         "member": "Üye misiniz? ",
         "sign_in": "Giriş yapın!"
       }
+    },
+    "tables": {
+      "empty_branch": "Henüz bir vardiyan yok. Müdür ile iletişime geçebilirsin. "
     },
     "home": {
       "new_table": "Masa 1"

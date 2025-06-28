@@ -23,9 +23,15 @@ class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
   late final StreamSubscription<List<TableModel>> _streamSubscription;
 
   Future<void> getTable() async {
-    emit(state.copyWith(isLoading: true));
-    await _getHistoryTable();
-    await _getNewTableStream();
+    await ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        emit(state.copyWith(isLoading: true));
+        await _getHistoryTable();
+        await _getNewTableStream();
+      },
+      errorHandler: ServiceErrorHandler(),
+      fallbackValue: () async {},
+    );
   }
 
   Future<void> _getHistoryTable() async {

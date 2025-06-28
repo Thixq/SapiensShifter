@@ -12,6 +12,8 @@ abstract class INetworkOperation {
     INetworkQuery? query,
   });
 
+  Future<bool> itemExists({required String path});
+
   Future<bool> addItem<T extends IBaseModel<T>>({
     required String path,
     required T item,

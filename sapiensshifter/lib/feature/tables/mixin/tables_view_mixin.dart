@@ -35,7 +35,7 @@ mixin TablesViewMixin on BaseState<TablesView>
   void initState() {
     profile = ProductConfigureItems.profile;
     _tablesViewModel = TablesViewModel(
-      TablesViewState.initial(branchName: 'Earth'),
+      TablesViewState.initial(branchName: ''),
       networkManager: ProductConfigureItems.networkManager,
       profile: profile,
     );

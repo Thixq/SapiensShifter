@@ -9,7 +9,6 @@ import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/product/models/branch_model/branch_model.dart';
 import 'package:sapiensshifter/product/models/user/sapiens_user/sapiens_user.dart';
 import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
-import 'package:sapiensshifter/product/utils/enums/user_role.dart';
 import 'package:uuid/v4.dart';
 import 'package:uuid/v7.dart';
 
@@ -76,35 +75,50 @@ class Profile {
   Future<bool> createProfile(AuthModel? auth) {
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
-        final userPreviewId = const UuidV4().generate();
-        final userPreviewModel = UserPreviewModel(
-          id: userPreviewId,
-          userId: auth?.id,
-          photoUrl: auth?.photoUrl,
-          name: auth?.displayName,
+        final profileIsExist =
+            await _networkManager.networkOperation.itemExists(
+          path: '${QueryPathConstant.usersColPath}/${auth?.id}',
         );
-        final sapiUser = SapiensUser(
-          id: auth?.id,
-          userPreviewId: userPreviewId,
-          name: auth?.displayName,
-          email: auth?.email,
-          photoUrl: auth?.photoUrl,
-          role: UserRole.user,
-        );
-
-        await _networkManager.networkOperation.addItem(
-          path: '${QueryPathConstant.usersColPath}/${user?.id}',
-          item: sapiUser,
-        );
-        await _networkManager.networkOperation.addItem(
-          path: '${QueryPathConstant.usersPreviewColPath}/$userPreviewId',
-          item: userPreviewModel,
-        );
-        return true;
+        if (profileIsExist) {
+          return true;
+        }
+        return _createProfile(auth);
       },
       errorHandler: ServiceErrorHandler(),
       fallbackValue: () async => false,
     );
+  }
+
+  Future<bool> _createProfile(AuthModel? auth) async {
+    final userPreviewId = const UuidV4().generate();
+    final userPreviewModel = UserPreviewModel(
+      id: userPreviewId,
+      userId: auth?.id,
+      photoUrl: auth?.photoUrl,
+      name: auth?.displayName,
+    );
+    final sapiUser = SapiensUser.create(
+      id: auth?.id,
+      userPreviewId: userPreviewId,
+      name: auth?.displayName,
+      email: auth?.email,
+      photoUrl: auth?.photoUrl,
+    );
+
+    final resultUser = await _networkManager.networkOperation.addItem(
+      path: '${QueryPathConstant.usersColPath}/${auth?.id}',
+      item: sapiUser,
+    );
+    final resultUserPreview = await _networkManager.networkOperation.addItem(
+      path: '${QueryPathConstant.usersPreviewColPath}/$userPreviewId',
+      item: userPreviewModel,
+    );
+
+    if (resultUser && resultUserPreview) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   Future<bool> updateName({required String newName}) async {
@@ -182,11 +196,14 @@ class Profile {
       action: () async {
         final branch = _user?.toDayBranch;
 
-        final result = await _networkManager.networkOperation.getItem(
-          path: '${QueryPathConstant.branchColPath}/$branch',
-          model: BranchModel(),
-        );
-        return result.name;
+        if (branch != null && branch.isNotEmpty) {
+          final result = await _networkManager.networkOperation.getItem(
+            path: '${QueryPathConstant.branchColPath}/$branch',
+            model: BranchModel(),
+          );
+          return result.name;
+        }
+        return null;
       },
       errorHandler: ServiceErrorHandler(),
       fallbackValue: () async => null,

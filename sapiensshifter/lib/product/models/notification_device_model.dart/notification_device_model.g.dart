@@ -16,7 +16,6 @@ NotificationDeviceModel _$NotificationDeviceModelFromJson(
           id: $checkedConvert('id', (v) => v as String?),
           userId: $checkedConvert('userId', (v) => v as String?),
           fcmToken: $checkedConvert('fcmToken', (v) => v as String?),
-          deviceId: $checkedConvert('deviceId', (v) => v as String?),
           platform: $checkedConvert('platform', (v) => v as String?),
           createdAt: $checkedConvert(
               'createdAt',
@@ -37,7 +36,6 @@ Map<String, dynamic> _$NotificationDeviceModelToJson(
       'id': instance.id,
       'userId': instance.userId,
       'fcmToken': instance.fcmToken,
-      'deviceId': instance.deviceId,
       'platform': instance.platform,
       'createdAt':
           const TimestampNullableConverter().toJson(instance.createdAt),

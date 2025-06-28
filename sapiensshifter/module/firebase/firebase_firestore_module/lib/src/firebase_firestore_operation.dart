@@ -167,6 +167,25 @@ final class FirebaseFirestoreOperation extends INetworkOperation
   }
 
   @override
+  Future<bool> itemExists({required String path}) {
+    return handleAsyncOperation<bool, FirebaseException>(
+      () async {
+        final (collectionPath, docId) = _getCollectionAndDocId(path);
+
+        if (docId == null) {
+          throw ModuleFirestoreException('invalid_path_exception',
+              optionArgs: {'path': path});
+        }
+
+        final docRef = _firestore.collection(collectionPath).doc(docId);
+        final docSnapshot = await docRef.get();
+
+        return docSnapshot.exists;
+      },
+    );
+  }
+
+  @override
   Future<bool> replaceItem<T extends IBaseModel<T>>({
     required String path,
     required T item,

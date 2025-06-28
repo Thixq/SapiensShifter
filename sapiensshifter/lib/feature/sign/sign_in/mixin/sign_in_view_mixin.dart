@@ -3,6 +3,8 @@ import 'package:firebase_auth_module/firebase_auth_module.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sapiensshifter/core/constant/assets_path_constant.dart';
 import 'package:sapiensshifter/core/constant/page_path_constant.dart';
+import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
+import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/sign/sign_in/model/social_button_model.dart';
@@ -36,25 +38,37 @@ mixin SignInViewMixin on BaseState<SignInView> {
       SocialButtonModel(
         path: AssetsPathConstant.social_apple,
         onPress: () async {
-          final result = await _signInViewModel.signInWithCredential(
-            signCredential: await AppleSignCredential().call(),
+          await ErrorUtil.runWithErrorHandlingAsync(
+            action: () async {
+              final result = await _signInViewModel.signInWithCredential(
+                signCredential: await AppleSignCredential().call(),
+              );
+              if (result) {
+                await getProfile;
+                await _goHome();
+              }
+            },
+            errorHandler: ServiceErrorHandler(),
+            fallbackValue: () async {},
           );
-          if (result) {
-            await getProfile;
-            await _goHome();
-          }
         },
       ),
       SocialButtonModel(
         path: AssetsPathConstant.social_google,
         onPress: () async {
-          final result = await _signInViewModel.signInWithCredential(
-            signCredential: await GoogleSignCredential().call(),
+          await ErrorUtil.runWithErrorHandlingAsync(
+            action: () async {
+              final result = await _signInViewModel.signInWithCredential(
+                signCredential: await GoogleSignCredential().call(),
+              );
+              if (result) {
+                await getProfile;
+                await _goHome();
+              }
+            },
+            errorHandler: ServiceErrorHandler(),
+            fallbackValue: () async {},
           );
-          if (result) {
-            await getProfile;
-            await _goHome();
-          }
         },
       ),
     ];

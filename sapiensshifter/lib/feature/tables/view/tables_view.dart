@@ -45,6 +45,9 @@ class _TablesViewState extends BaseState<TablesView>
   Widget _body() {
     return BlocBuilder<TablesViewModel, TablesViewState>(
       builder: (context, state) {
+        if (state.emptyBracnh) {
+          return _emptyBranch(context);
+        }
         if (state.isLoading) {
           return _waitingShimmer(context);
         }
@@ -66,6 +69,18 @@ class _TablesViewState extends BaseState<TablesView>
           tableModel: table,
           onPressDelete: () async => viewModel.deleteTable(table!),
           onPressAddNewOrder: () => newOrder(context, table),
+        ),
+      ),
+    );
+  }
+
+  Widget _emptyBranch(BuildContext context) {
+    return _buildPadding(
+      context,
+      child: Center(
+        child: Text(
+          LocaleKeys.page_tables_empty_branch.tr(),
+          textAlign: TextAlign.center,
         ),
       ),
     );
