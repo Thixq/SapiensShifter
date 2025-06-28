@@ -25,7 +25,10 @@ class _WeeklyPeriodState extends State<WeeklyPeriod> {
     _weeks = MonthFullWeeksMixin().generateWeeklyPeriods(widget.year);
     final today = DateTime.now();
     _currentIndex = _weeks.indexWhere(
-      (week) => !today.isBefore(week.start) && !today.isAfter(week.end),
+      (week) =>
+          (today.isAfter(week.start) ||
+              DateUtils.isSameDay(today, week.start)) &&
+          (today.isBefore(week.end) || DateUtils.isSameDay(today, week.end)),
     );
     if (_currentIndex < 0) {
       _currentIndex = 0;
