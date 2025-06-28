@@ -76,6 +76,8 @@ mixin HomeViewMixin on BaseState<HomeView> {
   Future<void> requestNotification() async {
     final result = await NotificationService.instance.requestPermissions();
     print('Notification Status: $result');
-    print(await ProductConfigureItems.notificationTokenManager.getFCMToken);
+    print(
+      'Notification Token ${await ProductConfigureItems.notificationTokenManager.getFCMToken}',
+    );
   }
 }
