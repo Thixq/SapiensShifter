@@ -16,24 +16,29 @@ class NotificationTokenManager {
     Profile? profile,
   })  : _localCacheManager = localCacheManager,
         _networkManager = networkManager,
-        _profile = profile;
+        _profile = profile {
+    onRefreshToken();
+  }
 
   final ILocalCacheManager _localCacheManager;
   final INetworkManager _networkManager;
   final Profile? _profile;
-  final String _deviceIdKey = 'device_Id';
+  final String _deviceIdKey = 'device_id';
+  final String _notificationPermissionStatusKey = 'notification_permission';
 
   Future<void> saveDevice() async {
     final fcmToken = await getFCMToken;
     final platform = defaultTargetPlatform;
+    final deviceId = await _readOrCreateDeviceUUId();
     final notificationDeviceModel = NotificationDeviceModel.create(
       userId: _profile?.user?.id,
+      deviceId: deviceId,
       fcmToken: fcmToken,
       platform: platform.name,
     );
 
     await _networkManager.networkOperation.addItem(
-      path: QueryPathConstant.devicesColPath,
+      path: '${QueryPathConstant.devicesColPath}/${notificationDeviceModel.id}',
       item: notificationDeviceModel,
     );
   }
@@ -41,7 +46,52 @@ class NotificationTokenManager {
   Future<String?> get getFCMToken async =>
       FirebaseMessaging.instance.getToken();
 
-  Future<String> readOrCreateDeviceUUId() async {
+  void onRefreshToken() {
+    FirebaseMessaging.instance.onTokenRefresh.listen(
+      (event) async {
+        final id = await _readOrCreateDeviceUUId();
+        await ErrorUtil.runWithErrorHandlingAsync(
+          action: () async {
+            await _networkManager.networkOperation.update(
+              path: '${QueryPathConstant.devicesColPath}/$id',
+              value: {'fcmToken': event},
+            );
+          },
+          errorHandler: ServiceErrorHandler(),
+          fallbackValue: () async {},
+        );
+      },
+    );
+  }
+
+  Future<void> deleteDevice() async {
+    final id = await _readOrCreateDeviceUUId();
+    await ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        await _networkManager.networkOperation
+            .deleteItem(path: '${QueryPathConstant.devicesColPath}/$id');
+        await _localCacheManager.cacheOperation.delete(key: _deviceIdKey);
+      },
+      errorHandler: ServiceErrorHandler(),
+      fallbackValue: () async {},
+    );
+  }
+
+  Future<void> _notificationPermissionStatusSet({
+    required bool perrmissionStatus,
+  }) async {
+    return ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        await _localCacheManager.cacheOperation.write(
+          key: _notificationPermissionStatusKey,
+          value: perrmissionStatus,
+        );
+      },
+      fallbackValue: () async {},
+    );
+  }
+
+  Future<String> _readOrCreateDeviceUUId() async {
     final generateDeviceId = const UuidV4().generate();
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {

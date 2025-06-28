@@ -69,7 +69,13 @@ mixin HomeViewMixin on BaseState<HomeView> {
 
   @override
   void initState() {
-    NotificationService.instance.requestPermissions();
+    requestNotification();
     super.initState();
+  }
+
+  Future<void> requestNotification() async {
+    final result = await NotificationService.instance.requestPermissions();
+    print('Notification Status: $result');
+    print(await ProductConfigureItems.notificationTokenManager.getFCMToken);
   }
 }

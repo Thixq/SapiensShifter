@@ -24,8 +24,11 @@ final class FirebaseAuthManagar extends IAuthManager
             accessToken: credential.accessToken,
             idToken: credential.idToken,
           ),
-      'apple': (CustomCredential credential) => AppleAuthProvider.credential(
-            credential.accessToken!,
+      'apple': (CustomCredential credential) =>
+          AppleAuthProvider.credentialWithIDToken(
+            credential.idToken!,
+            credential.rawNonce!,
+            credential.customField!['appleFullPersonName'],
           ),
     };
   }

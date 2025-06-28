@@ -28,11 +28,13 @@ class TablesViewModel extends BaseCubit<TablesViewState> {
 
   Future<void> get getBranchName async {
     final result = await _profile.getToDayBranch;
-    emit(
-      state.copyWith(
-        branchName: result.sapiExt.textLocale(LocalizationPathEnum.branch),
-      ),
-    );
+    if (result != null && result.isNotEmpty) {
+      emit(
+        state.copyWith(
+          branchName: result.sapiExt.textLocale(LocalizationPathEnum.branch),
+        ),
+      );
+    }
   }
 
   Future<void> get getTableList async {
@@ -41,23 +43,30 @@ class TablesViewModel extends BaseCubit<TablesViewState> {
         isLoading: true,
       ),
     );
-    final result = await ErrorUtil.runWithErrorHandlingAsync<List<TableModel>>(
+    await ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         final branchId = _profile.user?.toDayBranch;
-        return _networkManager.networkOperation.getItemsQuery(
-          path: QueryPathConstant.tableOpenTableColPath(branchId ?? ''),
+        if (branchId == null || branchId.isEmpty) {
+          emit(
+            state.copyWith(isLoading: false, emptyBracnh: true, tableList: []),
+          );
+          return;
+        }
+        final result = await _networkManager.networkOperation.getItemsQuery(
+          path: QueryPathConstant.tableOpenTableColPath(branchId),
           model: const TableModel(),
+        );
+        emit(
+          state.copyWith(
+            tableList: result,
+            isLoading: false,
+            emptyBracnh: false,
+          ),
         );
       },
       customLogger: CustomLogger('TablesViewModel'),
       errorHandler: ServiceErrorHandler(),
       fallbackValue: () async => <TableModel>[],
-    );
-    emit(
-      state.copyWith(
-        tableList: result,
-        isLoading: false,
-      ),
     );
   }
 

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_redundant_argument_values
+
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -18,6 +20,25 @@ final class SapiensUser extends IBaseModel<SapiensUser> with EquatableMixin {
     this.userPreviewId,
     this.chatPreviewIdList,
   });
+
+  factory SapiensUser.create({
+    String? id,
+    String? name,
+    String? email,
+    String? photoUrl,
+    String? userPreviewId,
+  }) {
+    return SapiensUser(
+      id: id,
+      name: name,
+      email: email,
+      photoUrl: photoUrl,
+      userPreviewId: userPreviewId,
+      role: UserRole.user,
+      chatPreviewIdList: [],
+      toDayBranch: null,
+    );
+  }
 
   factory SapiensUser.fromJson(Map<String, dynamic> json) =>
       _$SapiensUserFromJson(json);

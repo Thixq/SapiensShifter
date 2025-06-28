@@ -69,6 +69,7 @@ abstract class  LocaleKeys {
   static const all_exception_firebase_auth_exception_invalid_email = 'all_exception.firebase_auth_exception.invalid_email';
   static const all_exception_firebase_auth_exception_user_disabled = 'all_exception.firebase_auth_exception.user_disabled';
   static const all_exception_firebase_auth_exception_user_not_found = 'all_exception.firebase_auth_exception.user_not_found';
+  static const all_exception_firebase_auth_exception_invalid_credential = 'all_exception.firebase_auth_exception.invalid_credential';
   static const all_exception_firebase_auth_exception_wrong_password = 'all_exception.firebase_auth_exception.wrong_password';
   static const all_exception_firebase_auth_exception_email_already_in_use = 'all_exception.firebase_auth_exception.email_already_in_use';
   static const all_exception_firebase_auth_exception_weak_password = 'all_exception.firebase_auth_exception.weak_password';
@@ -112,6 +113,8 @@ abstract class  LocaleKeys {
   static const page_sign_register_sign_in = 'page.sign.register.sign_in';
   static const page_sign_register = 'page.sign.register';
   static const page_sign = 'page.sign';
+  static const page_tables_empty_branch = 'page.tables.empty_branch';
+  static const page_tables = 'page.tables';
   static const page_home_new_table = 'page.home.new_table';
   static const page_home = 'page.home';
   static const page_order_detail_service_type = 'page.order_detail.service_type';

@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSCameraUsageDescription</key>
-	<string>Options for using the camera to take photos.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Permission is required to access the gallery.</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>The app can access the gallery to save photos.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -45,8 +39,18 @@
 	<string>497068609218-1m0kcejg0l4hkhij7sit31ql8eicmsvl.apps.googleusercontent.com</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Options for using the camera to take photos.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>The app can access the gallery to save photos.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Permission is required to access the gallery.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

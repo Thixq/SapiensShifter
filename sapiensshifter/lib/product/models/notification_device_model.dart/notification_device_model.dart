@@ -4,7 +4,6 @@ import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:sapiensshifter/product/utils/json_converters/timestamp_converter.dart';
-import 'package:uuid/v4.dart';
 
 part 'notification_device_model.g.dart';
 
@@ -13,7 +12,6 @@ class NotificationDeviceModel extends IBaseModel<NotificationDeviceModel>
     with EquatableMixin {
   final String? userId;
   final String? fcmToken;
-  final String? deviceId;
   final String? platform;
   @TimestampNullableConverter()
   final DateTime? createdAt;
@@ -23,7 +21,6 @@ class NotificationDeviceModel extends IBaseModel<NotificationDeviceModel>
     super.id,
     this.userId,
     this.fcmToken,
-    this.deviceId,
     this.platform,
     this.createdAt,
     this.updatedAt,
@@ -31,13 +28,13 @@ class NotificationDeviceModel extends IBaseModel<NotificationDeviceModel>
 
   factory NotificationDeviceModel.create({
     required String platform,
+    String? deviceId,
     String? userId,
     String? fcmToken,
   }) {
     final now = DateTime.now().toUtc();
     return NotificationDeviceModel(
-      id: const UuidV4().generate(),
-      deviceId: const UuidV4().generate(),
+      id: deviceId,
       createdAt: now,
       updatedAt: now,
       platform: platform,
@@ -61,7 +58,6 @@ class NotificationDeviceModel extends IBaseModel<NotificationDeviceModel>
       id: id,
       userId: userId,
       fcmToken: fcmToken ?? this.fcmToken,
-      deviceId: deviceId,
       platform: platform,
       createdAt: createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
@@ -69,5 +65,5 @@ class NotificationDeviceModel extends IBaseModel<NotificationDeviceModel>
   }
 
   @override
-  List<Object?> get props => [id, deviceId, fcmToken, userId];
+  List<Object?> get props => [id, fcmToken, userId];
 }
