@@ -69,8 +69,18 @@ mixin HomeViewMixin on BaseState<HomeView> {
 
   @override
   void initState() {
+    initial();
     requestNotification();
+
     super.initState();
+  }
+
+  Future<void> initial() async {
+    await ProductConfigureItems.shiftManager.reload();
+    await userInfo.setBranch(
+      branchId:
+          ProductConfigureItems.shiftManager.toDayBranch?.branchId ?? '-1',
+    );
   }
 
   Future<void> requestNotification() async {

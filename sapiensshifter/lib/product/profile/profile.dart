@@ -161,6 +161,7 @@ class Profile {
           return false;
         }
         await _photoDatebaseUpdate(imageUrl);
+        await reload;
         return true;
       },
       errorHandler: ServiceErrorHandler(),
@@ -184,11 +185,21 @@ class Profile {
     await _authManager.authOperation.photographUpdate(imageUrl);
     await _updateUser(field: {'photoUrl': imageUrl});
     await _updateUserPreview(field: {'photoUrl': imageUrl});
-    await reload;
   }
 
   Future<bool> signOut() async {
     return _authManager.signOut();
+  }
+
+  Future<void> setBranch({required String branchId}) async {
+    await ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        await _updateUser(field: {'toDayBranch': branchId});
+        await reload;
+      },
+      errorHandler: ServiceErrorHandler(),
+      fallbackValue: () async {},
+    );
   }
 
   Future<String?> get getToDayBranch async {

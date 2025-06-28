@@ -77,7 +77,7 @@ class ShiftAddViewModel extends BaseCubit<ShiftAddState> {
     );
     final mappedPeoples = Map.fromEntries(
       peoples.map(
-        (people) => MapEntry(people.name ?? '-1', people.userId ?? '-1'),
+        (people) => MapEntry(people.userId ?? '-1', people.name ?? '-1'),
       ),
     );
     emit(state.copyWith(peoples: mappedPeoples));
