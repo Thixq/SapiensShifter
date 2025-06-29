@@ -170,6 +170,7 @@ abstract class  LocaleKeys {
   static const category = 'category';
   static const options_milk_options = 'options.milk_options';
   static const options_shot_options = 'options.shot_options';
+  static const options_milk_jam_options = 'options.milk_jam_options';
   static const options_milk_regular_milk = 'options.milk.regular_milk';
   static const options_milk_lactose_free = 'options.milk.lactose_free';
   static const options_milk_almond_milk = 'options.milk.almond_milk';
@@ -181,6 +182,11 @@ abstract class  LocaleKeys {
   static const options_shot_double_shot = 'options.shot.double_shot';
   static const options_shot_triple_shot = 'options.shot.triple_shot';
   static const options_shot = 'options.shot';
+  static const options_milk_jam_regular = 'options.milk_jam.regular';
+  static const options_milk_jam_caramel = 'options.milk_jam.caramel';
+  static const options_milk_jam_white_chocolate = 'options.milk_jam.white_chocolate';
+  static const options_milk_jam_chocolate = 'options.milk_jam.chocolate';
+  static const options_milk_jam = 'options.milk_jam';
   static const options = 'options';
   static const price_operations_current = 'price_operations.current';
   static const price_operations_percent_five = 'price_operations.percent_five';

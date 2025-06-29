@@ -96,7 +96,6 @@ final class OrderCard extends StatelessWidget {
                 .join(', ') ??
             _nullExtrasText,
         style: context.general.textTheme.labelSmall,
-        overflow: TextOverflow.ellipsis,
       ),
     );
   }
