@@ -14,8 +14,8 @@ class BranchAndShift extends StatelessWidget {
 
   final String title;
   final int index;
-  final Map<String, String> branch;
-  final Map<String, String> shift;
+  final List<BranchModel> branch;
+  final List<ShiftStatusModel> shift;
   ShiftDay _shiftDay;
   final void Function(ShiftDay shiftDay, int index) onShiftDay;
 
@@ -30,10 +30,17 @@ class BranchAndShift extends StatelessWidget {
           children: [
             Expanded(
               child: SapiCustomDropDown<String>(
-                validator: GenericValidator.emptyValidator,
+                validator: SapiDropDownValidator.emptyValidator,
                 hintText:
                     LocaleKeys.page_sihft_add_view_branch_and_shift_shift.tr(),
-                items: shift,
+                items: shift
+                    .map(
+                      (status) => SapiDropDownModel<String>(
+                        displayName: status.status?.localization.tr(),
+                        value: status.id,
+                      ),
+                    )
+                    .toList(),
                 onSelected: (shift) {
                   _shiftDay = _shiftDay.copyWith(shiftStatusId: shift);
                   onShiftDay(
@@ -46,10 +53,17 @@ class BranchAndShift extends StatelessWidget {
             context.sized.emptySizedWidthBoxLow3x,
             Expanded(
               child: SapiCustomDropDown<String>(
-                validator: GenericValidator.emptyValidator,
+                validator: SapiDropDownValidator.emptyValidator,
                 hintText:
                     LocaleKeys.page_sihft_add_view_branch_and_shift_branch.tr(),
-                items: branch,
+                items: branch
+                    .map(
+                      (brach) => SapiDropDownModel<String>(
+                        displayName: brach.name,
+                        value: brach.id,
+                      ),
+                    )
+                    .toList(),
                 onSelected: (branch) {
                   _shiftDay = _shiftDay.copyWith(branchId: branch);
                   onShiftDay(_shiftDay, index);

@@ -5,13 +5,16 @@ import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/shift_add/mixin/shift_add_mixin.dart';
 import 'package:sapiensshifter/feature/shift_add/view_model/shift_add_view_model.dart';
 import 'package:sapiensshifter/feature/shift_add/view_model/state/shift_add_state.dart';
+import 'package:sapiensshifter/product/component/sapi_custom_drop_down/model/sapi_drop_down_model.dart';
 import 'package:sapiensshifter/product/component/weekly_period.dart';
+import 'package:sapiensshifter/product/models/branch_model/branch_model.dart';
+import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
 import 'package:sapiensshifter/product/models/week_period/week_period.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart';
-import 'package:sapiensshifter/product/utils/validator/generic_validator.dart';
+import 'package:sapiensshifter/product/utils/validator/sapi_drop_down_validator.dart';
 
 part 'widget/shift_add_app_bar.dart';
 part 'widget/branch_and_shift.dart';
@@ -53,14 +56,7 @@ class _ShiftAddViewState extends BaseState<ShiftAddView> with ShiftAddMixin {
                 viewModel.addDay(day: shiftDay, index: index);
               },
               onConfrim: () {
-                if (formKey.currentState?.validate() ?? false) {
-                  viewModel.shiftAdd(peopleId: _peopleId ?? '-1');
-                }
-                showSnakeToastMessage(
-                  context,
-                  message:
-                      LocaleKeys.page_sihft_add_view_show_toast_message.tr(),
-                );
+                onConfrim(_peopleId);
               },
             ),
           ),

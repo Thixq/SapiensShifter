@@ -10,6 +10,9 @@ import 'package:sapiensshifter/feature/new_product_add/mixin/new_product_view_mi
 import 'package:sapiensshifter/feature/new_product_add/view_model/new_product_view_model.dart';
 import 'package:sapiensshifter/feature/new_product_add/view_model/state/new_product_state.dart';
 import 'package:sapiensshifter/product/component/image_picker.dart';
+import 'package:sapiensshifter/product/component/sapi_custom_drop_down/model/sapi_drop_down_model.dart';
+import 'package:sapiensshifter/product/models/categories_model/categories_model.dart';
+import 'package:sapiensshifter/product/models/extras_model/extras_model.dart';
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
 import 'package:sapiensshifter/product/utils/enums/localization/localization_path_enum.dart';
 import 'package:sapiensshifter/product/utils/enums/localization/product_validate_localization_enum.dart';
@@ -17,7 +20,7 @@ import 'package:sapiensshifter/product/utils/enums/picker_source.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart';
-import 'package:sapiensshifter/product/utils/extensions/map_extension.dart';
+
 import 'package:sapiensshifter/product/utils/input_formatters/decimal_input_formatter.dart';
 import 'package:sapiensshifter/product/utils/static_func/image_normalized.dart';
 import 'package:sapiensshifter/product/utils/validator/product_validator.dart';
