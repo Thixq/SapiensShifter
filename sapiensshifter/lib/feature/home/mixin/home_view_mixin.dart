@@ -48,7 +48,7 @@ mixin HomeViewMixin on BaseState<HomeView> {
       tableName: tableName,
       branchName: userInfo.user?.toDayBranch,
       creatorId: userInfo.user?.id,
-      timeStamp: DateTime.now().toLocal(),
+      timeStamp: DateTime.now(),
       status: true,
       id: const UuidV7().generate(),
     );
@@ -69,18 +69,8 @@ mixin HomeViewMixin on BaseState<HomeView> {
 
   @override
   void initState() {
-    initial();
     requestNotification();
-
     super.initState();
-  }
-
-  Future<void> initial() async {
-    await ProductConfigureItems.shiftManager.reload();
-    await userInfo.setBranch(
-      branchId:
-          ProductConfigureItems.shiftManager.toDayBranch?.branchId ?? '-1',
-    );
   }
 
   Future<void> requestNotification() async {

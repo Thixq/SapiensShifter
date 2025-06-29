@@ -1,24 +1,17 @@
-import 'package:core/core.dart';
-import 'package:firebase_firestore_module/firebase_firestore_module.dart';
-import 'package:sapiensshifter/core/constant/query_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/shift/view_model/state/shift_view_state.dart';
-import 'package:sapiensshifter/product/models/branch_model/branch_model.dart';
-import 'package:sapiensshifter/product/profile/profile.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
+
+import 'package:sapiensshifter/product/shift_manager/shift_manager.dart';
 
 class ShiftViewModel extends BaseCubit<ShiftViewState> {
   ShiftViewModel(
     super.initialState, {
-    required INetworkManager networkManager,
-    required Profile profile,
-  })  : _networkManager = networkManager,
-        _profile = profile;
+    required ShiftManager shiftManager,
+  }) : _shiftManager = shiftManager;
 
-  final INetworkManager _networkManager;
-  final Profile _profile;
+  final ShiftManager _shiftManager;
 
   Future<void> initial({required DateTime firstWeekFirstDay}) async {
     await getShiftStatus();
@@ -27,10 +20,7 @@ class ShiftViewModel extends BaseCubit<ShiftViewState> {
   }
 
   Future<void> getBranch() async {
-    final result = await _getItems(
-      path: QueryPathConstant.branchColPath,
-      model: BranchModel(),
-    );
+    final result = await _shiftManager.getBranchs();
 
     final mappedBranch = Map.fromEntries(
       result.map(
@@ -41,10 +31,7 @@ class ShiftViewModel extends BaseCubit<ShiftViewState> {
   }
 
   Future<void> getShiftStatus() async {
-    final result = await _getItems(
-      path: QueryPathConstant.shiftStatusColPath,
-      model: ShiftStatusModel(),
-    );
+    final result = await _shiftManager.getShiftStatus();
     final mappedShiftStatus = Map.fromEntries(
       result.map(
         (shiftStatus) => MapEntry(shiftStatus.id ?? '-1', shiftStatus),
@@ -56,61 +43,13 @@ class ShiftViewModel extends BaseCubit<ShiftViewState> {
   Future<void> getShift({required DateTime firstWeekFirstDay}) async {
     await ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
-        final result =
-            await _getShiftWeeks(firstWeekFirstDay: firstWeekFirstDay);
-
-        final shiftList = result
-            .expand((element) => element.week ?? <ShiftDay>[])
-            .map((shift) {
-          final shiftStatusModel = state.shiftStatus[shift.shiftStatusId];
-          final branch = state.branchs[shift.branchId];
-          return shift.copyWith(
-            branchName: branch?.name,
-            shiftStatus: shiftStatusModel,
-          );
-        }).toList();
+        final shiftList =
+            await _shiftManager.getShifts(firstWeekFirstDay: firstWeekFirstDay);
 
         emit(state.copyWith(shifts: shiftList));
       },
       errorHandler: ServiceErrorHandler(),
       fallbackValue: () async {},
-    );
-  }
-
-  Future<List<ShiftWeek>> _getShiftWeeks({
-    required DateTime firstWeekFirstDay,
-  }) async {
-    final query = FirebaseFirestoreCustomQuery(
-      orderBy: [OrderByCondition(field: 'weekStart', descending: true)],
-      filters: [
-        FilterCondition(
-          field: 'weekStart',
-          value: firstWeekFirstDay,
-          operator: FilterOperator.isGreaterThanOrEqualToDateTime,
-        ),
-      ],
-      limit: 6,
-    );
-    final result = await _getItems(
-      path: QueryPathConstant.shiftsColPath(_profile.user?.id ?? 'null'),
-      model: const ShiftWeek(),
-      query: query,
-    );
-    return result;
-  }
-
-  Future<List<T>> _getItems<T extends IBaseModel<T>>({
-    required String path,
-    required T model,
-    INetworkQuery? query,
-  }) async {
-    return ErrorUtil.runWithErrorHandlingAsync<List<T>>(
-      action: () async {
-        return _networkManager.networkOperation
-            .getItemsQuery(path: path, model: model, query: query);
-      },
-      errorHandler: ServiceErrorHandler(),
-      fallbackValue: () async => [],
     );
   }
 }

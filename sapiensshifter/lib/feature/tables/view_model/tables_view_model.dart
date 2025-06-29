@@ -31,10 +31,13 @@ class TablesViewModel extends BaseCubit<TablesViewState> {
     if (result != null && result.isNotEmpty) {
       emit(
         state.copyWith(
+          emptyBracnh: false,
           branchName: result.sapiExt.textLocale(LocalizationPathEnum.branch),
         ),
       );
+      return;
     }
+    emit(state.copyWith(emptyBracnh: true));
   }
 
   Future<void> get getTableList async {
@@ -48,7 +51,7 @@ class TablesViewModel extends BaseCubit<TablesViewState> {
         final branchId = _profile.user?.toDayBranch;
         if (branchId == null || branchId.isEmpty) {
           emit(
-            state.copyWith(isLoading: false, emptyBracnh: true, tableList: []),
+            state.copyWith(isLoading: false, tableList: []),
           );
           return;
         }
@@ -60,7 +63,6 @@ class TablesViewModel extends BaseCubit<TablesViewState> {
           state.copyWith(
             tableList: result,
             isLoading: false,
-            emptyBracnh: false,
           ),
         );
       },
