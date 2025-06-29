@@ -31,6 +31,15 @@ mixin TablesViewMixin on BaseState<TablesView>
     );
   }
 
+  Future<void> initial(Profile profile) async {
+    await ProductConfigureItems.shiftManager.reload();
+    await profile.setBranch(
+      branchId:
+          ProductConfigureItems.shiftManager.toDayBranch?.branchId ?? '-1',
+    );
+    await _tablesViewModel.initial();
+  }
+
   @override
   void initState() {
     profile = ProductConfigureItems.profile;
@@ -39,7 +48,7 @@ mixin TablesViewMixin on BaseState<TablesView>
       networkManager: ProductConfigureItems.networkManager,
       profile: profile,
     );
-    _tablesViewModel.initial();
+    initial(profile);
 
     super.initState();
   }

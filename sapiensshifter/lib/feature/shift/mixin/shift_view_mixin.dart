@@ -24,8 +24,7 @@ mixin ShiftViewMixin on BaseState<ShiftView>
         MonthFullWeeksMixin().getCurrentMonthFullWeeksRange().start;
     _shiftViewModel = ShiftViewModel(
       ShiftViewState.initial(),
-      networkManager: ProductConfigureItems.networkManager,
-      profile: profile,
+      shiftManager: ProductConfigureItems.shiftManager,
     );
     _shiftViewModel.initial(firstWeekFirstDay: firstWeekFirstDay);
     super.initState();
