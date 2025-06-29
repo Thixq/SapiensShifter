@@ -14,8 +14,8 @@ final class ProductForm extends StatelessWidget {
   });
 
   final ValueChanged<ProductModel> confirmProduct;
-  final Map<String, String> extras;
-  final Map<String, String> categorys;
+  final List<ExtrasModel> extras;
+  final List<CategoriesModel> categorys;
   final GlobalKey<FormState> formKey;
   final GlobalKey<ProductImageState> imageKey;
 
@@ -60,8 +60,15 @@ final class ProductForm extends StatelessWidget {
   Widget _buildExtras() {
     return SapiCustomDropDown<String>.multiSelect(
       hintText: LocaleKeys.page_new_product_add_form_extra.tr(),
-      items:
-          extras.sapiMapExt.mapKeyTranslate(path: LocalizationPathEnum.options),
+      items: extras
+          .map(
+            (extra) => SapiDropDownModel(
+              displayName:
+                  extra.name.sapiExt.textLocale(LocalizationPathEnum.options),
+              value: extra.id,
+            ),
+          )
+          .toList(),
       onListChanged: (select) =>
           product = product.copyWith(productOptions: select),
     );
@@ -70,11 +77,18 @@ final class ProductForm extends StatelessWidget {
   Widget _buildProductCategory() {
     return SapiCustomDropDown<String>(
       hintText: LocaleKeys.page_new_product_add_form_category.tr(),
-      items: categorys.sapiMapExt
-          .mapKeyTranslate(path: LocalizationPathEnum.category),
+      items: categorys
+          .map(
+            (category) => SapiDropDownModel(
+              displayName: category.name.sapiExt
+                  .textLocale(LocalizationPathEnum.category),
+              value: category.id,
+            ),
+          )
+          .toList(),
       onSelected: (select) => product = product.copyWith(category: select),
       validator: (category) => ProductValidator.emptyValidator(
-        category,
+        category?.value,
         localizationKey: ProductValidationLocalizationKey.emptyProductCategory,
       ),
     );

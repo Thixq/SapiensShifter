@@ -35,11 +35,11 @@ class ShiftAddContent extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final void Function(WeekPeriod weekPeriod) onWeekPeriod;
   final void Function(String? peopleId) onPeople;
-  final Map<String, String> peopleMap;
+  final List<UserPreviewModel> peopleMap;
   final VoidCallback onConfrim;
   final void Function(ShiftDay shiftDay, int index) onShiftDay;
-  final Map<String, String> branchs;
-  final Map<String, String> shifts;
+  final List<BranchModel> branchs;
+  final List<ShiftStatusModel> shifts;
   final List<BranchAndShift> _week;
 
   @override
@@ -55,9 +55,16 @@ class ShiftAddContent extends StatelessWidget {
                 onChange: onWeekPeriod,
               ),
               SapiCustomDropDown<String>(
-                validator: GenericValidator.emptyValidator,
+                validator: SapiDropDownValidator.emptyValidator<String>,
                 hintText: LocaleKeys.page_sihft_add_view_choice_people.tr(),
-                items: peopleMap,
+                items: peopleMap
+                    .map(
+                      (people) => SapiDropDownModel<String>(
+                        displayName: people.name,
+                        value: people.userId,
+                      ),
+                    )
+                    .toList(),
                 onSelected: onPeople,
               ),
               ..._week,

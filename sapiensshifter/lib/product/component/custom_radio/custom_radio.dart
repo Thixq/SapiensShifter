@@ -11,8 +11,8 @@ class CustomRadio<T> extends StatelessWidget {
     this.radioDecoration = const CustomRadioDecoration(),
     super.key,
   });
-  final T value;
 
+  final T value;
   final CustomRadioDecoration radioDecoration;
   final Widget widget;
   final ValueChanged<T> onPress;

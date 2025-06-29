@@ -49,31 +49,22 @@ class ShiftManager {
     _changeShifts = result;
   }
 
-  Future<Map<String, ShiftStatusModel>> getShiftStatus() async {
+  Future<List<ShiftStatusModel>> getShiftStatus() async {
     final result = await _getItems(
       path: QueryPathConstant.shiftStatusColPath,
       model: ShiftStatusModel(),
     );
-    final mappedShiftStatus = Map.fromEntries(
-      result.map(
-        (shiftStatus) => MapEntry(shiftStatus.id ?? '-1', shiftStatus),
-      ),
-    );
-    return mappedShiftStatus;
+
+    return result;
   }
 
-  Future<Map<String, BranchModel>> getBranchs() async {
+  Future<List<BranchModel>> getBranchs() async {
     final result = await _getItems(
       path: QueryPathConstant.branchColPath,
       model: BranchModel(),
     );
 
-    final mappedBranch = Map.fromEntries(
-      result.map(
-        (branch) => MapEntry(branch.id ?? '-1', branch),
-      ),
-    );
-    return mappedBranch;
+    return result;
   }
 
   Future<List<ShiftDay>> getShifts({
@@ -83,14 +74,14 @@ class ShiftManager {
       action: () async {
         final result =
             await _getShiftWeeks(firstWeekFirstDay: firstWeekFirstDay);
-        final shiftStatus = await getShiftStatus();
-        final branchs = await getBranchs();
+
+        final shiftAndBranch = await _getBranchAndShiftMaps();
 
         final shiftList = result
             .expand((element) => element.week ?? <ShiftDay>[])
             .map((shift) {
-          final shiftStatusModel = shiftStatus[shift.shiftStatusId];
-          final branch = branchs[shift.branchId];
+          final shiftStatusModel = shiftAndBranch.shiftMap[shift.shiftStatusId];
+          final branch = shiftAndBranch.branchMap[shift.branchId];
           return shift.copyWith(
             branchName: branch?.name,
             shiftStatus: shiftStatusModel,
@@ -101,6 +92,28 @@ class ShiftManager {
       errorHandler: ServiceErrorHandler(),
       fallbackValue: () async => [],
     );
+  }
+
+  Future<
+      ({
+        Map<String, BranchModel> branchMap,
+        Map<String, ShiftStatusModel> shiftMap
+      })> _getBranchAndShiftMaps() async {
+    final shiftStatus = await getShiftStatus();
+    final branchs = await getBranchs();
+
+    final mappedBranch = Map.fromEntries(
+      branchs.map(
+        (branch) => MapEntry(branch.id ?? '-1', branch),
+      ),
+    );
+
+    final mappedShiftStatus = Map.fromEntries(
+      shiftStatus.map(
+        (shiftStatus) => MapEntry(shiftStatus.id ?? '-1', shiftStatus),
+      ),
+    );
+    return (branchMap: mappedBranch, shiftMap: mappedShiftStatus);
   }
 
   Future<List<ShiftWeek>> _getShiftWeeks({

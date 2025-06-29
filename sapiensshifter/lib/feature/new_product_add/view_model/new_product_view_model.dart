@@ -69,26 +69,19 @@ class NewProductViewModel extends BaseCubit<NewProductState> {
     final result = await _getItems(path: path, model: const CategoriesModel());
     final allWithoutList = result
         .where(
-          (element) => element.id != '0',
+          (element) => element.id != StringConstant.allCategoryId,
         )
         .toList();
-    final categoryMap = <String, String>{
-      for (final category in allWithoutList)
-        category.name ?? '': category.id ?? '',
-    };
 
-    emit(state.copyWith(category: categoryMap));
+    emit(state.copyWith(category: allWithoutList));
   }
 
   Future<void> getExtras() async {
     const path = QueryPathConstant.extras;
 
     final result = await _getItems(path: path, model: const ExtrasModel());
-    final extrasMap = <String, String>{
-      for (final extra in result) extra.name ?? '': extra.id ?? '',
-    };
 
-    emit(state.copyWith(extras: extrasMap));
+    emit(state.copyWith(extras: result));
   }
 
   Future<void> getOptions() async {

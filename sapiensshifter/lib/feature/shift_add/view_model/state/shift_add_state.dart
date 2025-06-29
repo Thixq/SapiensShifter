@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:sapiensshifter/product/models/branch_model/branch_model.dart';
+import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 
 final class ShiftAddState {
@@ -14,24 +16,24 @@ final class ShiftAddState {
     return ShiftAddState(
       shiftMap: {},
       week: const ShiftWeek(),
-      branchs: {},
-      peoples: {},
-      shifts: {},
+      branchs: [],
+      peoples: [],
+      shifts: [],
     );
   }
 
   final Map<int, ShiftDay> shiftMap;
   final ShiftWeek week;
-  final Map<String, String> peoples;
-  final Map<String, String> branchs;
-  final Map<String, String> shifts;
+  final List<UserPreviewModel> peoples;
+  final List<BranchModel> branchs;
+  final List<ShiftStatusModel> shifts;
 
   ShiftAddState copyWith({
     Map<int, ShiftDay>? shiftMap,
     ShiftWeek? week,
-    Map<String, String>? peoples,
-    Map<String, String>? branchs,
-    Map<String, String>? shifts,
+    List<UserPreviewModel>? peoples,
+    List<BranchModel>? branchs,
+    List<ShiftStatusModel>? shifts,
   }) {
     return ShiftAddState(
       shiftMap: shiftMap ?? this.shiftMap,

@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:sapiensshifter/product/models/categories_model/categories_model.dart';
+import 'package:sapiensshifter/product/models/extras_model/extras_model.dart';
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
 
-class NewProductState {
+final class NewProductState {
   NewProductState({
     required this.category,
     required this.extras,
@@ -10,19 +12,19 @@ class NewProductState {
 
   factory NewProductState.initial({required String id}) {
     return NewProductState(
-      category: {},
-      extras: {},
+      category: [],
+      extras: [],
       product: ProductModel(id: id),
     );
   }
 
-  final Map<String, String> category;
-  final Map<String, String> extras;
+  final List<CategoriesModel> category;
+  final List<ExtrasModel> extras;
   final ProductModel product;
 
   NewProductState copyWith({
-    Map<String, String>? category,
-    Map<String, String>? extras,
+    List<CategoriesModel>? category,
+    List<ExtrasModel>? extras,
     ProductModel? product,
   }) {
     return NewProductState(

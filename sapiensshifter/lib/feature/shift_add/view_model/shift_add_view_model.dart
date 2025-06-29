@@ -1,27 +1,29 @@
 import 'package:core/core.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:sapiensshifter/core/constant/query_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/shift_add/view_model/state/shift_add_state.dart';
-import 'package:sapiensshifter/product/models/branch_model/branch_model.dart';
 import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
 import 'package:sapiensshifter/product/models/week_period/week_period.dart';
+import 'package:sapiensshifter/product/shift_manager/shift_manager.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 
 class ShiftAddViewModel extends BaseCubit<ShiftAddState> {
   ShiftAddViewModel(
     super.initialState, {
     required INetworkManager networkManager,
-  }) : _networkManager = networkManager;
+    required ShiftManager shiftManager,
+  })  : _networkManager = networkManager,
+        _shiftManager = shiftManager;
 
   final INetworkManager _networkManager;
+  final ShiftManager _shiftManager;
 
   Future<void> initial() async {
     await getPeoples();
     await getBranchs();
-    await getShifts();
+    await getShiftsStatus();
   }
 
   void addDay({required ShiftDay day, required int index}) {
@@ -75,41 +77,18 @@ class ShiftAddViewModel extends BaseCubit<ShiftAddState> {
       path: QueryPathConstant.usersPreviewColPath,
       itemModel: UserPreviewModel(),
     );
-    final mappedPeoples = Map.fromEntries(
-      peoples.map(
-        (people) => MapEntry(people.userId ?? '-1', people.name ?? '-1'),
-      ),
-    );
-    emit(state.copyWith(peoples: mappedPeoples));
+
+    emit(state.copyWith(peoples: peoples));
   }
 
   Future<void> getBranchs() async {
-    final peoples = await _getItems(
-      path: QueryPathConstant.branchColPath,
-      itemModel: BranchModel(),
-    );
-    final mappedBranchs = Map.fromEntries(
-      peoples.map(
-        (people) => MapEntry(people.name ?? '-1', people.id ?? '-1'),
-      ),
-    );
-    emit(state.copyWith(branchs: mappedBranchs));
+    final result = await _shiftManager.getBranchs();
+    emit(state.copyWith(branchs: result));
   }
 
-  Future<void> getShifts() async {
-    final peoples = await _getItems(
-      path: QueryPathConstant.shiftStatusColPath,
-      itemModel: ShiftStatusModel(),
-    );
-    final mappedShifts = Map.fromEntries(
-      peoples.map(
-        (people) => MapEntry(
-          people.status?.localization.tr() ?? '-1',
-          people.id ?? '-1',
-        ),
-      ),
-    );
-    emit(state.copyWith(shifts: mappedShifts));
+  Future<void> getShiftsStatus() async {
+    final result = await _shiftManager.getShiftStatus();
+    emit(state.copyWith(shifts: result));
   }
 
   Future<List<T>> _getItems<T extends IBaseModel<T>>({

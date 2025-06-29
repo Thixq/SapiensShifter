@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/product/component/weekly_period.dart';
+import 'package:sapiensshifter/product/component/sapi_custom_drop_down/model/sapi_drop_down_model.dart';
+
+import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 void main() {
@@ -26,9 +28,16 @@ class _DevHomeState extends State<DevHome> {
       appBar: AppBar(
         title: const Text('Dev Home'),
       ),
-      body: WeeklyPeriod(
-        year: 2025,
-        onChange: (value) {},
+      body: SapiCustomDropDown(
+        hintText: 'Selecet',
+        items: List.generate(
+          12,
+          (index) => SapiDropDownModel(
+            displayName: 'displayName$index',
+            value: index,
+          ),
+        ),
+        onSelected: print,
       ),
     );
   }
