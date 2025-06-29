@@ -224,6 +224,7 @@ class CodegenLoader extends AssetLoader{
   "options": {
     "milk_options": "Süt Seçenekleri",
     "shot_options": "Shot Seçenekleri",
+    "milk_jam_options": "Süt Reçeli",
     "milk": {
       "regular_milk": "Normal Süt",
       "lactose_free": "Laktozsuz Süt",
@@ -236,6 +237,12 @@ class CodegenLoader extends AssetLoader{
       "single_shot": "Tek Shot",
       "double_shot": "İki Shot",
       "triple_shot": "Üç Shot"
+    },
+    "milk_jam": {
+      "regular": "Sade",
+      "caramel": "Karamel",
+      "white_chocolate": "Beyaz Çikolata",
+      "chocolate": "Bitter Çikolata"
     }
   },
   "price_operations": {
