@@ -42,7 +42,8 @@ dependencies:
   intl: ^0.20.2
   image: ^4.5.4
   mime: ^2.0.0
-  
+  device_info_plus: ^11.5.0
+  crypto: ^3.0.6
 
   #Log
   logging: ^1.3.0

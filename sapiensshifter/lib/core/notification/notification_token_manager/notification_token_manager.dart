@@ -1,117 +1,143 @@
 import 'package:core/core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
-import 'package:kartal/kartal.dart';
 import 'package:sapiensshifter/core/constant/query_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/product/models/notification_device_model.dart/notification_device_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
-import 'package:uuid/v4.dart';
+import 'package:sapiensshifter/product/utils/static_func/generate_uuid_device_id.dart';
 
 class NotificationTokenManager {
   NotificationTokenManager({
-    required ILocalCacheManager localCacheManager,
     required INetworkManager networkManager,
-    Profile? profile,
-  })  : _localCacheManager = localCacheManager,
-        _networkManager = networkManager,
-        _profile = profile {
-    onRefreshToken();
-  }
+    required Profile? profile,
+  })  : _networkManager = networkManager,
+        _profile = profile;
 
-  final ILocalCacheManager _localCacheManager;
   final INetworkManager _networkManager;
   final Profile? _profile;
-  final String _deviceIdKey = 'device_id';
-  final String _notificationPermissionStatusKey = 'notification_permission';
-
-  Future<void> saveDevice() async {
-    final fcmToken = await getFCMToken;
-    final platform = defaultTargetPlatform;
-    final deviceId = await _readOrCreateDeviceUUId();
-    final notificationDeviceModel = NotificationDeviceModel.create(
-      userId: _profile?.user?.id,
-      deviceId: deviceId,
-      fcmToken: fcmToken,
-      platform: platform.name,
-    );
-
-    await _networkManager.networkOperation.addItem(
-      path: '${QueryPathConstant.devicesColPath}/${notificationDeviceModel.id}',
-      item: notificationDeviceModel,
-    );
-  }
+  late final NotificationDeviceModel _notificationDeviceModel;
 
   Future<String?> get getFCMToken async =>
       FirebaseMessaging.instance.getToken();
 
-  void onRefreshToken() {
+  Future<void> deviceSync() async {
+    if (!await deviceCheck()) {
+      return;
+    }
+
+    final userIdOther = _checkUserId(other: _notificationDeviceModel);
+    final tokenOther = await _checkToken(other: userIdOther);
+    if (tokenOther != _notificationDeviceModel) {
+      await _updateDevice(other: tokenOther);
+    }
+    _onRefreshToken();
+  }
+
+  @visibleForTesting
+  Future<bool> deviceCheck() async {
+    final result = await _getNotificationDevice();
+    if (result) {
+      return result;
+    }
+    await _createNotificationDevice();
+    return false;
+  }
+
+  Future<void> _createNotificationDevice() async {
+    await ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        final fcmToken = await getFCMToken;
+        final platform = defaultTargetPlatform;
+        final deviceId = await GenerateUuidDeviceId.generateDeviceId();
+        final notificationDeviceModel = NotificationDeviceModel.create(
+          userId: _profile?.user?.id,
+          deviceId: deviceId,
+          fcmToken: fcmToken,
+          platform: platform.name,
+        );
+        await _networkManager.networkOperation.addItem(
+          path: '${QueryPathConstant.devicesColPath}/$deviceId',
+          item: notificationDeviceModel,
+        );
+        _notificationDeviceModel = notificationDeviceModel;
+      },
+      errorHandler: ServiceErrorHandler(),
+      fallbackValue: () async {},
+    );
+  }
+
+  Future<bool> _getNotificationDevice() async {
+    final deviceId = await GenerateUuidDeviceId.generateDeviceId();
+    return ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        _notificationDeviceModel =
+            await _networkManager.networkOperation.getItem(
+          path: '${QueryPathConstant.devicesColPath}/$deviceId',
+          model: NotificationDeviceModel(),
+        );
+        return true;
+      },
+      errorHandler: ServiceErrorHandler(),
+      fallbackValue: () async => false,
+    );
+  }
+
+  NotificationDeviceModel _checkUserId({
+    required NotificationDeviceModel other,
+  }) {
+    if (other.userId != _profile?.user?.id) {
+      return other.copyWith(
+        userId: _profile?.user?.id,
+      );
+    }
+    return other;
+  }
+
+  Future<NotificationDeviceModel> _checkToken({
+    required NotificationDeviceModel other,
+  }) async {
+    final currentToken = await getFCMToken;
+    if (other.fcmToken != currentToken) {
+      return other.copyWith(fcmToken: await getFCMToken);
+    }
+    return other;
+  }
+
+  Future<void> _updateDevice({required NotificationDeviceModel other}) async {
+    await ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        await _networkManager.networkOperation
+            .updateAll(path: QueryPathConstant.devicesColPath, items: [other]);
+      },
+      errorHandler: ServiceErrorHandler(),
+      fallbackValue: () async {},
+    );
+  }
+
+  void _onRefreshToken() {
     FirebaseMessaging.instance.onTokenRefresh.listen(
       (event) async {
-        final id = await _readOrCreateDeviceUUId();
-        await ErrorUtil.runWithErrorHandlingAsync(
-          action: () async {
-            await _networkManager.networkOperation.update(
-              path: '${QueryPathConstant.devicesColPath}/$id',
-              value: {'fcmToken': event},
-            );
-          },
-          errorHandler: ServiceErrorHandler(),
-          fallbackValue: () async {},
+        await _networkManager.networkOperation.update(
+          path:
+              '${QueryPathConstant.devicesColPath}/${_notificationDeviceModel.id}',
+          value: {'fcmToken': event},
         );
       },
     );
   }
 
   Future<void> deleteDevice() async {
-    final id = await _readOrCreateDeviceUUId();
     await ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
-        await _networkManager.networkOperation
-            .deleteItem(path: '${QueryPathConstant.devicesColPath}/$id');
-        await _localCacheManager.cacheOperation.delete(key: _deviceIdKey);
-      },
-      errorHandler: ServiceErrorHandler(),
-      fallbackValue: () async {},
-    );
-  }
-
-  Future<void> _notificationPermissionStatusSet({
-    required bool perrmissionStatus,
-  }) async {
-    return ErrorUtil.runWithErrorHandlingAsync(
-      action: () async {
-        await _localCacheManager.cacheOperation.write(
-          key: _notificationPermissionStatusKey,
-          value: perrmissionStatus,
+        await _networkManager.networkOperation.deleteItem(
+          path:
+              '${QueryPathConstant.devicesColPath}/${_notificationDeviceModel.id}',
         );
       },
-      fallbackValue: () async {},
-    );
-  }
-
-  Future<String> _readOrCreateDeviceUUId() async {
-    final generateDeviceId = const UuidV4().generate();
-    return ErrorUtil.runWithErrorHandlingAsync(
-      action: () async {
-        final result = await _localCacheManager.cacheOperation
-            .getValue<String>(key: _deviceIdKey);
-        if (result.value.ext.isNotNullOrNoEmpty) {
-          return result.value;
-        } else {
-          await _localCacheManager.cacheOperation
-              .updateValue(key: _deviceIdKey, newValue: generateDeviceId);
-
-          return generateDeviceId;
-        }
-      },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () async {
-        await _localCacheManager.cacheOperation
-            .write(key: _deviceIdKey, value: generateDeviceId);
-        return generateDeviceId;
-      },
+      fallbackValue: () async {},
     );
   }
 }

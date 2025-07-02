@@ -1,7 +1,9 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/json_converters/timestamp_converter.dart';
 
@@ -67,5 +69,23 @@ final class ChatModel extends IBaseModel<ChatModel> with EquatableMixin {
     members.sort();
     final generatedChatId = StringBuffer()..writeAll(members);
     return generatedChatId.toString();
+  }
+
+  ChatModel copyWith({
+    List<String>? members,
+    bool? isGroup,
+    String? groupName,
+    String? groupImageUrl,
+    String? lastMessageText,
+    DateTime? lastMessageTime,
+  }) {
+    return ChatModel(
+      members: members ?? this.members,
+      isGroup: isGroup ?? this.isGroup,
+      groupName: groupName ?? this.groupName,
+      groupImageUrl: groupImageUrl ?? this.groupImageUrl,
+      lastMessageText: lastMessageText ?? this.lastMessageText,
+      lastMessageTime: lastMessageTime ?? this.lastMessageTime,
+    );
   }
 }

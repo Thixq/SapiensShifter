@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:core/core.dart';
 import 'package:firebase_firestore_module/firebase_firestore_module.dart';
 import 'package:sapiensshifter/core/constant/query_path_constant.dart';
@@ -57,6 +56,7 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
           },
         );
       },
+      errorHandler: ServiceErrorHandler(),
       fallbackValue: () async {
         emit(
           state.copyWith(
@@ -82,24 +82,30 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
   Future<List<ChatModel>> _getPreviewList({
     required List<String>? previewList,
   }) async {
-    final query = FirebaseFirestoreCustomQuery(
-      filters: [
-        FilterCondition(
-          field: 'id',
-          value: previewList,
-          operator: FilterOperator.whereIn,
-        ),
-      ],
+    return ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        final query = FirebaseFirestoreCustomQuery(
+          orderBy: [
+            OrderByCondition(field: 'lastMessageTime', descending: true),
+          ],
+          filters: [
+            FilterCondition(
+              field: 'id',
+              value: previewList,
+              operator: FilterOperator.whereIn,
+            ),
+          ],
+        );
+        final result = await _networkManager.networkOperation.getItemsQuery(
+          query: query,
+          path: QueryPathConstant.chatPreviewColPath,
+          model: ChatModel(),
+        );
+        return result;
+      },
+      errorHandler: ServiceErrorHandler(),
+      fallbackValue: () async => <ChatModel>[],
     );
-    final result = await _networkManager.networkOperation.getItemsQuery(
-      query: query,
-      path: QueryPathConstant.chatPreviewColPath,
-      model: ChatModel(),
-    );
-    result.sort((a, b) {
-      return b.lastMessageTime!.compareTo(a.lastMessageTime!);
-    });
-    return result;
   }
 
   void chatSearch(String query) {

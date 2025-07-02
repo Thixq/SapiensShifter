@@ -1,6 +1,6 @@
 part of '../shift_view.dart';
 
-class ShiftViewShiftCalendar extends StatelessWidget with MonthFullWeeksMixin {
+class ShiftViewShiftCalendar extends StatelessWidget {
   const ShiftViewShiftCalendar({
     required this.shiftList,
     super.key,
@@ -18,7 +18,7 @@ class ShiftViewShiftCalendar extends StatelessWidget with MonthFullWeeksMixin {
       ),
     );
 
-    final startTime = getCurrentMonthFullWeeksRange().start;
+    final startTime = MonthFullWeeks.getCurrentMonthFullWeeksRange().start;
 
     return List.generate(weekCount * 7, (i) {
       final toDay = startTime.add(Duration(days: i));

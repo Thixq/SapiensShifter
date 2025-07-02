@@ -11,7 +11,7 @@ import 'package:sapiensshifter/product/models/shift_models/shift_day_model.dart'
 import 'package:sapiensshifter/product/models/shift_models/shift_status_model/shift_status_model.dart';
 import 'package:sapiensshifter/product/models/shift_models/shift_week_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
-import 'package:sapiensshifter/product/utils/mixin/func/month_full_weeks.dart';
+import 'package:sapiensshifter/product/utils/static_func/month_full_weeks.dart';
 
 class ShiftManager {
   ShiftManager._({
@@ -42,9 +42,9 @@ class ShiftManager {
   }
 
   Future<void> reload({DateTime? firstWeekFirstDay}) async {
-    final firstDay = MonthFullWeeksMixin()
-        .getCurrentMonthFullWeeksRange(date: firstWeekFirstDay)
-        .start;
+    final firstDay =
+        MonthFullWeeks.getCurrentMonthFullWeeksRange(date: firstWeekFirstDay)
+            .start;
     final result = await getShifts(firstWeekFirstDay: firstDay);
     _changeShifts = result;
   }

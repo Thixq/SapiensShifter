@@ -44,7 +44,7 @@ mixin OnboardViewMixin on BaseState<OnboardView> {
     _onboardViewModel = OnboardViewModel(
       OnboardState.initial(),
       contentList: _initList,
-      localCacheManager: ProductConfigureItems.sharedPreferencesOperation,
+      localCacheManager: ProductConfigureItems.sharedPreferences,
     );
     super.initState();
   }
