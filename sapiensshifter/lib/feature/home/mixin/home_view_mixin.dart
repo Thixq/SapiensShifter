@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/core/notification/notification_service.dart';
+import 'package:sapiensshifter/core/notification/notification_token_manager/notification_token_manager.dart';
 import 'package:sapiensshifter/core/routing/routing_manager.gr.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/home/model/page_item.dart';
@@ -75,9 +76,12 @@ mixin HomeViewMixin on BaseState<HomeView> {
 
   Future<void> requestNotification() async {
     final result = await NotificationService.instance.requestPermissions();
-    print('Notification Status: $result');
-    print(
-      'Notification Token ${await ProductConfigureItems.notificationTokenManager.getFCMToken}',
-    );
+    if (result != null && result) {
+      final tokenManager = NotificationTokenManager(
+        networkManager: ProductConfigureItems.networkManager,
+        profile: ProductConfigureItems.profile,
+      );
+      await tokenManager.deviceSync();
+    }
   }
 }

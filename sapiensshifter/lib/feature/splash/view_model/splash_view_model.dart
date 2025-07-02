@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/core/constant/page_path_constant.dart';
+import 'package:sapiensshifter/core/constant/string_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
@@ -20,7 +21,7 @@ final class SplashViewModel {
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         final result = await _localCahce.cacheOperation
-            .getValue<bool>(key: 'isFirstLaunch');
+            .getValue<bool>(key: StringConstant.isFirstLaunchKey);
         return result.value;
       },
       errorHandler: ServiceErrorHandler(),

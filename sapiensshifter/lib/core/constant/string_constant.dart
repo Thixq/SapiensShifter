@@ -6,4 +6,6 @@ final class StringConstant {
   static const nullString = LocaleKeys.null_value_null_name;
   static const allCategoryId = '-1';
   static const allPirceOperationValue = -1;
+  static const deviceIdKey = 'deviceId';
+  static const isFirstLaunchKey = 'isFirstLaunch';
 }

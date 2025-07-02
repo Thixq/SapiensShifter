@@ -2,8 +2,8 @@
 
 import 'package:sapiensshifter/product/models/week_period/week_period.dart';
 
-mixin class MonthFullWeeksMixin {
-  ({DateTime start, DateTime end}) getCurrentMonthFullWeeksRange({
+class MonthFullWeeks {
+  static ({DateTime start, DateTime end}) getCurrentMonthFullWeeksRange({
     DateTime? date,
   }) {
     date ??= DateTime.now();
@@ -21,7 +21,7 @@ mixin class MonthFullWeeksMixin {
     return (start: startDate, end: endDate);
   }
 
-  List<WeekPeriod> generateWeeklyPeriods(int? year) {
+  static List<WeekPeriod> generateWeeklyPeriods(int? year) {
     year ??= DateTime.now().year;
     final janFirst = DateTime(year);
     var start =

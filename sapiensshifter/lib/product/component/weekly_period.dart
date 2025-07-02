@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:sapiensshifter/product/models/week_period/week_period.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
-import 'package:sapiensshifter/product/utils/mixin/func/month_full_weeks.dart';
+import 'package:sapiensshifter/product/utils/static_func/month_full_weeks.dart';
 
 class WeeklyPeriod extends StatefulWidget {
   const WeeklyPeriod({required this.onChange, this.year, super.key});
@@ -22,7 +22,7 @@ class _WeeklyPeriodState extends State<WeeklyPeriod> {
   @override
   void initState() {
     super.initState();
-    _weeks = MonthFullWeeksMixin().generateWeeklyPeriods(widget.year);
+    _weeks = MonthFullWeeks.generateWeeklyPeriods(widget.year);
     final today = DateTime.now();
     _currentIndex = _weeks.indexWhere(
       (week) =>

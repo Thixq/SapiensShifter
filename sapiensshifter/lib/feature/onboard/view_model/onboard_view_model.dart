@@ -6,6 +6,7 @@ import 'package:sapiensshifter/core/logging/custom_logger.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/onboard/view/widget/model/onboard_content_model.dart';
 import 'package:sapiensshifter/feature/onboard/view_model/state/onboard_state.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 final class OnboardViewModel extends BaseCubit<OnboardState> {
   OnboardViewModel(
@@ -39,15 +40,10 @@ final class OnboardViewModel extends BaseCubit<OnboardState> {
     }
   }
 
-  Future<bool> finishOnboardWrtie() async {
-    return _localCacheManager.cacheOperation
-        .write<bool>(key: 'isFirstLaunch', value: true);
-  }
-
   Future<bool> writeFirstLaunch(BuildContext context) async {
     return ErrorUtil.runWithErrorHandlingAsync(
-      action: () => _localCacheManager.cacheOperation
-          .write<bool>(key: 'isFirstLaunch', value: true),
+      action: () async => _localCacheManager.cacheOperation
+          .write<bool>(key: StringConstant.isFirstLaunchKey, value: true),
       errorHandler: UIErrorHandler(context),
       fallbackValue: () async => false,
       customLogger: CustomLogger('OnboardViewModel'),

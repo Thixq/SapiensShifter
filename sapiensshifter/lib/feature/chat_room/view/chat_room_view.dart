@@ -55,21 +55,16 @@ class _ChatRoomViewState extends BaseState<ChatRoomView>
   }
 
   BlocListener<ChatRoomViewModel, ChatRoomState> _buildMessageArea() {
-    var isExist = false;
     return BlocListener<ChatRoomViewModel, ChatRoomState>(
       listenWhen: (previous, current) => current.isExist != previous.isExist,
-      listener: (context, state) {
-        isExist = state.isExist;
-      },
+      listener: (context, state) {},
       child: MessageTextField(
         controller: controller,
         send: () async {
-          if (!isExist) {
-            await viewModel.saveChat();
-          }
           await viewModel.writeMessage(
             text: controller.text.trimRight(),
           );
+          await viewModel.saveChat();
           controller.clear();
         },
       ),

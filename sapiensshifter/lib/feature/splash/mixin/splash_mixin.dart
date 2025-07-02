@@ -15,7 +15,7 @@ mixin SplashViewMixin on BaseState<SplashView> {
   void initState() {
     _splashViewModel = SplashViewModel(
       authManager: ProductConfigureItems.authManager,
-      localCahce: ProductConfigureItems.sharedPreferencesOperation,
+      localCahce: ProductConfigureItems.sharedPreferences,
     );
     _goRoute;
 

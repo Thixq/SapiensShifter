@@ -12,7 +12,7 @@ import 'package:sapiensshifter/product/component/day_card.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
-import 'package:sapiensshifter/product/utils/mixin/func/month_full_weeks.dart';
+import 'package:sapiensshifter/product/utils/static_func/month_full_weeks.dart';
 
 part 'widget/shift_view_app_bar.dart';
 part 'widget/shift_view_shift_calendar.dart';

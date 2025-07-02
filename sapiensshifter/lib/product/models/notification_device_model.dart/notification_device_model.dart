@@ -28,9 +28,9 @@ class NotificationDeviceModel extends IBaseModel<NotificationDeviceModel>
 
   factory NotificationDeviceModel.create({
     required String platform,
-    String? deviceId,
-    String? userId,
-    String? fcmToken,
+    required String deviceId,
+    required String? userId,
+    required String? fcmToken,
   }) {
     final now = DateTime.now().toUtc();
     return NotificationDeviceModel(
@@ -52,18 +52,18 @@ class NotificationDeviceModel extends IBaseModel<NotificationDeviceModel>
 
   NotificationDeviceModel copyWith({
     String? fcmToken,
-    DateTime? updatedAt,
+    String? userId,
   }) {
     return NotificationDeviceModel(
       id: id,
-      userId: userId,
+      userId: userId ?? this.userId,
       fcmToken: fcmToken ?? this.fcmToken,
       platform: platform,
       createdAt: createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
+      updatedAt: DateTime.now().toUtc(),
     );
   }
 
   @override
-  List<Object?> get props => [id, fcmToken, userId];
+  List<Object?> get props => [id, fcmToken, userId, platform];
 }
