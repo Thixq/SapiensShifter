@@ -191,7 +191,7 @@ class Profile {
     return _authManager.signOut();
   }
 
-  Future<void> setBranch({required String branchId}) async {
+  Future<void> setBranch({String? branchId}) async {
     await ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         await _updateUser(field: {'toDayBranch': branchId});

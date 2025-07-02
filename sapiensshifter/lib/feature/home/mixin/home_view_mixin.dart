@@ -77,11 +77,8 @@ mixin HomeViewMixin on BaseState<HomeView> {
   Future<void> requestNotification() async {
     final result = await NotificationService.instance.requestPermissions();
     if (result != null && result) {
-      final tokenManager = NotificationTokenManager(
-        networkManager: ProductConfigureItems.networkManager,
-        profile: ProductConfigureItems.profile,
-      );
-      await tokenManager.deviceSync();
+      await NotificationTokenManager.instance.deviceSync();
+      await NotificationService.instance.initialize();
     }
   }
 }

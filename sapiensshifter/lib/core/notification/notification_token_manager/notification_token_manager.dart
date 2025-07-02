@@ -1,19 +1,38 @@
+// ignore_for_file: prefer_constructors_over_static_methods
+
 import 'package:core/core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sapiensshifter/core/constant/query_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
+import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/product/models/notification_device_model.dart/notification_device_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
 import 'package:sapiensshifter/product/utils/static_func/generate_uuid_device_id.dart';
 
 class NotificationTokenManager {
-  NotificationTokenManager({
+  NotificationTokenManager._({
     required INetworkManager networkManager,
     required Profile? profile,
   })  : _networkManager = networkManager,
         _profile = profile;
+
+  static NotificationTokenManager? _instance;
+
+  static NotificationTokenManager get instance => instanceFor(
+        networkManager: ProductConfigureItems.networkManager,
+        profile: ProductConfigureItems.profile,
+      );
+
+  static NotificationTokenManager instanceFor({
+    required INetworkManager networkManager,
+    required Profile? profile,
+  }) =>
+      _instance ??= NotificationTokenManager._(
+        networkManager: networkManager,
+        profile: profile,
+      );
 
   final INetworkManager _networkManager;
   final Profile? _profile;

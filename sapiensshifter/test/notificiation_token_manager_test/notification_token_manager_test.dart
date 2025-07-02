@@ -29,7 +29,7 @@ void main() {
 
     when(mockNetwork.networkOperation).thenReturn(mockNetworkOperation);
 
-    notificationTokenManager = NotificationTokenManager(
+    notificationTokenManager = NotificationTokenManager.instanceFor(
       networkManager: mockNetwork,
       profile: ProductConfigureItems.profile,
     );

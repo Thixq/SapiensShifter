@@ -32,7 +32,7 @@ class NotificationService {
   static final FlutterLocalNotificationsPlugin _localNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  static Future<void> initialize() async {
+  Future<void> initialize() async {
     await FirebaseMessaging.instance.setAutoInitEnabled(true);
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(

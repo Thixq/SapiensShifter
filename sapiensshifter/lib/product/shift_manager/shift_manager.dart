@@ -23,11 +23,14 @@ class ShiftManager {
   final Profile _profile;
   final INetworkManager _networkManager;
 
+  static ShiftManager? _instance;
+
   static ShiftManager instanceFor({
     required Profile profile,
     required INetworkManager networkManager,
   }) =>
-      ShiftManager._(profile: profile, networkManager: networkManager);
+      _instance ??=
+          ShiftManager._(profile: profile, networkManager: networkManager);
 
   List<ShiftDay>? _allShift;
 
@@ -35,6 +38,7 @@ class ShiftManager {
 
   ShiftDay? get toDayBranch => _allShift?.firstWhere(
         (shiftDay) => DateUtils.isSameDay(shiftDay.time, DateTime.now()),
+        orElse: ShiftDay.new,
       );
 
   set _changeShifts(List<ShiftDay>? newShifts) {

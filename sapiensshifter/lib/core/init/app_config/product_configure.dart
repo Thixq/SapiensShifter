@@ -7,7 +7,6 @@ import 'package:get_it/get_it.dart';
 import 'package:sapiensshifter/core/init/app_dependency.dart';
 import 'package:sapiensshifter/core/localization/easy_localization_provider.dart';
 import 'package:sapiensshifter/core/logging/logging_manager.dart';
-import 'package:sapiensshifter/core/notification/notification_service.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sharhed_preferences_module/sharhed_preferences_module.dart';
 
@@ -19,7 +18,6 @@ final class ProductConfigure {
     LoggingManager.init();
     await EasyLocalization.ensureInitialized();
     await Firebase.initializeApp();
-    await NotificationService.initialize();
 
     // Dependency Injection
     await AppDependency.setup();
