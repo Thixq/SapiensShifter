@@ -36,7 +36,7 @@ class NotificationTokenManager {
 
   final INetworkManager _networkManager;
   final Profile? _profile;
-  late final NotificationDeviceModel _notificationDeviceModel;
+  NotificationDeviceModel? _notificationDeviceModel;
 
   Future<String?> get getFCMToken async =>
       FirebaseMessaging.instance.getToken();
@@ -103,32 +103,34 @@ class NotificationTokenManager {
     );
   }
 
-  NotificationDeviceModel _checkUserId({
-    required NotificationDeviceModel other,
+  NotificationDeviceModel? _checkUserId({
+    NotificationDeviceModel? other,
   }) {
-    if (other.userId != _profile?.user?.id) {
-      return other.copyWith(
+    if (other?.userId != _profile?.user?.id) {
+      return other?.copyWith(
         userId: _profile?.user?.id,
       );
     }
     return other;
   }
 
-  Future<NotificationDeviceModel> _checkToken({
-    required NotificationDeviceModel other,
+  Future<NotificationDeviceModel?> _checkToken({
+    NotificationDeviceModel? other,
   }) async {
     final currentToken = await getFCMToken;
-    if (other.fcmToken != currentToken) {
-      return other.copyWith(fcmToken: await getFCMToken);
+    if (other?.fcmToken != currentToken) {
+      return other?.copyWith(fcmToken: await getFCMToken);
     }
     return other;
   }
 
-  Future<void> _updateDevice({required NotificationDeviceModel other}) async {
+  Future<void> _updateDevice({NotificationDeviceModel? other}) async {
     await ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
-        await _networkManager.networkOperation
-            .updateAll(path: QueryPathConstant.devicesColPath, items: [other]);
+        await _networkManager.networkOperation.update(
+          path: '${QueryPathConstant.devicesColPath}/${other?.id}',
+          value: other?.toJson() ?? {},
+        );
       },
       errorHandler: ServiceErrorHandler(),
       fallbackValue: () async {},
@@ -140,7 +142,7 @@ class NotificationTokenManager {
       (event) async {
         await _networkManager.networkOperation.update(
           path:
-              '${QueryPathConstant.devicesColPath}/${_notificationDeviceModel.id}',
+              '${QueryPathConstant.devicesColPath}/${_notificationDeviceModel?.id}',
           value: {'fcmToken': event},
         );
       },
@@ -152,7 +154,7 @@ class NotificationTokenManager {
       action: () async {
         await _networkManager.networkOperation.deleteItem(
           path:
-              '${QueryPathConstant.devicesColPath}/${_notificationDeviceModel.id}',
+              '${QueryPathConstant.devicesColPath}/${_notificationDeviceModel?.id}',
         );
       },
       errorHandler: ServiceErrorHandler(),
