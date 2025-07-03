@@ -72,7 +72,7 @@ class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
 
     final branchId = _profile.user?.toDayBranch;
     final tableStream = _networkManager.networkOperation.getStreamQuery(
-      path: QueryPathConstant.tableOpenTableColPath(branchId ?? ''),
+      path: QueryPathConstant.tableOpenTableColPath(branchId),
       model: const TableModel(),
       query: query,
     );
@@ -84,30 +84,30 @@ class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
     required String orderId,
   }) async {
     final branchId = _profile.user?.toDayBranch;
-    final path =
-        '${QueryPathConstant.tableOpenTableColPath(branchId ?? '')}/$tableId';
+    final openTablePath =
+        '${QueryPathConstant.tableOpenTableColPath(branchId)}/$tableId';
+    final closeTablePath =
+        '${QueryPathConstant.tableCloseTableColPath(branchId)}/$tableId';
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
-        final result = await _networkManager.networkOperation
-            .getItem(path: path, model: const TableModel());
-
-        final changeOrderList = result.orderList.map(
-          (order) {
-            if (order.id == orderId) {
-              return order.copyWith(status: false);
-            }
-            return order;
-          },
-        ).toList();
-
-        return _networkManager.networkOperation.update(
-          path: path,
-          value: {
-            'orderList': changeOrderList
-                .map(
-                  (order) => order.toJson(),
-                )
-                .toList(),
+        return _networkManager.networkOperation.runTransaction<bool>(
+          (transaction) async {
+            final result = await transaction.get(
+              path: openTablePath,
+              model: const TableModel(),
+            );
+            final closedTable = result.copyWith(
+              status: false,
+              orderList: result.orderList
+                  .map(
+                    (order) => order.copyWith(status: false),
+                  )
+                  .toList(),
+            );
+            transaction
+              ..set(path: closeTablePath, item: closedTable)
+              ..delete(path: openTablePath);
+            return true;
           },
         );
       },
