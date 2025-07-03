@@ -86,8 +86,48 @@ class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
     final branchId = _profile.user?.toDayBranch;
     final openTablePath =
         '${QueryPathConstant.tableOpenTableColPath(branchId)}/$tableId';
+
+    return ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        final result = await _networkManager.networkOperation
+            .getItem(path: openTablePath, model: const TableModel());
+
+        final changeOrderList = result.orderList.map(
+          (order) {
+            if (order.id == orderId) {
+              return order.copyWith(status: false);
+            }
+            return order;
+          },
+        ).toList();
+
+        return _networkManager.networkOperation.update(
+          path: openTablePath,
+          value: {
+            'orderList': changeOrderList
+                .map(
+                  (order) => order.toJson(),
+                )
+                .toList(),
+          },
+        );
+      },
+      errorHandler: ServiceErrorHandler(),
+      fallbackValue: () async => false,
+    );
+  }
+
+  Future<bool> tableClose({required String tableId}) async {
+    final branchId = _profile.user?.toDayBranch;
+    final openTablePath =
+        '${QueryPathConstant.tableOpenTableColPath(branchId)}/$tableId';
     final closeTablePath =
         '${QueryPathConstant.tableCloseTableColPath(branchId)}/$tableId';
+
+    state.tables.removeWhere(
+      (element) => element.id == tableId,
+    );
+    emit(state.copyWith());
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         return _networkManager.networkOperation.runTransaction<bool>(
@@ -97,6 +137,7 @@ class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
               model: const TableModel(),
             );
             final closedTable = result.copyWith(
+              closingTime: DateTime.now(),
               status: false,
               orderList: result.orderList
                   .map(
@@ -110,25 +151,6 @@ class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
             return true;
           },
         );
-      },
-      errorHandler: ServiceErrorHandler(),
-      fallbackValue: () async => false,
-    );
-  }
-
-  Future<bool> tableClose({required String tableId}) async {
-    final branchId = _profile.user?.toDayBranch;
-    final path =
-        '${QueryPathConstant.tableOpenTableColPath(branchId ?? '')}/$tableId';
-
-    state.tables.removeWhere(
-      (element) => element.id == tableId,
-    );
-    emit(state.copyWith());
-    return ErrorUtil.runWithErrorHandlingAsync(
-      action: () async {
-        return _networkManager.networkOperation
-            .update(path: path, value: {'status': false});
       },
       errorHandler: ServiceErrorHandler(),
       fallbackValue: () async => false,
