@@ -1,5 +1,4 @@
-import 'package:core/src/interfaces/network_query_interface/network_query_interface.dart';
-import 'package:core/src/models/base_model_interface.dart';
+import 'package:core/core.dart';
 
 abstract class INetworkOperation {
   Future<T> getItem<T extends IBaseModel<T>>(
@@ -51,4 +50,11 @@ abstract class INetworkOperation {
     String? key,
     INetworkQuery? query,
   });
+
+  Future<void> runBatch(
+      Future<void> Function(IBatchWriter batch) batchFunction);
+
+  Future<T> runTransaction<T>(
+    Future<T> Function(ITransaction transaction) transactionHandler,
+  );
 }

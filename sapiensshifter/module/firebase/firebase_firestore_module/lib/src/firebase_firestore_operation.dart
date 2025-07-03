@@ -2,7 +2,10 @@
 // It is designed to work with models that implement `BaseModelInterface` and utilizes the Firestore SDK for database operations.
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as fs;
 import 'package:core/core.dart';
+import 'package:firebase_firestore_module/src/utils/server_side_operation/firebase_batch_writer.dart';
+import 'package:firebase_firestore_module/src/utils/server_side_operation/firebase_transcation.dart';
 
 import 'exception/module_firestore_exception.dart';
 
@@ -320,5 +323,29 @@ final class FirebaseFirestoreOperation extends INetworkOperation
           .cast<T>()
           .toList();
     }).cast<List<T>>();
+  }
+
+  @override
+  Future<void> runBatch(
+      Future<void> Function(IBatchWriter batch) batchFunction) async {
+    final firestoreBatch = _firestore.batch();
+    final batch = FirestoreBatchWriter(firestoreBatch, _firestore);
+    await handleAsyncOperation(
+      () async {
+        await batchFunction(batch);
+        await firestoreBatch.commit();
+      },
+    );
+  }
+
+  @override
+  Future<T> runTransaction<T>(
+      Future<T> Function(ITransaction transaction) transactionHandler) async {
+    return await _firestore
+        .runTransaction<T>((fs.Transaction firestoreTransaction) async {
+      final ITransaction transactionWrapper =
+          FirestoreTransaction(firestoreTransaction, _firestore);
+      return await transactionHandler(transactionWrapper);
+    });
   }
 }
