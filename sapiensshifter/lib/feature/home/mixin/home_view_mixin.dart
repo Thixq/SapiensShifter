@@ -70,7 +70,6 @@ mixin HomeViewMixin on BaseState<HomeView> {
 
   @override
   void initState() {
-    print('Home');
     requestNotification();
     super.initState();
   }

@@ -42,7 +42,7 @@ class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
     );
 
     final branchId = _profile.user?.toDayBranch;
-    final path = QueryPathConstant.tableOpenTableColPath(branchId ?? '');
+    final path = QueryPathConstant.tableOpenTableColPath(branchId);
     final historyTables = await _networkManager.networkOperation
         .getItemsQuery(path: path, model: const TableModel(), query: query);
     emit(state.copyWith(tables: historyTables, isLoading: false));
