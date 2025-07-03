@@ -2,7 +2,7 @@
 // in firebase_firestore_module/test/firestore_test.dart.
 // Do not manually edit this file.
 
-// ignore_for_file: no_leading_underscores_for_library_prefixes
+// ignore_for_file: no_leading_underscores_for_library_prefixes, duplicate_ignore
 import 'dart:async' as _i5;
 import 'dart:typed_data' as _i7;
 
@@ -664,7 +664,7 @@ class MockFirebaseFirestore extends _i1.Mock implements _i4.FirebaseFirestore {
 /// A class which mocks [CollectionReference].
 ///
 /// See the documentation for Mockito's code generation for more information.
-
+// ignore: must_be_immutable
 class MockCollectionReference extends _i1.Mock
     implements _i4.CollectionReference<Map<String, dynamic>> {
   @override
@@ -1360,7 +1360,7 @@ class MockCollectionReference extends _i1.Mock
 /// A class which mocks [DocumentReference].
 ///
 /// See the documentation for Mockito's code generation for more information.
-
+// ignore: must_be_immutable
 class MockDocumentReference extends _i1.Mock
     implements _i4.DocumentReference<Map<String, dynamic>> {
   @override
@@ -1952,7 +1952,7 @@ class MockDocumentSnapshot extends _i1.Mock
 /// A class which mocks [DocumentReference].
 ///
 /// See the documentation for Mockito's code generation for more information.
-
+// ignore: must_be_immutable
 class TestModelDocRef extends _i1.Mock
     implements _i4.DocumentReference<_i8.TestModel> {
   @override
