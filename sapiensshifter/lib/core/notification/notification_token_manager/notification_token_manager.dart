@@ -56,16 +56,15 @@ class NotificationTokenManager {
 
   @visibleForTesting
   Future<bool> deviceCheck() async {
-    final result = await _getNotificationDevice();
-    if (result) {
-      return result;
+    final isDeviceExist = await _getNotificationDevice();
+    if (isDeviceExist) {
+      return isDeviceExist;
     }
-    await _createNotificationDevice();
-    return false;
+    return _createNotificationDevice();
   }
 
-  Future<void> _createNotificationDevice() async {
-    await ErrorUtil.runWithErrorHandlingAsync(
+  Future<bool> _createNotificationDevice() async {
+    return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         final fcmToken = await getFCMToken;
         final platform = defaultTargetPlatform;
@@ -76,14 +75,15 @@ class NotificationTokenManager {
           fcmToken: fcmToken,
           platform: platform.name,
         );
+        _notificationDeviceModel = notificationDeviceModel;
         await _networkManager.networkOperation.addItem(
           path: '${QueryPathConstant.devicesColPath}/$deviceId',
           item: notificationDeviceModel,
         );
-        _notificationDeviceModel = notificationDeviceModel;
+        return true;
       },
       errorHandler: ServiceErrorHandler(),
-      fallbackValue: () async {},
+      fallbackValue: () async => false,
     );
   }
 
