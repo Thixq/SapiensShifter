@@ -16,6 +16,7 @@ import 'package:firebase_firestore_module/src/exception/module_firestore_excepti
     MockSpec<CollectionReference<Map<String, dynamic>>>(),
     MockSpec<DocumentReference<Map<String, dynamic>>>(),
     MockSpec<WriteBatch>(),
+    MockSpec<Transaction>(),
     MockSpec<QuerySnapshot<Map<String, dynamic>>>(),
     MockSpec<QueryDocumentSnapshot<Map<String, dynamic>>>(),
     MockSpec<DocumentSnapshot<Map<String, dynamic>>>(),
@@ -450,6 +451,197 @@ void main() {
       expect(result.length, equals(2));
       expect(result[0].id, equals('1'));
       expect(result[1].name, equals('Test2'));
+    });
+  });
+
+  group('runBatch', () {
+    late MockWriteBatch mockWriteBatch;
+
+    setUp(() {
+      mockWriteBatch = MockWriteBatch();
+      when(mockFirestore.batch()).thenReturn(mockWriteBatch);
+    });
+
+    test('successfully commits a batch with multiple operations', () async {
+      const userPath = 'users/user1';
+      const postPath = 'posts/post1';
+      final newPost = TestModel(id: 'post1,', name: 'New Post');
+      final updateUserData = {'postCount': FieldValue.increment(1)};
+
+      final mockUserDocRef = MockDocumentReference();
+      final mockPostDocRef = MockDocumentReference();
+
+      when(mockFirestore.doc(userPath)).thenReturn(mockUserDocRef);
+      when(mockFirestore.doc(postPath)).thenReturn(mockPostDocRef);
+
+      when(mockWriteBatch.commit()).thenAnswer((_) async => Future.value());
+
+      await firestoreOperation.runBatch((batch) async {
+        batch.update(path: userPath, data: updateUserData);
+        batch.set<TestModel>(path: postPath, item: newPost);
+        batch.delete(path: 'logs/oldLog');
+      });
+
+      verify(mockWriteBatch.update(mockUserDocRef, updateUserData)).called(1);
+      verify(mockWriteBatch.set(
+              mockPostDocRef,
+              newPost.toJson(),
+              argThat(
+                  isA<SetOptions>().having((p0) => p0.merge, 'merge', true))))
+          .called(1);
+      verify(mockWriteBatch.delete(any)).called(1);
+
+      verify(mockWriteBatch.commit()).called(1);
+    });
+
+    test('throws exception when batch function throws an error', () async {
+      final exception = Exception('Something went wrong inside the batch');
+      when(mockWriteBatch.commit()).thenAnswer((_) async => Future.value());
+
+      expect(
+        () => firestoreOperation.runBatch((batch) async {
+          batch.set<TestModel>(path: 'posts/post1', item: TestModel.empty());
+          throw exception;
+        }),
+        throwsA(predicate((e) => e == exception)),
+      );
+
+      verifyNever(mockWriteBatch.commit());
+    });
+
+    test('throws exception when commit fails', () async {
+      final commitException =
+          FirebaseException(plugin: 'firestore', code: 'unavailable');
+
+      when(mockWriteBatch.commit()).thenThrow(commitException);
+
+      final executionFuture = firestoreOperation.runBatch((batch) async {
+        batch.set<TestModel>(path: 'posts/post1', item: TestModel.empty());
+      });
+
+      expect(
+        executionFuture,
+        throwsA(predicate((e) => e == commitException)),
+      );
+    });
+  });
+
+  group('runTransaction', () {
+    late MockTransaction mockTransaction;
+
+    setUp(() {
+      mockTransaction = MockTransaction();
+    });
+
+    test('successfully reads and writes within a transaction', () async {
+      // ARRANGE
+      const postPath = 'posts/post1';
+      final initialPost =
+          TestModel(id: 'post1', name: 'Initial Post'); // Sayacımız 10 olsun
+      final newPostData = {'name': 'Updated in Transaction'};
+
+      final mockPostDocRef = MockDocumentReference();
+      final mockPostSnapshot = MockDocumentSnapshot();
+
+      when(mockFirestore.doc(postPath)).thenReturn(mockPostDocRef);
+
+      // Transaction içindeki `get` çağrısını mock'la
+      when(mockTransaction.get(mockPostDocRef))
+          .thenAnswer((_) async => mockPostSnapshot);
+      when(mockPostSnapshot.exists).thenReturn(true);
+      when(mockPostSnapshot.data()).thenReturn(initialPost.toJson());
+
+      // runTransaction metodunun mockTransaction nesnesini kullanarak
+      // çalışacağını tanımla.
+      // DİKKAT: when(mockFirestore.runTransaction(...)) kısmı oldukça karmaşıktır.
+      // Bu, `mockito`nun bir fonksiyon argümanını yakalayıp kullanmasını gerektirir.
+      when(mockFirestore.runTransaction<String>(any))
+          .thenAnswer((invocation) async {
+        // runTransaction'a geçirilen fonksiyonu yakala
+        final transactionHandler = invocation.positionalArguments[0]
+            as Future<String> Function(Transaction);
+        // Bu fonksiyonu bizim MOCK transaction nesnemizle çalıştır
+        return transactionHandler(mockTransaction);
+      });
+
+      // ACT
+      final result =
+          await firestoreOperation.runTransaction<String>((transaction) async {
+        // Bu `transaction` nesnesi aslında bizim ITransaction sarmalayıcımız.
+        // İçeride `mockTransaction`'ı kullanacak.
+        final post = await transaction.get<TestModel>(
+            path: postPath, model: TestModel.empty());
+
+        expect(post.name,
+            'Initial Post'); // okuma işleminin doğru yapıldığını doğrula
+
+        transaction.update(path: postPath, data: newPostData);
+
+        return 'Success';
+      });
+
+      // ASSERT
+      expect(result, 'Success');
+
+      // Transaction içindeki `get` ve `update` çağrılarının doğru yapıldığını doğrula
+      verify(mockTransaction.get(mockPostDocRef)).called(1);
+      verify(mockTransaction.update(mockPostDocRef, newPostData)).called(1);
+    });
+
+    test('transaction re-throws error from handler function', () async {
+      // ARRANGE
+      final customException = Exception('Logical error in transaction');
+
+      when(mockFirestore.runTransaction<void>(any))
+          .thenAnswer((invocation) async {
+        final transactionHandler = invocation.positionalArguments[0]
+            as Future<void> Function(Transaction);
+        // Hatalı fonksiyonu MOCK transaction ile çalıştır
+        return transactionHandler(mockTransaction);
+      });
+
+      // ACT & ASSERT
+      final execution =
+          firestoreOperation.runTransaction<void>((transaction) async {
+        // işlem içinde hata fırlat
+        throw customException;
+      });
+
+      expect(execution, throwsA(predicate((e) => e == customException)));
+    });
+
+    test('transaction fails if document does not exist during get', () async {
+      // ARRANGE
+      const postPath = 'posts/non_existent_post';
+      final mockPostDocRef = MockDocumentReference();
+      final mockPostSnapshot = MockDocumentSnapshot();
+
+      when(mockFirestore.doc(postPath)).thenReturn(mockPostDocRef);
+      when(mockTransaction.get(mockPostDocRef))
+          .thenAnswer((_) async => mockPostSnapshot);
+      when(mockPostSnapshot.exists).thenReturn(false);
+      when(mockFirestore.runTransaction<void>(any))
+          .thenAnswer((invocation) async {
+        final transactionHandler = invocation.positionalArguments[0]
+            as Future<void> Function(Transaction);
+        return transactionHandler(mockTransaction);
+      });
+
+      final execution =
+          firestoreOperation.runTransaction<void>((transaction) async {
+        await transaction.get(path: postPath, model: TestModel.empty());
+      });
+
+      expect(
+          execution,
+          throwsA(
+            isA<ModuleFirestoreException>().having(
+              (e) => e.code,
+              'code',
+              'document_not_found_exception',
+            ),
+          ));
+      verify(mockTransaction.get(any)).called(1);
     });
   });
 }
