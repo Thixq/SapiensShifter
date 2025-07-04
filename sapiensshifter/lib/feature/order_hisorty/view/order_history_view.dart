@@ -38,6 +38,11 @@ class _OrderHistoryViewState extends BaseState<OrderHistoryView>
   Widget _buildListTables(BuildContext context) {
     return BlocBuilder<OrderHistoryViewModel, OrderHistoryState>(
       builder: (context, state) {
+        if (state.tables.isEmpty) {
+          return const Center(
+            child: Text('data'),
+          );
+        }
         return ListView.separated(
           padding: EdgeInsets.only(
             left: context.sized.lowValue,

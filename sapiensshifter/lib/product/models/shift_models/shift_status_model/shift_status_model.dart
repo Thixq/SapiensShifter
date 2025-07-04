@@ -17,9 +17,9 @@ final class ShiftStatusModel extends IBaseModel<ShiftStatusModel>
     this.range,
     this.status,
   }) {
-    _statusFill = statusFill(shiftStatus: status);
-    statusColor = _statusFill.statusColor;
-    statusIcon = _statusFill.statusIcon;
+    _status = _statusFill(shiftStatus: status);
+    statusColor = _status.statusColor;
+    statusIcon = _status.statusIcon;
   }
 
   factory ShiftStatusModel.fromJson(Map<String, dynamic> json) =>
@@ -28,7 +28,7 @@ final class ShiftStatusModel extends IBaseModel<ShiftStatusModel>
     includeFromJson: false,
     includeToJson: false,
   )
-  late final _statusData _statusFill;
+  late final _statusData _status;
 
   @JsonKey(
     includeFromJson: false,
