@@ -64,7 +64,9 @@ class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
       filters: [
         FilterCondition(
           field: 'timeStamp',
-          value: state.tables.last.toJson()['timeStamp'],
+          value: state.tables.isNotEmpty
+              ? state.tables.last.toJson()['timeStamp']
+              : DateTime.now(),
           operator: FilterOperator.isGreaterThan,
         ),
       ],

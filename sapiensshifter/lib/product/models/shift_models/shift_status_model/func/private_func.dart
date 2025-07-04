@@ -5,7 +5,7 @@ part of '../shift_status_model.dart';
 typedef _statusData = ({Color? statusColor, IconData? statusIcon});
 
 mixin ShiftStatusMixin on IBaseModel<ShiftStatusModel> {
-  _statusData statusFill({
+  _statusData _statusFill({
     ShiftStatusEnum? shiftStatus,
   }) {
     switch (shiftStatus) {
