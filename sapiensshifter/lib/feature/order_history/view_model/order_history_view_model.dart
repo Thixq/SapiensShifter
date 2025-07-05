@@ -5,10 +5,12 @@ import 'package:firebase_firestore_module/firebase_firestore_module.dart';
 import 'package:sapiensshifter/core/constant/query_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
+
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
-import 'package:sapiensshifter/feature/order_hisorty/view_model/state/order_history_state.dart';
+import 'package:sapiensshifter/feature/order_history/view_model/state/order_history_state.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
+import 'package:sapiensshifter/product/utils/enums/working_status_state.dart';
 
 class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
   OrderHistoryViewModel(
@@ -20,72 +22,77 @@ class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
 
   final INetworkManager _networkManager;
   final Profile _profile;
-  late final StreamSubscription<List<TableModel>> _streamSubscription;
 
-  Future<void> getTable() async {
-    await ErrorUtil.runWithErrorHandlingAsync(
-      action: () async {
-        emit(state.copyWith(isLoading: true));
-        await _getHistoryTable();
-        await _getNewTableStream();
+  StreamSubscription<List<TableModel>>? _streamSubscription;
+
+  Future<void> listenTables() async {
+    await _streamSubscription?.cancel();
+    emit(
+      state.copyWith(isLoading: true, tables: []),
+    );
+
+    _profile.sessionState.workingStatus.map(
+      onWorking: (working) {
+        emit(state.copyWith(isWorking: true));
+        final branchId = working.branchId;
+
+        _streamSubscription = _getTableStream(branchId: branchId).listen(
+          (tableItems) {
+            emit(
+              state.copyWith(
+                tables: tableItems,
+                isLoading: false,
+              ),
+            );
+          },
+          onError: (error) {
+            emit(state.copyWith(isLoading: false));
+          },
+        );
       },
-      errorHandler: ServiceErrorHandler(),
-      fallbackValue: () async {},
-    );
-  }
-
-  Future<void> _getHistoryTable() async {
-    final query = FirebaseFirestoreCustomQuery(
-      orderBy: [
-        OrderByCondition(field: 'timeStamp'),
-      ],
-    );
-
-    final branchId = _profile.sessionState.todayBranchId;
-    final path = QueryPathConstant.tableOpenTableColPath(branchId);
-    final historyTables = await _networkManager.networkOperation
-        .getItemsQuery(path: path, model: const TableModel(), query: query);
-    emit(state.copyWith(tables: historyTables, isLoading: false));
-  }
-
-  Future<void> _getNewTableStream() async {
-    _streamSubscription = _getTableStream.listen(
-      (tableItems) {
-        if (tableItems.isNotEmpty) {
-          state.tables.add(tableItems.last);
-          emit(state.copyWith());
-        }
+      onOffDay: (offDay) {
+        emit(
+          state.copyWith(
+            isLoading: false,
+            isWorking: false,
+            notWorkingMessage: offDay.reason,
+            tables: [],
+          ),
+        );
+      },
+      onUnassigned: (unassigned) {
+        emit(
+          state.copyWith(
+            isLoading: false,
+            isWorking: false,
+            notWorkingMessage: 'Bugün için bir vardiyanız bulunmuyor.',
+            tables: [],
+          ),
+        );
       },
     );
   }
 
-  Stream<List<TableModel>> get _getTableStream async* {
+  Stream<List<TableModel>> _getTableStream({String? branchId}) {
     final query = FirebaseFirestoreCustomQuery(
-      filters: [
-        FilterCondition(
-          field: 'timeStamp',
-          value: state.tables.isNotEmpty
-              ? state.tables.last.toJson()['timeStamp']
-              : DateTime.now(),
-          operator: FilterOperator.isGreaterThan,
-        ),
-      ],
+      orderBy: [OrderByCondition(field: 'timeStamp')],
     );
 
-    final branchId = _profile.sessionState.todayBranchId;
-    final tableStream = _networkManager.networkOperation.getStreamQuery(
+    return _networkManager.networkOperation.getStreamQuery(
       path: QueryPathConstant.tableOpenTableColPath(branchId),
       model: const TableModel(),
       query: query,
     );
-    yield* tableStream;
   }
 
   Future<bool> orderClose({
     required String tableId,
     required String orderId,
   }) async {
-    final branchId = _profile.sessionState.todayBranchId;
+    final status = _profile.sessionState.workingStatus;
+    if (status is! Working) return false;
+
+    final branchId = status.branchId;
     final openTablePath =
         '${QueryPathConstant.tableOpenTableColPath(branchId)}/$tableId';
 
@@ -120,16 +127,22 @@ class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
   }
 
   Future<bool> tableClose({required String tableId}) async {
-    final branchId = _profile.sessionState.todayBranchId;
+    final status = _profile.sessionState.workingStatus;
+    if (status is! Working) return false;
+
+    final branchId = status.branchId;
     final openTablePath =
         '${QueryPathConstant.tableOpenTableColPath(branchId)}/$tableId';
     final closeTablePath =
         '${QueryPathConstant.tableCloseTableColPath(branchId)}/$tableId';
 
-    state.tables.removeWhere(
-      (element) => element.id == tableId,
-    );
-    emit(state.copyWith());
+    final removeTableList = List<TableModel>.from(state.tables)
+      ..removeWhere(
+        (element) => element.id == tableId,
+      );
+
+    emit(state.copyWith(tables: removeTableList));
+
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         return _networkManager.networkOperation.runTransaction<bool>(
@@ -150,6 +163,7 @@ class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
             transaction
               ..set(path: closeTablePath, item: closedTable)
               ..delete(path: openTablePath);
+
             return true;
           },
         );
@@ -160,6 +174,6 @@ class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
   }
 
   void dispose() {
-    _streamSubscription.cancel();
+    _streamSubscription?.cancel();
   }
 }

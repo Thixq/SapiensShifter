@@ -20,7 +20,7 @@ mixin TablesViewMixin on BaseState<TablesView>
 
   @override
   void onRoutePoppedNext() {
-    _tablesViewModel.getTableList;
+    _tablesViewModel.fetchTables();
   }
 
   void newOrder(BuildContext context, TableModel? table) {

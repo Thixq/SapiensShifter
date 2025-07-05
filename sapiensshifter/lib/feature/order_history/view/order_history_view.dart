@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/order_hisorty/mixin/order_history_mixin.dart';
-import 'package:sapiensshifter/feature/order_hisorty/view_model/order_history_view_model.dart';
-import 'package:sapiensshifter/feature/order_hisorty/view_model/state/order_history_state.dart';
+import 'package:sapiensshifter/feature/order_history/mixin/order_history_mixin.dart';
+import 'package:sapiensshifter/feature/order_history/view_model/order_history_view_model.dart';
+import 'package:sapiensshifter/feature/order_history/view_model/state/order_history_state.dart';
 import 'package:sapiensshifter/product/component/preview_order_card.dart';
 import 'package:sapiensshifter/product/models/order_model/order_model.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
@@ -38,9 +38,9 @@ class _OrderHistoryViewState extends BaseState<OrderHistoryView>
   Widget _buildListTables(BuildContext context) {
     return BlocBuilder<OrderHistoryViewModel, OrderHistoryState>(
       builder: (context, state) {
-        if (state.tables.isEmpty) {
-          return const Center(
-            child: Text('data'),
+        if (!state.isWorking) {
+          return Center(
+            child: Text(state.notWorkingMessage),
           );
         }
         return ListView.separated(
@@ -66,20 +66,17 @@ class _OrderHistoryViewState extends BaseState<OrderHistoryView>
     int index,
     OrderHistoryState state,
   ) {
-    if (state.tables.isNotEmpty) {
-      return TablePreview(
-        table: state.tables[index],
-        onDissimableOrder: (order) {
-          viewModel.orderClose(
-            tableId: state.tables[index].id ?? '-1',
-            orderId: order.id ?? '-1',
-          );
-        },
-        onDissimableTable: (table) {
-          viewModel.tableClose(tableId: table.id ?? '-1');
-        },
-      );
-    }
-    return null;
+    return TablePreview(
+      table: state.tables[index],
+      onDissimableOrder: (order) {
+        viewModel.orderClose(
+          tableId: state.tables[index].id ?? '-1',
+          orderId: order.id ?? '-1',
+        );
+      },
+      onDissimableTable: (table) {
+        viewModel.tableClose(tableId: table.id ?? '-1');
+      },
+    );
   }
 }

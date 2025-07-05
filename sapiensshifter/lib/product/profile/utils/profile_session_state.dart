@@ -1,20 +1,17 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of '../profile.dart';
 
-class ProfileSessionState {
+final class ProfileSessionState {
   const ProfileSessionState({
-    this.workingStatus = WorkingStatusEnum.UNASSIGNED,
-    this.todayBranchId,
+    this.workingStatus = const Unassigned(),
   });
-  final WorkingStatusEnum workingStatus;
-  final String? todayBranchId;
+  final WorkingStatus workingStatus;
 
   ProfileSessionState copyWith({
-    WorkingStatusEnum? workingStatus,
-    String? todayBranchId,
+    WorkingStatus? workingStatus,
   }) {
     return ProfileSessionState(
       workingStatus: workingStatus ?? this.workingStatus,
-      todayBranchId: todayBranchId ?? this.todayBranchId,
     );
   }
 }

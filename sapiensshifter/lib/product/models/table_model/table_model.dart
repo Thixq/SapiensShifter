@@ -19,7 +19,7 @@ final class TableModel extends IBaseModel<TableModel> with EquatableMixin {
     this.tableName,
     this.timeStamp,
     this.creatorId,
-    this.branchName,
+    this.branchId,
     this.peopleCount,
     this.status,
     this.closingTime,
@@ -32,7 +32,7 @@ final class TableModel extends IBaseModel<TableModel> with EquatableMixin {
   @TimestampNullableConverter()
   final DateTime? timeStamp;
   final String? creatorId;
-  final String? branchName;
+  final String? branchId;
   final int? peopleCount;
   final bool? status;
   @TimestampNullableConverter()
@@ -40,7 +40,7 @@ final class TableModel extends IBaseModel<TableModel> with EquatableMixin {
   final List<OrderModel> orderList;
 
   @override
-  List<Object?> get props => [id, tableName, timeStamp, creatorId, branchName];
+  List<Object?> get props => [id, tableName, timeStamp, creatorId, branchId];
 
   @override
   TableModel fromJson(Map<String, dynamic> json) => _$TableModelFromJson(json);
@@ -65,7 +65,7 @@ final class TableModel extends IBaseModel<TableModel> with EquatableMixin {
     String? tableName,
     DateTime? timeStamp,
     String? creatorId,
-    String? branchName,
+    String? branchId,
     int? peopleCount,
     bool? status,
     DateTime? closingTime,
@@ -76,7 +76,7 @@ final class TableModel extends IBaseModel<TableModel> with EquatableMixin {
       tableName: tableName ?? this.tableName,
       timeStamp: timeStamp ?? this.timeStamp,
       creatorId: creatorId ?? this.creatorId,
-      branchName: branchName ?? this.branchName,
+      branchId: branchId ?? this.branchId,
       peopleCount: peopleCount ?? this.peopleCount,
       status: status ?? this.status,
       closingTime: closingTime ?? this.closingTime,

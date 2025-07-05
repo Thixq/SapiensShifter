@@ -8,7 +8,6 @@ import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/home/model/page_item.dart';
 import 'package:sapiensshifter/feature/home/view/home_view.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
-import 'package:sapiensshifter/product/models/user/sapiens_user/sapiens_user.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/dialogs_and_bottom_sheet.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
@@ -30,14 +29,19 @@ mixin HomeViewMixin on BaseState<HomeView> {
           navBarItem: NavBarItem(
             icon: Icons.table_bar,
             onPress: () {
-              if (profile.sessionState.workingStatus ==
-                  WorkingStatusEnum.WORKING) {
-                SapiCounterDialog.show(
+              profile.sessionState.workingStatus.map(
+                onWorking: (working) async => SapiCounterDialog.show(
                   context,
                   titleName: LocaleKeys.page_home_new_table.tr(),
-                  done: _newTable,
-                );
-              }
+                  done: (title, count) => _newTable(
+                    title,
+                    count,
+                    working.branchId,
+                  ),
+                ),
+                onOffDay: (offDay) => null,
+                onUnassigned: (unassigned) => null,
+              );
             },
           ),
         ),
@@ -47,11 +51,11 @@ mixin HomeViewMixin on BaseState<HomeView> {
         ),
       ];
 
-  void _newTable(String tableName, int peopleCount) {
+  void _newTable(String? tableName, int? peopleCount, String? branchId) {
     final newTableModel = TableModel(
       peopleCount: peopleCount,
       tableName: tableName,
-      branchName: profile.sessionState.todayBranchId,
+      branchId: branchId,
       creatorId: profile.user?.id,
       timeStamp: DateTime.now(),
       status: true,

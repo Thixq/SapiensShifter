@@ -12,17 +12,54 @@ import 'package:sapiensshifter/product/models/order_model/order_model.dart';
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
+import 'package:sapiensshifter/product/utils/enums/working_status_state.dart';
 
 class MenuViewModel extends BaseCubit<MenuViewState> {
   MenuViewModel(
     super.initialState, {
-    required this.currentUser,
+    required Profile profile,
     required INetworkManager networkManager,
-  }) : _networkManager = networkManager;
+  })  : _networkManager = networkManager,
+        _profile = profile;
 
   final INetworkManager _networkManager;
-  final Profile currentUser;
+  final Profile _profile;
   final _menuLogger = CustomLogger('menuLogger');
+
+  Future<bool> writeDatabaseTable() async {
+    return ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        final status = _profile.sessionState.workingStatus;
+
+        if (status is! Working) {
+          _menuLogger.warning(
+            'Çalışma durumu dışındayken masa açılmaya/güncellenmeye çalışıldı.',
+          );
+
+          return false;
+        }
+
+        // 3. Artık 'status' değişkeninin 'Working' olduğunu biliyoruz.
+        // `branchId`'ye güvenle erişebiliriz.
+        final branchId = status.branchId;
+        final table = state.table;
+
+        // Veritabanı yolu artık güvenli. Null kontrolüne gerek yok.
+        final path =
+            '${QueryPathConstant.tableColPath}/$branchId/open/${table.id}';
+
+        await _networkManager.networkOperation.addItem<TableModel>(
+          path: path,
+          item: table,
+        );
+
+        return true;
+      },
+      customLogger: _menuLogger,
+      errorHandler: ServiceErrorHandler(),
+      fallbackValue: () async => false,
+    );
+  }
 
   Future<List<T>> getProducts<T extends IBaseModel<T>>({
     required String path,
@@ -40,23 +77,6 @@ class MenuViewModel extends BaseCubit<MenuViewState> {
       customLogger: _menuLogger,
       errorHandler: ServiceErrorHandler(),
       fallbackValue: () async => [],
-    );
-  }
-
-  Future<bool> writeDatabaseTable() async {
-    return ErrorUtil.runWithErrorHandlingAsync(
-      action: () async {
-        final table = state.table;
-        final branchId = currentUser.sessionState.todayBranchId;
-        await _networkManager.networkOperation.addItem<TableModel>(
-          path: '${QueryPathConstant.tableColPath}/$branchId/open/${table.id}',
-          item: table,
-        );
-        return true;
-      },
-      customLogger: _menuLogger,
-      errorHandler: ServiceErrorHandler(),
-      fallbackValue: () async => false,
     );
   }
 
