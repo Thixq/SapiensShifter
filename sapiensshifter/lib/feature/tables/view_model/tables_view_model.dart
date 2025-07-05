@@ -1,14 +1,17 @@
 import 'package:core/core.dart';
+
 import 'package:sapiensshifter/core/constant/query_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
+
 import 'package:sapiensshifter/core/logging/custom_logger.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/tables/view_model/state/tables_view_state.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
+import 'package:sapiensshifter/product/models/user/sapiens_user/sapiens_user.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
 import 'package:sapiensshifter/product/utils/enums/localization/localization_path_enum.dart';
-import 'package:sapiensshifter/product/utils/extensions/string_extension.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 class TablesViewModel extends BaseCubit<TablesViewState> {
   TablesViewModel(
@@ -27,40 +30,30 @@ class TablesViewModel extends BaseCubit<TablesViewState> {
   }
 
   Future<void> get getBranchName async {
-    final result = await _profile.getToDayBranch;
-    if (result != null && result.isNotEmpty) {
-      emit(
-        state.copyWith(
-          emptyBracnh: false,
-          branchName: result.sapiExt.textLocale(LocalizationPathEnum.branch),
-        ),
-      );
-      return;
-    }
-    emit(state.copyWith(emptyBracnh: true));
+    final workingStatus = _profile.sessionState.workingStatus;
+    final branchName = await _profile.getToDayBranchName;
+    _handleWorkingStatus(
+      workingStatus: workingStatus,
+      onWorking: () => state.copyWith(
+        isWorking: true,
+        branchName: branchName.sapiExt.textLocale(LocalizationPathEnum.branch),
+      ),
+    );
   }
 
   Future<void> get getTableList async {
-    emit(
-      state.copyWith(
-        isLoading: true,
-      ),
-    );
     await ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
-        final branchId = _profile.user?.toDayBranch;
-        if (branchId == null || branchId.isEmpty) {
-          emit(
-            state.copyWith(isLoading: false, tableList: []),
-          );
-          return;
-        }
+        final workingStatus = _profile.sessionState.workingStatus;
         final result = await _networkManager.networkOperation.getItemsQuery(
-          path: QueryPathConstant.tableOpenTableColPath(branchId),
+          path: QueryPathConstant.tableOpenTableColPath(
+            _profile.sessionState.todayBranchId,
+          ),
           model: const TableModel(),
         );
-        emit(
-          state.copyWith(
+        _handleWorkingStatus(
+          workingStatus: workingStatus,
+          onWorking: () => state.copyWith(
             tableList: result,
             isLoading: false,
           ),
@@ -76,7 +69,7 @@ class TablesViewModel extends BaseCubit<TablesViewState> {
     await ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         final closedTable = table.copyWith(status: false);
-        final branchId = _profile.user?.toDayBranch;
+        final branchId = _profile.sessionState.todayBranchId;
         await _networkManager.networkOperation.update(
           path: QueryPathConstant.tableOpenTableColPath(branchId ?? ''),
           value: {'status': false},
@@ -91,5 +84,38 @@ class TablesViewModel extends BaseCubit<TablesViewState> {
       errorHandler: ServiceErrorHandler(),
       fallbackValue: () async {},
     );
+  }
+
+  void _handleWorkingStatus({
+    required TablesViewState Function() onWorking,
+    required WorkingStatusEnum workingStatus,
+  }) {
+    switch (workingStatus) {
+      case WorkingStatusEnum.WORKING:
+        emit(onWorking());
+        return;
+      case WorkingStatusEnum.OFF_DAY:
+        emit(
+          state.copyWith(
+            isWorking: false,
+            notWorkingMessage: LocaleKeys.user_working_state_off_day.tr(),
+            tableList: [],
+            branchName: '',
+            isLoading: false,
+          ),
+        );
+        return;
+      case WorkingStatusEnum.UNASSIGNED:
+        emit(
+          state.copyWith(
+            isWorking: false,
+            notWorkingMessage: LocaleKeys.user_working_state_empty_day.tr(),
+            tableList: [],
+            branchName: '',
+            isLoading: false,
+          ),
+        );
+        return;
+    }
   }
 }

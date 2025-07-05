@@ -150,9 +150,6 @@ class CodegenLoader extends AssetLoader{
         "sign_in": "Giriş yapın!"
       }
     },
-    "tables": {
-      "empty_branch": "Henüz bir vardiyan yok. Müdür ile iletişime geçebilirsin. "
-    },
     "home": {
       "new_table": "Masa 1"
     },
@@ -209,6 +206,10 @@ class CodegenLoader extends AssetLoader{
   "branchs": {
     "karakoy": "Karaköy",
     "kanyon": "Kanyon"
+  },
+  "user_working_state": {
+    "empty_day": "Henüz bir vardiyan yok. Müdür ile iletişime geçebilirsin.",
+    "off_day": "Bugün izinlisin.🎉"
   },
   "category": {
     "all": "Hepsi",

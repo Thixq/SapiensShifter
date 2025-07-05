@@ -5,8 +5,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
+import 'package:core/core.dart' as _i5;
 import 'package:core/src/interfaces/interface.dart' as _i2;
-import 'package:core/src/models/base_model_interface.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i4;
 
@@ -487,4 +487,60 @@ class MockINetworkOperation extends _i1.Mock implements _i2.INetworkOperation {
         returnValue: _i3.Stream<List<T>>.empty(),
         returnValueForMissingStub: _i3.Stream<List<T>>.empty(),
       ) as _i3.Stream<List<T>>);
+
+  @override
+  _i3.Future<void> runBatch(
+          _i3.Future<void> Function(_i2.IBatchWriter)? batchFunction) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #runBatch,
+          [batchFunction],
+        ),
+        returnValue: _i3.Future<void>.value(),
+        returnValueForMissingStub: _i3.Future<void>.value(),
+      ) as _i3.Future<void>);
+
+  @override
+  _i3.Future<T> runTransaction<T>(
+          _i3.Future<T> Function(_i2.ITransaction)? transactionHandler) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #runTransaction,
+          [transactionHandler],
+        ),
+        returnValue: _i4.ifNotNull(
+              _i4.dummyValueOrNull<T>(
+                this,
+                Invocation.method(
+                  #runTransaction,
+                  [transactionHandler],
+                ),
+              ),
+              (T v) => _i3.Future<T>.value(v),
+            ) ??
+            _FakeFuture_2<T>(
+              this,
+              Invocation.method(
+                #runTransaction,
+                [transactionHandler],
+              ),
+            ),
+        returnValueForMissingStub: _i4.ifNotNull(
+              _i4.dummyValueOrNull<T>(
+                this,
+                Invocation.method(
+                  #runTransaction,
+                  [transactionHandler],
+                ),
+              ),
+              (T v) => _i3.Future<T>.value(v),
+            ) ??
+            _FakeFuture_2<T>(
+              this,
+              Invocation.method(
+                #runTransaction,
+                [transactionHandler],
+              ),
+            ),
+      ) as _i3.Future<T>);
 }

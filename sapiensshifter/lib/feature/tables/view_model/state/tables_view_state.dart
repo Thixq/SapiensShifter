@@ -5,33 +5,42 @@ final class TablesViewState {
   TablesViewState({
     required this.tableList,
     required this.isLoading,
-    required this.emptyBracnh,
+    required this.isWorking,
+    this.notWorkingMessage,
     this.branchName,
   });
 
-  factory TablesViewState.initial({String? branchName}) {
+  factory TablesViewState.initial({
+    String? branchName,
+    String? notWorkingMessage,
+  }) {
     return TablesViewState(
-      emptyBracnh: true,
+      isWorking: false,
       tableList: [],
       isLoading: true,
       branchName: branchName,
+      notWorkingMessage: notWorkingMessage,
     );
   }
-  final bool emptyBracnh;
+  final bool isWorking;
+
   final List<TableModel> tableList;
   final bool isLoading;
+  final String? notWorkingMessage;
   final String? branchName;
 
   TablesViewState copyWith({
-    bool? emptyBracnh,
+    bool? isWorking,
     List<TableModel>? tableList,
     bool? isLoading,
+    String? notWorkingMessage,
     String? branchName,
   }) {
     return TablesViewState(
-      emptyBracnh: emptyBracnh ?? this.emptyBracnh,
+      isWorking: isWorking ?? this.isWorking,
       tableList: tableList ?? this.tableList,
       isLoading: isLoading ?? this.isLoading,
+      notWorkingMessage: notWorkingMessage ?? this.notWorkingMessage,
       branchName: branchName ?? this.branchName,
     );
   }

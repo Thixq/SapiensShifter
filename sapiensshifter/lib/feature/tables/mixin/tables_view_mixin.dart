@@ -34,8 +34,8 @@ mixin TablesViewMixin on BaseState<TablesView>
   Future<void> initial(Profile profile) async {
     await ProductConfigureItems.shiftManager.reload();
 
-    await profile.setBranch(
-      branchId: ProductConfigureItems.shiftManager.toDayBranch?.branchId,
+    await profile.setWorkingStatus(
+      shiftDay: ProductConfigureItems.shiftManager.toDayBranch,
     );
     await _tablesViewModel.initial();
   }

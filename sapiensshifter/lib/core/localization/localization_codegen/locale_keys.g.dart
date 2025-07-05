@@ -113,8 +113,6 @@ abstract class  LocaleKeys {
   static const page_sign_register_sign_in = 'page.sign.register.sign_in';
   static const page_sign_register = 'page.sign.register';
   static const page_sign = 'page.sign';
-  static const page_tables_empty_branch = 'page.tables.empty_branch';
-  static const page_tables = 'page.tables';
   static const page_home_new_table = 'page.home.new_table';
   static const page_home = 'page.home';
   static const page_order_detail_service_type = 'page.order_detail.service_type';
@@ -158,6 +156,9 @@ abstract class  LocaleKeys {
   static const branchs_karakoy = 'branchs.karakoy';
   static const branchs_kanyon = 'branchs.kanyon';
   static const branchs = 'branchs';
+  static const user_working_state_empty_day = 'user_working_state.empty_day';
+  static const user_working_state_off_day = 'user_working_state.off_day';
+  static const user_working_state = 'user_working_state';
   static const category_all = 'category.all';
   static const category_hot_coffees = 'category.hot_coffees';
   static const category_sandwiches = 'category.sandwiches';
