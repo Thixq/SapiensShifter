@@ -52,8 +52,10 @@ class Body extends StatelessWidget {
           deliveryChange: deliveryChange,
         ),
         _buildOptionsList(context),
-        SumbitButton(
-          onSumbit: onSumbit,
+        SafeArea(
+          child: SumbitButton(
+            onSumbit: onSumbit,
+          ),
         ),
       ],
     );
