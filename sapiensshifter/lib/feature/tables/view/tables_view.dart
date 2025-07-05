@@ -45,12 +45,13 @@ class _TablesViewState extends BaseState<TablesView>
   Widget _body() {
     return BlocBuilder<TablesViewModel, TablesViewState>(
       builder: (context, state) {
-        if (state.emptyBracnh) {
-          return _emptyBranch(context);
-        }
         if (state.isLoading) {
           return _waitingShimmer(context);
         }
+        if (!state.isWorking) {
+          return _emptyBranch(context, state.notWorkingMessage ?? '');
+        }
+
         return _content(context, state.tableList);
       },
     );
@@ -74,12 +75,12 @@ class _TablesViewState extends BaseState<TablesView>
     );
   }
 
-  Widget _emptyBranch(BuildContext context) {
+  Widget _emptyBranch(BuildContext context, String notWorkingMessage) {
     return _buildPadding(
       context,
       child: Center(
         child: Text(
-          LocaleKeys.page_tables_empty_branch.tr(),
+          notWorkingMessage,
           textAlign: TextAlign.center,
         ),
       ),

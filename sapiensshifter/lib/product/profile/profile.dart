@@ -9,20 +9,23 @@ import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/product/models/branch_model/branch_model.dart';
 import 'package:sapiensshifter/product/models/user/sapiens_user/sapiens_user.dart';
 import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
+import 'package:sapiensshifter/product/utils/enums/working_status_enum.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 import 'package:uuid/v4.dart';
 import 'package:uuid/v7.dart';
 
-class Profile {
+part 'utils/profile_utils_mixin.dart';
+part 'utils/profile_session_state.dart';
+
+class Profile with ProfileUtilsMixin {
   Profile._({
     required INetworkManager networkManager,
     required IAuthManager authManager,
     required IStorageManager storageManager,
-  }) {
+  }) : _persistentUser = null {
     _networkManager = networkManager;
     _authManager = authManager;
     _storageManager = storageManager;
-
-    _user = null;
   }
 
   static Future<Profile> instance({
@@ -37,13 +40,15 @@ class Profile {
     );
   }
 
-  SapiensUser? get user => _user;
+  SapiensUser? get user => _persistentUser;
+  ProfileSessionState get sessionState => _sessionState;
 
   late final INetworkManager _networkManager;
   late final IAuthManager _authManager;
   late final IStorageManager _storageManager;
 
-  SapiensUser? _user;
+  SapiensUser? _persistentUser;
+  ProfileSessionState _sessionState = const ProfileSessionState();
 
   Future<SapiensUser> get _getCurrentProfile async {
     final uid = _authManager.authOperation.user?.id;
@@ -55,19 +60,20 @@ class Profile {
   }
 
   Future<void> get reload async {
-    _user = await _getCurrentProfile;
+    _persistentUser = await _getCurrentProfile;
   }
 
   Future<bool> _updateUser({required Map<String, dynamic> field}) async {
     return _networkManager.networkOperation.update(
-      path: '${QueryPathConstant.usersColPath}/${_user?.id}',
+      path: '${QueryPathConstant.usersColPath}/${_persistentUser?.id}',
       value: field,
     );
   }
 
   Future<bool> _updateUserPreview({required Map<String, dynamic> field}) async {
     return _networkManager.networkOperation.update(
-      path: '${QueryPathConstant.usersPreviewColPath}/${_user?.userPreviewId}',
+      path:
+          '${QueryPathConstant.usersPreviewColPath}/${_persistentUser?.userPreviewId}',
       value: field,
     );
   }
@@ -176,7 +182,7 @@ class Profile {
     final mimeSuffix = mimeType?.split('/').last ?? 'jpg';
 
     final path =
-        '${StoragePathConstant.usersPhotoBasePath}/${_user?.id}/${const UuidV7().generate()}.$mimeSuffix';
+        '${StoragePathConstant.usersPhotoBasePath}/${_persistentUser?.id}/${const UuidV7().generate()}.$mimeSuffix';
     return _storageManager.storageOperation
         .upload(path: path, mimeType: mimeType, byteFile: photoBytes);
   }
@@ -188,26 +194,36 @@ class Profile {
   }
 
   Future<bool> signOut() async {
+    _persistentUser = null;
     return _authManager.signOut();
   }
 
-  Future<void> setBranch({String? branchId}) async {
+  Future<void> setWorkingStatus({ShiftDay? shiftDay}) async {
     await ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
-        await _updateUser(field: {'toDayBranch': branchId});
-        await reload;
+        _sessionState = _sessionState.copyWith(
+          workingStatus:
+              _handleShiftStatus(shiftStatus: shiftDay?.shiftStatus?.status),
+          todayBranchId: shiftDay?.branchId,
+        );
       },
       errorHandler: ServiceErrorHandler(),
       fallbackValue: () async {},
     );
   }
 
-  Future<String?> get getToDayBranch async {
+  Future<String?> get getToDayBranchName async {
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
-        final branch = _user?.toDayBranch;
+        final branchId = _sessionState.todayBranchId;
+        if (_sessionState.workingStatus != WorkingStatusEnum.WORKING ||
+            branchId == null ||
+            branchId.isEmpty) {
+          return null;
+        }
+        final branch = _sessionState.todayBranchId;
 
-        if (branch != null && branch.isNotEmpty) {
+        if (branch!.isNotEmpty) {
           final result = await _networkManager.networkOperation.getItem(
             path: '${QueryPathConstant.branchColPath}/$branch',
             model: BranchModel(),

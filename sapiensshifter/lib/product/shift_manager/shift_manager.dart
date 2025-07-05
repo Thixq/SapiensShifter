@@ -73,11 +73,14 @@ class ShiftManager {
 
   Future<List<ShiftDay>> getShifts({
     required DateTime firstWeekFirstDay,
+    int startAt = 6,
   }) async {
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
-        final result =
-            await _getShiftWeeks(firstWeekFirstDay: firstWeekFirstDay);
+        final result = await _getShiftWeeks(
+          startAt: startAt,
+          firstWeekFirstDay: firstWeekFirstDay,
+        );
 
         final shiftAndBranch = await _getBranchAndShiftMaps();
 
@@ -122,7 +125,7 @@ class ShiftManager {
 
   Future<List<ShiftWeek>> _getShiftWeeks({
     required DateTime firstWeekFirstDay,
-    int? startAt = 6,
+    int startAt = 6,
   }) async {
     final query = FirebaseFirestoreCustomQuery(
       orderBy: [OrderByCondition(field: 'weekStart', descending: true)],
@@ -136,7 +139,7 @@ class ShiftManager {
       limit: startAt,
     );
     final result = await _getItems(
-      path: QueryPathConstant.shiftsColPath(_profile.user?.id ?? '-1'),
+      path: QueryPathConstant.shiftsColPath(_profile.user?.id),
       model: const ShiftWeek(),
       query: query,
     );

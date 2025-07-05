@@ -1,14 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: avoid_redundant_argument_values
 
 import 'package:core/core.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 import 'package:sapiensshifter/product/utils/enums/user_role.dart';
 
 part 'sapiens_user.g.dart';
 
 @JsonSerializable(checked: true)
-// ignore: public_member_api_docs
 final class SapiensUser extends IBaseModel<SapiensUser> with EquatableMixin {
   const SapiensUser({
     super.id,
@@ -16,7 +17,6 @@ final class SapiensUser extends IBaseModel<SapiensUser> with EquatableMixin {
     this.email,
     this.role,
     this.photoUrl,
-    this.toDayBranch,
     this.userPreviewId,
     this.chatPreviewIdList,
   });
@@ -36,7 +36,6 @@ final class SapiensUser extends IBaseModel<SapiensUser> with EquatableMixin {
       userPreviewId: userPreviewId,
       role: UserRole.user,
       chatPreviewIdList: [],
-      toDayBranch: null,
     );
   }
 
@@ -46,7 +45,6 @@ final class SapiensUser extends IBaseModel<SapiensUser> with EquatableMixin {
   final String? name;
   final String? email;
   final String? photoUrl;
-  final String? toDayBranch;
   final String? userPreviewId;
   final List<String>? chatPreviewIdList;
   final UserRole? role;
@@ -60,4 +58,22 @@ final class SapiensUser extends IBaseModel<SapiensUser> with EquatableMixin {
 
   @override
   Map<String, dynamic> toJson() => _$SapiensUserToJson(this);
+
+  SapiensUser copyWith({
+    String? name,
+    String? email,
+    String? photoUrl,
+    String? userPreviewId,
+    List<String>? chatPreviewIdList,
+    UserRole? role,
+  }) {
+    return SapiensUser(
+      name: name ?? this.name,
+      email: email ?? this.email,
+      photoUrl: photoUrl ?? this.photoUrl,
+      userPreviewId: userPreviewId ?? this.userPreviewId,
+      chatPreviewIdList: chatPreviewIdList ?? this.chatPreviewIdList,
+      role: role ?? this.role,
+    );
+  }
 }

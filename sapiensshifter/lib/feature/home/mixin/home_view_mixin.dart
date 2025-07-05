@@ -8,6 +8,7 @@ import 'package:sapiensshifter/core/state/base/base_state.dart';
 import 'package:sapiensshifter/feature/home/model/page_item.dart';
 import 'package:sapiensshifter/feature/home/view/home_view.dart';
 import 'package:sapiensshifter/product/models/table_model/table_model.dart';
+import 'package:sapiensshifter/product/models/user/sapiens_user/sapiens_user.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/dialogs_and_bottom_sheet.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
@@ -15,7 +16,7 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/export_pa
 import 'package:uuid/v7.dart';
 
 mixin HomeViewMixin on BaseState<HomeView> {
-  final userInfo = ProductConfigureItems.profile;
+  final profile = ProductConfigureItems.profile;
 
   List<PageItem> get pages => <PageItem>[
         PageItem(
@@ -29,11 +30,14 @@ mixin HomeViewMixin on BaseState<HomeView> {
           navBarItem: NavBarItem(
             icon: Icons.table_bar,
             onPress: () {
-              SapiCounterDialog.show(
-                context,
-                titleName: LocaleKeys.page_home_new_table.tr(),
-                done: _newTable,
-              );
+              if (profile.sessionState.workingStatus ==
+                  WorkingStatusEnum.WORKING) {
+                SapiCounterDialog.show(
+                  context,
+                  titleName: LocaleKeys.page_home_new_table.tr(),
+                  done: _newTable,
+                );
+              }
             },
           ),
         ),
@@ -47,8 +51,8 @@ mixin HomeViewMixin on BaseState<HomeView> {
     final newTableModel = TableModel(
       peopleCount: peopleCount,
       tableName: tableName,
-      branchName: userInfo.user?.toDayBranch,
-      creatorId: userInfo.user?.id,
+      branchName: profile.sessionState.todayBranchId,
+      creatorId: profile.user?.id,
       timeStamp: DateTime.now(),
       status: true,
       id: const UuidV7().generate(),

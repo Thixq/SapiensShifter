@@ -6,14 +6,14 @@ class QueryPathConstant {
       '$tableColPath/$branch/open';
   static String tableCloseTableColPath(String? branch) =>
       '$tableColPath/$branch/close';
-  static String shiftsColPath(String userId) => '$usersColPath/$userId/shifts';
+  static String shiftsColPath(String? userId) => '$usersColPath/$userId/shifts';
   static const categoryColPath = '/categories';
   static const extras = '/extras';
   static const shiftStatusColPath = '/shiftStatus';
   static const productsColPath = '/products';
   static const branchColPath = '/branches';
   static const chatPreviewColPath = '/chats';
-  static String messagesColPath(String chatId) =>
+  static String messagesColPath(String? chatId) =>
       '$chatPreviewColPath/$chatId/messages';
   static const priceRationColPath = '/priceRations';
   static const devicesColPath = '/devices';

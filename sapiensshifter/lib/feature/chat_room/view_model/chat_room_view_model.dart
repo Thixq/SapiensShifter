@@ -24,7 +24,7 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
   final Profile _profile;
   late final StreamSubscription<List<MessageModel>> _messagesStreamSubscription;
 
-  Future<void> withChatId({required String chatId}) async {
+  Future<void> withChatId({String? chatId}) async {
     await _getChatInfo(chatId: chatId);
     await _isExist(chatId: chatId);
     final ohterUserId = state.chatModel
@@ -33,16 +33,16 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
     await _getMessages(chatId: chatId);
   }
 
-  Future<void> withChatModel({required ChatModel chatModel}) async {
+  Future<void> withChatModel({ChatModel? chatModel}) async {
     emit(state.copyWith(chatModel: chatModel));
 
     final ohterUserId = state.chatModel
         .getOhterUserId(currentUserId: _profile.user?.userPreviewId);
     await _getOhterUserPreview(ohterUserPreviewId: ohterUserId);
-    await _getMessages(chatId: chatModel.id!);
+    await _getMessages(chatId: chatModel?.id);
   }
 
-  Future<void> _isExist({required String chatId}) async {
+  Future<void> _isExist({String? chatId}) async {
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         final result = await _networkManager.networkOperation.getItem(
@@ -60,7 +60,7 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
     );
   }
 
-  Future<void> _getChatInfo({required String chatId}) async {
+  Future<void> _getChatInfo({String? chatId}) async {
     return ErrorUtil.runWithErrorHandlingAsync<void>(
       action: () async {
         final chatModel = await _networkManager.networkOperation.getItem(
@@ -88,12 +88,12 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
     );
   }
 
-  Future<void> _getMessages({required String chatId}) async {
+  Future<void> _getMessages({String? chatId}) async {
     await _getHistoryMessages(chatId: chatId);
     await _listenLastMessage(chatId: chatId);
   }
 
-  Future<void> _getHistoryMessages({required String chatId}) async {
+  Future<void> _getHistoryMessages({String? chatId}) async {
     final query = FirebaseFirestoreCustomQuery(
       orderBy: [
         OrderByCondition(
@@ -117,7 +117,7 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
     );
   }
 
-  Future<void> _listenLastMessage({required String chatId}) async {
+  Future<void> _listenLastMessage({String? chatId}) async {
     final timestampFilter =
         (state.messages != null && state.messages!.isNotEmpty)
             ? FilterCondition(
@@ -166,7 +166,7 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         await _networkManager.networkOperation.addItem(
-          path: QueryPathConstant.messagesColPath(state.chatModel.id!),
+          path: QueryPathConstant.messagesColPath(state.chatModel.id),
           item: message,
         );
       },
