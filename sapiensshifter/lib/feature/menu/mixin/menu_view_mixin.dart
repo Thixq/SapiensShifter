@@ -20,7 +20,7 @@ mixin MenuViewMixin on BaseState<MenuView> {
   void initState() {
     _menuViewModel = MenuViewModel(
       MenuViewState.initial(table: widget.table),
-      currentUser: _profile,
+      profile: _profile,
       networkManager: ProductConfigureItems.networkManager,
     );
     _menuViewModel.getCategories();

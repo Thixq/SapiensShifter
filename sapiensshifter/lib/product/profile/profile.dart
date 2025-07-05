@@ -9,7 +9,8 @@ import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/product/models/branch_model/branch_model.dart';
 import 'package:sapiensshifter/product/models/user/sapiens_user/sapiens_user.dart';
 import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
-import 'package:sapiensshifter/product/utils/enums/working_status_enum.dart';
+import 'package:sapiensshifter/product/utils/enums/working_status_state.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 import 'package:uuid/v4.dart';
 import 'package:uuid/v7.dart';
@@ -202,9 +203,7 @@ class Profile with ProfileUtilsMixin {
     await ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         _sessionState = _sessionState.copyWith(
-          workingStatus:
-              _handleShiftStatus(shiftStatus: shiftDay?.shiftStatus?.status),
-          todayBranchId: shiftDay?.branchId,
+          workingStatus: _handleShiftStatus(shiftDay: shiftDay),
         );
       },
       errorHandler: ServiceErrorHandler(),
@@ -215,22 +214,17 @@ class Profile with ProfileUtilsMixin {
   Future<String?> get getToDayBranchName async {
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
-        final branchId = _sessionState.todayBranchId;
-        if (_sessionState.workingStatus != WorkingStatusEnum.WORKING ||
-            branchId == null ||
-            branchId.isEmpty) {
-          return null;
-        }
-        final branch = _sessionState.todayBranchId;
-
-        if (branch!.isNotEmpty) {
-          final result = await _networkManager.networkOperation.getItem(
-            path: '${QueryPathConstant.branchColPath}/$branch',
-            model: BranchModel(),
-          );
-          return result.name;
-        }
-        return null;
+        return _sessionState.workingStatus.map(
+          onWorking: (working) async {
+            final result = await _networkManager.networkOperation.getItem(
+              path: '${QueryPathConstant.branchColPath}/${working.branchId}',
+              model: BranchModel(),
+            );
+            return result.name;
+          },
+          onOffDay: (offDay) => null,
+          onUnassigned: (unassigned) => null,
+        );
       },
       errorHandler: ServiceErrorHandler(),
       fallbackValue: () async => null,

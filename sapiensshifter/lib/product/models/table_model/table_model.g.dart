@@ -18,7 +18,7 @@ TableModel _$TableModelFromJson(Map<String, dynamic> json) => $checkedCreate(
               (v) =>
                   const TimestampNullableConverter().fromJson(v as Timestamp?)),
           creatorId: $checkedConvert('creatorId', (v) => v as String?),
-          branchName: $checkedConvert('branchName', (v) => v as String?),
+          branchId: $checkedConvert('branchId', (v) => v as String?),
           peopleCount:
               $checkedConvert('peopleCount', (v) => (v as num?)?.toInt()),
           status: $checkedConvert('status', (v) => v as bool?),
@@ -46,7 +46,7 @@ Map<String, dynamic> _$TableModelToJson(TableModel instance) =>
       'timeStamp':
           const TimestampNullableConverter().toJson(instance.timeStamp),
       'creatorId': instance.creatorId,
-      'branchName': instance.branchName,
+      'branchId': instance.branchId,
       'peopleCount': instance.peopleCount,
       'status': instance.status,
       'closingTime':
