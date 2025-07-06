@@ -1,11 +1,4 @@
-import 'package:flutter/widgets.dart';
-import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
-import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/chat_room/view/chat_room_view.dart';
-import 'package:sapiensshifter/feature/chat_room/view_model/chat_room_view_model.dart';
-import 'package:sapiensshifter/feature/chat_room/view_model/state/chat_room_state.dart';
-import 'package:sapiensshifter/product/models/chats_model/chat_model.dart';
-import 'package:sapiensshifter/product/profile/profile.dart';
+part of '../view/chat_room_view.dart';
 
 mixin ChatRoomViewMixin on BaseState<ChatRoomView> {
   late final ChatRoomViewModel _chatRoomViewModel;

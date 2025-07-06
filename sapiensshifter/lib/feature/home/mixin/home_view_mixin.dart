@@ -1,21 +1,13 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
-import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
-import 'package:sapiensshifter/core/notification/notification_service.dart';
-import 'package:sapiensshifter/core/notification/notification_token_manager/notification_token_manager.dart';
-import 'package:sapiensshifter/core/routing/routing_manager.gr.dart';
-import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/home/model/page_item.dart';
-import 'package:sapiensshifter/feature/home/view/home_view.dart';
-import 'package:sapiensshifter/product/models/table_model/table_model.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/dialogs_and_bottom_sheet.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
-
-import 'package:uuid/v7.dart';
+part of '../view/home_view.dart';
 
 mixin HomeViewMixin on BaseState<HomeView> {
   final profile = ProductConfigureItems.profile;
+
+  @override
+  void initState() {
+    requestNotification();
+    super.initState();
+  }
 
   List<PageItem> get pages => <PageItem>[
         PageItem(
@@ -74,12 +66,6 @@ mixin HomeViewMixin on BaseState<HomeView> {
           (e) => e.navBarItem,
         )
         .toList();
-  }
-
-  @override
-  void initState() {
-    requestNotification();
-    super.initState();
   }
 
   Future<void> requestNotification() async {

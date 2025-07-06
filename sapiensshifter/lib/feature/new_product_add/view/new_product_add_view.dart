@@ -1,12 +1,13 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_storage_module/firebase_storage_module.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sapiensshifter/core/constant/assets_path_constant.dart';
+import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/new_product_add/mixin/new_product_view_mixin.dart';
 import 'package:sapiensshifter/feature/new_product_add/view_model/new_product_view_model.dart';
 import 'package:sapiensshifter/feature/new_product_add/view_model/state/new_product_state.dart';
 import 'package:sapiensshifter/product/component/image_picker.dart';
@@ -24,9 +25,11 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_
 import 'package:sapiensshifter/product/utils/input_formatters/decimal_input_formatter.dart';
 import 'package:sapiensshifter/product/utils/static_func/image_normalized.dart';
 import 'package:sapiensshifter/product/utils/validator/product_validator.dart';
+import 'package:uuid/v7.dart';
 
 part 'widget/product_form.dart';
 part 'widget/product_image.dart';
+part '../mixin/new_product_view_mixin.dart';
 
 @RoutePage()
 class NewProductAddView extends StatefulWidget {

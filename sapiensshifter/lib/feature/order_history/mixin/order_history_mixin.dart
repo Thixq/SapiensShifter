@@ -1,8 +1,4 @@
-import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
-import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/order_history/view/order_history_view.dart';
-import 'package:sapiensshifter/feature/order_history/view_model/order_history_view_model.dart';
-import 'package:sapiensshifter/feature/order_history/view_model/state/order_history_state.dart';
+part of '../view/order_history_view.dart';
 
 mixin OrderHistoryMixin on BaseState<OrderHistoryView> {
   late final OrderHistoryViewModel _historyViewModel;

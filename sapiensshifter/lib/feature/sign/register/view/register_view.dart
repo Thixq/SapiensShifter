@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sapiensshifter/core/constant/page_path_constant.dart';
+import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/sign/register/mixin/register_view_mixin.dart';
+import 'package:sapiensshifter/feature/sign/register/view_model/register_view_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart';
@@ -11,6 +13,7 @@ import 'package:sapiensshifter/product/utils/validator/sign_validator.dart';
 part './widget/register_button.dart';
 part './widget/register_input_form.dart';
 part './widget/sign_in_route_button.dart';
+part '../mixin/register_view_mixin.dart';
 
 @RoutePage()
 class RegisterView extends StatefulWidget {

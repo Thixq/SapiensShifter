@@ -1,9 +1,4 @@
-import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
-import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/menu/view/menu_view.dart';
-import 'package:sapiensshifter/feature/menu/view_model/menu_view_model.dart';
-import 'package:sapiensshifter/feature/menu/view_model/state/menu_view_state.dart';
-import 'package:sapiensshifter/product/profile/profile.dart';
+part of '../view/menu_view.dart';
 
 mixin MenuViewMixin on BaseState<MenuView> {
   late final MenuViewModel _menuViewModel;
@@ -25,5 +20,11 @@ mixin MenuViewMixin on BaseState<MenuView> {
     );
     _menuViewModel.getCategories();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _menuViewModel.close();
+    super.dispose();
   }
 }

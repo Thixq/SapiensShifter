@@ -24,7 +24,6 @@ final class LanguageManager extends EasyLocalization {
   @override
   Locale? get fallbackLocale => const Locale('tr', 'TR');
 
-  /// A list of supported locales in the app.
   static List<Locale> get supportedLocalesLanguages => [
         const Locale('tr', 'TR'),
       ];

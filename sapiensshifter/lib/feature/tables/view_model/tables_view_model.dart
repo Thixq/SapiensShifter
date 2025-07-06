@@ -94,31 +94,41 @@ class TablesViewModel extends BaseCubit<TablesViewState> {
     );
   }
 
-  // YENİ `deleteTable` METODU
-  Future<void> deleteTable(TableModel table) async {
+  Future<void> closeTable(TableModel table) async {
     final status = _profile.sessionState.workingStatus;
 
     if (status is! Working) {
       return;
     }
     final branchId = status.branchId;
+    final tableId = table.id;
+    final openTablePath =
+        '${QueryPathConstant.tableOpenTableColPath(branchId)}/$tableId';
+    final closeTablePath =
+        '${QueryPathConstant.tableCloseTableColPath(branchId)}/$tableId';
+
+    final updatedList = List<TableModel>.from(state.tableList)..remove(table);
+    emit(
+      state.copyWith(tableList: updatedList),
+    );
 
     await ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
-        final closedTable = table.copyWith(status: false);
-        await _networkManager.networkOperation.update(
-          path: QueryPathConstant.tableOpenTableColPath(
-            branchId,
-          ),
-          value: {
-            'status': false,
+        await _networkManager.networkOperation.runTransaction<void>(
+          (transaction) async {
+            final closedTable = table.copyWith(
+              closingTime: DateTime.now(),
+              status: false,
+              orderList: table.orderList
+                  .map(
+                    (order) => order.copyWith(status: false),
+                  )
+                  .toList(),
+            );
+            transaction
+              ..set(path: closeTablePath, item: closedTable)
+              ..delete(path: openTablePath);
           },
-        );
-
-        final updatedList = List<TableModel>.from(state.tableList)
-          ..remove(closedTable);
-        emit(
-          state.copyWith(tableList: updatedList),
         );
       },
       errorHandler: ServiceErrorHandler(),

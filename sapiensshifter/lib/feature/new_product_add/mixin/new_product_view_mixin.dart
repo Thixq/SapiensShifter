@@ -1,13 +1,4 @@
-import 'package:firebase_storage_module/firebase_storage_module.dart';
-import 'package:flutter/material.dart';
-import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
-import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/new_product_add/view/new_product_add_view.dart';
-import 'package:sapiensshifter/feature/new_product_add/view_model/new_product_view_model.dart';
-import 'package:sapiensshifter/feature/new_product_add/view_model/state/new_product_state.dart';
-import 'package:sapiensshifter/product/models/product_model/product_model.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
-import 'package:uuid/v7.dart';
+part of '../view/new_product_add_view.dart';
 
 mixin NewProductViewMixin on BaseState<NewProductAddView> {
   late final NewProductViewModel _newProductViewModel;
@@ -15,12 +6,6 @@ mixin NewProductViewMixin on BaseState<NewProductAddView> {
   late final GlobalKey<ProductImageState> productImageKey;
 
   NewProductViewModel get viewModel => _newProductViewModel;
-
-  void _resetForm() {
-    productImageKey.currentState?.resetImage();
-    formKey.currentState?.reset();
-    _newProductViewModel.resetProduct();
-  }
 
   @override
   void initState() {
@@ -35,6 +20,12 @@ mixin NewProductViewMixin on BaseState<NewProductAddView> {
 
     _newProductViewModel.getOptions();
     super.initState();
+  }
+
+  void _resetForm() {
+    productImageKey.currentState?.resetImage();
+    formKey.currentState?.reset();
+    _newProductViewModel.resetProduct();
   }
 
   Future<void> confirmProduct({required ProductModel product}) async {

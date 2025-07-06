@@ -2,8 +2,8 @@ import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/product_price_edit/mixin/product_price_edit_mixin.dart';
 import 'package:sapiensshifter/feature/product_price_edit/view_model/product_price_edit_view_model.dart';
 import 'package:sapiensshifter/feature/product_price_edit/view_model/state/product_price_edit_state.dart';
 import 'package:sapiensshifter/product/component/custom_radio/custom_radio_viewer.dart';
@@ -19,6 +19,7 @@ part 'widget/product_price_edit_product_list.dart';
 part 'widget/product_price_option_view.dart';
 part 'widget/product_price_edit_options.dart';
 part 'widget/shimmer_price_option.dart';
+part '../mixin/product_price_edit_mixin.dart';
 
 enum AllSelected { all, none }
 
@@ -38,9 +39,7 @@ class _ProductPriceEditViewState extends BaseState<ProductPriceEditView>
       create: (context) => viewModel,
       child: Scaffold(
         appBar: ProductPriceEditAppBar(
-          onSave: () {
-            viewModel.saveNewPrice();
-          },
+          onSave: viewModel.saveNewPrice,
         ),
         body: Padding(
           padding: EdgeInsetsGeometry.symmetric(
@@ -76,8 +75,7 @@ class _ProductPriceEditViewState extends BaseState<ProductPriceEditView>
                       mainList: state.filteredList,
                       isSelected: (product) =>
                           state.selectedList.contains(product),
-                      onProductTap: (product) =>
-                          viewModel.selectProduct(product),
+                      onProductTap: viewModel.selectProduct,
                     );
                   },
                 ),

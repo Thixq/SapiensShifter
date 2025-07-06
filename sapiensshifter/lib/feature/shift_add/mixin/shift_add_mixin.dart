@@ -1,10 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
-import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/shift_add/view/shift_add_view.dart';
-import 'package:sapiensshifter/feature/shift_add/view_model/shift_add_view_model.dart';
-import 'package:sapiensshifter/feature/shift_add/view_model/state/shift_add_state.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
+part of '../view/shift_add_view.dart';
 
 mixin ShiftAddMixin on BaseState<ShiftAddView> {
   late final ShiftAddViewModel _shiftAddViewModel;
@@ -30,5 +24,11 @@ mixin ShiftAddMixin on BaseState<ShiftAddView> {
     );
     _shiftAddViewModel.initial();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _shiftAddViewModel.close();
+    super.dispose();
   }
 }

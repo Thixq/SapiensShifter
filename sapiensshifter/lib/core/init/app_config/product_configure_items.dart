@@ -15,4 +15,6 @@ class ProductConfigureItems {
       AppDependency.read<ProductViewModel>();
   static Profile get profile => AppDependency.read<Profile>();
   static ShiftManager get shiftManager => AppDependency.read<ShiftManager>();
+  static IConnectivityService get connectivityService =>
+      AppDependency.read<IConnectivityService>();
 }

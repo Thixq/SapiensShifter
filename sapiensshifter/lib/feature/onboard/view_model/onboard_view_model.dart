@@ -1,6 +1,5 @@
 import 'package:core/core.dart';
-import 'package:flutter/material.dart';
-import 'package:sapiensshifter/core/exception/handler/custom_handler/ui_error_handler.dart';
+import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/logging/custom_logger.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
@@ -40,11 +39,11 @@ final class OnboardViewModel extends BaseCubit<OnboardState> {
     }
   }
 
-  Future<bool> writeFirstLaunch(BuildContext context) async {
+  Future<bool> writeFirstLaunch() async {
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async => _localCacheManager.cacheOperation
-          .write<bool>(key: StringConstant.isFirstLaunchKey, value: true),
-      errorHandler: UIErrorHandler(context),
+          .write<bool>(key: StringConstant.isFirstLaunchKey, value: false),
+      errorHandler: ServiceErrorHandler(),
       fallbackValue: () async => false,
       customLogger: CustomLogger('OnboardViewModel'),
     );

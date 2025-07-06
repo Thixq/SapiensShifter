@@ -1,12 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
-import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/chat_preview/view/chat_preview_view.dart';
-import 'package:sapiensshifter/feature/chat_preview/view_model/chat_preview_view_model.dart';
-import 'package:sapiensshifter/feature/chat_preview/view_model/state/chat_preview_state.dart';
-import 'package:sapiensshifter/product/models/chats_model/chat_model.dart';
-import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
-import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/context_menu.dart';
+part of '../view/chat_preview_view.dart';
 
 mixin ChatPreviewViewMixin on BaseState<ChatPreviewView> {
   late final ChatPreviewViewModel _previewViewModel;

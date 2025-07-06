@@ -1,8 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/shift_add/mixin/shift_add_mixin.dart';
 import 'package:sapiensshifter/feature/shift_add/view_model/shift_add_view_model.dart';
 import 'package:sapiensshifter/feature/shift_add/view_model/state/shift_add_state.dart';
 import 'package:sapiensshifter/product/component/sapi_custom_drop_down/model/sapi_drop_down_model.dart';
@@ -19,6 +19,7 @@ import 'package:sapiensshifter/product/utils/validator/sapi_drop_down_validator.
 part 'widget/shift_add_app_bar.dart';
 part 'widget/branch_and_shift.dart';
 part 'widget/shift_add_content.dart';
+part '../mixin/shift_add_mixin.dart';
 
 @RoutePage()
 class ShiftAddView extends StatefulWidget {

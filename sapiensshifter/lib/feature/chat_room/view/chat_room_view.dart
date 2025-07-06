@@ -3,12 +3,14 @@ import 'dart:ui';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/chat_room/mixin/chat_room_view_mixin.dart';
+
 import 'package:sapiensshifter/feature/chat_room/view_model/chat_room_view_model.dart';
 import 'package:sapiensshifter/feature/chat_room/view_model/state/chat_room_state.dart';
 import 'package:sapiensshifter/product/models/chats_model/chat_model.dart';
 import 'package:sapiensshifter/product/models/chats_model/message_model.dart';
+import 'package:sapiensshifter/product/profile/profile.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
@@ -16,6 +18,7 @@ part 'widget/chat_room_view_app_bar.dart';
 part 'widget/chat_room_chat_content.dart';
 part 'widget/chat_bubble.dart';
 part 'widget/message_text_field.dart';
+part '../mixin/chat_room_view_mixin.dart';
 
 @RoutePage()
 class ChatRoomView extends StatefulWidget {

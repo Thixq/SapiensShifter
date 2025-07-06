@@ -7,10 +7,6 @@ class ProductViewModel extends BaseCubit<ProductState>
     with NetworkConnectionStatus {
   ProductViewModel() : super(const ProductState());
 
-  /// Checking network connection.
-  bool isNetworkCheck() => isNetworkCheck();
-
-  /// Change theme mode.
   /// [themeMode] is [ThemeMode.light] or [ThemeMode.dark]
   void changeThemeMode(ThemeMode themeMode) {
     emit(state.copyWith(themeMode: themeMode));
