@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/order_history/mixin/order_history_mixin.dart';
 import 'package:sapiensshifter/feature/order_history/view_model/order_history_view_model.dart';
 import 'package:sapiensshifter/feature/order_history/view_model/state/order_history_state.dart';
 import 'package:sapiensshifter/product/component/preview_order_card.dart';
@@ -13,6 +13,7 @@ import 'package:sapiensshifter/product/utils/export_dependency_package/export_pa
 
 part 'widget/table_preview.dart';
 part 'widget/order_history_app_bar.dart';
+part '../mixin/order_history_mixin.dart';
 
 @RoutePage()
 class OrderHistoryView extends StatefulWidget {

@@ -192,5 +192,6 @@ class ChatPreviewViewModel extends BaseCubit<ChatPreviewState> {
 
   void dispose() {
     _streamSubscription.cancel();
+    close();
   }
 }

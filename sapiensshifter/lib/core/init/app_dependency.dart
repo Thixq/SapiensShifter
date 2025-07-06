@@ -3,6 +3,7 @@ import 'package:firebase_auth_module/firebase_auth_module.dart';
 import 'package:firebase_firestore_module/firebase_firestore_module.dart';
 import 'package:firebase_storage_module/firebase_storage_module.dart';
 import 'package:get_it/get_it.dart';
+import 'package:sapiensshifter/core/connectivity_service/connectivity_service.dart';
 import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 
 import 'package:sapiensshifter/core/state/view_model/product_view_model.dart';
@@ -24,6 +25,9 @@ class AppDependency {
       )
       ..registerSingleton<ILocalCacheManager>(
         SharedPreferencesManager.instace,
+      )
+      ..registerSingleton<IConnectivityService>(
+        ConnectivityService(),
       )
       ..registerSingletonAsync(
         () async => Profile.instance(

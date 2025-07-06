@@ -1,10 +1,4 @@
-import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
-import 'package:sapiensshifter/core/routing/model/route_aware_action_performer.dart';
-import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/shift/view/shift_view.dart';
-import 'package:sapiensshifter/feature/shift/view_model/shift_view_model.dart';
-import 'package:sapiensshifter/feature/shift/view_model/state/shift_view_state.dart';
-import 'package:sapiensshifter/product/utils/static_func/month_full_weeks.dart';
+part of '../view/shift_view.dart';
 
 mixin ShiftViewMixin on BaseState<ShiftView>
     implements RouteAwareActionPerformer {
@@ -27,5 +21,11 @@ mixin ShiftViewMixin on BaseState<ShiftView>
     );
     _shiftViewModel.initial(firstWeekFirstDay: firstWeekFirstDay);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _shiftViewModel.close();
+    super.dispose();
   }
 }

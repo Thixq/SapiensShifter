@@ -2,22 +2,26 @@
 
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/core/routing/routing_manager.gr.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/chat_preview/mixin/chat_preview_view_mixin.dart';
+
 import 'package:sapiensshifter/feature/chat_preview/view_model/chat_preview_view_model.dart';
 import 'package:sapiensshifter/feature/chat_preview/view_model/state/chat_preview_state.dart';
 
 import 'package:sapiensshifter/product/component/custom_avatar.dart';
 import 'package:sapiensshifter/product/models/chats_model/chat_model.dart';
 import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
+import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/context_menu.dart';
 import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/new_chat_bottom_sheet.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 part 'widget/chat_view_app_bar.dart';
 part 'widget/chat_view_chat_list.dart';
+part '../mixin/chat_preview_view_mixin.dart';
 
 @RoutePage()
 class ChatPreviewView extends StatefulWidget {
@@ -50,9 +54,7 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
   BlocBuilder<ChatPreviewViewModel, ChatPreviewState> _buildChatList() {
     return BlocBuilder<ChatPreviewViewModel, ChatPreviewState>(
       builder: (context, state) => ChatViewChatList(
-        onDismissed: (id) {
-          viewModel.deleteChat(id);
-        },
+        onDismissed: viewModel.deleteChat,
         onTap: (chatRoomId) {
           context.router.push(ChatRoomRoute(chatId: chatRoomId));
         },
@@ -83,9 +85,7 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
             }
           }
         },
-        searchOnChanged: (value) {
-          viewModel.chatSearch(value);
-        },
+        searchOnChanged: viewModel.chatSearch,
         searchOnSubmitted: (value) {},
       ),
     );

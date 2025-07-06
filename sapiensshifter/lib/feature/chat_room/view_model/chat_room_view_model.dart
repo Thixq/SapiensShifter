@@ -205,5 +205,6 @@ class ChatRoomViewModel extends BaseCubit<ChatRoomState> {
 
   void dispose() {
     _messagesStreamSubscription.cancel();
+    close();
   }
 }

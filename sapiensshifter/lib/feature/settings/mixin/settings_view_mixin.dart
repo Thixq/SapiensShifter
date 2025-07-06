@@ -1,20 +1,4 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart' show Icons, PopupMenuItem;
-import 'package:flutter/widgets.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:mime/mime.dart';
-import 'package:sapiensshifter/core/constant/page_path_constant.dart';
-import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
-import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/settings/view/settings_view.dart';
-import 'package:sapiensshifter/feature/settings/view_model/settings_view_model.dart';
-import 'package:sapiensshifter/product/component/basic_list_tile/model/extend/basic_role_tile_model.dart';
-import 'package:sapiensshifter/product/component/image_picker.dart';
-import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/context_menu.dart';
-import 'package:sapiensshifter/product/utils/enums/picker_source.dart';
-import 'package:sapiensshifter/product/utils/enums/user_role.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
-import 'package:sapiensshifter/product/utils/static_func/image_normalized.dart';
+part of '../view/settings_view.dart';
 
 mixin SettingsViewMixin on BaseState<SettingsView> {
   late final SettingsViewModel _settingsViewModel;
@@ -22,6 +6,21 @@ mixin SettingsViewMixin on BaseState<SettingsView> {
 
   late final GlobalKey imagePickerKey;
   late final ImagePickerService imagePickerService;
+
+  @override
+  void initState() {
+    _settingsViewModel =
+        SettingsViewModel(profile: ProductConfigureItems.profile);
+    imagePickerKey = GlobalKey();
+    imagePickerService = ImagePickerService();
+    final userRole = viewModel.getUser?.role;
+    if (userRole != null) {
+      filteredList.addAll(
+        actionsList.where((element) => element.isVisibleTo(userRole)),
+      );
+    }
+    super.initState();
+  }
 
   void onImagePicked() {
     ContextMenu.show<XFile>(
@@ -103,17 +102,7 @@ mixin SettingsViewMixin on BaseState<SettingsView> {
   final filteredList = <BasicRoleTileModel>[];
 
   @override
-  void initState() {
-    _settingsViewModel =
-        SettingsViewModel(profile: ProductConfigureItems.profile);
-    imagePickerKey = GlobalKey();
-    imagePickerService = ImagePickerService();
-    final userRole = viewModel.getUser?.role;
-    if (userRole != null) {
-      filteredList.addAll(
-        actionsList.where((element) => element.isVisibleTo(userRole)),
-      );
-    }
-    super.initState();
+  void dispose() {
+    super.dispose();
   }
 }

@@ -1,9 +1,15 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth_module/firebase_auth_module.dart';
 import 'package:flutter/cupertino.dart' show CupertinoButton, CupertinoColors;
 import 'package:flutter/material.dart';
+import 'package:sapiensshifter/core/constant/assets_path_constant.dart';
+import 'package:sapiensshifter/core/constant/page_path_constant.dart';
+import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
+import 'package:sapiensshifter/core/exception/utils/error_util.dart';
+import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
-import 'package:sapiensshifter/feature/sign/sign_in/mixin/sign_in_view_mixin.dart';
 import 'package:sapiensshifter/feature/sign/sign_in/model/social_button_model.dart';
+import 'package:sapiensshifter/feature/sign/sign_in/view_model/sign_in_view_model.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart';
@@ -15,6 +21,7 @@ part './widget/sign_in_appbar.dart';
 part './widget/sign_in_button.dart';
 part './widget/sign_in_divider.dart';
 part './widget/social_sign_in_button.dart';
+part '../mixin/sign_in_view_mixin.dart';
 
 @RoutePage()
 class SignInView extends StatefulWidget {
