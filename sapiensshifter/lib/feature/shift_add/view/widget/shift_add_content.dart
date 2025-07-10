@@ -1,6 +1,6 @@
 part of '../shift_add_view.dart';
 
-final _weelLocalization = <String>[
+final _weekLocalization = <String>[
   LocaleKeys.date_week_days_monday.tr(),
   LocaleKeys.date_week_days_tuesday.tr(),
   LocaleKeys.date_week_days_wednesday.tr(),
@@ -11,7 +11,7 @@ final _weelLocalization = <String>[
 ];
 
 class ShiftAddContent extends StatelessWidget {
-  ShiftAddContent({
+  const ShiftAddContent({
     required this.formKey,
     required this.onWeekPeriod,
     required this.peopleMap,
@@ -20,17 +20,9 @@ class ShiftAddContent extends StatelessWidget {
     required this.onShiftDay,
     required this.branchs,
     required this.shifts,
+    required this.shiftMaps,
     super.key,
-  }) : _week = List.generate(
-          7,
-          (index) => BranchAndShift(
-            title: _weelLocalization[index],
-            index: index,
-            onShiftDay: onShiftDay,
-            branch: branchs,
-            shift: shifts,
-          ),
-        );
+  });
 
   final GlobalKey<FormState> formKey;
   final void Function(WeekPeriod weekPeriod) onWeekPeriod;
@@ -40,7 +32,7 @@ class ShiftAddContent extends StatelessWidget {
   final void Function(ShiftDay shiftDay, int index) onShiftDay;
   final List<BranchModel> branchs;
   final List<ShiftStatusModel> shifts;
-  final List<BranchAndShift> _week;
+  final Map<int, ShiftDay> shiftMaps;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +59,20 @@ class ShiftAddContent extends StatelessWidget {
                     .toList(),
                 onSelected: onPeople,
               ),
-              ..._week,
+              ...shiftMaps.entries.map(
+                (entry) {
+                  final index = entry.key;
+                  final shiftDay = entry.value;
+                  return BranchAndShift(
+                    title: _weekLocalization[index],
+                    branch: branchs,
+                    shift: shifts,
+                    index: index,
+                    shiftDay: shiftDay,
+                    onShiftDay: onShiftDay,
+                  );
+                },
+              ),
               SizedBox(
                 width: double.infinity,
                 child: SapiButton(

@@ -65,7 +65,7 @@ class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
           state.copyWith(
             isLoading: false,
             isWorking: false,
-            notWorkingMessage: 'Bugün için bir vardiyanız bulunmuyor.',
+            notWorkingMessage: unassigned.reason,
             tables: [],
           ),
         );

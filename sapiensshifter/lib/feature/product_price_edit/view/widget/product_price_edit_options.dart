@@ -11,10 +11,10 @@ class ProductPriceEditOptions extends StatelessWidget {
     super.key,
   });
 
-  final Map<String, String> categories;
-  final ValueChanged<String> onCategoriesChange;
-  final Map<String, PriceRationModel> priceRations;
-  final ValueChanged<PriceRationModel> onPiceRationsChange;
+  final Map<String, String?> categories;
+  final ValueChanged<String?> onCategoriesChange;
+  final Map<String, PriceRationModel?> priceRations;
+  final ValueChanged<PriceRationModel?> onPiceRationsChange;
   final bool allSelecet;
   final ValueChanged<bool?> allSelecetChange;
 

@@ -18,7 +18,8 @@ final class OptionWidget extends StatelessWidget {
             .map(
               (e) => CustomRadioModel(
                 widget: Text(
-                  e.key.sapiExt.textLocale(LocalizationPathEnum.options),
+                  e.key.sapiExt.textLocale(LocalizationPathEnum.options) ??
+                      LocaleKeys.null_value_null_name.tr(),
                 ),
                 value: e.key,
               ),

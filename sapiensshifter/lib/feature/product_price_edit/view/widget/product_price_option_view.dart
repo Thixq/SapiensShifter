@@ -7,12 +7,12 @@ class ProductPriceOptionView<T> extends StatelessWidget {
     super.key,
   });
 
-  final Map<String, T> options;
-  final ValueChanged<T> onChange;
+  final Map<String, T?> options;
+  final ValueChanged<T?> onChange;
 
   @override
   Widget build(BuildContext context) {
-    return CustomRadioViewer<T>.textChip(
+    return CustomRadioViewer<T?>.textChip(
       itemMaps: options,
       onChange: onChange,
       radioDecoration: _buildDecoration(context),

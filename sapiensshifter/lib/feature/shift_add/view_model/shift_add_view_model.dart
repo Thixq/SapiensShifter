@@ -27,8 +27,10 @@ class ShiftAddViewModel extends BaseCubit<ShiftAddState> {
   }
 
   void addDay({required ShiftDay day, required int index}) {
+    final newShiftMap = Map<int, ShiftDay>.from(state.shiftMap);
     final shiftDate = state.week.weekStart?.add(Duration(days: index));
-    state.shiftMap[index] = day.copyWith(time: shiftDate);
+    newShiftMap[index] = day.copyWith(time: shiftDate);
+    emit(state.copyWith(shiftMap: newShiftMap));
   }
 
   void shiftWeek({required WeekPeriod weekPeriod}) {
@@ -48,7 +50,7 @@ class ShiftAddViewModel extends BaseCubit<ShiftAddState> {
     );
   }
 
-  Future<bool> shiftAdd({required String peopleId}) async {
+  Future<bool> shiftAdd({String? peopleId}) async {
     _weekIdGenerator();
     final path =
         '${QueryPathConstant.shiftsColPath(peopleId)}/${state.week.id}';

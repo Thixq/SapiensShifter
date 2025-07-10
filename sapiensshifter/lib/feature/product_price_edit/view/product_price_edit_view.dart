@@ -10,7 +10,6 @@ import 'package:sapiensshifter/product/component/custom_radio/custom_radio_viewe
 import 'package:sapiensshifter/product/component/custom_radio/decoration/custom_radio_decoration.dart';
 import 'package:sapiensshifter/product/models/price_ration_model/price_ration_model.dart';
 import 'package:sapiensshifter/product/models/product_model/product_model.dart';
-import 'package:sapiensshifter/product/utils/enums/operations.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:shimmer/shimmer.dart';
@@ -60,9 +59,8 @@ class _ProductPriceEditViewState extends BaseState<ProductPriceEditView>
                         priceRations: state.priceRations,
                         onPiceRationsChange: (value) {
                           viewModel.changePriceProduct(
-                            value: value.value!,
-                            operations:
-                                value.priceOperation ?? PriceOperations.PLUS,
+                            value: value?.value,
+                            operations: value?.priceOperation,
                           );
                         },
                       ),

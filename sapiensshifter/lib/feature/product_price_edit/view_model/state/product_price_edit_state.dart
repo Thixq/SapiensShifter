@@ -9,8 +9,8 @@ final class ProductPriceEditState {
   final Set<ProductModel> selectedList;
   final Set<ProductModel> selectedChangeList;
   final bool allSelected;
-  final Map<String, String> categories;
-  final Map<String, PriceRationModel> priceRations;
+  final Map<String, String?> categories;
+  final Map<String, PriceRationModel?> priceRations;
   final bool isLoading;
 
   const ProductPriceEditState({
@@ -27,8 +27,8 @@ final class ProductPriceEditState {
 
   factory ProductPriceEditState.initial({
     List<ProductModel> mainList = const [],
-    Map<String, PriceRationModel> priceRations = const {},
-    Map<String, String> categories = const {},
+    Map<String, PriceRationModel?> priceRations = const {},
+    Map<String, String?> categories = const {},
   }) {
     return ProductPriceEditState(
       originalList: mainList,
@@ -50,8 +50,8 @@ final class ProductPriceEditState {
     Set<ProductModel>? selectedList,
     Set<ProductModel>? selectedChangeList,
     bool? allSelected,
-    Map<String, String>? categories,
-    Map<String, PriceRationModel>? priceRations,
+    Map<String, String?>? categories,
+    Map<String, PriceRationModel?>? priceRations,
     bool? isLoading,
   }) {
     return ProductPriceEditState(
