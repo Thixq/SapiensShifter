@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sapiensshifter/product/utils/enums/localization/localization_path_enum.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 
@@ -46,7 +47,9 @@ final class ShiftDialog extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          shiftDay?.branchName ?? _nullBranchText,
+          shiftDay?.branchName.sapiExt
+                  .textLocale(LocalizationPathEnum.branch) ??
+              _nullBranchText,
           style: context.general.textTheme.titleMedium,
         ),
         Text(

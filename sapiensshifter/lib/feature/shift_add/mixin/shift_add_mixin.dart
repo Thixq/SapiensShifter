@@ -7,7 +7,7 @@ mixin ShiftAddMixin on BaseState<ShiftAddView> {
 
   void onConfrim(String? peopleId) {
     if (formKey.currentState?.validate() ?? false) {
-      viewModel.shiftAdd(peopleId: peopleId ?? '-1');
+      viewModel.shiftAdd(peopleId: peopleId);
       showSnakeToastMessage(
         context,
         message: LocaleKeys.page_sihft_add_view_show_toast_message.tr(),
@@ -18,7 +18,12 @@ mixin ShiftAddMixin on BaseState<ShiftAddView> {
   @override
   void initState() {
     _shiftAddViewModel = ShiftAddViewModel(
-      ShiftAddState.initial(),
+      ShiftAddState.initial(
+        shiftMap: {
+          for (final item in List.generate(7, (index) => index))
+            item: const ShiftDay(),
+        },
+      ),
       networkManager: ProductConfigureItems.networkManager,
       shiftManager: ProductConfigureItems.shiftManager,
     );

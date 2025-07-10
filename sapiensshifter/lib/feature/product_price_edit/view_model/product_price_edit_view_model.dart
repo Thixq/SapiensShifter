@@ -77,8 +77,8 @@ class ProductPriceEditViewModel extends BaseCubit<ProductPriceEditState>
 
     final categoryMap = {
       for (final item in result)
-        item.name.sapiExt.textLocale(LocalizationPathEnum.category):
-            item.id ?? '-1',
+        item.name.sapiExt.textLocale(LocalizationPathEnum.category) ??
+            LocaleKeys.null_value_null_name.tr(): item.id,
     };
     emit(state.copyWith(categories: categoryMap));
   }
@@ -95,7 +95,8 @@ class ProductPriceEditViewModel extends BaseCubit<ProductPriceEditState>
 
     final priceRationMap = {
       for (final item in result)
-        item.name.sapiExt.textLocale(LocalizationPathEnum.priceRation): item,
+        item.name.sapiExt.textLocale(LocalizationPathEnum.priceRation) ??
+            LocaleKeys.null_value_null_name.tr(): item,
     };
     emit(state.copyWith(priceRations: priceRationMap));
   }
@@ -115,7 +116,7 @@ class ProductPriceEditViewModel extends BaseCubit<ProductPriceEditState>
     );
   }
 
-  void changeCategory({required String categoryId}) {
+  void changeCategory({String? categoryId}) {
     if (categoryId == StringConstant.allCategoryId) {
       final mainList = state.mainList;
       emit(state.copyWith(filteredList: mainList));
@@ -131,8 +132,8 @@ class ProductPriceEditViewModel extends BaseCubit<ProductPriceEditState>
   }
 
   void changePriceProduct({
-    required double value,
-    required PriceOperations operations,
+    double? value,
+    PriceOperations? operations,
   }) {
     if (value == StringConstant.allPirceOperationValue) {
       final resetList = state.mainList

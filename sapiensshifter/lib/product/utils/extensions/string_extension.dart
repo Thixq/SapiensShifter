@@ -29,11 +29,11 @@ final class _SapiStringExtension {
 
   ///With the given [LocalizationPathEnum] you can use the localized text in
   ///[EasyLocalization] that is located in this file path.
-  String textLocale(LocalizationPathEnum basePath) {
+  String? textLocale(LocalizationPathEnum basePath) {
     if (_value != null) {
       return '${basePath.basePath}.$_value'.tr();
     }
-    return LocaleKeys.null_value_null_name.tr();
+    return null;
   }
 
   String? textCut({required int chunkSize}) {

@@ -10,12 +10,13 @@ class CategoryChoiceChip extends StatelessWidget {
   final List<CategoriesModel> categories;
   final ValueChanged<String?> onChange;
 
-  Map<String, String> get _categoriesFromWidget {
-    final categoriesMap = <String, String>{};
+  Map<String, String?> get _categoriesFromWidget {
+    final categoriesMap = <String, String?>{};
     for (final element in categories) {
       if (element.id == null || element.name == null) continue;
-      categoriesMap[element.name!.sapiExt
-          .textLocale(LocalizationPathEnum.category)] = element.id!;
+      categoriesMap[
+          element.name?.sapiExt.textLocale(LocalizationPathEnum.category) ??
+              LocaleKeys.null_value_null_name.tr()] = element.id;
     }
     return categoriesMap;
   }

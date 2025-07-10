@@ -6,8 +6,8 @@ class PriceEditing {
     List<ProductModel> mainChangeList,
     Set<ProductModel> selectedChangeList
   }) findAndOperate({
-    required double value,
-    required PriceOperations operations,
+    required double? value,
+    required PriceOperations? operations,
     required List<ProductModel> mainList,
     required Set<ProductModel> selectedList,
   }) {
@@ -17,9 +17,12 @@ class PriceEditing {
       if (selectedList.contains(item)) {
         final itemIndex = mainList.indexOf(item);
         final changeItem = switch (operations) {
-          PriceOperations.PLUS => item.copyWith(price: item.price! + value),
-          PriceOperations.PERCENTAGE =>
-            item.copyWith(price: item.price! + (item.price! * value))
+          PriceOperations.PLUS =>
+            item.copyWith(price: (item.price ?? 0) + (value ?? 0)),
+          PriceOperations.PERCENTAGE => item.copyWith(
+              price: (item.price ?? 0) + ((item.price ?? 0) * (value ?? 0)),
+            ),
+          null => item,
         };
         changeSelectedList.add(changeItem);
         changeMainList[itemIndex] = changeItem;

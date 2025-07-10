@@ -8,6 +8,7 @@ final class SapiCustomDropDown<T> extends StatelessWidget {
     required this.items,
     required this.onSelected,
     this.validator,
+    this.enabled = true,
     super.key,
     this.hintText,
   })  : _isMulti = false,
@@ -17,6 +18,7 @@ final class SapiCustomDropDown<T> extends StatelessWidget {
   const SapiCustomDropDown.multiSelect({
     required this.items,
     required this.onListChanged,
+    this.enabled = true,
     super.key,
     this.hintText,
     this.listValidator,
@@ -25,6 +27,7 @@ final class SapiCustomDropDown<T> extends StatelessWidget {
         onSelected = null;
 
   final bool _isMulti;
+  final bool enabled;
   final List<SapiDropDownModel<T>> items;
   final String? hintText;
   final void Function(T? select)? onSelected;
@@ -36,6 +39,7 @@ final class SapiCustomDropDown<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return _isMulti
         ? CustomDropdown<SapiDropDownModel<T>>.multiSelect(
+            enabled: enabled,
             listValidator: listValidator,
             hintText: hintText ?? LocaleKeys.drop_down_drop_down_extra.tr(),
             items: items,
@@ -48,6 +52,7 @@ final class SapiCustomDropDown<T> extends StatelessWidget {
           )
         : CustomDropdown(
             validator: validator,
+            enabled: enabled,
             hintText: hintText ?? LocaleKeys.drop_down_drop_down_default.tr(),
             items: items,
             onChanged: (select) {

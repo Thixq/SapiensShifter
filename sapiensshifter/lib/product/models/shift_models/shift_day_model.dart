@@ -24,8 +24,10 @@ final class ShiftDay extends IBaseModel<ShiftDay> with EquatableMixin {
       _$ShiftDayFromJson(json);
 
   final String? branchId;
+  @JsonKey(includeFromJson: false, includeToJson: false)
   final String? branchName;
   final String? shiftStatusId;
+  @JsonKey(includeFromJson: false, includeToJson: false)
   final ShiftStatusModel? shiftStatus;
   @TimestampNullableConverter()
   final DateTime? time;

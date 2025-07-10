@@ -43,6 +43,7 @@ class _ShiftAddViewState extends BaseState<ShiftAddView> with ShiftAddMixin {
             padding:
                 EdgeInsets.symmetric(horizontal: context.sized.normalValue),
             child: ShiftAddContent(
+              shiftMaps: state.shiftMap,
               formKey: formKey,
               onWeekPeriod: (weekPeriod) {
                 viewModel.shiftWeek(weekPeriod: weekPeriod);

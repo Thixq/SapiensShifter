@@ -12,9 +12,9 @@ final class ShiftAddState {
     required this.week,
   });
 
-  factory ShiftAddState.initial() {
+  factory ShiftAddState.initial({required Map<int, ShiftDay> shiftMap}) {
     return ShiftAddState(
-      shiftMap: {},
+      shiftMap: shiftMap,
       week: const ShiftWeek(),
       branchs: [],
       peoples: [],

@@ -2,25 +2,30 @@
 
 part of '../shift_add_view.dart';
 
+const List<String> _blacklistedShiftIds = ['YJxscBGQdto3sSrfmiEP'];
+
 class BranchAndShift extends StatelessWidget {
-  BranchAndShift({
+  const BranchAndShift({
     required this.title,
     required this.branch,
     required this.shift,
     required this.index,
     required this.onShiftDay,
+    required this.shiftDay,
     super.key,
-  }) : _shiftDay = const ShiftDay();
+  });
 
   final String title;
   final int index;
   final List<BranchModel> branch;
   final List<ShiftStatusModel> shift;
-  ShiftDay _shiftDay;
+  final ShiftDay shiftDay;
   final void Function(ShiftDay shiftDay, int index) onShiftDay;
 
   @override
   Widget build(BuildContext context) {
+    final isBranchDisabled =
+        _blacklistedShiftIds.contains(shiftDay.shiftStatusId);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -41,10 +46,15 @@ class BranchAndShift extends StatelessWidget {
                       ),
                     )
                     .toList(),
-                onSelected: (shift) {
-                  _shiftDay = _shiftDay.copyWith(shiftStatusId: shift);
+                onSelected: (shiftId) {
+                  final newShift = shiftDay.copyWith(
+                    shiftStatusId: shiftId,
+                    branchId: _blacklistedShiftIds.contains(shiftId)
+                        ? null
+                        : shiftDay.branchId,
+                  );
                   onShiftDay(
-                    _shiftDay,
+                    newShift,
                     index,
                   );
                 },
@@ -53,7 +63,10 @@ class BranchAndShift extends StatelessWidget {
             context.sized.emptySizedWidthBoxLow3x,
             Expanded(
               child: SapiCustomDropDown<String>(
-                validator: SapiDropDownValidator.emptyValidator,
+                enabled: !isBranchDisabled,
+                validator: isBranchDisabled
+                    ? null
+                    : SapiDropDownValidator.emptyValidator,
                 hintText:
                     LocaleKeys.page_sihft_add_view_branch_and_shift_branch.tr(),
                 items: branch
@@ -64,9 +77,9 @@ class BranchAndShift extends StatelessWidget {
                       ),
                     )
                     .toList(),
-                onSelected: (branch) {
-                  _shiftDay = _shiftDay.copyWith(branchId: branch);
-                  onShiftDay(_shiftDay, index);
+                onSelected: (branchId) {
+                  final newShift = shiftDay.copyWith(branchId: branchId);
+                  onShiftDay(newShift, index);
                 },
               ),
             ),
