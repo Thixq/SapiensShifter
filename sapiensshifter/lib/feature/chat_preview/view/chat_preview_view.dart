@@ -11,6 +11,8 @@ import 'package:sapiensshifter/core/state/base/base_state.dart';
 
 import 'package:sapiensshifter/feature/chat_preview/view_model/chat_preview_view_model.dart';
 import 'package:sapiensshifter/feature/chat_preview/view_model/state/chat_preview_state.dart';
+import 'package:sapiensshifter/feature/chat_room/model/chat_info.dart';
+import 'package:sapiensshifter/feature/chat_room/view_model/state/chat_room_state.dart';
 
 import 'package:sapiensshifter/product/component/custom_avatar.dart';
 import 'package:sapiensshifter/product/models/chats_model/chat_model.dart';
@@ -56,7 +58,11 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
       builder: (context, state) => ChatViewChatList(
         onDismissed: viewModel.deleteChat,
         onTap: (chatRoomId) {
-          context.router.push(ChatRoomRoute());
+          context.router.push(
+            ChatRoomRoute(
+              chatWithState: ChatWithIdState(chatId: chatRoomId),
+            ),
+          );
         },
         chatList: state.filteredChats.isEmpty
             ? state.chatPreviews
@@ -81,7 +87,18 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
             );
             if (user != null) {
               final chat = newChat(user: user);
-              await context.router.push(ChatRoomRoute());
+              final chatInfo = ChatInfo(
+                chatName: user.name,
+                chatImageUrl: user.photoUrl,
+              );
+              await context.router.push(
+                ChatRoomRoute(
+                  chatWithState: ChatWithModelState(
+                    chatModel: chat,
+                    chatInfo: chatInfo,
+                  ),
+                ),
+              );
             }
           }
         },

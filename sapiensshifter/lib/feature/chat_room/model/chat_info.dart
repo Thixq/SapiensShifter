@@ -2,9 +2,8 @@
 import 'package:equatable/equatable.dart';
 
 final class ChatInfo extends Equatable {
-  const ChatInfo({this.chatId, this.chatName, this.chatImageUrl});
+  const ChatInfo({this.chatName, this.chatImageUrl});
 
-  final String? chatId;
   final String? chatName;
   final String? chatImageUrl;
 
@@ -14,12 +13,11 @@ final class ChatInfo extends Equatable {
     String? chatImageUrl,
   }) {
     return ChatInfo(
-      chatId: chatId ?? this.chatId,
       chatName: chatName ?? this.chatName,
       chatImageUrl: chatImageUrl ?? this.chatImageUrl,
     );
   }
 
   @override
-  List<Object?> get props => [chatId, chatName, chatImageUrl];
+  List<Object?> get props => [chatName, chatImageUrl];
 }

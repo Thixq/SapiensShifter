@@ -8,8 +8,11 @@ import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/chat_room/model/chat_info.dart';
 import 'package:sapiensshifter/feature/chat_room/view_model/state/chat_room_state.dart';
 import 'package:sapiensshifter/feature/chat_room/view_model/utils/chat_error_type.dart';
+import 'package:sapiensshifter/product/models/chats_model/chat_model.dart';
 import 'package:sapiensshifter/product/models/chats_model/message_model.dart';
+import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
+import 'package:uuid/v7.dart';
 
 part 'utils/chat_room_utils.dart';
 
@@ -23,37 +26,69 @@ class ChatRoomViewModel extends BaseCubit<ChatWithState> with _ChatRoomUtils {
     _initializeChat();
   }
 
-  late final ChatInfo _currentChatInfo;
+  late final ChatInfo? _currentChatInfo;
+  late final String? _currentChatId;
 
   final INetworkManager _networkManager;
   final Profile _profile;
   late final StreamSubscription<List<MessageModel>>?
       _messagesStreamSubscription;
 
-  void _initializeChat() {
+  Future<void> _initializeChat() async {
     final initalState = state;
 
-    if (initalState.chatInfo == null) {
-      emit(const ChatError(ChatErrorType.infoUnavailable));
-      return;
-    }
-    _currentChatInfo = initalState.chatInfo!;
     if (initalState is ChatWithIdState) {
-      _loadAndListenMessages();
+      _currentChatId = initalState.chatId;
+      _currentChatInfo = await _loadChatInfo(chatId: _currentChatId);
+      await _loadAndListenMessages();
     } else if (initalState is ChatWithModelState) {
+      _currentChatInfo = initalState.chatInfo;
+      _currentChatId = initalState.chatModel?.id;
       emit(initalState);
     }
   }
 
-  void _loadAndListenMessages() {
-    _messagesStreamSubscription?.cancel();
+  Future<ChatInfo?> _loadChatInfo({String? chatId}) async {
+    if (chatId == null || chatId.isEmpty) {
+      emit(const ChatError(ChatErrorType.invalidId));
+      return null;
+    }
+    return ErrorUtil.runWithErrorHandlingAsync(
+      action: () async {
+        final chatModel =
+            await _networkManager.networkOperation.getItem<ChatModel>(
+          path: '${QueryPathConstant.chatPreviewColPath}/$chatId',
+          model: ChatModel(),
+        );
+        final otherUserPreviewId = chatModel.getOhterUserId(
+          currentUserId: _profile.user?.userPreviewId,
+        );
+        final otherUserPreview =
+            await _networkManager.networkOperation.getItem<UserPreviewModel>(
+          path: '${QueryPathConstant.usersPreviewColPath}/$otherUserPreviewId',
+          model: UserPreviewModel(),
+        );
+        return ChatInfo(
+          chatName: otherUserPreview.name,
+          chatImageUrl: otherUserPreview.photoUrl,
+        );
+      },
+      errorHandler: ServiceErrorHandler(),
+      fallbackValue: () async {
+        emit(const ChatError(ChatErrorType.loadFailed));
+        return null;
+      },
+    );
+  }
+
+  Future<void> _loadAndListenMessages() async {
     emit(ChatLoading());
-    final chatId = _currentChatInfo.chatId;
+    final chatId = _currentChatId;
     if (chatId == null || chatId.isEmpty) {
       emit(const ChatError(ChatErrorType.invalidId));
       return;
     }
-    ErrorUtil.runWithErrorHandlingAsync(
+    await ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
         final messagesStream = _listenForMessages(chatId: chatId);
         _messagesStreamSubscription = messagesStream.listen(
@@ -64,6 +99,7 @@ class ChatRoomViewModel extends BaseCubit<ChatWithState> with _ChatRoomUtils {
             } else {
               emit(
                 ChatLoaded(
+                  chatId: _currentChatId,
                   chatInfo: _currentChatInfo,
                   messages: messages,
                 ),
@@ -97,7 +133,7 @@ class ChatRoomViewModel extends BaseCubit<ChatWithState> with _ChatRoomUtils {
   Future<void> sendMessage({required String text}) async {
     final currentState = state;
     final currentUserPreviewId = _profile.user?.userPreviewId;
-    final chatId = _currentChatInfo.chatId;
+    final chatId = _currentChatId;
 
     if (currentUserPreviewId == null || chatId == null || chatId.isEmpty) {
       emit(const ChatError(ChatErrorType.missingInfoForSend));
@@ -125,7 +161,7 @@ class ChatRoomViewModel extends BaseCubit<ChatWithState> with _ChatRoomUtils {
       action: () async {
         await _networkManager.networkOperation.runBatch(
           (batch) async {
-            _buildMessageWrites(
+            return _buildMessageWrites(
               writer: batch,
               createAction: ({
                 required item,
@@ -186,7 +222,7 @@ class ChatRoomViewModel extends BaseCubit<ChatWithState> with _ChatRoomUtils {
             );
           },
         );
-        _loadAndListenMessages();
+        await _loadAndListenMessages();
       },
       errorHandler: ServiceErrorHandler(),
       fallbackValue: () async {
