@@ -22,10 +22,12 @@ part '../mixin/chat_room_view_mixin.dart';
 
 @RoutePage()
 class ChatRoomView extends StatefulWidget {
-  const ChatRoomView({super.key, this.chatId, this.chatModel});
+  const ChatRoomView({
+    required this.chatWithState,
+    super.key,
+  });
 
-  final String? chatId;
-  final ChatModel? chatModel;
+  final ChatWithState chatWithState;
 
   @override
   State<ChatRoomView> createState() => _ChatRoomViewState();
@@ -46,28 +48,27 @@ class _ChatRoomViewState extends BaseState<ChatRoomView>
     );
   }
 
-  BlocBuilder<ChatRoomViewModel, ChatRoomState> _buildContent() {
-    return BlocBuilder<ChatRoomViewModel, ChatRoomState>(
+  BlocBuilder<ChatRoomViewModel, ChatWithState> _buildContent() {
+    return BlocBuilder<ChatRoomViewModel, ChatWithState>(
       builder: (context, state) {
         return ChatContent(
-          messages: state.messages,
+          messages: state is ChatLoaded ? state.messages : [],
           currentUserId: userProfile.user?.userPreviewId,
         );
       },
     );
   }
 
-  BlocListener<ChatRoomViewModel, ChatRoomState> _buildMessageArea() {
-    return BlocListener<ChatRoomViewModel, ChatRoomState>(
-      listenWhen: (previous, current) => current.isExist != previous.isExist,
+  BlocListener<ChatRoomViewModel, ChatWithState> _buildMessageArea() {
+    return BlocListener<ChatRoomViewModel, ChatWithState>(
       listener: (context, state) {},
       child: MessageTextField(
         controller: controller,
         send: () async {
-          await viewModel.writeMessage(
-            text: controller.text.trimRight(),
-          );
-          await viewModel.saveChat();
+          // await viewModel.writeMessage(
+          //   text: controller.text.trimRight(),
+          // );
+          // await viewModel.saveChat();
           controller.clear();
         },
       ),
@@ -77,17 +78,11 @@ class _ChatRoomViewState extends BaseState<ChatRoomView>
   PreferredSizeWidget _buildAppBar() {
     return PreferredSize(
       preferredSize: const Size.fromHeight(kToolbarHeight),
-      child: BlocBuilder<ChatRoomViewModel, ChatRoomState>(
-        buildWhen: (previous, current) =>
-            current.otherUserPreview != previous.otherUserPreview,
+      child: BlocBuilder<ChatRoomViewModel, ChatWithState>(
         builder: (context, state) {
           return ChatRoomViewAppBar(
-            imageUrl: state.chatModel.isGroup
-                ? state.chatModel.groupImageUrl
-                : state.otherUserPreview?.photoUrl,
-            title: state.chatModel.isGroup
-                ? state.chatModel.groupName
-                : state.otherUserPreview?.name,
+            imageUrl: state.chatInfo?.chatImageUrl,
+            title: state.chatInfo?.chatName,
           );
         },
       ),

@@ -534,10 +534,8 @@ void main() {
     });
 
     test('successfully reads and writes within a transaction', () async {
-      // ARRANGE
       const postPath = 'posts/post1';
-      final initialPost =
-          TestModel(id: 'post1', name: 'Initial Post'); // Sayacımız 10 olsun
+      final initialPost = TestModel(id: 'post1', name: 'Initial Post');
       final newPostData = {'name': 'Updated in Transaction'};
 
       final mockPostDocRef = MockDocumentReference();
@@ -545,22 +543,16 @@ void main() {
 
       when(mockFirestore.doc(postPath)).thenReturn(mockPostDocRef);
 
-      // Transaction içindeki `get` çağrısını mock'la
       when(mockTransaction.get(mockPostDocRef))
           .thenAnswer((_) async => mockPostSnapshot);
       when(mockPostSnapshot.exists).thenReturn(true);
       when(mockPostSnapshot.data()).thenReturn(initialPost.toJson());
 
-      // runTransaction metodunun mockTransaction nesnesini kullanarak
-      // çalışacağını tanımla.
-      // DİKKAT: when(mockFirestore.runTransaction(...)) kısmı oldukça karmaşıktır.
-      // Bu, `mockito`nun bir fonksiyon argümanını yakalayıp kullanmasını gerektirir.
       when(mockFirestore.runTransaction<String>(any))
           .thenAnswer((invocation) async {
-        // runTransaction'a geçirilen fonksiyonu yakala
         final transactionHandler = invocation.positionalArguments[0]
             as Future<String> Function(Transaction);
-        // Bu fonksiyonu bizim MOCK transaction nesnemizle çalıştır
+
         return transactionHandler(mockTransaction);
       });
 
@@ -572,38 +564,31 @@ void main() {
         final post = await transaction.get<TestModel>(
             path: postPath, model: TestModel.empty());
 
-        expect(post.name,
-            'Initial Post'); // okuma işleminin doğru yapıldığını doğrula
+        expect(post.name, 'Initial Post');
 
         transaction.update(path: postPath, data: newPostData);
 
         return 'Success';
       });
 
-      // ASSERT
       expect(result, 'Success');
 
-      // Transaction içindeki `get` ve `update` çağrılarının doğru yapıldığını doğrula
       verify(mockTransaction.get(mockPostDocRef)).called(1);
       verify(mockTransaction.update(mockPostDocRef, newPostData)).called(1);
     });
 
     test('transaction re-throws error from handler function', () async {
-      // ARRANGE
       final customException = Exception('Logical error in transaction');
 
       when(mockFirestore.runTransaction<void>(any))
           .thenAnswer((invocation) async {
         final transactionHandler = invocation.positionalArguments[0]
             as Future<void> Function(Transaction);
-        // Hatalı fonksiyonu MOCK transaction ile çalıştır
         return transactionHandler(mockTransaction);
       });
 
-      // ACT & ASSERT
       final execution =
           firestoreOperation.runTransaction<void>((transaction) async {
-        // işlem içinde hata fırlat
         throw customException;
       });
 

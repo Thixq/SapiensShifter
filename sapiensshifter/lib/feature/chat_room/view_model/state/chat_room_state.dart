@@ -1,39 +1,59 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:equatable/equatable.dart';
+import 'package:sapiensshifter/feature/chat_room/model/chat_info.dart';
 import 'package:sapiensshifter/product/models/chats_model/chat_model.dart';
 import 'package:sapiensshifter/product/models/chats_model/message_model.dart';
-import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
 
-final class ChatRoomState {
-  final UserPreviewModel? otherUserPreview;
-  final ChatModel chatModel;
-  final bool isExist;
-  final List<MessageModel>? messages;
-  ChatRoomState({
-    required this.chatModel,
-    this.otherUserPreview,
+sealed class ChatWithState extends Equatable {
+  const ChatWithState({this.chatInfo});
+  final ChatInfo? chatInfo;
+
+  @override
+  List<Object?> get props => [chatInfo];
+}
+
+// Bu state'lerde mesaja dair bir bilgi yok, çünkü olmamalı.
+class ChatLoading extends ChatWithState {}
+
+class ChatError extends ChatWithState {
+  const ChatError(this.message);
+  final String message;
+  @override
+  List<Object?> get props => [message];
+}
+
+// Diğer state'leriniz...
+class ChatWithIdState extends ChatWithState {
+  const ChatWithIdState({super.chatInfo});
+}
+
+class ChatWithModelState extends ChatWithState {
+  const ChatWithModelState({this.chatModel, super.chatInfo});
+  final ChatModel? chatModel;
+  @override
+  List<Object?> get props => [...super.props, chatModel];
+}
+
+class ChatLoaded extends ChatWithState {
+  const ChatLoaded({
     this.messages,
-    this.isExist = false,
+    super.chatInfo,
   });
 
-  factory ChatRoomState.initial() {
-    return ChatRoomState(
-      otherUserPreview: UserPreviewModel(),
-      chatModel: ChatModel(),
-      messages: [],
-    );
-  }
+  final List<MessageModel>? messages;
 
-  ChatRoomState copyWith({
-    UserPreviewModel? otherUserPreview,
-    ChatModel? chatModel,
+  @override
+  List<Object?> get props => [
+        ...super.props,
+        messages,
+      ];
+
+  ChatLoaded copyWith({
+    ChatInfo? chatInfo,
     List<MessageModel>? messages,
-    bool? isExist,
   }) {
-    return ChatRoomState(
-      otherUserPreview: otherUserPreview ?? this.otherUserPreview,
-      chatModel: chatModel ?? this.chatModel,
+    return ChatLoaded(
+      chatInfo: chatInfo ?? this.chatInfo,
       messages: messages ?? this.messages,
-      isExist: isExist ?? this.isExist,
     );
   }
 }
