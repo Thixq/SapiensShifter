@@ -31,8 +31,7 @@ class ChatRoomViewModel extends BaseCubit<ChatWithState> with _ChatRoomUtils {
 
   final INetworkManager _networkManager;
   final Profile _profile;
-  late final StreamSubscription<List<MessageModel>>?
-      _messagesStreamSubscription;
+  StreamSubscription<List<MessageModel>>? _messagesStreamSubscription;
 
   Future<void> _initializeChat() async {
     final initalState = state;
@@ -55,6 +54,8 @@ class ChatRoomViewModel extends BaseCubit<ChatWithState> with _ChatRoomUtils {
     }
     return ErrorUtil.runWithErrorHandlingAsync(
       action: () async {
+        final String? chatName;
+        final String? chatPhotoUrl;
         final chatModel =
             await _networkManager.networkOperation.getItem<ChatModel>(
           path: '${QueryPathConstant.chatPreviewColPath}/$chatId',
@@ -63,14 +64,23 @@ class ChatRoomViewModel extends BaseCubit<ChatWithState> with _ChatRoomUtils {
         final otherUserPreviewId = chatModel.getOhterUserId(
           currentUserId: _profile.user?.userPreviewId,
         );
-        final otherUserPreview =
-            await _networkManager.networkOperation.getItem<UserPreviewModel>(
-          path: '${QueryPathConstant.usersPreviewColPath}/$otherUserPreviewId',
-          model: UserPreviewModel(),
-        );
+        if (chatModel.isGroup) {
+          chatName = chatModel.groupName;
+          chatPhotoUrl = chatModel.groupImageUrl;
+        } else {
+          final otherUserPreview =
+              await _networkManager.networkOperation.getItem<UserPreviewModel>(
+            path:
+                '${QueryPathConstant.usersPreviewColPath}/$otherUserPreviewId',
+            model: UserPreviewModel(),
+          );
+          chatName = otherUserPreview.name;
+          chatPhotoUrl = otherUserPreview.photoUrl;
+        }
+
         return ChatInfo(
-          chatName: otherUserPreview.name,
-          chatImageUrl: otherUserPreview.photoUrl,
+          chatName: chatName,
+          chatImageUrl: chatPhotoUrl,
         );
       },
       errorHandler: ServiceErrorHandler(),
@@ -82,6 +92,7 @@ class ChatRoomViewModel extends BaseCubit<ChatWithState> with _ChatRoomUtils {
   }
 
   Future<void> _loadAndListenMessages() async {
+    await _messagesStreamSubscription?.cancel();
     emit(ChatLoading());
     final chatId = _currentChatId;
     if (chatId == null || chatId.isEmpty) {
