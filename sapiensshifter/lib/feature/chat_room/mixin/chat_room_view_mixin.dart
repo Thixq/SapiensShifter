@@ -9,29 +9,18 @@ mixin ChatRoomViewMixin on BaseState<ChatRoomView> {
   @override
   void initState() {
     controller = TextEditingController();
-
     _chatRoomViewModel = ChatRoomViewModel(
-      ChatRoomState.initial(),
+      widget.chatWithState,
       networkManager: ProductConfigureItems.networkManager,
       profile: userProfile,
     );
-    chat(chatId: widget.chatId, chatModel: widget.chatModel);
-
     super.initState();
-  }
-
-  void chat({String? chatId, ChatModel? chatModel}) {
-    if (chatId != null) {
-      _chatRoomViewModel.withChatId(chatId: chatId);
-    } else if (chatModel != null) {
-      _chatRoomViewModel.withChatModel(chatModel: chatModel);
-    }
   }
 
   @override
   void dispose() {
     controller.dispose();
-    _chatRoomViewModel.dispose();
+    // _chatRoomViewModel.dispose();
     super.dispose();
   }
 }

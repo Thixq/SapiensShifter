@@ -10,11 +10,13 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i17;
-import 'package:flutter/material.dart' as _i18;
+import 'package:flutter/material.dart' as _i19;
 import 'package:sapiensshifter/feature/chat_preview/view/chat_preview_view.dart'
     as _i1;
 import 'package:sapiensshifter/feature/chat_room/view/chat_room_view.dart'
     as _i2;
+import 'package:sapiensshifter/feature/chat_room/view_model/state/chat_room_state.dart'
+    as _i18;
 import 'package:sapiensshifter/feature/home/view/home_view.dart' as _i3;
 import 'package:sapiensshifter/feature/menu/view/menu_view.dart' as _i4;
 import 'package:sapiensshifter/feature/new_product_add/view/new_product_add_view.dart'
@@ -37,8 +39,6 @@ import 'package:sapiensshifter/feature/sign/sign_in/view/sign_in_view.dart'
     as _i14;
 import 'package:sapiensshifter/feature/splash/view/splash_view.dart' as _i15;
 import 'package:sapiensshifter/feature/tables/view/tables_view.dart' as _i16;
-import 'package:sapiensshifter/product/models/chats_model/chat_model.dart'
-    as _i19;
 import 'package:sapiensshifter/product/models/product_model/product_model.dart'
     as _i21;
 import 'package:sapiensshifter/product/models/table_model/table_model.dart'
@@ -64,17 +64,12 @@ class ChatPreviewRoute extends _i17.PageRouteInfo<void> {
 /// [_i2.ChatRoomView]
 class ChatRoomRoute extends _i17.PageRouteInfo<ChatRoomRouteArgs> {
   ChatRoomRoute({
-    _i18.Key? key,
-    String? chatId,
-    _i19.ChatModel? chatModel,
+    required _i18.ChatWithState chatWithState,
+    _i19.Key? key,
     List<_i17.PageRouteInfo>? children,
   }) : super(
          ChatRoomRoute.name,
-         args: ChatRoomRouteArgs(
-           key: key,
-           chatId: chatId,
-           chatModel: chatModel,
-         ),
+         args: ChatRoomRouteArgs(chatWithState: chatWithState, key: key),
          initialChildren: children,
        );
 
@@ -83,30 +78,22 @@ class ChatRoomRoute extends _i17.PageRouteInfo<ChatRoomRouteArgs> {
   static _i17.PageInfo page = _i17.PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<ChatRoomRouteArgs>(
-        orElse: () => const ChatRoomRouteArgs(),
-      );
-      return _i2.ChatRoomView(
-        key: args.key,
-        chatId: args.chatId,
-        chatModel: args.chatModel,
-      );
+      final args = data.argsAs<ChatRoomRouteArgs>();
+      return _i2.ChatRoomView(chatWithState: args.chatWithState, key: args.key);
     },
   );
 }
 
 class ChatRoomRouteArgs {
-  const ChatRoomRouteArgs({this.key, this.chatId, this.chatModel});
+  const ChatRoomRouteArgs({required this.chatWithState, this.key});
 
-  final _i18.Key? key;
+  final _i18.ChatWithState chatWithState;
 
-  final String? chatId;
-
-  final _i19.ChatModel? chatModel;
+  final _i19.Key? key;
 
   @override
   String toString() {
-    return 'ChatRoomRouteArgs{key: $key, chatId: $chatId, chatModel: $chatModel}';
+    return 'ChatRoomRouteArgs{chatWithState: $chatWithState, key: $key}';
   }
 }
 
@@ -131,7 +118,7 @@ class HomeRoute extends _i17.PageRouteInfo<void> {
 class MenuRoute extends _i17.PageRouteInfo<MenuRouteArgs> {
   MenuRoute({
     required _i20.TableModel table,
-    _i18.Key? key,
+    _i19.Key? key,
     List<_i17.PageRouteInfo>? children,
   }) : super(
          MenuRoute.name,
@@ -155,7 +142,7 @@ class MenuRouteArgs {
 
   final _i20.TableModel table;
 
-  final _i18.Key? key;
+  final _i19.Key? key;
 
   @override
   String toString() {
@@ -200,7 +187,7 @@ class OnboardRoute extends _i17.PageRouteInfo<void> {
 class OrderDetailRoute extends _i17.PageRouteInfo<OrderDetailRouteArgs> {
   OrderDetailRoute({
     required _i21.ProductModel product,
-    _i18.Key? key,
+    _i19.Key? key,
     List<_i17.PageRouteInfo>? children,
   }) : super(
          OrderDetailRoute.name,
@@ -224,7 +211,7 @@ class OrderDetailRouteArgs {
 
   final _i21.ProductModel product;
 
-  final _i18.Key? key;
+  final _i19.Key? key;
 
   @override
   String toString() {

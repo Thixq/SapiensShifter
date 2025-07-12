@@ -56,7 +56,7 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
       builder: (context, state) => ChatViewChatList(
         onDismissed: viewModel.deleteChat,
         onTap: (chatRoomId) {
-          context.router.push(ChatRoomRoute(chatId: chatRoomId));
+          context.router.push(ChatRoomRoute());
         },
         chatList: state.filteredChats.isEmpty
             ? state.chatPreviews
@@ -81,7 +81,7 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
             );
             if (user != null) {
               final chat = newChat(user: user);
-              await context.router.push(ChatRoomRoute(chatModel: chat));
+              await context.router.push(ChatRoomRoute());
             }
           }
         },
