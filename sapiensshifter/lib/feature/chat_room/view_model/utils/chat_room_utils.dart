@@ -17,10 +17,12 @@ mixin _ChatRoomUtils on BaseCubit<ChatWithState> {
     required String text,
     required String senderId,
   }) {
+    final messageId = const UuidV7().generate();
     final chatPath = '${QueryPathConstant.chatPreviewColPath}/$chatId';
-    final messagePath = QueryPathConstant.messagesColPath(chatId);
-
+    final messagePath =
+        '${QueryPathConstant.messagesColPath(chatId)}/$messageId';
     final message = MessageModel(
+      id: messageId,
       senderId: senderId,
       text: text,
       timeStamp: DateTime.now().toLocal(),

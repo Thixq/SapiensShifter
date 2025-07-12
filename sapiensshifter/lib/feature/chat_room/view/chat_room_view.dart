@@ -91,8 +91,8 @@ class _ChatRoomViewState extends BaseState<ChatRoomView>
       child: BlocBuilder<ChatRoomViewModel, ChatWithState>(
         builder: (context, state) {
           return ChatRoomViewAppBar(
-            imageUrl: state.chatInfo?.chatImageUrl,
             title: state.chatInfo?.chatName,
+            imageUrl: state.chatInfo?.chatImageUrl,
           );
         },
       ),
