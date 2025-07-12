@@ -201,6 +201,15 @@ class CodegenLoader extends AssetLoader{
         "shift": "Vardiya"
       },
       "show_toast_message": "Vardiya eklendi."
+    },
+    "chat_room": {
+      "error_chat_state": {
+        "error_chat_info_unavailable": "Sohbet bilgileri başlatılamadı.",
+        "error_chat_invalid_id": "Geçersiz sohbet kimliği.",
+        "error_chat_load_failed": "Sohbet yüklenirken bir hata oluştu.",
+        "error_chat_send_failed": "Mesaj gönderilemedi. Lütfen tekrar deneyin.",
+        "error_chat_missing_info": "Mesaj göndermek için gerekli bilgiler eksik."
+      }
     }
   },
   "branchs": {

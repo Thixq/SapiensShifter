@@ -20,7 +20,7 @@ mixin ChatRoomViewMixin on BaseState<ChatRoomView> {
   @override
   void dispose() {
     controller.dispose();
-    // _chatRoomViewModel.dispose();
+    _chatRoomViewModel.dispose();
     super.dispose();
   }
 }
