@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:sapiensshifter/feature/chat_room/model/chat_info.dart';
+import 'package:sapiensshifter/feature/chat_room/view_model/utils/chat_error_type.dart';
 import 'package:sapiensshifter/product/models/chats_model/chat_model.dart';
 import 'package:sapiensshifter/product/models/chats_model/message_model.dart';
 
@@ -15,10 +16,11 @@ sealed class ChatWithState extends Equatable {
 class ChatLoading extends ChatWithState {}
 
 class ChatError extends ChatWithState {
-  const ChatError(this.message);
-  final String message;
+  const ChatError(this.errorType); // Artık bir enum alıyor.
+  final ChatErrorType errorType;
+
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [errorType];
 }
 
 // Diğer state'leriniz...

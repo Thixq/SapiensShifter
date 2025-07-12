@@ -8,7 +8,6 @@ import 'package:sapiensshifter/core/state/base/base_state.dart';
 
 import 'package:sapiensshifter/feature/chat_room/view_model/chat_room_view_model.dart';
 import 'package:sapiensshifter/feature/chat_room/view_model/state/chat_room_state.dart';
-import 'package:sapiensshifter/product/models/chats_model/chat_model.dart';
 import 'package:sapiensshifter/product/models/chats_model/message_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/component.dart';
@@ -51,6 +50,20 @@ class _ChatRoomViewState extends BaseState<ChatRoomView>
   BlocBuilder<ChatRoomViewModel, ChatWithState> _buildContent() {
     return BlocBuilder<ChatRoomViewModel, ChatWithState>(
       builder: (context, state) {
+        if (state is ChatLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (state is ChatError) {
+          return Center(
+            child: Text(
+              state.errorType.message.tr(),
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          );
+        }
+
         return ChatContent(
           messages: state is ChatLoaded ? state.messages : [],
           currentUserId: userProfile.user?.userPreviewId,
@@ -65,10 +78,7 @@ class _ChatRoomViewState extends BaseState<ChatRoomView>
       child: MessageTextField(
         controller: controller,
         send: () async {
-          // await viewModel.writeMessage(
-          //   text: controller.text.trimRight(),
-          // );
-          // await viewModel.saveChat();
+          await viewModel.sendMessage(text: controller.text);
           controller.clear();
         },
       ),

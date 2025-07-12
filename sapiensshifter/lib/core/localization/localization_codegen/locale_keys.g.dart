@@ -152,6 +152,13 @@ abstract class  LocaleKeys {
   static const page_sihft_add_view_branch_and_shift = 'page.sihft_add_view.branch_and_shift';
   static const page_sihft_add_view_show_toast_message = 'page.sihft_add_view.show_toast_message';
   static const page_sihft_add_view = 'page.sihft_add_view';
+  static const page_chat_room_error_chat_state_error_chat_info_unavailable = 'page.chat_room.error_chat_state.error_chat_info_unavailable';
+  static const page_chat_room_error_chat_state_error_chat_invalid_id = 'page.chat_room.error_chat_state.error_chat_invalid_id';
+  static const page_chat_room_error_chat_state_error_chat_load_failed = 'page.chat_room.error_chat_state.error_chat_load_failed';
+  static const page_chat_room_error_chat_state_error_chat_send_failed = 'page.chat_room.error_chat_state.error_chat_send_failed';
+  static const page_chat_room_error_chat_state_error_chat_missing_info = 'page.chat_room.error_chat_state.error_chat_missing_info';
+  static const page_chat_room_error_chat_state = 'page.chat_room.error_chat_state';
+  static const page_chat_room = 'page.chat_room';
   static const page = 'page';
   static const branchs_karakoy = 'branchs.karakoy';
   static const branchs_kanyon = 'branchs.kanyon';
