@@ -68,23 +68,6 @@
           }
         }
       }
-    },
-    "NSUserNotificationAlertUsageDescription" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "We need your permission to send notifications."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bildirim gönderebilmemiz için izne ihtiyacımız var."
-          }
-        }
-      }
     }
   },
   "version" : "1.0"
