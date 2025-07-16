@@ -37,12 +37,10 @@ import 'package:sapiensshifter/feature/sign/sign_in/view/sign_in_view.dart'
     as _i14;
 import 'package:sapiensshifter/feature/splash/view/splash_view.dart' as _i15;
 import 'package:sapiensshifter/feature/tables/view/tables_view.dart' as _i16;
-import 'package:sapiensshifter/product/models/chats_model/chat_model.dart'
-    as _i19;
 import 'package:sapiensshifter/product/models/product_model/product_model.dart'
-    as _i21;
-import 'package:sapiensshifter/product/models/table_model/table_model.dart'
     as _i20;
+import 'package:sapiensshifter/product/models/table_model/table_model.dart'
+    as _i19;
 
 /// generated route for
 /// [_i1.ChatPreviewView]
@@ -66,7 +64,7 @@ class ChatRoomRoute extends _i17.PageRouteInfo<ChatRoomRouteArgs> {
   ChatRoomRoute({
     _i18.Key? key,
     String? chatId,
-    _i19.ChatModel? chatModel,
+    InvalidType chatModel,
     List<_i17.PageRouteInfo>? children,
   }) : super(
          ChatRoomRoute.name,
@@ -102,7 +100,7 @@ class ChatRoomRouteArgs {
 
   final String? chatId;
 
-  final _i19.ChatModel? chatModel;
+  final InvalidType chatModel;
 
   @override
   String toString() {
@@ -130,7 +128,7 @@ class HomeRoute extends _i17.PageRouteInfo<void> {
 /// [_i4.MenuView]
 class MenuRoute extends _i17.PageRouteInfo<MenuRouteArgs> {
   MenuRoute({
-    required _i20.TableModel table,
+    required _i19.TableModel table,
     _i18.Key? key,
     List<_i17.PageRouteInfo>? children,
   }) : super(
@@ -153,7 +151,7 @@ class MenuRoute extends _i17.PageRouteInfo<MenuRouteArgs> {
 class MenuRouteArgs {
   const MenuRouteArgs({required this.table, this.key});
 
-  final _i20.TableModel table;
+  final _i19.TableModel table;
 
   final _i18.Key? key;
 
@@ -199,7 +197,7 @@ class OnboardRoute extends _i17.PageRouteInfo<void> {
 /// [_i7.OrderDetailView]
 class OrderDetailRoute extends _i17.PageRouteInfo<OrderDetailRouteArgs> {
   OrderDetailRoute({
-    required _i21.ProductModel product,
+    required _i20.ProductModel product,
     _i18.Key? key,
     List<_i17.PageRouteInfo>? children,
   }) : super(
@@ -222,7 +220,7 @@ class OrderDetailRoute extends _i17.PageRouteInfo<OrderDetailRouteArgs> {
 class OrderDetailRouteArgs {
   const OrderDetailRouteArgs({required this.product, this.key});
 
-  final _i21.ProductModel product;
+  final _i20.ProductModel product;
 
   final _i18.Key? key;
 
