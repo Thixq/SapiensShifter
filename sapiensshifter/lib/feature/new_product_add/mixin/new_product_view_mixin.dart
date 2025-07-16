@@ -46,4 +46,10 @@ mixin NewProductViewMixin on BaseState<NewProductAddView> {
       showSnakeToastMessage(context, message: resultText);
     }
   }
+
+  @override
+  void dispose() {
+    _newProductViewModel.close();
+    super.dispose();
+  }
 }
