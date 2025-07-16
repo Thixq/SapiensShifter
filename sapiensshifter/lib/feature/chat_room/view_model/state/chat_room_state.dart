@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 
 import 'package:sapiensshifter/feature/chat_room/model/chat_info.dart';
 import 'package:sapiensshifter/feature/chat_room/view_model/utils/chat_error_type.dart';
-import 'package:sapiensshifter/product/models/chats_model/chat_model.dart';
-import 'package:sapiensshifter/product/models/chats_model/message_model.dart';
+import 'package:sapiensshifter/product/models/chats_model/chat_meta_data.dart';
+import 'package:sapiensshifter/product/models/chats_model/message.dart';
 
 sealed class ChatWithState extends Equatable {
   final ChatInfo? chatInfo;
@@ -44,11 +44,11 @@ class ChatWithIdState extends ChatWithState {
 }
 
 class ChatWithModelState extends ChatWithState {
-  const ChatWithModelState({this.chatModel, super.chatInfo});
-  final ChatModel? chatModel;
+  const ChatWithModelState({this.chatMetadata, super.chatInfo});
+  final ChatMetadata? chatMetadata;
 
   @override
-  List<Object?> get props => [...super.props, chatModel];
+  List<Object?> get props => [...super.props, chatMetadata];
 }
 
 class ChatLoaded extends ChatWithState {
@@ -58,7 +58,7 @@ class ChatLoaded extends ChatWithState {
     this.chatId,
   });
 
-  final List<MessageModel>? messages;
+  final List<Message>? messages;
   final String? chatId;
 
   @override
@@ -68,7 +68,7 @@ class ChatLoaded extends ChatWithState {
       ];
 
   ChatLoaded copyWith({
-    List<MessageModel>? messages,
+    List<Message>? messages,
     ChatInfo? chatInfo,
     String? chatId,
   }) {

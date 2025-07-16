@@ -11,11 +11,12 @@ import 'package:sapiensshifter/core/state/base/base_state.dart';
 
 import 'package:sapiensshifter/feature/chat_preview/view_model/chat_preview_view_model.dart';
 import 'package:sapiensshifter/feature/chat_preview/view_model/state/chat_preview_state.dart';
+
 import 'package:sapiensshifter/feature/chat_room/model/chat_info.dart';
 import 'package:sapiensshifter/feature/chat_room/view_model/state/chat_room_state.dart';
 
 import 'package:sapiensshifter/product/component/custom_avatar.dart';
-import 'package:sapiensshifter/product/models/chats_model/chat_model.dart';
+import 'package:sapiensshifter/product/models/chats_model/chat_meta_data.dart';
 import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
 import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/context_menu.dart';
 import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/new_chat_bottom_sheet.dart';
@@ -56,7 +57,9 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
   BlocBuilder<ChatPreviewViewModel, ChatPreviewState> _buildChatList() {
     return BlocBuilder<ChatPreviewViewModel, ChatPreviewState>(
       builder: (context, state) => ChatViewChatList(
-        onDismissed: viewModel.deleteChat,
+        onDismissed: (id) {
+          viewModel.softDeleteChat(chatId: id);
+        },
         onTap: (chatRoomId) {
           context.router.push(
             ChatRoomRoute(
@@ -64,11 +67,10 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
             ),
           );
         },
-        chatList: state.filteredChats.isEmpty
-            ? state.chatPreviews
-            : state.filteredChats,
-        otherUsers: state.userPreviewList,
-        currentUserId: getProfileId,
+        chatList:
+            state.searchedChats.isEmpty ? state.chats : state.searchedChats,
+        otherUsers: state.allUsers,
+        currentUserId: getUserId,
       ),
     );
   }
@@ -83,7 +85,7 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
           if (mounted) {
             final user = await NewChatBottomSheet.show(
               context,
-              peopleList: state.userPreviewList,
+              peopleList: state.allUsers,
             );
             if (user != null) {
               final chat = newChat(user: user);
@@ -94,7 +96,7 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
               await context.router.push(
                 ChatRoomRoute(
                   chatWithState: ChatWithModelState(
-                    chatModel: chat,
+                    chatMetadata: chat,
                     chatInfo: chatInfo,
                   ),
                 ),
@@ -102,7 +104,9 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
             }
           }
         },
-        searchOnChanged: viewModel.chatSearch,
+        searchOnChanged: (value) {
+          viewModel.searchChatName(text: value);
+        },
         searchOnSubmitted: (value) {},
       ),
     );

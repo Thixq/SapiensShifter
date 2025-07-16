@@ -7,7 +7,7 @@ class ChatContent extends StatelessWidget {
     super.key,
   });
 
-  final List<MessageModel>? messages;
+  final List<Message>? messages;
   final String? currentUserId;
 
   @override

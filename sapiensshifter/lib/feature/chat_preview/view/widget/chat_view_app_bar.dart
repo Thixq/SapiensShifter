@@ -18,8 +18,7 @@ class ChatViewAppBar extends StatelessWidget {
   final ValueChanged<String> searchOnSubmitted;
   final GlobalKey menuGlobalKey;
 
-  double get _kSearchBarHeight =>
-      kMinInteractiveDimensionCupertino; // Genellikle 44.0
+  double get _kSearchBarHeight => kMinInteractiveDimensionCupertino;
 
   @override
   Widget build(BuildContext context) {

@@ -4,14 +4,14 @@ import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:sapiensshifter/product/utils/json_converters/timestamp_converter.dart';
 
-part 'message_model.g.dart';
+part 'message.g.dart';
 
 @JsonSerializable(checked: true)
-class MessageModel extends IBaseModel<MessageModel> with EquatableMixin {
-  MessageModel({super.id, this.senderId, this.text, this.timeStamp});
+class Message extends IBaseModel<Message> with EquatableMixin {
+  Message({super.id, this.senderId, this.text, this.timeStamp});
 
-  factory MessageModel.fromJson(Map<String, dynamic> json) =>
-      _$MessageModelFromJson(json);
+  factory Message.fromJson(Map<String, dynamic> json) =>
+      _$MessageFromJson(json);
 
   final String? senderId;
   final String? text;
@@ -19,8 +19,7 @@ class MessageModel extends IBaseModel<MessageModel> with EquatableMixin {
   final DateTime? timeStamp;
 
   @override
-  MessageModel fromJson(Map<String, dynamic> json) =>
-      _$MessageModelFromJson(json);
+  Message fromJson(Map<String, dynamic> json) => _$MessageFromJson(json);
 
   @override
   List<Object?> get props => [
@@ -28,7 +27,7 @@ class MessageModel extends IBaseModel<MessageModel> with EquatableMixin {
       ];
 
   @override
-  Map<String, dynamic> toJson() => _$MessageModelToJson(this);
+  Map<String, dynamic> toJson() => _$MessageToJson(this);
 
   @override
   String toString() {

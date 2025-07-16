@@ -8,8 +8,8 @@ import 'package:sapiensshifter/core/state/base/base_cubit.dart';
 import 'package:sapiensshifter/feature/chat_room/model/chat_info.dart';
 import 'package:sapiensshifter/feature/chat_room/view_model/state/chat_room_state.dart';
 import 'package:sapiensshifter/feature/chat_room/view_model/utils/chat_error_type.dart';
-import 'package:sapiensshifter/product/models/chats_model/chat_model.dart';
-import 'package:sapiensshifter/product/models/chats_model/message_model.dart';
+import 'package:sapiensshifter/product/models/chats_model/chat_meta_data.dart';
+import 'package:sapiensshifter/product/models/chats_model/message.dart';
 import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
 import 'package:sapiensshifter/product/profile/profile.dart';
 import 'package:uuid/v7.dart';
@@ -31,7 +31,7 @@ class ChatRoomViewModel extends BaseCubit<ChatWithState> with _ChatRoomUtils {
 
   final INetworkManager _networkManager;
   final Profile _profile;
-  StreamSubscription<List<MessageModel>>? _messagesStreamSubscription;
+  StreamSubscription<List<Message>>? _messagesStreamSubscription;
 
   Future<void> _initializeChat() async {
     final initalState = state;
@@ -42,7 +42,7 @@ class ChatRoomViewModel extends BaseCubit<ChatWithState> with _ChatRoomUtils {
       await _loadAndListenMessages();
     } else if (initalState is ChatWithModelState) {
       _currentChatInfo = initalState.chatInfo;
-      _currentChatId = initalState.chatModel?.id;
+      _currentChatId = initalState.chatMetadata?.id;
       emit(initalState);
     }
   }
@@ -57,12 +57,12 @@ class ChatRoomViewModel extends BaseCubit<ChatWithState> with _ChatRoomUtils {
         final String? chatName;
         final String? chatPhotoUrl;
         final chatModel =
-            await _networkManager.networkOperation.getItem<ChatModel>(
+            await _networkManager.networkOperation.getItem<ChatMetadata>(
           path: '${QueryPathConstant.chatPreviewColPath}/$chatId',
-          model: ChatModel(),
+          model: ChatMetadata(),
         );
         final otherUserPreviewId = chatModel.getOhterUserId(
-          currentUserId: _profile.user?.userPreviewId,
+          _profile.user?.userPreviewId,
         );
         if (chatModel.isGroup) {
           chatName = chatModel.groupName;
@@ -127,16 +127,16 @@ class ChatRoomViewModel extends BaseCubit<ChatWithState> with _ChatRoomUtils {
     );
   }
 
-  Stream<List<MessageModel>> _listenForMessages({String? chatId}) {
+  Stream<List<Message>> _listenForMessages({String? chatId}) {
     final query = FirebaseFirestoreCustomQuery(
       orderBy: [OrderByCondition(field: 'timeStamp', descending: true)],
     );
 
     final messagesStream =
-        _networkManager.networkOperation.getStreamQuery<MessageModel>(
+        _networkManager.networkOperation.getStreamQuery<Message>(
       path: QueryPathConstant.messagesColPath(chatId),
       query: query,
-      model: MessageModel(),
+      model: Message(),
     );
     return messagesStream;
   }
@@ -212,7 +212,7 @@ class ChatRoomViewModel extends BaseCubit<ChatWithState> with _ChatRoomUtils {
         await _networkManager.networkOperation.runTransaction(
           (transaction) async {
             final path = '${QueryPathConstant.chatPreviewColPath}/$chatId';
-            transaction.set(path: path, item: currentState.chatModel!);
+            transaction.set(path: path, item: currentState.chatMetadata!);
             _buildMessageWrites<ITransaction>(
               writer: transaction,
               createAction: ({
