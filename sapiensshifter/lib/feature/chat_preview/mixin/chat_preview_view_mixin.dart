@@ -4,7 +4,7 @@ mixin ChatPreviewViewMixin on BaseState<ChatPreviewView> {
   late final ChatPreviewViewModel _previewViewModel;
 
   final _profile = ProductConfigureItems.profile;
-  String? get getProfileId => _profile.user?.userPreviewId;
+  String? get getUserId => _profile.user?.userPreviewId;
 
   ChatPreviewViewModel get viewModel => _previewViewModel;
   late GlobalKey menuGlobalKey;
@@ -27,15 +27,15 @@ mixin ChatPreviewViewMixin on BaseState<ChatPreviewView> {
     super.dispose();
   }
 
-  ChatModel? newChat({required UserPreviewModel user}) {
-    if (user.id != null && getProfileId != null) {
-      final usersPreviewIds = <String>[
-        user.id!,
-        getProfileId!,
-      ]..sort();
-      final stringBuffer = StringBuffer()..writeAll(usersPreviewIds);
-      final chat =
-          ChatModel(id: stringBuffer.toString(), members: usersPreviewIds);
+  ChatMetadata? newChat({required UserPreviewModel user}) {
+    if (user.id != null && getUserId != null) {
+      final usersPreviewIds = <String?>{
+        user.id,
+        getUserId,
+      };
+      final chat = ChatMetadata.oneToOne(
+        members: usersPreviewIds,
+      );
       return chat;
     }
     return null;

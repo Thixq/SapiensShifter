@@ -6,7 +6,7 @@ mixin _ChatRoomUtils on BaseCubit<ChatWithState> {
     required void Function({
       required T writer,
       required String path,
-      required IBaseModel<MessageModel> item,
+      required IBaseModel<Message> item,
     }) createAction,
     required void Function({
       required T writer,
@@ -21,7 +21,7 @@ mixin _ChatRoomUtils on BaseCubit<ChatWithState> {
     final chatPath = '${QueryPathConstant.chatPreviewColPath}/$chatId';
     final messagePath =
         '${QueryPathConstant.messagesColPath(chatId)}/$messageId';
-    final message = MessageModel(
+    final message = Message(
       id: messageId,
       senderId: senderId,
       text: text,
@@ -34,8 +34,7 @@ mixin _ChatRoomUtils on BaseCubit<ChatWithState> {
       writer: writer,
       path: chatPath,
       data: {
-        'lastMessageText': text,
-        'lastMessageTime': DateTime.now().toLocal(),
+        'lastMessage': message.toJson(),
       },
     );
   }

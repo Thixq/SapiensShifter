@@ -1,39 +1,36 @@
-import 'package:sapiensshifter/product/models/chats_model/chat_model.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:equatable/equatable.dart';
+
+import 'package:sapiensshifter/product/models/chats_model/chat_meta_data.dart';
 import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
 
-class ChatPreviewState {
+final class ChatPreviewState extends Equatable {
   const ChatPreviewState({
-    required this.isLoading,
-    required this.chatPreviews,
-    required this.filteredChats,
-    required this.userPreviewList,
+    this.allUsers = const [],
+    this.chats = const [],
+    this.searchedChats = const [],
   });
 
-  factory ChatPreviewState.initial() {
-    return const ChatPreviewState(
-      isLoading: false,
-      chatPreviews: [],
-      filteredChats: [],
-      userPreviewList: [],
-    );
-  }
-
-  final bool isLoading;
-  final List<ChatModel> chatPreviews;
-  final List<ChatModel> filteredChats;
-  final List<UserPreviewModel> userPreviewList;
+  final List<UserPreviewModel> allUsers;
+  final List<ChatMetadata> chats;
+  final List<ChatMetadata> searchedChats;
 
   ChatPreviewState copyWith({
-    bool? isLoading,
-    List<ChatModel>? chatPreviews,
-    List<ChatModel>? filteredChats,
-    List<UserPreviewModel>? userPreviewList,
+    List<UserPreviewModel>? allUsers,
+    List<ChatMetadata>? chats,
+    List<ChatMetadata>? searchedChats,
   }) {
     return ChatPreviewState(
-      isLoading: isLoading ?? this.isLoading,
-      chatPreviews: chatPreviews ?? this.chatPreviews,
-      filteredChats: filteredChats ?? this.filteredChats,
-      userPreviewList: userPreviewList ?? this.userPreviewList,
+      allUsers: allUsers ?? this.allUsers,
+      chats: chats ?? this.chats,
+      searchedChats: searchedChats ?? this.searchedChats,
     );
   }
+
+  factory ChatPreviewState.initial() {
+    return const ChatPreviewState();
+  }
+
+  @override
+  List<Object?> get props => [chats, allUsers, searchedChats];
 }

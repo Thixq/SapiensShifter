@@ -10,7 +10,7 @@ class ChatViewChatList extends StatelessWidget {
     this.currentUserId,
   });
 
-  final List<ChatModel> chatList;
+  final List<ChatMetadata> chatList;
   final List<UserPreviewModel> otherUsers;
   final String? currentUserId;
   final void Function(String chatRoomId) onTap;
@@ -49,7 +49,7 @@ class ChatViewChatList extends StatelessWidget {
     );
   }
 
-  Widget _listTile(BuildContext context, ChatModel preview, int index) {
+  Widget _listTile(BuildContext context, ChatMetadata preview, int index) {
     return CupertinoListTile(
       padding: EdgeInsets.symmetric(
         vertical: context.sized.lowValue,
@@ -62,7 +62,7 @@ class ChatViewChatList extends StatelessWidget {
                 _nullText),
       ),
       subtitle: Text(
-        preview.lastMessageText ?? _nullText,
+        preview.lastMessage?.text ?? _nullText,
       ),
       leadingSize: 24.spa,
       leading: CustomCircleAvatar(
@@ -71,7 +71,8 @@ class ChatViewChatList extends StatelessWidget {
             : _getOhterUser(preview, currentUserId: currentUserId)?.photoUrl,
       ),
       trailing: Text(
-        preview.lastMessageTime?.sapiTimeExt.lastMessageTime ?? _nullText,
+        preview.lastMessage?.timeStamp?.sapiTimeExt.lastMessageTime ??
+            _nullText,
         style: const TextStyle(color: CupertinoColors.systemGrey),
       ),
       onTap: () {
@@ -81,12 +82,11 @@ class ChatViewChatList extends StatelessWidget {
   }
 
   UserPreviewModel? _getOhterUser(
-    ChatModel preview, {
+    ChatMetadata preview, {
     String? currentUserId,
   }) {
     return otherUsers.firstWhere(
-      (element) =>
-          element.id == preview.getOhterUserId(currentUserId: currentUserId),
+      (element) => element.id == preview.getOhterUserId(currentUserId),
     );
   }
 }

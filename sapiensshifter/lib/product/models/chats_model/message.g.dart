@@ -1,17 +1,16 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'message_model.dart';
+part of 'message.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-MessageModel _$MessageModelFromJson(Map<String, dynamic> json) =>
-    $checkedCreate(
-      'MessageModel',
+Message _$MessageFromJson(Map<String, dynamic> json) => $checkedCreate(
+      'Message',
       json,
       ($checkedConvert) {
-        final val = MessageModel(
+        final val = Message(
           id: $checkedConvert('id', (v) => v as String?),
           senderId: $checkedConvert('senderId', (v) => v as String?),
           text: $checkedConvert('text', (v) => v as String?),
@@ -24,8 +23,7 @@ MessageModel _$MessageModelFromJson(Map<String, dynamic> json) =>
       },
     );
 
-Map<String, dynamic> _$MessageModelToJson(MessageModel instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
       'id': instance.id,
       'senderId': instance.senderId,
       'text': instance.text,
