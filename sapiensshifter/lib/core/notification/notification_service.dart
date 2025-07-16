@@ -6,7 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:sapiensshifter/core/notification/notification_channels.dart';
-import 'package:sapiensshifter/core/notification/notification_detail_model.dart';
+import 'package:sapiensshifter/product/models/notification_model/notification_model.dart';
 
 final StreamController<String?> selectNotificationStream =
     StreamController<String?>.broadcast();
@@ -108,14 +108,14 @@ class NotificationService {
   }
 
   static void _showLocalNotificationFromRemoteMessage(RemoteMessage message) {
-    final notificatonDetailModel =
-        NotificationDetailModel.fromMap(message.data);
+    final notificatonDetailModel = NotificationModel.fromJson(message.data);
 
     final notificationDetails = NotificationDetails(
       android: AndroidNotificationDetails(
-        notificatonDetailModel.channelId ??
-            'high_importance_channel', // Kanal ID
-        '', // Kanal Adı
+        notificatonDetailModel.androidChannel?.channelId ??
+            'high_importance_channel',
+        notificatonDetailModel.androidChannel?.channelName ??
+            'high_importance_channel',
         importance: Importance.high,
         priority: Priority.high,
         ticker: 'ticker',
@@ -133,7 +133,7 @@ class NotificationService {
       notificatonDetailModel.title,
       notificatonDetailModel.body,
       notificationDetails,
-      payload: notificatonDetailModel.route,
+      payload: notificatonDetailModel.deepLinkRoute,
     );
   }
 }
