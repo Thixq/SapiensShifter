@@ -100,9 +100,4 @@ mixin SettingsViewMixin on BaseState<SettingsView> {
         ),
       ];
   final filteredList = <BasicRoleTileModel>[];
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 }

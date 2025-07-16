@@ -175,6 +175,6 @@ class OrderHistoryViewModel extends BaseCubit<OrderHistoryState> {
 
   void dispose() {
     _streamSubscription?.cancel();
-    close();
+    super.close();
   }
 }
