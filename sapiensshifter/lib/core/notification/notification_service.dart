@@ -42,6 +42,7 @@ class NotificationService {
     );
     await _initializeLocalNotifications();
     _setupMessageHandlers();
+    await _coldStart();
   }
 
   static Future<void> _initializeLocalNotifications() async {
@@ -68,6 +69,12 @@ class NotificationService {
     );
 
     await _createAndroidChannels();
+  }
+
+  Future<void> _coldStart() async {
+    final notification = await FirebaseMessaging.instance.getInitialMessage();
+    selectNotificationStream
+        .add(notification?.data['deepLinkRoute'] as String?);
   }
 
   Future<bool?> requestPermissions() async {
@@ -108,17 +115,14 @@ class NotificationService {
   }
 
   static void _showLocalNotificationFromRemoteMessage(RemoteMessage message) {
-    final notificatonDetailModel = NotificationModel.fromJson(message.data);
+    final notificaton = NotificationModel.fromRemoteMessage(message);
 
     final notificationDetails = NotificationDetails(
       android: AndroidNotificationDetails(
-        notificatonDetailModel.androidChannel?.channelId ??
-            'high_importance_channel',
-        notificatonDetailModel.androidChannel?.channelName ??
-            'high_importance_channel',
+        notificaton.androidChannel?.channelId ?? 'high_importance_channel',
+        notificaton.androidChannel?.channelName ?? 'high_importance_channel',
         importance: Importance.high,
         priority: Priority.high,
-        ticker: 'ticker',
       ),
       iOS: const DarwinNotificationDetails(
         presentAlert: true,
@@ -130,10 +134,10 @@ class NotificationService {
     // Yerel bildirimi göster
     _localNotificationsPlugin.show(
       DateTime.now().millisecondsSinceEpoch.remainder(100000),
-      notificatonDetailModel.title,
-      notificatonDetailModel.body,
+      notificaton.title,
+      notificaton.body,
       notificationDetails,
-      payload: notificatonDetailModel.deepLinkRoute,
+      payload: notificaton.deepLinkRoute,
     );
   }
 }

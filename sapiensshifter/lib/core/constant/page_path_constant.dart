@@ -10,6 +10,7 @@ class PagePathConstant {
 
   static const chat = 'chat';
   static const chatRoom = '/chatRoom';
+  static const chatRoomWithId = '/chatRoom/:id';
 
   static const shift = 'shift';
   static const table = 'table';
