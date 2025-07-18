@@ -14,18 +14,16 @@ sealed class ChatWithState extends Equatable {
   List<Object?> get props => [];
 }
 
-// Bu state'lerde mesaja dair bir bilgi yok, çünkü olmamalı.
 class ChatLoading extends ChatWithState {}
 
 class ChatError extends ChatWithState {
-  const ChatError(this.errorType); // Artık bir enum alıyor.
+  const ChatError(this.errorType);
   final ChatErrorType errorType;
 
   @override
   List<Object?> get props => [errorType];
 }
 
-// Diğer state'leriniz...
 class ChatWithIdState extends ChatWithState {
   const ChatWithIdState({this.chatId});
 

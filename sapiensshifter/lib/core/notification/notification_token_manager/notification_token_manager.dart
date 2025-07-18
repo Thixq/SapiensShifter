@@ -70,7 +70,7 @@ class NotificationTokenManager {
         final platform = defaultTargetPlatform;
         final deviceId = await GenerateUuidDeviceId.generateDeviceId();
         final notificationDeviceModel = NotificationDeviceModel.create(
-          userId: _profile?.user?.id,
+          userId: _profile?.user?.userPreviewId,
           deviceId: deviceId,
           fcmToken: fcmToken,
           platform: platform.name,
@@ -106,9 +106,9 @@ class NotificationTokenManager {
   NotificationDeviceModel? _checkUserId({
     NotificationDeviceModel? other,
   }) {
-    if (other?.userId != _profile?.user?.id) {
+    if (other?.userId != _profile?.user?.userPreviewId) {
       return other?.copyWith(
-        userId: _profile?.user?.id,
+        userId: _profile?.user?.userPreviewId,
       );
     }
     return other;

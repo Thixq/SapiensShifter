@@ -17,7 +17,7 @@ abstract class NotificationChannels {
     'chat_channel': AndroidNotificationChannel(
       'chat_channel',
       'Chat Messages',
-      description: 'New message notifications',
+      description: 'Message notifications',
       importance: Importance.high,
       sound: RawResourceAndroidNotificationSound('message_tone'),
     ),
