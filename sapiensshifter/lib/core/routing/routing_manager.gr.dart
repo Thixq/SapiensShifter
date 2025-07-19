@@ -10,13 +10,11 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i17;
-import 'package:flutter/material.dart' as _i19;
+import 'package:flutter/material.dart' as _i18;
 import 'package:sapiensshifter/feature/chat_preview/view/chat_preview_view.dart'
     as _i1;
 import 'package:sapiensshifter/feature/chat_room/view/chat_room_view.dart'
     as _i2;
-import 'package:sapiensshifter/feature/chat_room/view_model/state/chat_room_state.dart'
-    as _i18;
 import 'package:sapiensshifter/feature/home/view/home_view.dart' as _i3;
 import 'package:sapiensshifter/feature/menu/view/menu_view.dart' as _i4;
 import 'package:sapiensshifter/feature/new_product_add/view/new_product_add_view.dart'
@@ -39,6 +37,8 @@ import 'package:sapiensshifter/feature/sign/sign_in/view/sign_in_view.dart'
     as _i14;
 import 'package:sapiensshifter/feature/splash/view/splash_view.dart' as _i15;
 import 'package:sapiensshifter/feature/tables/view/tables_view.dart' as _i16;
+import 'package:sapiensshifter/product/models/chats_model/chat_room_models/chat_with_model.dart'
+    as _i19;
 import 'package:sapiensshifter/product/models/product_model/product_model.dart'
     as _i21;
 import 'package:sapiensshifter/product/models/table_model/table_model.dart'
@@ -64,12 +64,18 @@ class ChatPreviewRoute extends _i17.PageRouteInfo<void> {
 /// [_i2.ChatRoomView]
 class ChatRoomRoute extends _i17.PageRouteInfo<ChatRoomRouteArgs> {
   ChatRoomRoute({
-    required _i18.ChatWithState chatWithState,
-    _i19.Key? key,
+    _i18.Key? key,
+    String? id,
+    _i19.ChatWithModel? chatWithModel,
     List<_i17.PageRouteInfo>? children,
   }) : super(
          ChatRoomRoute.name,
-         args: ChatRoomRouteArgs(chatWithState: chatWithState, key: key),
+         args: ChatRoomRouteArgs(
+           key: key,
+           id: id,
+           chatWithModel: chatWithModel,
+         ),
+         rawPathParams: {'id': id},
          initialChildren: children,
        );
 
@@ -78,22 +84,31 @@ class ChatRoomRoute extends _i17.PageRouteInfo<ChatRoomRouteArgs> {
   static _i17.PageInfo page = _i17.PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<ChatRoomRouteArgs>();
-      return _i2.ChatRoomView(chatWithState: args.chatWithState, key: args.key);
+      final pathParams = data.inheritedPathParams;
+      final args = data.argsAs<ChatRoomRouteArgs>(
+        orElse: () => ChatRoomRouteArgs(id: pathParams.optString('id')),
+      );
+      return _i2.ChatRoomView(
+        key: args.key,
+        id: args.id,
+        chatWithModel: args.chatWithModel,
+      );
     },
   );
 }
 
 class ChatRoomRouteArgs {
-  const ChatRoomRouteArgs({required this.chatWithState, this.key});
+  const ChatRoomRouteArgs({this.key, this.id, this.chatWithModel});
 
-  final _i18.ChatWithState chatWithState;
+  final _i18.Key? key;
 
-  final _i19.Key? key;
+  final String? id;
+
+  final _i19.ChatWithModel? chatWithModel;
 
   @override
   String toString() {
-    return 'ChatRoomRouteArgs{chatWithState: $chatWithState, key: $key}';
+    return 'ChatRoomRouteArgs{key: $key, id: $id, chatWithModel: $chatWithModel}';
   }
 }
 
@@ -118,7 +133,7 @@ class HomeRoute extends _i17.PageRouteInfo<void> {
 class MenuRoute extends _i17.PageRouteInfo<MenuRouteArgs> {
   MenuRoute({
     required _i20.TableModel table,
-    _i19.Key? key,
+    _i18.Key? key,
     List<_i17.PageRouteInfo>? children,
   }) : super(
          MenuRoute.name,
@@ -142,7 +157,7 @@ class MenuRouteArgs {
 
   final _i20.TableModel table;
 
-  final _i19.Key? key;
+  final _i18.Key? key;
 
   @override
   String toString() {
@@ -187,7 +202,7 @@ class OnboardRoute extends _i17.PageRouteInfo<void> {
 class OrderDetailRoute extends _i17.PageRouteInfo<OrderDetailRouteArgs> {
   OrderDetailRoute({
     required _i21.ProductModel product,
-    _i19.Key? key,
+    _i18.Key? key,
     List<_i17.PageRouteInfo>? children,
   }) : super(
          OrderDetailRoute.name,
@@ -211,7 +226,7 @@ class OrderDetailRouteArgs {
 
   final _i21.ProductModel product;
 
-  final _i19.Key? key;
+  final _i18.Key? key;
 
   @override
   String toString() {

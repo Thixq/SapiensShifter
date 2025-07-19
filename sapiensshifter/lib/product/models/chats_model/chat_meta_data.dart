@@ -62,6 +62,7 @@ final class ChatMetadata extends IBaseModel<ChatMetadata> with EquatableMixin {
         groupName,
         groupImageUrl,
         isGroup,
+        lastMessage,
       ];
 
   @override

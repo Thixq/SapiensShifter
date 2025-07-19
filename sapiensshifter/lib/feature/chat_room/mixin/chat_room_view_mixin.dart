@@ -10,11 +10,23 @@ mixin ChatRoomViewMixin on BaseState<ChatRoomView> {
   void initState() {
     controller = TextEditingController();
     _chatRoomViewModel = ChatRoomViewModel(
-      widget.chatWithState,
+      _startChat,
       networkManager: ProductConfigureItems.networkManager,
       profile: userProfile,
     );
     super.initState();
+  }
+
+  ChatWithState get _startChat {
+    if (widget.id != null) {
+      return ChatWithIdState(chatId: widget.id);
+    } else if (widget.chatWithModel != null) {
+      return ChatWithModelState(
+        chatInfo: widget.chatWithModel?.chatInfo,
+        chatMetadata: widget.chatWithModel?.chatMetadata,
+      );
+    }
+    return const ChatError(ChatErrorType.loadFailed);
   }
 
   @override

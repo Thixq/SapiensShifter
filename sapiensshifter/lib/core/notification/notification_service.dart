@@ -1,23 +1,33 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:async';
 import 'dart:io';
 
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:sapiensshifter/core/notification/notification_channels.dart';
+import 'package:sapiensshifter/core/routing/routing_manager.dart';
+import 'package:sapiensshifter/core/routing/routing_manager.gr.dart';
+
 import 'package:sapiensshifter/product/models/notification_model/notification_model.dart';
 
 @pragma('vm:entry-point')
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  NotificationService._showLocalNotificationFromRemoteMessage(message);
+void _notificationTapBackground(NotificationResponse notificationResponse) {
+  _handleDeeplink(notificationResponse.payload);
 }
 
-@pragma('vm:entry-point')
-void _notificationTapBackground(NotificationResponse notificationResponse) {
-  // HACK: _handleDepplink
+Future<void> _handleDeeplink(String? path) async {
+  if (path != null) {
+    if (!routing.isPathActive(path)) {
+      await routing.pushAndPopUntil(
+        ChatRoomRoute(id: path.split('/').last),
+        predicate: (route) {
+          return route.isActive;
+        },
+      );
+    }
+  }
 }
 
 class NotificationService {
@@ -32,11 +42,7 @@ class NotificationService {
   Future<void> initialize() async {
     await FirebaseMessaging.instance.setAutoInitEnabled(true);
     await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
+        .setForegroundNotificationPresentationOptions(sound: true);
     await _initializeLocalNotifications();
     _setupMessageHandlers();
     await _coldStart();
@@ -60,7 +66,7 @@ class NotificationService {
     await _localNotificationsPlugin.initialize(
       settings,
       onDidReceiveNotificationResponse: (NotificationResponse response) {
-        // HACK: _handleDepplink
+        _handleDeeplink(response.payload);
       },
       onDidReceiveBackgroundNotificationResponse: _notificationTapBackground,
     );
@@ -69,8 +75,8 @@ class NotificationService {
   }
 
   Future<void> _coldStart() async {
-    // final notification = await FirebaseMessaging.instance.getInitialMessage();
-    // HACK: _handleDepplink
+    final notification = await FirebaseMessaging.instance.getInitialMessage();
+    await _handleDeeplink(notification?.data['deepLinkRoute'] as String?);
   }
 
   Future<bool?> requestPermissions() async {
@@ -106,8 +112,22 @@ class NotificationService {
   }
 
   static void _setupMessageHandlers() {
-    FirebaseMessaging.onMessage.listen(_showLocalNotificationFromRemoteMessage);
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    FirebaseMessaging.onMessage.listen(
+      (event) {
+        final chatId = event.data['deepLinkRoute'] as String?;
+        if (chatId != null) {
+          if (!routing.isPathActive(chatId)) {
+            _showLocalNotificationFromRemoteMessage(event);
+          }
+        }
+      },
+    );
+
+    FirebaseMessaging.onMessageOpenedApp.listen(
+      (event) async {
+        await _handleDeeplink(event.data['deepLinkRoute'] as String?);
+      },
+    );
   }
 
   static void _showLocalNotificationFromRemoteMessage(RemoteMessage message) {
@@ -117,13 +137,9 @@ class NotificationService {
       android: AndroidNotificationDetails(
         notificaton.androidChannel?.channelId ?? 'high_importance_channel',
         notificaton.androidChannel?.channelName ?? 'high_importance_channel',
-        importance: Importance.high,
-        priority: Priority.high,
       ),
       iOS: const DarwinNotificationDetails(
         presentAlert: true,
-        presentBadge: true,
-        presentSound: true,
       ),
     );
 
