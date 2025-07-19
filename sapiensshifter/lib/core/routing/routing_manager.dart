@@ -44,10 +44,6 @@ class RoutingManager extends RootStackRouter {
           path: PagePathConstant.chatRoom,
           page: ChatRoomRoute.page,
         ),
-        AutoRoute(
-          path: PagePathConstant.chatRoomWithId,
-          page: ChatRoomRoute.page,
-        ),
         AutoRoute(path: PagePathConstant.menu, page: MenuRoute.page),
         AutoRoute(
           path: PagePathConstant.orderDetail,

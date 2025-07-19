@@ -8,9 +8,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:sapiensshifter/core/notification/notification_channels.dart';
 import 'package:sapiensshifter/product/models/notification_model/notification_model.dart';
 
-final StreamController<String?> selectNotificationStream =
-    StreamController<String?>.broadcast();
-
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +17,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 @pragma('vm:entry-point')
 void _notificationTapBackground(NotificationResponse notificationResponse) {
-  selectNotificationStream.add(notificationResponse.payload);
+  // HACK: _handleDepplink
 }
 
 class NotificationService {
@@ -63,7 +60,7 @@ class NotificationService {
     await _localNotificationsPlugin.initialize(
       settings,
       onDidReceiveNotificationResponse: (NotificationResponse response) {
-        selectNotificationStream.add(response.payload);
+        // HACK: _handleDepplink
       },
       onDidReceiveBackgroundNotificationResponse: _notificationTapBackground,
     );
@@ -72,9 +69,8 @@ class NotificationService {
   }
 
   Future<void> _coldStart() async {
-    final notification = await FirebaseMessaging.instance.getInitialMessage();
-    selectNotificationStream
-        .add(notification?.data['deepLinkRoute'] as String?);
+    // final notification = await FirebaseMessaging.instance.getInitialMessage();
+    // HACK: _handleDepplink
   }
 
   Future<bool?> requestPermissions() async {
