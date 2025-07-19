@@ -6,6 +6,7 @@ import 'package:sapiensshifter/core/constant/page_path_constant.dart';
 import 'package:sapiensshifter/core/routing/routing_manager.gr.dart';
 
 final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
+final RoutingManager routing = RoutingManager();
 
 @AutoRouterConfig(replaceInRouteName: RoutingManager._replaceRouteName)
 class RoutingManager extends RootStackRouter {

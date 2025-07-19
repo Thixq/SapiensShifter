@@ -5,7 +5,7 @@ import 'package:sapiensshifter/core/constant/query_path_constant.dart';
 import 'package:sapiensshifter/core/exception/handler/custom_handler/serivce_error_handler.dart';
 import 'package:sapiensshifter/core/exception/utils/error_util.dart';
 import 'package:sapiensshifter/core/state/base/base_cubit.dart';
-import 'package:sapiensshifter/feature/chat_room/model/chat_info.dart';
+import 'package:sapiensshifter/product/models/chats_model/chat_room_models/chat_info.dart';
 import 'package:sapiensshifter/feature/chat_room/view_model/state/chat_room_state.dart';
 import 'package:sapiensshifter/feature/chat_room/view_model/utils/chat_error_type.dart';
 import 'package:sapiensshifter/product/models/chats_model/chat_meta_data.dart';

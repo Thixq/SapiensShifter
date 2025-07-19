@@ -9,7 +9,7 @@ class PagePathConstant {
   static const home = '/home';
 
   static const chat = 'chat';
-  static const chatRoom = '/chatRoom/:id?';
+  static const chatRoom = '/chatRoom/:id';
 
   static const shift = 'shift';
   static const table = 'table';
@@ -20,6 +20,6 @@ class PagePathConstant {
   static const settings = '/settings';
   static const orderHistory = '/settings/orderHistory';
   static const newProductAdd = '/settings/newProductAdd';
-  static const productPriceEdit = '/settsings/productPriceEdit';
+  static const productPriceEdit = '/settings/productPriceEdit';
   static const shiftAdd = '/settings/shiftAdd';
 }

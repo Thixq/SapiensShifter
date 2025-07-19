@@ -7,8 +7,6 @@ import 'package:sapiensshifter/core/theme/appliaction_theme.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart'
     show BuildContextEasyLocalizationExtension, Sizer;
 
-final RoutingManager _routing = RoutingManager();
-
 void main() async {
   ZoneManager.runAppInZone(
     () async {
@@ -30,7 +28,7 @@ class _MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Sapiens Shifter',
-      routerConfig: _routing.config(
+      routerConfig: routing.config(
         navigatorObservers: () => [routeObserver],
       ),
       theme: SapiensTheme.instance.lightTheme,

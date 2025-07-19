@@ -23,6 +23,7 @@ export const sendLastMessageNotification = onDocumentUpdated(
     }
 
     const lastMessage = after?.lastMessage;
+    const isGroup: boolean = after?.isGroup;
     const members: string[] = after?.members || [];
     const senderId = lastMessage?.senderId;
 
@@ -60,7 +61,10 @@ export const sendLastMessageNotification = onDocumentUpdated(
       .collection("usersPreview")
       .doc(senderId)
       .get();
-    const senderName = senderDoc.data()?.name || "Someone";
+    const senderName =
+      (isGroup
+        ? `${after?.groupName}: ${senderDoc.data()?.name}`
+        : senderDoc.data()?.name) || "Someone";
 
     // Prepare data payload
     const dataPayload = {
@@ -75,7 +79,8 @@ export const sendLastMessageNotification = onDocumentUpdated(
         body: lastMessage.text
       },
       data: dataPayload,
-      android: { notification: { channelId: "chat_channel" } }
+      android: { notification: { channelId: "chat_channel" } },
+      apns: { payload: { aps: { sound: "default" } } }
     };
 
     // Send data-only messages using sendEachForMulticast (replaces deprecated sendMulticast)

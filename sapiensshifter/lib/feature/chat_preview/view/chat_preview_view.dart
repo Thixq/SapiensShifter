@@ -8,23 +8,20 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sapiensshifter/core/init/app_config/product_configure_items.dart';
 import 'package:sapiensshifter/core/routing/routing_manager.gr.dart';
 import 'package:sapiensshifter/core/state/base/base_state.dart';
-
 import 'package:sapiensshifter/feature/chat_preview/view_model/chat_preview_view_model.dart';
 import 'package:sapiensshifter/feature/chat_preview/view_model/state/chat_preview_state.dart';
-
-import 'package:sapiensshifter/feature/chat_room/model/chat_info.dart';
-import 'package:sapiensshifter/feature/chat_room/view_model/state/chat_room_state.dart';
-
 import 'package:sapiensshifter/product/component/custom_avatar.dart';
 import 'package:sapiensshifter/product/models/chats_model/chat_meta_data.dart';
+import 'package:sapiensshifter/product/models/chats_model/chat_room_models/chat_info.dart';
+import 'package:sapiensshifter/product/models/chats_model/chat_room_models/chat_with_model.dart';
 import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
 import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/context_menu.dart';
 import 'package:sapiensshifter/product/utils/dialogs_and_bottom_sheet/new_chat_bottom_sheet.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
+part '../mixin/chat_preview_view_mixin.dart';
 part 'widget/chat_view_app_bar.dart';
 part 'widget/chat_view_chat_list.dart';
-part '../mixin/chat_preview_view_mixin.dart';
 
 @RoutePage()
 class ChatPreviewView extends StatefulWidget {
@@ -63,7 +60,7 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
         onTap: (chatRoomId) {
           context.router.push(
             ChatRoomRoute(
-              chatWithState: ChatWithIdState(chatId: chatRoomId),
+              id: chatRoomId,
             ),
           );
         },
@@ -95,7 +92,7 @@ class _ChatPreviewViewState extends BaseState<ChatPreviewView>
               );
               await context.router.push(
                 ChatRoomRoute(
-                  chatWithState: ChatWithModelState(
+                  chatWithModel: ChatWithModel(
                     chatMetadata: chat,
                     chatInfo: chatInfo,
                   ),
