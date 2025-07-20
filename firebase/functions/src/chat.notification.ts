@@ -55,7 +55,6 @@ export const sendLastMessageNotification = onDocumentUpdated(
       return null;
     }
 
-    // Get sender's display name
     const senderDoc = await admin
       .firestore()
       .collection("usersPreview")

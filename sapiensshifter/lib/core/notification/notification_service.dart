@@ -8,7 +8,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:sapiensshifter/core/notification/notification_channels.dart';
 import 'package:sapiensshifter/core/routing/routing_manager.dart';
-import 'package:sapiensshifter/core/routing/routing_manager.gr.dart';
 
 import 'package:sapiensshifter/product/models/notification_model/notification_model.dart';
 
@@ -20,12 +19,7 @@ void _notificationTapBackground(NotificationResponse notificationResponse) {
 Future<void> _handleDeeplink(String? path) async {
   if (path != null) {
     if (!routing.isPathActive(path)) {
-      await routing.pushAndPopUntil(
-        ChatRoomRoute(id: path.split('/').last),
-        predicate: (route) {
-          return route.isActive;
-        },
-      );
+      await routing.pushPath(path);
     }
   }
 }

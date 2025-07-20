@@ -5,3 +5,4 @@ admin.initializeApp();
 setGlobalOptions({ region: "europe-west1" });
 
 export * from "./chat.notification";
+export * from "./shift.notification";

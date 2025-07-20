@@ -2,12 +2,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 abstract class NotificationChannels {
   static const androidChannels = {
-    'general_channel': AndroidNotificationChannel(
-      'general_channel',
-      'General Notifications',
-      description: 'Important updates and announcements',
-      importance: Importance.max,
-    ),
     'shift_channel': AndroidNotificationChannel(
       'shift_channel',
       'Shift Updates',
@@ -19,7 +13,6 @@ abstract class NotificationChannels {
       'Chat Messages',
       description: 'Message notifications',
       importance: Importance.high,
-      sound: RawResourceAndroidNotificationSound('message_tone'),
     ),
   };
 }
