@@ -25,9 +25,11 @@ class NotificationModel extends IBaseModel<NotificationModel>
       'androidChannel': {
         'channelId': notification.notification?.android?.channelId,
         'channelName': NotificationChannels
-            .androidChannels[notification.notification?.android?.channelId],
+            .androidChannels[notification.notification?.android?.channelId]
+            ?.name,
         'channelDescription': NotificationChannels
-            .androidChannels[notification.notification?.android?.channelId],
+            .androidChannels[notification.notification?.android?.channelId]
+            ?.description,
       },
     };
 
