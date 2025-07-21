@@ -1,40 +1,56 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/product/models/product_model.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/export_utils_ui.dart';
+import 'package:sapiensshifter/product/models/product_model/product_model.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/utils_ui_export.dart';
 
 final class PriceEditingCard extends StatefulWidget {
-  const PriceEditingCard({
+  PriceEditingCard({
     required this.productModel,
     required this.onPress,
+    this.isSelected = false,
     super.key,
   });
 
   final ProductModel productModel;
-  final void Function(ProductModel productModel, ValueNotifier<bool> isSelect)
-      onPress;
+  bool isSelected;
+  final void Function(ProductModel productModel) onPress;
 
   @override
   State<PriceEditingCard> createState() => _PriceEditingCardState();
 }
 
 class _PriceEditingCardState extends State<PriceEditingCard> {
-  final ValueNotifier<bool> isSelect = ValueNotifier<bool>(false);
   bool hasPriceChanged = false;
-  double? _previousPrice = 0;
-  bool _isInitialPrice = true;
+
+  @override
+  void initState() {
+    if (widget.productModel.originalPrice != widget.productModel.price) {
+      setState(() {
+        hasPriceChanged = true;
+      });
+    } else {
+      setState(() {
+        hasPriceChanged = false;
+      });
+    }
+    super.initState();
+  }
 
   String get _nullProductName => StringConstant.nullString.tr();
   String get _nullPrice => StringConstant.nullDouble.tr();
 
   @override
   void didUpdateWidget(covariant PriceEditingCard oldWidget) {
-    if (oldWidget.productModel.price != widget.productModel.price) {
-      hasPriceChanged = true;
-      if (_isInitialPrice) {
-        _previousPrice = oldWidget.productModel.price;
-        _isInitialPrice = false;
-      }
+    if (widget.productModel.originalPrice != widget.productModel.price) {
+      setState(() {
+        hasPriceChanged = true;
+      });
+    } else {
+      setState(() {
+        hasPriceChanged = false;
+      });
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -43,21 +59,16 @@ class _PriceEditingCardState extends State<PriceEditingCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        widget.onPress(widget.productModel, isSelect);
+        widget.onPress(widget.productModel);
       },
       borderRadius: context.border.normalBorderRadius,
-      child: ValueListenableBuilder(
-        valueListenable: isSelect,
-        builder: (context, value, child) => IntrinsicHeight(
-          child: Container(
-            padding: context.padding.normal,
-            decoration: BoxDecoration(
-              borderRadius: context.border.normalBorderRadius,
-              border: _buildBorder(context, value),
-            ),
-            child: _buildContent(context),
-          ),
+      child: Container(
+        padding: context.padding.normal,
+        decoration: BoxDecoration(
+          borderRadius: context.border.normalBorderRadius,
+          border: _buildBorder(context, widget.isSelected),
         ),
+        child: _buildContent(context),
       ),
     );
   }
@@ -84,9 +95,13 @@ class _PriceEditingCardState extends State<PriceEditingCard> {
   Row _buildProductInfo(BuildContext context) {
     return Row(
       children: [
-        ImageBuilder(
-          imageUrl: widget.productModel.imagePath,
-          borderRadius: context.border.lowBorderRadius,
+        SizedBox(
+          height: 28.sp,
+          width: 28.sp,
+          child: ImageBuilder(
+            imageUrl: widget.productModel.imagePath,
+            borderRadius: context.border.lowBorderRadius,
+          ),
         ),
         context.sized.emptySizedWidthBoxLow3x,
         Text(widget.productModel.productName ?? _nullProductName),
@@ -98,7 +113,8 @@ class _PriceEditingCardState extends State<PriceEditingCard> {
     return Row(
       children: [
         Text(
-          (_previousPrice?.sapiDoubleExt.priceFraction ?? _nullPrice)
+          (widget.productModel.originalPrice?.sapiDoubleExt.priceFraction ??
+                  _nullPrice)
               .sapiExt
               .priceSymbol,
           style: context.general.textTheme.labelSmall!

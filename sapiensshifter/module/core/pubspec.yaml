@@ -9,6 +9,9 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
+  flutter:
+    sdk: flutter
+
   # path: ^1.8.0
 
 dev_dependencies:

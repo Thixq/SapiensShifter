@@ -1,7 +1,7 @@
 import 'package:core/core.dart';
 
 /// OneException: Sadece hata koduna göre mesaj belirleniyor.
-class OneException extends BaseExceptionInterface {
+class OneException extends IBaseException {
   OneException(String code, [StackTrace? stackTrace])
       : super(_getMessageFromCode(code), code: code, stackTrace: stackTrace);
 
@@ -19,7 +19,7 @@ class OneException extends BaseExceptionInterface {
 }
 
 /// TwoException: Hata mesajı ve hatanın oluştuğu tarih bilgisine sahip.
-class TwoException extends BaseExceptionInterface {
+class TwoException extends IBaseException {
   final DateTime errorDate;
 
   TwoException(String code, this.errorDate, [StackTrace? stackTrace])

@@ -1,0 +1,23 @@
+{
+  "sourceLanguage" : "tr",
+  "strings" : {
+    "notification.shift_add_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You have a new shift!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yeni vardiyanız var!"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

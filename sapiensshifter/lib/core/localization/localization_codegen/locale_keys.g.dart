@@ -1,79 +1,219 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-// ignore_for_file: constant_identifier_names, lines_longer_than_80_chars
+// ignore_for_file: constant_identifier_names
 
-abstract class LocaleKeys {
+abstract class  LocaleKeys {
+  static const coffee_sapiens = 'coffee_sapiens';
   static const price_symbol = 'price_symbol';
   static const confirm = 'confirm';
   static const delete = 'delete';
   static const empty_items = 'empty_items';
+  static const next = 'next';
+  static const previous = 'previous';
+  static const done = 'done';
+  static const payment = 'payment';
+  static const select_all = 'select_all';
+  static const remove_all = 'remove_all';
+  static const date_week_days_monday = 'date.week_days.monday';
+  static const date_week_days_tuesday = 'date.week_days.tuesday';
+  static const date_week_days_wednesday = 'date.week_days.wednesday';
+  static const date_week_days_thursday = 'date.week_days.thursday';
+  static const date_week_days_friday = 'date.week_days.friday';
+  static const date_week_days_saturday = 'date.week_days.saturday';
+  static const date_week_days_sunday = 'date.week_days.sunday';
+  static const date_week_days = 'date.week_days';
+  static const date_today = 'date.today';
+  static const date_yesterday = 'date.yesterday';
+  static const date_tomorrow = 'date.tomorrow';
+  static const date_day_after_tomorrow = 'date.day_after_tomorrow';
+  static const date_last_week = 'date.last_week';
+  static const date_next_week = 'date.next_week';
+  static const date_week = 'date.week';
+  static const date_indexed_week = 'date.indexed_week';
+  static const date = 'date';
   static const drop_down_drop_down_default = 'drop_down.drop_down_default';
   static const drop_down_drop_down_extra = 'drop_down.drop_down_extra';
   static const drop_down = 'drop_down';
-  static const order_info_bottom_sheet_table_delete =
-      'order_info_bottom_sheet.table_delete';
-  static const order_info_bottom_sheet_new_order =
-      'order_info_bottom_sheet.new_order';
+  static const order_info_bottom_sheet_table_delete = 'order_info_bottom_sheet.table_delete';
+  static const order_info_bottom_sheet_new_order = 'order_info_bottom_sheet.new_order';
   static const order_info_bottom_sheet_total = 'order_info_bottom_sheet.total';
   static const order_info_bottom_sheet = 'order_info_bottom_sheet';
   static const null_value_null_name = 'null_value.null_name';
   static const null_value_null_double = 'null_value.null_double';
   static const null_value = 'null_value';
-  static const all_exception_default_exception =
-      'all_exception.default_exception';
-  static const all_exception_generic_exception_is_not_initialized =
-      'all_exception.generic_exception.is_not_initialized';
-  static const all_exception_generic_exception =
-      'all_exception.generic_exception';
-  static const all_exception_local_cache_exception_expected_type =
-      'all_exception.local_cache_exception.expected_type';
-  static const all_exception_local_cache_exception_not_found_key =
-      'all_exception.local_cache_exception.not_found_key';
-  static const all_exception_local_cache_exception_un_supported_value =
-      'all_exception.local_cache_exception.un_supported_value';
-  static const all_exception_local_cache_exception =
-      'all_exception.local_cache_exception';
-  static const all_exception_firebase_auth_exception_invalid_email =
-      'all_exception.firebase_auth_exception.invalid_email';
-  static const all_exception_firebase_auth_exception_user_disabled =
-      'all_exception.firebase_auth_exception.user_disabled';
-  static const all_exception_firebase_auth_exception_user_not_found =
-      'all_exception.firebase_auth_exception.user_not_found';
-  static const all_exception_firebase_auth_exception_wrong_password =
-      'all_exception.firebase_auth_exception.wrong_password';
-  static const all_exception_firebase_auth_exception_email_already_use =
-      'all_exception.firebase_auth_exception.email_already_use';
-  static const all_exception_firebase_auth_exception_weak_password =
-      'all_exception.firebase_auth_exception.weak_password';
-  static const all_exception_firebase_auth_exception_requires_recent_login =
-      'all_exception.firebase_auth_exception.requires_recent_login';
-  static const all_exception_firebase_auth_exception_network_request_failed =
-      'all_exception.firebase_auth_exception.network_request_failed';
-  static const all_exception_firebase_auth_exception_user_token_expired =
-      'all_exception.firebase_auth_exception.user_token_expired';
-  static const all_exception_firebase_auth_exception_invalid_photo_url =
-      'all_exception.firebase_auth_exception.invalid_photo_url';
-  static const all_exception_firebase_auth_exception_operation_not_allowed =
-      'all_exception.firebase_auth_exception.operation_not_allowed';
-  static const all_exception_firebase_auth_exception_too_many_requests =
-      'all_exception.firebase_auth_exception.too_many_requests';
-  static const all_exception_firebase_auth_exception =
-      'all_exception.firebase_auth_exception';
-  static const all_exception_firebase_firestore_exception_invalid_path_exception =
-      'all_exception.firebase_firestore_exception.invalid_path_exception';
-  static const all_exception_firebase_firestore_exception_batch_commit_exception =
-      'all_exception.firebase_firestore_exception.batch_commit_exception';
-  static const all_exception_firebase_firestore_exception_document_data_exception =
-      'all_exception.firebase_firestore_exception.document_data_exception';
-  static const all_exception_firebase_firestore_exception_document_not_found_exception =
-      'all_exception.firebase_firestore_exception.document_not_found_exception';
-  static const all_exception_firebase_firestore_exception =
-      'all_exception.firebase_firestore_exception';
-  static const all_exception_social_credential_exception_failed_credential =
-      'all_exception.social_credential_exception.failed_credential';
-  static const all_exception_social_credential_exception_canceled_user =
-      'all_exception.social_credential_exception.canceled_user';
-  static const all_exception_social_credential_exception =
-      'all_exception.social_credential_exception';
+  static const validate_generic_null_or_empty = 'validate.generic.null_or_empty';
+  static const validate_generic = 'validate.generic';
+  static const validate_email_wrong_email_syntax = 'validate.email.wrong_email_syntax';
+  static const validate_email_empty_email = 'validate.email.empty_email';
+  static const validate_email = 'validate.email';
+  static const validate_password_empty_passwrod = 'validate.password.empty_passwrod';
+  static const validate_password_min_length = 'validate.password.min_length';
+  static const validate_password = 'validate.password';
+  static const validate_product_form_empty_product = 'validate.product_form.empty_product';
+  static const validate_product_form_empty_product_desc = 'validate.product_form.empty_product_desc';
+  static const validate_product_form_empty_product_price = 'validate.product_form.empty_product_price';
+  static const validate_product_form_empty_product_category = 'validate.product_form.empty_product_category';
+  static const validate_product_form = 'validate.product_form';
+  static const validate = 'validate';
+  static const all_exception_default_exception = 'all_exception.default_exception';
+  static const all_exception_general_exception_is_not_initialized = 'all_exception.general_exception.is_not_initialized';
+  static const all_exception_general_exception_list_is_empty = 'all_exception.general_exception.list_is_empty';
+  static const all_exception_general_exception_empty_key = 'all_exception.general_exception.empty_key';
+  static const all_exception_general_exception = 'all_exception.general_exception';
+  static const all_exception_network_error_exception_no_network_connection = 'all_exception.network_error_exception.no_network_connection';
+  static const all_exception_network_error_exception = 'all_exception.network_error_exception';
+  static const all_exception_local_cache_exception_expected_type = 'all_exception.local_cache_exception.expected_type';
+  static const all_exception_local_cache_exception_not_found_key = 'all_exception.local_cache_exception.not_found_key';
+  static const all_exception_local_cache_exception_un_supported_value = 'all_exception.local_cache_exception.un_supported_value';
+  static const all_exception_local_cache_exception = 'all_exception.local_cache_exception';
+  static const all_exception_firebase_auth_exception_invalid_email = 'all_exception.firebase_auth_exception.invalid_email';
+  static const all_exception_firebase_auth_exception_user_disabled = 'all_exception.firebase_auth_exception.user_disabled';
+  static const all_exception_firebase_auth_exception_user_not_found = 'all_exception.firebase_auth_exception.user_not_found';
+  static const all_exception_firebase_auth_exception_invalid_credential = 'all_exception.firebase_auth_exception.invalid_credential';
+  static const all_exception_firebase_auth_exception_wrong_password = 'all_exception.firebase_auth_exception.wrong_password';
+  static const all_exception_firebase_auth_exception_email_already_in_use = 'all_exception.firebase_auth_exception.email_already_in_use';
+  static const all_exception_firebase_auth_exception_weak_password = 'all_exception.firebase_auth_exception.weak_password';
+  static const all_exception_firebase_auth_exception_requires_recent_login = 'all_exception.firebase_auth_exception.requires_recent_login';
+  static const all_exception_firebase_auth_exception_network_request_failed = 'all_exception.firebase_auth_exception.network_request_failed';
+  static const all_exception_firebase_auth_exception_user_token_expired = 'all_exception.firebase_auth_exception.user_token_expired';
+  static const all_exception_firebase_auth_exception_invalid_photo_url = 'all_exception.firebase_auth_exception.invalid_photo_url';
+  static const all_exception_firebase_auth_exception_operation_not_allowed = 'all_exception.firebase_auth_exception.operation_not_allowed';
+  static const all_exception_firebase_auth_exception_too_many_requests = 'all_exception.firebase_auth_exception.too_many_requests';
+  static const all_exception_firebase_auth_exception = 'all_exception.firebase_auth_exception';
+  static const all_exception_firebase_firestore_exception_invalid_path_exception = 'all_exception.firebase_firestore_exception.invalid_path_exception';
+  static const all_exception_firebase_firestore_exception_batch_commit_exception = 'all_exception.firebase_firestore_exception.batch_commit_exception';
+  static const all_exception_firebase_firestore_exception_document_data_exception = 'all_exception.firebase_firestore_exception.document_data_exception';
+  static const all_exception_firebase_firestore_exception_document_not_found_exception = 'all_exception.firebase_firestore_exception.document_not_found_exception';
+  static const all_exception_firebase_firestore_exception = 'all_exception.firebase_firestore_exception';
+  static const all_exception_social_credential_exception_failed_credential = 'all_exception.social_credential_exception.failed_credential';
+  static const all_exception_social_credential_exception_canceled_user = 'all_exception.social_credential_exception.canceled_user';
+  static const all_exception_social_credential_exception = 'all_exception.social_credential_exception';
   static const all_exception = 'all_exception';
+  static const page_onboard_onboard_content_content_title_order = 'page.onboard.onboard_content.content_title.order';
+  static const page_onboard_onboard_content_content_title_shift = 'page.onboard.onboard_content.content_title.shift';
+  static const page_onboard_onboard_content_content_title_warehouse = 'page.onboard.onboard_content.content_title.warehouse';
+  static const page_onboard_onboard_content_content_title = 'page.onboard.onboard_content.content_title';
+  static const page_onboard_onboard_content_content_desc_order_desc = 'page.onboard.onboard_content.content_desc.order_desc';
+  static const page_onboard_onboard_content_content_desc_shift_desc = 'page.onboard.onboard_content.content_desc.shift_desc';
+  static const page_onboard_onboard_content_content_desc_warehouse_desc = 'page.onboard.onboard_content.content_desc.warehouse_desc';
+  static const page_onboard_onboard_content_content_desc = 'page.onboard.onboard_content.content_desc';
+  static const page_onboard_onboard_content = 'page.onboard.onboard_content';
+  static const page_onboard = 'page.onboard';
+  static const page_sign_email = 'page.sign.email';
+  static const page_sign_password = 'page.sign.password';
+  static const page_sign_username = 'page.sign.username';
+  static const page_sign_sign_in_recovery_password = 'page.sign.sign_in.recovery_password';
+  static const page_sign_sign_in_sign_in = 'page.sign.sign_in.sign_in';
+  static const page_sign_sign_in_or = 'page.sign.sign_in.or';
+  static const page_sign_sign_in_not_a_member = 'page.sign.sign_in.not_a_member';
+  static const page_sign_sign_in_register_now = 'page.sign.sign_in.register_now';
+  static const page_sign_sign_in = 'page.sign.sign_in';
+  static const page_sign_register_registerText = 'page.sign.register.registerText';
+  static const page_sign_register_member = 'page.sign.register.member';
+  static const page_sign_register_sign_in = 'page.sign.register.sign_in';
+  static const page_sign_register = 'page.sign.register';
+  static const page_sign = 'page.sign';
+  static const page_home_new_table = 'page.home.new_table';
+  static const page_home = 'page.home';
+  static const page_order_detail_service_type = 'page.order_detail.service_type';
+  static const page_order_detail = 'page.order_detail';
+  static const page_shift_shift = 'page.shift.shift';
+  static const page_shift = 'page.shift';
+  static const page_settings_actions_text_history_order = 'page.settings.actions_text.history_order';
+  static const page_settings_actions_text_new_product = 'page.settings.actions_text.new_product';
+  static const page_settings_actions_text_price_edit = 'page.settings.actions_text.price_edit';
+  static const page_settings_actions_text_shift_add = 'page.settings.actions_text.shift_add';
+  static const page_settings_actions_text = 'page.settings.actions_text';
+  static const page_settings_image_picker_camera = 'page.settings.image_picker.camera';
+  static const page_settings_image_picker_gallery = 'page.settings.image_picker.gallery';
+  static const page_settings_image_picker = 'page.settings.image_picker';
+  static const page_settings_sign_out = 'page.settings.sign_out';
+  static const page_settings = 'page.settings';
+  static const page_chat_preview_chat = 'page.chat_preview.chat';
+  static const page_chat_preview = 'page.chat_preview';
+  static const page_order_history_order_list = 'page.order_history.order_list';
+  static const page_order_history = 'page.order_history';
+  static const page_new_product_add_add_product = 'page.new_product_add.add_product';
+  static const page_new_product_add_form_product_name = 'page.new_product_add.form.product_name';
+  static const page_new_product_add_form_product_description = 'page.new_product_add.form.product_description';
+  static const page_new_product_add_form_prdouct_price = 'page.new_product_add.form.prdouct_price';
+  static const page_new_product_add_form_category = 'page.new_product_add.form.category';
+  static const page_new_product_add_form_extra = 'page.new_product_add.form.extra';
+  static const page_new_product_add_form = 'page.new_product_add.form';
+  static const page_new_product_add_suscess_product = 'page.new_product_add.suscess_product';
+  static const page_new_product_add_failed_product = 'page.new_product_add.failed_product';
+  static const page_new_product_add = 'page.new_product_add';
+  static const page_product_price_edit_product_price_edit = 'page.product_price_edit.product_price_edit';
+  static const page_product_price_edit = 'page.product_price_edit';
+  static const page_sihft_add_view_shift_add = 'page.sihft_add_view.shift_add';
+  static const page_sihft_add_view_choice_people = 'page.sihft_add_view.choice_people';
+  static const page_sihft_add_view_branch_and_shift_branch = 'page.sihft_add_view.branch_and_shift.branch';
+  static const page_sihft_add_view_branch_and_shift_shift = 'page.sihft_add_view.branch_and_shift.shift';
+  static const page_sihft_add_view_branch_and_shift = 'page.sihft_add_view.branch_and_shift';
+  static const page_sihft_add_view_show_toast_message = 'page.sihft_add_view.show_toast_message';
+  static const page_sihft_add_view = 'page.sihft_add_view';
+  static const page_chat_room_error_chat_state_error_chat_info_unavailable = 'page.chat_room.error_chat_state.error_chat_info_unavailable';
+  static const page_chat_room_error_chat_state_error_chat_invalid_id = 'page.chat_room.error_chat_state.error_chat_invalid_id';
+  static const page_chat_room_error_chat_state_error_chat_load_failed = 'page.chat_room.error_chat_state.error_chat_load_failed';
+  static const page_chat_room_error_chat_state_error_chat_send_failed = 'page.chat_room.error_chat_state.error_chat_send_failed';
+  static const page_chat_room_error_chat_state_error_chat_missing_info = 'page.chat_room.error_chat_state.error_chat_missing_info';
+  static const page_chat_room_error_chat_state = 'page.chat_room.error_chat_state';
+  static const page_chat_room = 'page.chat_room';
+  static const page = 'page';
+  static const branchs_karakoy = 'branchs.karakoy';
+  static const branchs_kanyon = 'branchs.kanyon';
+  static const branchs = 'branchs';
+  static const user_working_state_empty_day = 'user_working_state.empty_day';
+  static const user_working_state_off_day = 'user_working_state.off_day';
+  static const user_working_state = 'user_working_state';
+  static const category_all = 'category.all';
+  static const category_hot_coffees = 'category.hot_coffees';
+  static const category_sandwiches = 'category.sandwiches';
+  static const category_coffee_beans = 'category.coffee_beans';
+  static const category_soft_drink = 'category.soft_drink';
+  static const category_dessert = 'category.dessert';
+  static const category_herbal_teas = 'category.herbal_teas';
+  static const category_brewed_coffees = 'category.brewed_coffees';
+  static const category_cold_coffees = 'category.cold_coffees';
+  static const category = 'category';
+  static const options_milk_options = 'options.milk_options';
+  static const options_shot_options = 'options.shot_options';
+  static const options_milk_jam_options = 'options.milk_jam_options';
+  static const options_milk_regular_milk = 'options.milk.regular_milk';
+  static const options_milk_lactose_free = 'options.milk.lactose_free';
+  static const options_milk_almond_milk = 'options.milk.almond_milk';
+  static const options_milk_coconut_milk = 'options.milk.coconut_milk';
+  static const options_milk_soy_milk = 'options.milk.soy_milk';
+  static const options_milk_oat_milk = 'options.milk.oat_milk';
+  static const options_milk = 'options.milk';
+  static const options_shot_single_shot = 'options.shot.single_shot';
+  static const options_shot_double_shot = 'options.shot.double_shot';
+  static const options_shot_triple_shot = 'options.shot.triple_shot';
+  static const options_shot = 'options.shot';
+  static const options_milk_jam_regular = 'options.milk_jam.regular';
+  static const options_milk_jam_caramel = 'options.milk_jam.caramel';
+  static const options_milk_jam_white_chocolate = 'options.milk_jam.white_chocolate';
+  static const options_milk_jam_chocolate = 'options.milk_jam.chocolate';
+  static const options_milk_jam = 'options.milk_jam';
+  static const options = 'options';
+  static const price_operations_current = 'price_operations.current';
+  static const price_operations_percent_five = 'price_operations.percent_five';
+  static const price_operations_percent_ten = 'price_operations.percent_ten';
+  static const price_operations_percent_fifteen = 'price_operations.percent_fifteen';
+  static const price_operations_percent_twenty = 'price_operations.percent_twenty';
+  static const price_operations_units_one = 'price_operations.units_one';
+  static const price_operations_units_five = 'price_operations.units_five';
+  static const price_operations_units_ten = 'price_operations.units_ten';
+  static const price_operations_units_twenty = 'price_operations.units_twenty';
+  static const price_operations_units_thirty = 'price_operations.units_thirty';
+  static const price_operations = 'price_operations';
+  static const shift_status_opening = 'shift_status.opening';
+  static const shift_status_opening_service = 'shift_status.opening_service';
+  static const shift_status_closing = 'shift_status.closing';
+  static const shift_status_closing_service = 'shift_status.closing_service';
+  static const shift_status_off_day = 'shift_status.off_day';
+  static const shift_status_full_day = 'shift_status.full_day';
+  static const shift_status_intermediary = 'shift_status.intermediary';
+  static const shift_status = 'shift_status';
+
 }

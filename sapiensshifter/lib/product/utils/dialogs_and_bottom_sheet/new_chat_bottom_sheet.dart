@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:sapiensshifter/product/component/message_info_list_tile.dart';
-import 'package:sapiensshifter/product/models/people.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
-import 'package:sapiensshifter/product/utils/ui/separator_column.dart';
+import 'package:sapiensshifter/product/models/user/user_preview_model/user_preview_model.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
+import 'package:sapiensshifter/product/utils/ui/separator_list_widget.dart';
 
 class NewChatBottomSheet extends StatefulWidget {
   const NewChatBottomSheet({this.peopleList, super.key});
 
-  final List<People>? peopleList;
+  final List<UserPreviewModel>? peopleList;
 
-  static Future<People?> show(
+  static Future<UserPreviewModel?> show(
     BuildContext context, {
-    List<People>? peopleList,
+    List<UserPreviewModel>? peopleList,
   }) =>
-      showModalBottomSheet<People?>(
-        backgroundColor: Colors.transparent,
+      showModalBottomSheet<UserPreviewModel?>(
         isScrollControlled: true,
         context: context,
         builder: (context) => NewChatBottomSheet(
@@ -33,31 +32,26 @@ class _NewChatBottomSheetState extends State<NewChatBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return DraggableScrollableSheet(
-      initialChildSize: .85, // Tam ekran başlatır
-      minChildSize: 0.4, // Minimum yüksekliği
-      builder: (_, controller) {
-        return Container(
-          decoration: BoxDecoration(
-            color: context.general.colorScheme.surface,
-            borderRadius: BorderRadius.only(
-              topLeft: context.border.normalRadius,
-              topRight: context.border.normalRadius,
-            ),
-          ),
-          child: Padding(
-            padding: context.padding.low,
-            child: SeparatorColumn(
-              separator: context.sized.emptySizedHeightBoxLow,
-              children: [
-                _buildNotch(context),
-                _buildSearchBar(context),
-                _buildPeopleList(),
-              ],
-            ),
-          ),
-        );
-      },
+    return Container(
+      height: 90.h,
+      decoration: BoxDecoration(
+        color: context.general.colorScheme.surface,
+        borderRadius: BorderRadius.only(
+          topLeft: context.border.normalRadius,
+          topRight: context.border.normalRadius,
+        ),
+      ),
+      child: Padding(
+        padding: context.padding.low,
+        child: SeparatorListWidget(
+          separator: context.sized.emptySizedHeightBoxLow,
+          children: [
+            _buildNotch(context),
+            _buildSearchBar(context),
+            _buildPeopleList(),
+          ],
+        ),
+      ),
     );
   }
 
@@ -75,8 +69,8 @@ class _NewChatBottomSheetState extends State<NewChatBottomSheet> {
           );
   }
 
-  List<People> _filteredPeopleList(String query) {
-    var filteredItems = <People>[];
+  List<UserPreviewModel> _filteredPeopleList(String query) {
+    var filteredItems = <UserPreviewModel>[];
     if (widget.peopleList.ext.isNotNullOrEmpty) {
       filteredItems = widget.peopleList!.where(
         (item) {
@@ -90,15 +84,16 @@ class _NewChatBottomSheetState extends State<NewChatBottomSheet> {
     return filteredItems;
   }
 
-  Expanded _buildPeopleListTile(List<People> filteredItems) {
+  Expanded _buildPeopleListTile(List<UserPreviewModel> filteredItems) {
     return Expanded(
       child: ListView.separated(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         itemCount: filteredItems.length,
         itemBuilder: (context, index) => MessageInfoListTile(
           onPressed: () {
             context.route.pop(filteredItems[index]);
           },
-          imageUrl: filteredItems[index].imagePath,
+          imageUrl: filteredItems[index].photoUrl,
           title: filteredItems[index].name,
         ),
         separatorBuilder: (context, index) =>

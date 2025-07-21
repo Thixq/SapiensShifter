@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sapiensshifter/product/models/extras_model.dart';
+import 'package:sapiensshifter/product/models/extras_model/extras_model.dart';
 
 void main() {
   test(
@@ -13,7 +13,7 @@ void main() {
           17.99: const ['Oat Milk', 'Almond Milk', 'Coconut Milk'],
         },
       );
-      final result = milkOptions.allOptionsMapEntry();
+      final result = milkOptions.allOptionsMapEntry;
       // ignore: avoid_print
       print(result);
     },

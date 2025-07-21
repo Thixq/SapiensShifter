@@ -18,11 +18,16 @@ final class SapiensTheme {
     primary: ColorConstant.primaryColor,
     onPrimary: Colors.black,
     primaryContainer: ColorConstant.primaryColor,
+    onPrimaryContainer: Colors.white,
     secondary: ColorConstant.primaryColor,
     onSecondary: Colors.black,
     error: Color(0xffba1a1a),
     onError: Colors.white,
     surface: ColorConstant.backgroundColor,
     onSurface: Colors.black,
+    tertiary: ColorConstant.talkingBird,
+    onTertiary: Colors.black,
+    tertiaryContainer: ColorConstant.softSoul,
+    onTertiaryContainer: Colors.black,
   );
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/enums/localization/localization_path_enum.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 import 'package:sapiensshifter/product/utils/export_dependency_package/shift_export.dart';
 
 final class ShiftDialog extends StatelessWidget {
@@ -18,7 +19,7 @@ final class ShiftDialog extends StatelessWidget {
     );
   }
 
-  String get _nullBranchText => StringConstant.nullString.tr();
+  String get _nullBranchText => '---';
   String get _nullBranchDateText => '--/--';
   String get _nullShiftTimeText => '00:00-00:00';
 
@@ -46,16 +47,18 @@ final class ShiftDialog extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          shiftDay?.branch ?? _nullBranchText,
+          shiftDay?.branchName.sapiExt
+                  .textLocale(LocalizationPathEnum.branch) ??
+              _nullBranchText,
           style: context.general.textTheme.titleMedium,
         ),
         Text(
-          shiftDay?.time?.sapiTimeExt.ggmm ?? _nullBranchDateText,
+          shiftDay?.time?.sapiTimeExt.ddmm ?? _nullBranchDateText,
         ),
       ],
     );
   }
 
   Text _buildShiftTime() =>
-      Text(shiftDay?.shiftStatus?.status.statusTime ?? _nullShiftTimeText);
+      Text(shiftDay?.shiftStatus?.range ?? _nullShiftTimeText);
 }

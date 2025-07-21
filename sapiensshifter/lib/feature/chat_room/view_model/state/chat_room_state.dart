@@ -1,0 +1,79 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:equatable/equatable.dart';
+
+import 'package:sapiensshifter/product/models/chats_model/chat_room_models/chat_info.dart';
+import 'package:sapiensshifter/feature/chat_room/view_model/utils/chat_error_type.dart';
+import 'package:sapiensshifter/product/models/chats_model/chat_meta_data.dart';
+import 'package:sapiensshifter/product/models/chats_model/message.dart';
+
+sealed class ChatWithState extends Equatable {
+  final ChatInfo? chatInfo;
+  const ChatWithState({this.chatInfo});
+
+  @override
+  List<Object?> get props => [];
+}
+
+class ChatLoading extends ChatWithState {}
+
+class ChatError extends ChatWithState {
+  const ChatError(this.errorType);
+  final ChatErrorType errorType;
+
+  @override
+  List<Object?> get props => [errorType];
+}
+
+class ChatWithIdState extends ChatWithState {
+  const ChatWithIdState({this.chatId});
+
+  final String? chatId;
+
+  ChatWithIdState copyWith({
+    String? chatId,
+  }) {
+    return ChatWithIdState(
+      chatId: chatId ?? this.chatId,
+    );
+  }
+
+  @override
+  List<Object?> get props => [chatId, ...super.props];
+}
+
+class ChatWithModelState extends ChatWithState {
+  const ChatWithModelState({this.chatMetadata, super.chatInfo});
+  final ChatMetadata? chatMetadata;
+
+  @override
+  List<Object?> get props => [...super.props, chatMetadata];
+}
+
+class ChatLoaded extends ChatWithState {
+  const ChatLoaded({
+    this.messages,
+    super.chatInfo,
+    this.chatId,
+  });
+
+  final List<Message>? messages;
+  final String? chatId;
+
+  @override
+  List<Object?> get props => [
+        ...super.props,
+        messages,
+      ];
+
+  ChatLoaded copyWith({
+    List<Message>? messages,
+    ChatInfo? chatInfo,
+    String? chatId,
+  }) {
+    return ChatLoaded(
+      messages: messages ?? this.messages,
+      chatInfo: chatInfo ?? this.chatInfo,
+      chatId: chatId ?? this.chatId,
+    );
+  }
+}

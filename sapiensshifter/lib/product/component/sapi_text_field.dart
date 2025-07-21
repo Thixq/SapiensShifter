@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:flutter/services.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 final class SapiTextField extends StatefulWidget {
   const SapiTextField({
@@ -9,6 +10,12 @@ final class SapiTextField extends StatefulWidget {
     this.validator,
     this.hintText,
     this.isPassword = false,
+    this.textInputAction = TextInputAction.done,
+    this.inputFormatters,
+    this.minLines,
+    this.maxLines = 1,
+    this.onFieldSubmitted,
+    this.onChanged,
     super.key,
   });
   final String? Function(String?)? validator;
@@ -17,6 +24,12 @@ final class SapiTextField extends StatefulWidget {
   final TextEditingController? controller;
   final String? hintText;
   final bool isPassword;
+  final TextInputAction textInputAction;
+  final List<TextInputFormatter>? inputFormatters;
+  final void Function(String)? onFieldSubmitted;
+  final void Function(String)? onChanged;
+  final int? minLines;
+  final int? maxLines;
   @override
   State<SapiTextField> createState() => _SapiTextFieldState();
 }
@@ -35,6 +48,12 @@ class _SapiTextFieldState extends State<SapiTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onFieldSubmitted: widget.onFieldSubmitted,
+      onChanged: widget.onChanged,
+      inputFormatters: widget.inputFormatters,
+      minLines: widget.minLines,
+      maxLines: widget.maxLines,
+      textInputAction: widget.textInputAction,
       obscureText: _obscureTextVal,
       validator: widget.validator,
       decoration: _sapiDecoration(context, hintText: widget.hintText),
@@ -49,20 +68,24 @@ class _SapiTextFieldState extends State<SapiTextField> {
       contentPadding: context.padding.normal,
       suffixIcon: _suffixIconVal,
       hintText: hintText,
-      border:
-          OutlineInputBorder(borderRadius: context.border.normalBorderRadius),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(context.sized.normalValue),
+      ),
     );
   }
 
   bool get _obscureTextVal => widget.isPassword && _visibilityChange;
 
-  IconButton? get _suffixIconVal => widget.isPassword
-      ? IconButton(
-          onPressed: _changeSuffixIcon,
-          icon: Icon(
-            _visibilityChange
-                ? _visibilityOffSuffixIcon
-                : _visibilitySuffixIcon,
+  Widget? get _suffixIconVal => widget.isPassword
+      ? Padding(
+          padding: const EdgeInsets.only(right: 12),
+          child: IconButton(
+            onPressed: _changeSuffixIcon,
+            icon: Icon(
+              _visibilityChange
+                  ? _visibilityOffSuffixIcon
+                  : _visibilitySuffixIcon,
+            ),
           ),
         )
       : null;
