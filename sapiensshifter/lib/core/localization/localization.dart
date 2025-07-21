@@ -21,10 +21,11 @@ final class LanguageManager extends EasyLocalization {
   /// The path where translation files are stored.
   static const String _translationPath = StringConstant.translationsPath;
 
-  /// A list of supported locales in the app.
+  @override
+  Locale? get fallbackLocale => const Locale('tr', 'TR');
+
   static List<Locale> get supportedLocalesLanguages => [
         const Locale('tr', 'TR'),
-        const Locale('en', 'US'),
       ];
 
   /// Method to update the language.

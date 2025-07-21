@@ -1,0 +1,2 @@
+/Users/kaan/Desktop/Development/SapiensShifter/sapiensshifter/android/app/.cxx/Debug/5k326e2z/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/kaan/Desktop/Development/SapiensShifter/sapiensshifter/android/app/.cxx/Debug/5k326e2z/armeabi-v7a/CMakeFiles/rebuild_cache.dir

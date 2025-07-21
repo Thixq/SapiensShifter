@@ -1,22 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:core/core.dart';
 
-class FirebaseFirestoreCustomQuery extends NetworkStoreQueryInterface {
-  /// Creates a custom Firestore query with optional filters, ordering, and limits.
+final class FirebaseFirestoreCustomQuery extends INetworkQuery {
   FirebaseFirestoreCustomQuery({
     super.limit,
     super.limitToLast,
+    super.cursors,
     super.orderBy,
     super.filters,
   });
 
-  /// Applies the configured query parameters to a Firestore collection.
-  ///
-  /// - [path]: The Firestore collection path to query.
-  /// - Returns a Firestore [Query] object with applied filters, ordering, and limits.
   @override
   T applyToQuery<T>(String path) {
-    Query<Object?> query = FirebaseFirestore.instance.collection(path);
+    Query<Map<String, dynamic>> query =
+        FirebaseFirestore.instance.collection(path);
 
     // Apply filters to the query if any exist.
     filters?.forEach((filter) {
@@ -46,12 +43,40 @@ class FirebaseFirestoreCustomQuery extends NetworkStoreQueryInterface {
             query = query.where(field, whereIn: value as Iterable<Object?>?),
         FilterOperator.whereNotIn: () =>
             query = query.where(field, whereNotIn: value as Iterable<Object?>?),
+        FilterOperator.isEqualToDateTime: () {
+          if (value is DateTime) {
+            final timeStamp = Timestamp.fromDate(value);
+            query = query.where(field, isEqualTo: timeStamp);
+          }
+        },
+        FilterOperator.isGreaterThanOrEqualToDateTime: () {
+          if (value is DateTime) {
+            final timeStamp = Timestamp.fromDate(value);
+            query = query.where(field, isGreaterThanOrEqualTo: timeStamp);
+          }
+        },
         FilterOperator.isNull: () => query = query.where(field, isNull: true),
       };
 
       // Apply the corresponding filter operation.
       operationMap[operator]?.call();
     });
+
+    cursors?.forEach(
+      (cursor) {
+        final cursorType = cursor.type;
+        switch (cursorType) {
+          case CursorType.startAt:
+            query = query.startAt(cursor.fieldValues);
+          case CursorType.startAfter:
+            query = query.startAfter(cursor.fieldValues);
+          case CursorType.endAt:
+            query = query.endAt(cursor.fieldValues);
+          case CursorType.endBefore:
+            query = query.endBefore(cursor.fieldValues);
+        }
+      },
+    );
 
     // Apply ordering to the query if specified.
     orderBy?.forEach((order) {

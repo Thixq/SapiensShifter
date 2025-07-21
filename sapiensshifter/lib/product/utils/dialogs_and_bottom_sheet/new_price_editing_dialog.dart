@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
-import 'package:sapiensshifter/product/utils/input_Formatters/decimal_input_formatter.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
+import 'package:sapiensshifter/product/utils/input_formatters/decimal_input_formatter.dart';
 
 class NewPriceEditingDialog extends StatefulWidget {
   const NewPriceEditingDialog({
@@ -74,7 +74,7 @@ class _NewPriceEditingDialogState extends State<NewPriceEditingDialog> {
           width: 80,
           child: TextField(
             inputFormatters: [
-              DecimalInputFormatter(100),
+              DecimalInputFormatter(),
               LengthLimitingTextInputFormatter(7),
             ],
             style: context.general.textTheme.titleLarge,

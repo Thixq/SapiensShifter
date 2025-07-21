@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:sapiensshifter/product/utils/export_dependency_package/component_export_package.dart';
+import 'package:sapiensshifter/product/utils/enums/localization/localization_path_enum.dart';
+import 'package:sapiensshifter/product/utils/export_dependency_package/export_package.dart';
 
 extension SapiStringExtension on String? {
   _SapiStringExtension get sapiExt => _SapiStringExtension(this);
@@ -25,4 +26,36 @@ final class _SapiStringExtension {
   }
 
   String get priceSymbol => '$_value${LocaleKeys.price_symbol.tr()}';
+
+  ///With the given [LocalizationPathEnum] you can use the localized text in
+  ///[EasyLocalization] that is located in this file path.
+  String? textLocale(LocalizationPathEnum basePath) {
+    if (_value != null) {
+      return '${basePath.basePath}.$_value'.tr();
+    }
+    return null;
+  }
+
+  String? textCut({required int chunkSize}) {
+    if (_value == null || _value.isEmpty) {
+      return _value;
+    }
+    return _value.replaceAllMapped(
+      RegExp('.{$chunkSize}'),
+      (match) => '${match.group(0)}\n',
+    );
+  }
+
+  /// Only returns .jpg, .jpeg, .heic
+  String? get imageMimeType {
+    if (_value == null || _value.isEmpty) {
+      return null;
+    }
+    final imageMime = RegExp(r'\.(jpe?g|heic|png)$');
+    final match = imageMime.firstMatch(_value);
+    if (match != null) {
+      return 'image/${match.group(1)}';
+    }
+    return null;
+  }
 }
