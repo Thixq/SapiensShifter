@@ -1,0 +1,58 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null && request.auth.token.role=="admin";
+    }
+    function isUserOpen() {
+      return request.auth !=null; 
+    }
+    function isUserInChat() {
+      let user = get(/databases/$(database)/documents/users/$(request.auth.uid));
+      return resource.data.members.hasAny([user.data.userPreviewId]);
+    }
+
+    match /users/{userId} {
+      allow read, write: if isUserOpen();
+      match /shifts/{shiftId} {
+        allow read: if isUserOpen();
+        allow write: if isAdmin();
+      }
+    }
+
+    match /branches/{branchId} {
+      allow read, write: if isUserOpen();
+    }
+       match /categories/{categoryId} {
+      allow read, write: if isUserOpen();
+    }
+    match /chats/{chatId} {
+     allow read,write: if isUserOpen() && isUserInChat();
+     match /messages/{messageId} {
+      allow read, write: if isUserOpen();
+     }
+    }
+    match /devices/{deviceId} {
+      allow read, write: if isUserOpen();
+    }
+    match /extras/{extraId} {
+      allow read, write: if isUserOpen();
+    }
+    match /priceRations/{rationId} {
+      allow read, write: if isUserOpen();
+    }
+    match /products/{productId} {
+      allow read, write: if isUserOpen();
+    }
+    match /shiftStatus/{statusId} {
+      allow read, write: if isUserOpen();
+    }
+    match /tables/{tableId} {
+      allow read, write: if isUserOpen();
+    }
+    match /usersPreview/{previewId} {
+      allow read, write: if isUserOpen();
+      
+    }
+  }
+}
