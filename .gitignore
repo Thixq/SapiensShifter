@@ -3,3 +3,4 @@ sapiensshifter/android/app/google-services.json
 sapiensshifter/ios/Runner/GoogleService-Info.plist
 sapiensshifter/lib/firebase_options.dart
 *.p8
+firebase/scripts/ts_role_script/scripts/
