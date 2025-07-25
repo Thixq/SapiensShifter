@@ -5,6 +5,6 @@ enum UserRole {
   admin,
   @JsonValue('manager')
   manager,
-  @JsonValue('user')
-  user,
+  @JsonValue('member')
+  member,
 }

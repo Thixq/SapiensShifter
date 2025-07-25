@@ -72,7 +72,7 @@ mixin SettingsViewMixin on BaseState<SettingsView> {
           onTap: () {
             context.router.pushPath(PagePathConstant.orderHistory);
           },
-          roles: [UserRole.user, UserRole.admin, UserRole.manager],
+          roles: [UserRole.member, UserRole.admin, UserRole.manager],
         ),
         BasicRoleTileModel(
           icon: Icons.coffee,
