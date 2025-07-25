@@ -25,10 +25,6 @@ class FirebaseAuthUserOperation extends IAuthOperation
 
   Map<String, dynamic>? get _getCustomClaim {
     Map<String, dynamic>? customClaim;
-    if (_firebaseAuth.currentUser == null) {
-      throw Exception('User not initialized');
-    }
-
     _firebaseAuth.currentUser?.getIdTokenResult(true).then(
       (value) {
         customClaim = value.claims;

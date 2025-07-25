@@ -27,6 +27,7 @@ final class SapiensUser extends IBaseModel<SapiensUser> with EquatableMixin {
     String? email,
     String? photoUrl,
     String? userPreviewId,
+    String? role,
   }) {
     return SapiensUser(
       id: id,
@@ -34,9 +35,23 @@ final class SapiensUser extends IBaseModel<SapiensUser> with EquatableMixin {
       email: email,
       photoUrl: photoUrl,
       userPreviewId: userPreviewId,
-      role: UserRole.user,
+      role: _setRole(role),
       chatPreviewIdList: [],
     );
+  }
+
+  // TODO(kaa): This is a temporary solution, I did it to make it quick, I'll fix it later.
+  static UserRole _setRole(String? role) {
+    switch (role) {
+      case 'admin':
+        return UserRole.admin;
+      case 'member':
+        return UserRole.member;
+      case 'manager':
+        return UserRole.manager;
+      default:
+        return UserRole.member;
+    }
   }
 
   factory SapiensUser.fromJson(Map<String, dynamic> json) =>
