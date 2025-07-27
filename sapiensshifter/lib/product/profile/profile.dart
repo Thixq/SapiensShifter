@@ -110,6 +110,7 @@ class Profile with ProfileUtilsMixin {
       name: auth?.displayName,
       email: auth?.email,
       photoUrl: auth?.photoUrl,
+      role: auth?.customClaim?['role'] as String?,
     );
 
     final resultUser = await _networkManager.networkOperation.addItem(

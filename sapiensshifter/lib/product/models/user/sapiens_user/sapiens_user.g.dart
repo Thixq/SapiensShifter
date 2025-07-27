@@ -39,5 +39,5 @@ Map<String, dynamic> _$SapiensUserToJson(SapiensUser instance) =>
 const _$UserRoleEnumMap = {
   UserRole.admin: 'admin',
   UserRole.manager: 'manager',
-  UserRole.user: 'user',
+  UserRole.member: 'member',
 };

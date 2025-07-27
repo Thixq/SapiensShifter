@@ -1,9 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-
-import 'package:sapiensshifter/product/models/chats_model/chat_room_models/chat_info.dart';
 import 'package:sapiensshifter/feature/chat_room/view_model/utils/chat_error_type.dart';
 import 'package:sapiensshifter/product/models/chats_model/chat_meta_data.dart';
+import 'package:sapiensshifter/product/models/chats_model/chat_room_models/chat_info.dart';
 import 'package:sapiensshifter/product/models/chats_model/message.dart';
 
 sealed class ChatWithState extends Equatable {

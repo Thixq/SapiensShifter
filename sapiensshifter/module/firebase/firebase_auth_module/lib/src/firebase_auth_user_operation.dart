@@ -16,11 +16,21 @@ class FirebaseAuthUserOperation extends IAuthOperation
   AuthModel? get user {
     if (_firebaseAuth.currentUser == null) return null;
     return AuthModel(
-      id: _firebaseAuth.currentUser!.uid,
-      photoUrl: _firebaseAuth.currentUser?.photoURL,
-      displayName: _firebaseAuth.currentUser?.displayName,
-      email: _firebaseAuth.currentUser?.email,
+        id: _firebaseAuth.currentUser!.uid,
+        photoUrl: _firebaseAuth.currentUser?.photoURL,
+        displayName: _firebaseAuth.currentUser?.displayName,
+        email: _firebaseAuth.currentUser?.email,
+        customClaim: _getCustomClaim);
+  }
+
+  Map<String, dynamic>? get _getCustomClaim {
+    Map<String, dynamic>? customClaim;
+    _firebaseAuth.currentUser?.getIdTokenResult(true).then(
+      (value) {
+        customClaim = value.claims;
+      },
     );
+    return customClaim;
   }
 
   @override
