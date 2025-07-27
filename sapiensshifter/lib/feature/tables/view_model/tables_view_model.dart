@@ -24,7 +24,6 @@ class TablesViewModel extends BaseCubit<TablesViewState> {
   final INetworkManager _networkManager;
   final Profile _profile;
 
-  // `getBranchName` ve `getTableList` birleştirildi. `initial` artık tek sorumlu.
   Future<void> initial() async {
     setInitialWorkingStatus();
     await fetchTables();

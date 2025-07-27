@@ -5,11 +5,7 @@ service cloud.firestore {
       return request.auth != null && request.auth.token.role=="admin";
     }
     function isUserOpen() {
-      return request.auth !=null; 
-    }
-    function isUserInChat() {
-      let user = get(/databases/$(database)/documents/users/$(request.auth.uid));
-      return resource.data.members.hasAny([user.data.userPreviewId]);
+      return request.auth.uid !=null; 
     }
 
     match /users/{userId} {
@@ -27,9 +23,9 @@ service cloud.firestore {
       allow read, write: if isUserOpen();
     }
     match /chats/{chatId} {
-     allow read,write: if isUserOpen() && isUserInChat();
+     allow read,write: if isUserOpen() ;
      match /messages/{messageId} {
-      allow read, write: if isUserOpen();
+      allow read, write: if true ;
      }
     }
     match /devices/{deviceId} {
@@ -49,6 +45,13 @@ service cloud.firestore {
     }
     match /tables/{tableId} {
       allow read, write: if isUserOpen();
+
+      match /open/{tableId} {
+        allow read,write: if isUserOpen();
+      }
+      match /close/{tableId} {
+        allow write: if isUserOpen();
+      }
     }
     match /usersPreview/{previewId} {
       allow read, write: if isUserOpen();
